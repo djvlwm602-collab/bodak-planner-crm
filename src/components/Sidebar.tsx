@@ -24,24 +24,24 @@ export function Sidebar({ className }: SidebarProps) {
     <aside 
       className={cn(
         "flex flex-col bg-[#FAFBFC] border-r border-gray-200 h-screen transition-all duration-300 ease-in-out shrink-0", 
-        isCollapsed ? "w-16" : "w-64",
+        isCollapsed ? "w-16" : "w-[220px]",
         className
       )}
     >
-      <div className={cn("p-4 flex items-center gap-3 border-b border-gray-200", isCollapsed && "justify-center px-2")}>
+      <div className={cn("h-14 px-4 flex items-center gap-3 border-b border-gray-200 shrink-0", isCollapsed && "justify-center px-2")}>
         <div className="w-8 h-8 shrink-0 bg-blue-600 rounded flex items-center justify-center text-white font-bold">
           B
         </div>
         {!isCollapsed && (
           <div className="overflow-hidden whitespace-nowrap">
             <h2 className="font-semibold text-gray-800 text-sm">보닥 플래너</h2>
-            <p className="text-xs text-gray-500">for KB라이프</p>
+            <p className="text-xs text-gray-500">for 흥국화재</p>
           </div>
         )}
       </div>
 
       <div className="flex-1 overflow-y-auto py-4 overflow-x-hidden">
-        <nav className="space-y-1 px-2">
+        <nav className="space-y-2 px-3">
           <NavItem icon={<LayoutDashboard size={18} />} label="홈 대시보드" active isCollapsed={isCollapsed} />
           
           <NavGroup icon={<Users size={18} />} label="배정 고객 관리" isCollapsed={isCollapsed} defaultExpanded>
@@ -97,7 +97,7 @@ function NavItem({ icon, label, active, isCollapsed }: { icon: React.ReactNode; 
       href="#"
       title={isCollapsed ? label : undefined}
       className={cn(
-        "flex items-center gap-3 py-2 rounded-md text-sm font-medium transition-colors",
+        "flex items-center gap-3 py-2.5 rounded-md text-sm font-medium transition-colors",
         active 
           ? "bg-blue-50 text-blue-700" 
           : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
@@ -119,7 +119,7 @@ function NavGroup({ icon, label, children, isCollapsed, defaultExpanded = false 
         onClick={() => !isCollapsed && setIsExpanded(!isExpanded)}
         title={isCollapsed ? label : undefined}
         className={cn(
-          "flex items-center py-2 rounded-md text-sm font-medium transition-colors text-gray-600 hover:bg-gray-100 hover:text-gray-900",
+          "flex items-center py-2.5 rounded-md text-sm font-medium transition-colors text-gray-600 hover:bg-gray-100 hover:text-gray-900",
           isCollapsed ? "justify-center px-0" : "px-3 justify-between"
         )}
       >
@@ -134,7 +134,7 @@ function NavGroup({ icon, label, children, isCollapsed, defaultExpanded = false 
         )}
       </button>
       {!isCollapsed && isExpanded && (
-        <div className="flex flex-col mt-0.5 space-y-0.5">
+        <div className="flex flex-col mt-1 space-y-1">
           {children}
         </div>
       )}
@@ -147,7 +147,7 @@ function SubNavItem({ label, isCollapsed }: { label: string; isCollapsed?: boole
   return (
     <a
       href="#"
-      className="flex items-center pl-10 pr-3 py-1.5 rounded-md text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+      className="flex items-center pl-10 pr-3 py-2 rounded-md text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors"
     >
       <span className="truncate">{label}</span>
     </a>

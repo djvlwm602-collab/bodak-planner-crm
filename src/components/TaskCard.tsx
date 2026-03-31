@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Task } from '../types';
-import { ArrowUp, ArrowRight, ArrowDown, CheckSquare, Bookmark, AlertCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface TaskCardProps {
@@ -10,33 +9,29 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, onDragStart }: TaskCardProps) {
-  const getPriorityIcon = (priority: Task['priority']) => {
-    switch (priority) {
-      case 'Highest':
-        return <ArrowUp size={16} className="text-red-600" />;
-      case 'High':
-        return <ArrowUp size={16} className="text-orange-500" />;
-      case 'Medium':
-        return <ArrowRight size={16} className="text-yellow-500" />;
-      case 'Low':
-        return <ArrowDown size={16} className="text-blue-500" />;
-      case 'Lowest':
-        return <ArrowDown size={16} className="text-gray-400" />;
+  const getTagColor = (tag: Task['tag']) => {
+    switch (tag) {
+      case '종합진단':
+        return 'bg-red-500 text-white';
+      case '보험료점검':
+        return 'bg-green-500 text-white';
+      case '보장확대':
+        return 'bg-blue-600 text-white';
       default:
-        return null;
+        return 'bg-gray-500 text-white';
     }
   };
 
-  const getTypeIcon = (type: Task['type']) => {
-    switch (type) {
-      case 'Story':
-        return <Bookmark size={16} className="text-green-500 fill-green-500" />;
-      case 'Bug':
-        return <AlertCircle size={16} className="text-red-500 fill-red-500" />;
-      case 'Task':
-        return <CheckSquare size={16} className="text-blue-500 fill-blue-500" />;
+  const getBorderColor = (tag: Task['tag']) => {
+    switch (tag) {
+      case '종합진단':
+        return 'border-l-red-500';
+      case '보험료점검':
+        return 'border-l-green-500';
+      case '보장확대':
+        return 'border-l-blue-600';
       default:
-        return null;
+        return 'border-l-gray-500';
     }
   };
 
@@ -49,32 +44,55 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
       exit={{ opacity: 0, scale: 0.9 }}
       draggable
       onDragStart={(e: any) => onDragStart(e, task.id)}
-      className="bg-white p-3 rounded-md shadow-sm border border-gray-200 cursor-grab active:cursor-grabbing hover:bg-gray-50 transition-colors group"
+      className={cn(
+        "bg-white p-3 rounded-sm shadow-sm border border-gray-200 border-l-4 cursor-grab active:cursor-grabbing hover:bg-gray-50 transition-colors group relative",
+        getBorderColor(task.tag),
+        task.isCancelled && "opacity-60 bg-gray-100"
+      )}
     >
-      <p className="text-sm text-gray-800 mb-3 leading-snug">{task.title}</p>
+      {task.isCancelled && (
+        <div className="absolute inset-0 bg-gray-900/60 z-10 rounded-sm flex items-center justify-center p-4 text-center">
+          <p className="text-white font-bold text-sm leading-tight">
+            고객 상담취소 요청으로<br />
+            {task.firstCallDate}
+          </p>
+        </div>
+      )}
+
+      <div className="flex flex-col gap-1 mb-3">
+        <h4 className="font-medium text-gray-900 text-sm leading-tight hover:underline cursor-pointer">
+          {task.name} ({task.age}세 / {task.gender} / {task.location})
+        </h4>
+        <p className="text-gray-500 text-xs">{task.phone}</p>
+      </div>
       
-      <div className="flex items-center justify-between mt-2">
-        <div className="flex items-center gap-2">
-          <div title={task.type}>{getTypeIcon(task.type)}</div>
-          <span className="text-xs font-medium text-gray-500 hover:underline cursor-pointer">
-            {task.key}
+      <div className="flex flex-col gap-1 mb-3 text-xs text-gray-600">
+        <div className="flex items-center justify-between">
+          <span className="text-gray-400">배정일</span>
+          <span>{task.assignedDate}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-400">최초통화</span>
+          <span>{task.isCancelled ? '삭제 예정' : task.firstCallDate}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-400">최근통화</span>
+          <span>{task.recentCallDate}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100">
+        <div className="flex items-center gap-1.5">
+          <span className={cn("text-[10px] px-1.5 py-0.5 rounded-sm font-medium", getTagColor(task.tag))}>
+            {task.tag}
           </span>
+          <button className="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded-sm font-medium hover:bg-gray-200 transition-colors">
+            AI 상담내역
+          </button>
         </div>
-        
-        <div className="flex items-center gap-2">
-          <div title={`우선순위: ${task.priority}`}>
-            {getPriorityIcon(task.priority)}
-          </div>
-          {task.assigneeId ? (
-            <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold" title={task.assigneeId}>
-              {task.assigneeId.substring(0, 2).toUpperCase()}
-            </div>
-          ) : (
-            <div className="w-6 h-6 rounded-full bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-xs" title="담당자 없음">
-              ?
-            </div>
-          )}
-        </div>
+        <span className="text-xs font-medium text-gray-500">
+          {task.callCount}회 통화
+        </span>
       </div>
     </motion.div>
   );
