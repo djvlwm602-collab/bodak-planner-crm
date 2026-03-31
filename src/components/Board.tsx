@@ -61,7 +61,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
   return (
     <div className="flex-1 flex flex-col h-full bg-white overflow-hidden">
       {/* Board Header */}
-      <div className="px-4 py-5 border-b border-gray-200 flex items-end justify-between">
+      <div className="px-6 py-5 border-b border-gray-200 flex items-center justify-between shrink-0">
         <div className="flex items-end gap-4">
           <h1 className="text-[19px] font-bold text-gray-900 tracking-tight">상담 진행 고객</h1>
           <span className="text-sm text-gray-500 mb-0.5">배정 된 고객의 상담을 관리할 수 있습니다.</span>

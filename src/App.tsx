@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TopBar } from './components/TopBar';
 import { Board } from './components/Board';
+import { ContractExpected } from './components/ContractExpected';
+import { ConsultationEnded } from './components/ConsultationEnded';
 import { BoardData, Task } from './types';
 
 const initialData: BoardData = {
@@ -177,6 +179,10 @@ export default function App() {
             onMoveTask={handleMoveTask} 
             onCreateTask={() => {}}
           />
+        ) : activePage === '계약 예정 고객' ? (
+          <ContractExpected />
+        ) : activePage === '상담 종료 고객' ? (
+          <ConsultationEnded />
         ) : (
           <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
             <div className="text-center">
