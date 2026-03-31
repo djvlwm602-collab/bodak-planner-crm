@@ -30,8 +30,8 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
   };
 
   return (
-    <div className="flex flex-col w-[280px] shrink-0 bg-[#F4F5F7] rounded-sm h-[calc(100vh-320px)]">
-      <div className="flex items-center gap-2 p-3 pb-2">
+    <div className="flex flex-col w-[280px] shrink-0 bg-[#F4F5F7] rounded-sm h-full">
+      <div className="flex items-center gap-2 p-3 pb-2 shrink-0">
         <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide truncate">
           {column.title}
         </h3>
@@ -43,7 +43,7 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          "flex-1 overflow-y-auto px-2 pb-2 flex flex-col gap-2 transition-colors",
+          "flex-1 px-2 pb-2 flex flex-col gap-2 transition-colors",
           isDragOver ? "bg-blue-50/50" : ""
         )}
       >

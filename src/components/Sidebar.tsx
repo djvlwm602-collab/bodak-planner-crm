@@ -15,9 +15,11 @@ import { cn } from '../lib/utils';
 
 interface SidebarProps {
   className?: string;
+  activePage: string;
+  onPageChange: (page: string) => void;
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, activePage, onPageChange }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
@@ -42,39 +44,45 @@ export function Sidebar({ className }: SidebarProps) {
 
       <div className="flex-1 overflow-y-auto py-4 overflow-x-hidden">
         <nav className="space-y-2 px-3">
-          <NavItem icon={<LayoutDashboard size={18} />} label="홈 대시보드" active isCollapsed={isCollapsed} />
+          <NavItem 
+            icon={<LayoutDashboard size={18} />} 
+            label="홈 대시보드" 
+            active={activePage === '홈 대시보드'} 
+            isCollapsed={isCollapsed} 
+            onClick={() => onPageChange('홈 대시보드')}
+          />
           
           <NavGroup icon={<Users size={18} />} label="배정 고객 관리" isCollapsed={isCollapsed} defaultExpanded>
-            <SubNavItem label="상담 진행 고객" isCollapsed={isCollapsed} />
-            <SubNavItem label="계약 예정 고객" isCollapsed={isCollapsed} />
-            <SubNavItem label="상담 종료 고객" isCollapsed={isCollapsed} />
+            <SubNavItem label="상담 진행 고객" isCollapsed={isCollapsed} active={activePage === '상담 진행 고객'} onClick={() => onPageChange('상담 진행 고객')} />
+            <SubNavItem label="계약 예정 고객" isCollapsed={isCollapsed} active={activePage === '계약 예정 고객'} onClick={() => onPageChange('계약 예정 고객')} />
+            <SubNavItem label="상담 종료 고객" isCollapsed={isCollapsed} active={activePage === '상담 종료 고객'} onClick={() => onPageChange('상담 종료 고객')} />
           </NavGroup>
 
           <NavGroup icon={<Database size={18} />} label="DB 배정 관리" isCollapsed={isCollapsed}>
-            <SubNavItem label="배정 완료 DB" isCollapsed={isCollapsed} />
-            <SubNavItem label="미배정 DB" isCollapsed={isCollapsed} />
-            <SubNavItem label="DB 분배 현황" isCollapsed={isCollapsed} />
+            <SubNavItem label="배정 완료 DB" isCollapsed={isCollapsed} active={activePage === '배정 완료 DB'} onClick={() => onPageChange('배정 완료 DB')} />
+            <SubNavItem label="미배정 DB" isCollapsed={isCollapsed} active={activePage === '미배정 DB'} onClick={() => onPageChange('미배정 DB')} />
+            <SubNavItem label="DB 분배 현황" isCollapsed={isCollapsed} active={activePage === 'DB 분배 현황'} onClick={() => onPageChange('DB 분배 현황')} />
           </NavGroup>
 
           <NavGroup icon={<Settings size={18} />} label="배정 설정 관리" isCollapsed={isCollapsed}>
-            <SubNavItem label="재배정 타입 설정" isCollapsed={isCollapsed} />
-            <SubNavItem label="자동 회수 설정" isCollapsed={isCollapsed} />
-            <SubNavItem label="자동 배정 설정" isCollapsed={isCollapsed} />
+            <SubNavItem label="재배정 타입 설정" isCollapsed={isCollapsed} active={activePage === '재배정 타입 설정'} onClick={() => onPageChange('재배정 타입 설정')} />
+            <SubNavItem label="자동 회수 설정" isCollapsed={isCollapsed} active={activePage === '자동 회수 설정'} onClick={() => onPageChange('자동 회수 설정')} />
+            <SubNavItem label="자동 배정 설정" isCollapsed={isCollapsed} active={activePage === '자동 배정 설정'} onClick={() => onPageChange('자동 배정 설정')} />
           </NavGroup>
 
           <NavGroup icon={<Briefcase size={18} />} label="직원/설계사 관리" isCollapsed={isCollapsed}>
-            <SubNavItem label="운영/관리자" isCollapsed={isCollapsed} />
-            <SubNavItem label="설계사" isCollapsed={isCollapsed} />
+            <SubNavItem label="운영/관리자" isCollapsed={isCollapsed} active={activePage === '운영/관리자'} onClick={() => onPageChange('운영/관리자')} />
+            <SubNavItem label="설계사" isCollapsed={isCollapsed} active={activePage === '설계사'} onClick={() => onPageChange('설계사')} />
           </NavGroup>
 
           <NavGroup icon={<Network size={18} />} label="조직 및 관리 체계" isCollapsed={isCollapsed}>
-            <SubNavItem label="직책·권한 설정" isCollapsed={isCollapsed} />
-            <SubNavItem label="조직 구조 설정" isCollapsed={isCollapsed} />
+            <SubNavItem label="직책·권한 설정" isCollapsed={isCollapsed} active={activePage === '직책·권한 설정'} onClick={() => onPageChange('직책·권한 설정')} />
+            <SubNavItem label="조직 구조 설정" isCollapsed={isCollapsed} active={activePage === '조직 구조 설정'} onClick={() => onPageChange('조직 구조 설정')} />
           </NavGroup>
         </nav>
       </div>
 
-      <div className="p-4 border-t border-gray-200">
+      <div className="h-14 px-4 border-t border-gray-200 flex items-center shrink-0">
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}
           className={cn(
@@ -91,10 +99,11 @@ export function Sidebar({ className }: SidebarProps) {
   );
 }
 
-function NavItem({ icon, label, active, isCollapsed }: { icon: React.ReactNode; label: string; active?: boolean; isCollapsed?: boolean }) {
+function NavItem({ icon, label, active, isCollapsed, onClick }: { icon: React.ReactNode; label: string; active?: boolean; isCollapsed?: boolean; onClick?: () => void }) {
   return (
     <a
       href="#"
+      onClick={(e) => { e.preventDefault(); onClick?.(); }}
       title={isCollapsed ? label : undefined}
       className={cn(
         "flex items-center gap-3 py-2.5 rounded-md text-sm font-medium transition-colors",
@@ -142,12 +151,18 @@ function NavGroup({ icon, label, children, isCollapsed, defaultExpanded = false 
   );
 }
 
-function SubNavItem({ label, isCollapsed }: { label: string; isCollapsed?: boolean }) {
+function SubNavItem({ label, isCollapsed, active, onClick }: { label: string; isCollapsed?: boolean; active?: boolean; onClick?: () => void }) {
   if (isCollapsed) return null;
   return (
     <a
       href="#"
-      className="flex items-center pl-10 pr-3 py-2 rounded-md text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+      onClick={(e) => { e.preventDefault(); onClick?.(); }}
+      className={cn(
+        "flex items-center pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+        active 
+          ? "bg-blue-50 text-blue-700 font-medium" 
+          : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+      )}
     >
       <span className="truncate">{label}</span>
     </a>

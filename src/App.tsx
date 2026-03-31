@@ -123,6 +123,7 @@ const initialData: BoardData = {
 
 export default function App() {
   const [data, setData] = useState<BoardData>(initialData);
+  const [activePage, setActivePage] = useState('상담 진행 고객');
 
   const handleMoveTask = (taskId: string, targetColumnId: string) => {
     setData((prev) => {
@@ -167,15 +168,24 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-white text-gray-900 font-sans overflow-hidden">
-      <Sidebar />
+      <Sidebar activePage={activePage} onPageChange={setActivePage} />
       <div className="flex-1 flex flex-col min-w-0">
         <TopBar onCreateTask={() => {}} />
-        <Board 
-          data={data} 
-          onMoveTask={handleMoveTask} 
-          onCreateTask={() => {}}
-        />
-        <footer className="border-t border-gray-200 p-4 text-xs text-gray-500 flex items-center shrink-0 bg-white">
+        {activePage === '상담 진행 고객' ? (
+          <Board 
+            data={data} 
+            onMoveTask={handleMoveTask} 
+            onCreateTask={() => {}}
+          />
+        ) : (
+          <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
+            <div className="text-center">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{activePage}</h3>
+              <p>준비 중인 페이지입니다.</p>
+            </div>
+          </div>
+        )}
+        <footer className="h-14 border-t border-gray-200 px-6 text-xs text-gray-500 flex items-center shrink-0 bg-white">
           <span>Copyright@ Aijinet. All right reserved</span>
           <div className="flex items-center gap-4 ml-8">
             <a href="#" className="hover:text-gray-800">서비스 이용약관</a>

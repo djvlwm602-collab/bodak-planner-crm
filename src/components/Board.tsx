@@ -71,14 +71,14 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
         <div className="flex items-center bg-gray-100 p-1 rounded-lg">
           <button 
             onClick={() => setViewMode('dashboard')}
-            className={cn("flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all", viewMode === 'dashboard' ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700")}
+            className={cn("flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all", viewMode === 'dashboard' ? "bg-white text-gray-900 border border-gray-200" : "text-gray-500 hover:text-gray-700 border border-transparent")}
           >
             <LayoutDashboard size={16} />
             대시보드
           </button>
           <button 
             onClick={() => setViewMode('kanban')}
-            className={cn("flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all", viewMode === 'kanban' ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700")}
+            className={cn("flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all", viewMode === 'kanban' ? "bg-white text-gray-900 border border-gray-200" : "text-gray-500 hover:text-gray-700 border border-transparent")}
           >
             <KanbanSquare size={16} />
             칸반보드
@@ -110,16 +110,16 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
           
           {viewMode === 'dashboard' ? (
             /* Dashboard View (Amplitude Style) */
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
               {/* Filters */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm transition-colors">
+                  <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
                     <Calendar size={16} className="text-gray-500" />
                     최근 7일
                     <ChevronDown size={14} className="text-gray-500" />
                   </button>
-                  <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm transition-colors">
+                  <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
                     <Filter size={16} className="text-gray-500" />
                     필터 추가
                   </button>
@@ -139,7 +139,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
               </div>
 
               {/* Main Chart */}
-              <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <div className="bg-white border border-gray-200 rounded-lg p-5">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-base font-semibold text-gray-900">일자별 통화 성공 추이</h3>
                   <div className="flex items-center gap-4 text-sm">
@@ -170,7 +170,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                       <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} dy={10} />
                       <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} />
                       <Tooltip 
-                        contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                        contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: 'none' }}
                         itemStyle={{ fontSize: '14px', fontWeight: 500 }}
                       />
                       <Area type="monotone" dataKey="total" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorTotal)" />
@@ -183,7 +183,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
               {/* Bottom Grid */}
               <div className="grid grid-cols-2 gap-6">
                 {/* Left: Pie Chart */}
-                <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <div className="bg-white border border-gray-200 rounded-lg p-5">
                   <h3 className="text-base font-semibold text-gray-900 mb-6">상담 유형별 비율</h3>
                   <div className="h-[250px] flex items-center justify-center">
                     <ResponsiveContainer width="100%" height="100%">
@@ -202,7 +202,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                           ))}
                         </Pie>
                         <Tooltip 
-                          contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: 'none' }}
                         />
                       </PieChart>
                     </ResponsiveContainer>
@@ -218,7 +218,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                 </div>
 
                 {/* Right: Bar Chart */}
-                <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <div className="bg-white border border-gray-200 rounded-lg p-5">
                   <h3 className="text-base font-semibold text-gray-900 mb-6">우수 상담원 Top 5 (성공 건수)</h3>
                   <div className="h-[250px]">
                     <ResponsiveContainer width="100%" height="100%">
@@ -228,7 +228,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                         <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#4b5563', fontSize: 13, fontWeight: 500 }} width={80} />
                         <Tooltip 
                           cursor={{ fill: '#f3f4f6' }}
-                          contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: 'none' }}
                         />
                         <Bar dataKey="value" fill="#3b82f6" radius={[0, 4, 4, 0]} barSize={24}>
                           {agentData.map((entry, index) => (
@@ -245,7 +245,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
             /* Kanban View (Original) */
             <div className="flex-1 flex flex-col overflow-hidden bg-white">
               {/* Filter Area */}
-              <div className="px-6 py-4 flex items-center justify-between border-b border-gray-100">
+              <div className="px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <select className="appearance-none bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-sm pl-3 pr-8 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer hover:bg-gray-100 transition-colors">
@@ -273,16 +273,16 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
               </div>
 
               {/* Board Columns */}
-              <div className="flex-1 overflow-x-auto overflow-y-hidden px-6 py-6">
-                <div className="flex gap-6 h-full items-start min-w-max">
+              <div className="flex-1 overflow-auto px-6 py-6">
+                <div className="flex gap-2 items-stretch min-w-max">
                   
                   {/* 상담 대기 Group */}
-                  <div className="flex flex-col h-full">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <div className="flex flex-col">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2 shrink-0">
                       <span className="w-2 h-2 rounded-full bg-gray-400"></span>
                       상담 대기
                     </h3>
-                    <div className="flex gap-4 h-full">
+                    <div className="flex gap-2 flex-1">
                       {waitingColumns.map(columnId => {
                         const column = data.columns[columnId];
                         const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
@@ -301,15 +301,15 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                   </div>
 
                   {/* Divider */}
-                  <div className="w-px bg-gray-200 h-full mx-2"></div>
+                  <div className="w-px bg-gray-200 mx-0 mt-8"></div>
 
                   {/* 상담 중 Group */}
-                  <div className="flex flex-col h-full">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <div className="flex flex-col">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2 shrink-0">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
                       상담 중
                     </h3>
-                    <div className="flex gap-4 h-full">
+                    <div className="flex gap-2 flex-1">
                       {inProgressColumns.map(columnId => {
                         const column = data.columns[columnId];
                         const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
@@ -339,8 +339,8 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
 
 function KpiCard({ title, value, trend, isPositive }: { title: string; value: string; trend: string; isPositive: boolean }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm flex flex-col hover:border-blue-300 transition-colors cursor-pointer group">
-      <span className="text-sm font-medium text-gray-500 mb-2 group-hover:text-blue-600 transition-colors">{title}</span>
+    <div className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col">
+      <span className="text-sm font-medium text-gray-500 mb-2">{title}</span>
       <div className="flex items-end justify-between">
         <span className="text-2xl font-bold text-gray-900">{value}</span>
         <div className={cn(
