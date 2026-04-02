@@ -4,6 +4,10 @@ import { TopBar } from './components/TopBar';
 import { Board } from './components/Board';
 import { ContractExpected } from './components/ContractExpected';
 import { ConsultationEnded } from './components/ConsultationEnded';
+import { AssignedDB } from './components/AssignedDB';
+import { UnassignedDB } from './components/UnassignedDB';
+import { AdminManagement } from './components/AdminManagement';
+import { PlannerManagement } from './components/PlannerManagement';
 import { BoardData, Task } from './types';
 
 const initialData: BoardData = {
@@ -183,6 +187,14 @@ export default function App() {
           <ContractExpected />
         ) : activePage === '상담 종료 고객' ? (
           <ConsultationEnded />
+        ) : activePage === '배정 완료 DB' ? (
+          <AssignedDB />
+        ) : activePage === '미배정 DB' ? (
+          <UnassignedDB />
+        ) : activePage === '운영/관리자' ? (
+          <AdminManagement />
+        ) : activePage === '설계사' ? (
+          <PlannerManagement />
         ) : (
           <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
             <div className="text-center">
