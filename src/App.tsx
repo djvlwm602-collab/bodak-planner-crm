@@ -10,6 +10,8 @@ import { AdminManagement } from './components/AdminManagement';
 import { PlannerManagement } from './components/PlannerManagement';
 import { RolePermissionSettings } from './components/RolePermissionSettings';
 import { OrgStructureSettings } from './components/OrgStructureSettings';
+import { ReassignTypeSettings } from './components/ReassignTypeSettings';
+import { AutoRetrieveSettings } from './components/AutoRetrieveSettings';
 import { BoardData, Task } from './types';
 
 const initialData: BoardData = {
@@ -201,6 +203,10 @@ export default function App() {
           <RolePermissionSettings />
         ) : activePage === '조직 구조 설정' ? (
           <OrgStructureSettings />
+        ) : activePage === '재배정 타입 설정' ? (
+          <ReassignTypeSettings />
+        ) : activePage === '자동 회수 설정' ? (
+          <AutoRetrieveSettings />
         ) : (
           <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
             <div className="text-center">
