@@ -8,6 +8,8 @@ import { AssignedDB } from './components/AssignedDB';
 import { UnassignedDB } from './components/UnassignedDB';
 import { AdminManagement } from './components/AdminManagement';
 import { PlannerManagement } from './components/PlannerManagement';
+import { RolePermissionSettings } from './components/RolePermissionSettings';
+import { OrgStructureSettings } from './components/OrgStructureSettings';
 import { BoardData, Task } from './types';
 
 const initialData: BoardData = {
@@ -195,6 +197,10 @@ export default function App() {
           <AdminManagement />
         ) : activePage === '설계사' ? (
           <PlannerManagement />
+        ) : activePage === '직책·권한 설정' ? (
+          <RolePermissionSettings />
+        ) : activePage === '조직 구조 설정' ? (
+          <OrgStructureSettings />
         ) : (
           <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
             <div className="text-center">
