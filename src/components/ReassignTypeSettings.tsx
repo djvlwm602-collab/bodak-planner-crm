@@ -67,8 +67,8 @@ export function ReassignTypeSettings() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto p-8">
-        <div className="max-w-5xl mx-auto flex flex-col gap-6">
+      <div className="flex-1 overflow-y-auto px-[30px] py-8">
+        <div className="w-full flex flex-col gap-6">
           
           {/* 기본 타입 */}
           <div className="border border-gray-300 bg-gray-50/30 flex h-[64px]">

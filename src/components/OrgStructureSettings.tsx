@@ -336,8 +336,8 @@ export function OrgStructureSettings() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto p-8">
-        <div className="max-w-6xl mx-auto flex gap-10">
+      <div className="flex-1 overflow-y-auto px-[30px] py-8">
+        <div className="w-full flex gap-10">
           
           {/* Left: 조직 구조 */}
           <div className="flex-1">

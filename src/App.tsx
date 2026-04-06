@@ -12,6 +12,10 @@ import { RolePermissionSettings } from './components/RolePermissionSettings';
 import { OrgStructureSettings } from './components/OrgStructureSettings';
 import { ReassignTypeSettings } from './components/ReassignTypeSettings';
 import { AutoRetrieveSettings } from './components/AutoRetrieveSettings';
+import { AutoAssignSettings } from './components/AutoAssignSettings';
+import { DBDistributionStatus } from './components/DBDistributionStatus';
+import { DBDistributionDetail } from './components/DBDistributionDetail';
+import { HomeDashboard } from './components/HomeDashboard';
 import { BoardData, Task } from './types';
 
 const initialData: BoardData = {
@@ -134,6 +138,19 @@ const initialData: BoardData = {
 export default function App() {
   const [data, setData] = useState<BoardData>(initialData);
   const [activePage, setActivePage] = useState('상담 진행 고객');
+  const [distributionDetailParams, setDistributionDetailParams] = useState<{period: string, status: string} | null>(null);
+
+  const handlePageChange = (page: string) => {
+    setActivePage(page);
+    if (page !== 'DB 분배 현황 상세') {
+      setDistributionDetailParams(null);
+    }
+  };
+
+  const handleNavigateToDistributionDetail = (period: string, status: string) => {
+    setDistributionDetailParams({ period, status });
+    setActivePage('DB 분배 현황 상세');
+  };
 
   const handleMoveTask = (taskId: string, targetColumnId: string) => {
     setData((prev) => {
@@ -178,10 +195,12 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-white text-gray-900 font-sans overflow-hidden">
-      <Sidebar activePage={activePage} onPageChange={setActivePage} />
+      <Sidebar activePage={activePage === 'DB 분배 현황 상세' ? 'DB 분배 현황' : activePage} onPageChange={handlePageChange} />
       <div className="flex-1 flex flex-col min-w-0">
         <TopBar onCreateTask={() => {}} />
-        {activePage === '상담 진행 고객' ? (
+        {activePage === '홈 대시보드' ? (
+          <HomeDashboard />
+        ) : activePage === '상담 진행 고객' ? (
           <Board 
             data={data} 
             onMoveTask={handleMoveTask} 
@@ -207,6 +226,16 @@ export default function App() {
           <ReassignTypeSettings />
         ) : activePage === '자동 회수 설정' ? (
           <AutoRetrieveSettings />
+        ) : activePage === '자동 배정 설정' ? (
+          <AutoAssignSettings />
+        ) : activePage === 'DB 분배 현황' ? (
+          <DBDistributionStatus onNavigateToDetail={handleNavigateToDistributionDetail} />
+        ) : activePage === 'DB 분배 현황 상세' && distributionDetailParams ? (
+          <DBDistributionDetail 
+            period={distributionDetailParams.period} 
+            status={distributionDetailParams.status}
+            onBack={() => handlePageChange('DB 분배 현황')}
+          />
         ) : (
           <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
             <div className="text-center">

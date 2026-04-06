@@ -19,8 +19,8 @@ export function AutoRetrieveSettings() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto p-8">
-        <div className="max-w-5xl mx-auto flex flex-col h-full min-h-[calc(100vh-12rem)]">
+      <div className="flex-1 overflow-y-auto px-[30px] py-8">
+        <div className="w-full flex flex-col h-full min-h-[calc(100vh-12rem)]">
           
           <div className="border border-gray-300 bg-white p-10">
             <div className="mb-10">

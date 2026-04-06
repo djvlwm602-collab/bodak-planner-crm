@@ -45,8 +45,8 @@ export function RolePermissionSettings() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-y-auto bg-white p-8">
-        <div className="max-w-6xl mx-auto w-full flex flex-col h-full">
+      <div className="flex-1 flex flex-col overflow-y-auto bg-white px-[30px] py-8">
+        <div className="w-full flex flex-col h-full">
           {/* Search Bar */}
           <div className="mb-8">
             <div className="border border-gray-300 p-5 flex flex-col gap-6 bg-gray-50/30">

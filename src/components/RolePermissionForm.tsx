@@ -117,8 +117,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto p-8">
-        <div className="max-w-5xl mx-auto flex flex-col gap-10">
+      <div className="flex-1 overflow-y-auto px-[30px] py-8">
+        <div className="w-full flex flex-col gap-10">
           
           {/* 직책/직급명 */}
           <div>
