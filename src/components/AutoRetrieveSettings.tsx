@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { cn } from '../lib/utils';
 
+import { Footer } from './Footer';
+
 export function AutoRetrieveSettings() {
   const [isUsed, setIsUsed] = useState(true);
   const [hours, setHours] = useState('30');
@@ -84,6 +86,8 @@ export function AutoRetrieveSettings() {
             </button>
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

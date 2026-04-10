@@ -6,6 +6,8 @@ interface RolePermissionFormProps {
   onBack: () => void;
 }
 
+import { Footer } from './Footer';
+
 export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
   const [roleName, setRoleName] = useState('최고관리자');
   const [permissionType, setPermissionType] = useState<'admin' | 'planner'>('admin');
@@ -399,6 +401,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
             </div>
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

@@ -28,6 +28,8 @@ const mockData: Customer[] = Array.from({ length: 10 }).map((_, i) => ({
 
 const regions = ['전체', '서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전남', '전북', '경북', '경남', '제주'];
 
+import { Footer } from './Footer';
+
 export function UnassignedDB() {
   const [customerName, setCustomerName] = useState('');
   const [selectedRegions, setSelectedRegions] = useState<string[]>(['전체']);
@@ -240,6 +242,8 @@ export function UnassignedDB() {
               <button className="p-1 text-gray-400 hover:text-gray-600 ml-2"><ChevronRight size={16} /></button>
               <button className="p-1 text-gray-400 hover:text-gray-600"><ChevronsRight size={16} /></button>
             </div>
+            <div className="mt-8"></div>
+            <Footer />
           </div>
         </div>
       </div>

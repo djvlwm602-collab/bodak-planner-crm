@@ -16,6 +16,8 @@ const initialTypes: ReassignType[] = [
   { id: '4', name: '패널티', description: '입력한 설명이 노출됩니다.', isUsed: false },
 ];
 
+import { Footer } from './Footer';
+
 export function ReassignTypeSettings() {
   const [isEditing, setIsEditing] = useState(false);
   const [types, setTypes] = useState<ReassignType[]>(initialTypes);
@@ -206,6 +208,8 @@ export function ReassignTypeSettings() {
             )}
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

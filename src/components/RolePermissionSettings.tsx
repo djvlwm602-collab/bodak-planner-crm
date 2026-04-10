@@ -26,6 +26,8 @@ const mockData: RoleData[] = [
   { id: '1', no: 1, roleName: '직책명', permission: '운영/관리자', isUsed: '사용함', regDate: '2026.01.01', modDate: '-' },
 ];
 
+import { Footer } from './Footer';
+
 export function RolePermissionSettings() {
   const [selectedRole, setSelectedRole] = useState('전체');
   const [selectedPermission, setSelectedPermission] = useState('전체');
@@ -191,6 +193,8 @@ export function RolePermissionSettings() {
                 등록
               </button>
             </div>
+            <div className="mt-8"></div>
+            <Footer />
           </div>
         </div>
       </div>

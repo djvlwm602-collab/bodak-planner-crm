@@ -20,6 +20,8 @@ interface AdminDetailProps {
   onBack: () => void;
 }
 
+import { Footer } from './Footer';
+
 export function AdminDetail({ user, onBack }: AdminDetailProps) {
   return (
     <div className="flex-1 flex flex-col bg-white h-full overflow-hidden">
@@ -140,6 +142,9 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               수정
             </button>
           </div>
+
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

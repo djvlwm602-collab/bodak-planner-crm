@@ -10,6 +10,8 @@ interface BoardProps {
   onCreateTask: (columnId?: string) => void;
 }
 
+import { Footer } from './Footer';
+
 export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
   const [selectedRegions, setSelectedRegions] = useState<string[]>(['전체']);
   const [dateRangeType, setDateRangeType] = useState<string>('1개월');
@@ -252,6 +254,7 @@ export function Board({ data, onMoveTask, onCreateTask }: BoardProps) {
                 </div>
               </div>
             </div>
+            <Footer />
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { Footer } from './Footer';
+
 export function AutoAssignSettings() {
   const [isUsed, setIsUsed] = useState(false);
 
@@ -75,6 +77,8 @@ export function AutoAssignSettings() {
             </button>
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

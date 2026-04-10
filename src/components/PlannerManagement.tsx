@@ -16,6 +16,8 @@ const mockData: AdminUser[] = [
   { id: '1', no: 1, name: '이민혁', userId: 'kris', phone: '010-1111-1111', affiliation: '본사 > 사업단 1 > 지점 1 > 팀 1', position: '설계사', joinDate: '2026.01.01', approvalStatus: 'pending', activityStatus: '대기' },
 ];
 
+import { Footer } from './Footer';
+
 export function PlannerManagement() {
   const [searchType, setSearchType] = useState('이름');
   const [searchValue, setSearchValue] = useState('');
@@ -298,6 +300,8 @@ export function PlannerManagement() {
               <button className="p-1 text-gray-400 hover:text-gray-600 ml-2"><ChevronRight size={16} /></button>
               <button className="p-1 text-gray-400 hover:text-gray-600"><ChevronsRight size={16} /></button>
             </div>
+            <div className="mt-8"></div>
+            <Footer />
           </div>
         </div>
       </div>

@@ -85,6 +85,8 @@ const DragHandleIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+import { Footer } from './Footer';
+
 export function OrgStructureSettings() {
   const [orgData, setOrgData] = useState<OrgNode>(initialData);
   const [selectedNodeId, setSelectedNodeId] = useState<string>('1-1-1');
@@ -465,6 +467,8 @@ export function OrgStructureSettings() {
             )}
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

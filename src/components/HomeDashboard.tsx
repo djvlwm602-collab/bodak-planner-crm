@@ -32,6 +32,8 @@ const unresponsiveData = [
 
 const COLORS = ['#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#dbeafe'];
 
+import { Footer } from './Footer';
+
 export function HomeDashboard() {
   return (
     <div className="flex-1 flex flex-col h-full bg-white overflow-hidden">
@@ -211,6 +213,7 @@ export function HomeDashboard() {
               </div>
             </div>
 
+            <Footer />
           </div>
         </div>
       </div>

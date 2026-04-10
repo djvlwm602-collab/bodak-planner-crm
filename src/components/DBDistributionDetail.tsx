@@ -8,6 +8,8 @@ interface DBDistributionDetailProps {
   onBack: () => void;
 }
 
+import { Footer } from './Footer';
+
 export function DBDistributionDetail({ period, status, onBack }: DBDistributionDetailProps) {
   const [activeTab, setActiveTab] = useState<'설계사 별 수량' | '권역별 수량'>('설계사 별 수량');
 
@@ -265,6 +267,8 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
             </button>
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>

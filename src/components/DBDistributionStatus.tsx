@@ -5,6 +5,8 @@ interface DBDistributionStatusProps {
   onNavigateToDetail: (period: string, status: string) => void;
 }
 
+import { Footer } from './Footer';
+
 export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatusProps) {
   const data = [
     { no: 10, period: '2026.01.01~2026.01.31', contractSupply: '1,100건', actualSupply: '1,100건', withdrawal: '1,100건', status: '진행 예정' },
@@ -97,6 +99,8 @@ export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatu
             <button className="p-1 text-gray-400 hover:text-gray-900"><ChevronsRight size={16} /></button>
           </div>
 
+          <div className="mt-8"></div>
+          <Footer />
         </div>
       </div>
     </div>
