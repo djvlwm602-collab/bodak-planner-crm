@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Task } from '../types';
 import { cn } from '../lib/utils';
+import { Badge } from './ui/badge';
 
 interface TaskCardProps {
   task: Task;
@@ -9,16 +10,12 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, onDragStart }: TaskCardProps) {
-  const getTagColor = (tag: Task['tag']) => {
+  const getTagVariant = (tag: Task['tag']): 'primary' | 'teal' | 'green' | 'default' => {
     switch (tag) {
-      case '종합진단':
-        return 'bg-rose-100 text-rose-700';
-      case '보험료점검':
-        return 'bg-emerald-100 text-emerald-700';
-      case '보장확대':
-        return 'bg-blue-100 text-blue-700';
-      default:
-        return 'bg-gray-100 text-gray-700';
+      case '종합진단':   return 'primary';
+      case '보험료점검': return 'teal';
+      case '보장확대':   return 'default';
+      default:           return 'default';
     }
   };
 
@@ -75,16 +72,12 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
         </div>
       </div>
 
-        <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-between mt-auto pt-3">
           <div className="flex items-center gap-1.5">
-            <span className={cn("text-[10px] px-1.5 py-0.5 rounded-sm font-medium", getTagColor(task.tag))}>
-              {task.tag}
-            </span>
-            <button className="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.5 rounded-sm font-medium hover:bg-gray-200 transition-colors">
-              AI 상담내역
-            </button>
+            <Badge variant={getTagVariant(task.tag)} className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">{task.tag}</Badge>
+            <Badge variant="green" className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">AI 상담내역</Badge>
           </div>
-          <span className="text-xs font-medium text-gray-500">
+          <span className="text-[13px] font-semibold text-text-secondary">
             {task.callCount}회 통화
           </span>
         </div>

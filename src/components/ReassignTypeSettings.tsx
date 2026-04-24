@@ -182,7 +182,7 @@ export function ReassignTypeSettings() {
                     <Button variant="primary" size="md" onClick={handleSave}>확인</Button>
                   </div>
                 ) : (
-                  <Button variant="secondary" size="lg" onClick={handleEditStart}>수정</Button>
+                  <Button variant="primary" size="lg" onClick={handleEditStart}>수정</Button>
                 )}
               </div>
 

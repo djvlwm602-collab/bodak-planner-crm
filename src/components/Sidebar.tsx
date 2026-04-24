@@ -9,7 +9,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   ChevronDown,
-  ChevronUp
+  ChevronRight,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -174,7 +174,7 @@ function NavGroup({ icon, label, children, isCollapsed, defaultExpanded = false,
         </div>
         {!isCollapsed && (
           <div className="shrink-0 text-text-secondary">
-            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            {isExpanded ? <ChevronDown size={16} className="text-text-disabled" /> : <ChevronRight size={16} className="text-text-disabled" />}
           </div>
         )}
       </button>

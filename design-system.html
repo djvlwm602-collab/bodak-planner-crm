@@ -12,6 +12,7 @@
   --sc:#0ED1A0; --su:#00B493; --sus:#E8FAF5;
   --da:#FF5B5B; --das:#FFF0F0;
   --wa:#B45309; --was:#FFFBEB;
+  --neutral:#6B7280; --neutralh:#4B5563;
 
   --bg:#F5F6F8;
   --sf:#FFFFFF;
@@ -180,7 +181,6 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .spacing-usage{font-size:11px;color:var(--td);}
 
 /* ── 버튼 컴포넌트 ────────────────────────── */
---neutral:#6B7280; --neutralh:#4B5563;
 @keyframes btn-dot{0%,60%,100%{opacity:.25;transform:scale(.75)}30%{opacity:1;transform:scale(1)}}
 .btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:500;border:none;cursor:pointer;transition:all .15s;line-height:1;white-space:nowrap;}
 .v-primary{background:var(--p);color:#fff;} .v-primary:hover{background:var(--ph);}
@@ -190,23 +190,32 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .v-danger{background:var(--da);color:#fff;} .v-danger:hover{background:#e04f4f;}
 .s-xs{padding:4px 12px;font-size:12px;border-radius:4px;}
 .s-sm{padding:6px 16px;font-size:13px;border-radius:4px;}
-.s-md{padding:6px 20px;font-size:14px;border-radius:8px;}
+.s-md{padding:8px 20px;font-size:14px;border-radius:8px;}
 .s-lg{padding:10px 40px;font-size:14px;border-radius:12px;}
 .btn:disabled{opacity:.4;cursor:not-allowed;}
-.btn-dots{display:flex;align-items:center;gap:5px;}
-.btn-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.btn-dots{display:flex;align-items:center;gap:6px;}
+.btn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
 .btn-comb{display:inline-flex;align-items:center;gap:8px;}
 
 /* ── 뱃지 ─────────────────────────────────── */
-.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500;}
-.b-default{background:var(--bg);color:var(--ts);border:1px solid var(--bd);}
-.b-primary{background:var(--ps);color:var(--p);}
-.b-success{background:var(--sus);color:var(--su);}
+/* weak(연한) — 기본 */
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500;white-space:nowrap;}
+.b-default{background:var(--bd);color:var(--ts);border:1px solid var(--bd);}
+.b-primary{background:#E1E9FD;color:#5779DB;}
+.b-teal{background:#DFE9EA;color:#548989;}
+.b-green{background:#E2EEE4;color:#4B8C57;}
 .b-danger{background:var(--das);color:var(--da);}
 .b-warning{background:var(--was);color:var(--wa);}
+/* fill(solid) — .fill 클래스 조합 */
+.badge.fill.b-default{background:var(--neutral);color:#fff;border:none;}
+.badge.fill.b-primary{background:var(--p);color:#fff;border:none;}
+.badge.fill.b-teal{background:var(--su);color:#fff;border:none;}
+.badge.fill.b-green{background:#4B8C57;color:#fff;border:none;}
+.badge.fill.b-danger{background:var(--da);color:#fff;border:none;}
+.badge.fill.b-warning{background:var(--wa);color:#fff;border:none;}
 
 /* ── 체크박스 ─────────────────────────────── */
-.cb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:3px;background:var(--cb-bg);cursor:pointer;position:relative;vertical-align:middle;flex-shrink:0;}
+.cb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:4px;background:var(--cb-bg);cursor:pointer;position:relative;vertical-align:middle;flex-shrink:0;}
 .cb:checked{background:var(--p);}
 .cb:checked::after{content:'';position:absolute;top:50%;left:50%;width:5px;height:8px;border:solid white;border-width:0 2px 2px 0;transform:translate(-50%,-62%) rotate(45deg);}
 .cb-label{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ts);cursor:pointer;}
@@ -220,15 +229,15 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 .form-label{font-size:12px;font-weight:600;color:var(--ts);margin-bottom:6px;display:block;}
 
 /* ── 필터 칩 ──────────────────────────────── */
-.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--bd);background:var(--sf);color:var(--ts);cursor:pointer;transition:all .15s;position:relative;user-select:none;white-space:nowrap;}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--bd);background:var(--sf);color:var(--ts);cursor:pointer;transition:all .15s;position:relative;user-select:none;white-space:nowrap;}
 .chip:hover{border-color:var(--bds);}
 .chip.open{background:var(--ps);border-color:var(--p);color:var(--p);}
 .chip-sep{color:var(--td);opacity:.6;}
 .chip.open .chip-sep{opacity:.5;}
 .chip-val{color:var(--p);}
-.chip-arr{font-size:9px;color:var(--td);margin-left:2px;transition:transform .15s;}
+.chip-arr{font-size:10px;color:var(--td);margin-left:2px;transition:transform .15s;}
 .chip.open .chip-arr{color:var(--p);transform:rotate(180deg);}
-.chip-drop{position:absolute;top:calc(100% + 6px);left:0;background:var(--sf);border:1px solid var(--bd);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.1);padding:6px;min-width:160px;z-index:200;display:none;}
+.chip-drop{position:absolute;top:calc(100% + 6px);left:0;background:var(--sf);border:1px solid var(--bd);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.1);padding:6px;min-width:160px;z-index:200;display:none;}
 .chip.open .chip-drop{display:block;}
 .chip-opt{padding:8px 12px;font-size:13px;color:var(--ts);cursor:pointer;border-radius:6px;transition:background .1s;}
 .chip-opt:hover{background:var(--bg);}
@@ -236,16 +245,16 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
 
 /* ── KPI ──────────────────────────────────── */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
-.kpi-card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:18px;}
-.kpi-title{font-size:12px;font-weight:500;color:var(--ts);margin-bottom:14px;}
+.kpi-card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px;}
+.kpi-title{font-size:12px;font-weight:500;color:var(--ts);margin-bottom:16px;}
 .kpi-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
 .kpi-value{font-size:22px;font-weight:700;color:var(--tp);line-height:1;letter-spacing:-.02em;}
-.kpi-trend{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:600;padding:3px 7px;border-radius:4px;}
+.kpi-trend{display:inline-flex;align-items:center;gap:2px;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;}
 .kpi-up{background:var(--sus);color:var(--su);}
 .kpi-down{background:var(--das);color:var(--da);}
 
 /* ── 테이블 ───────────────────────────────── */
-.tbl-wrap{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--sf);}
+.tbl-wrap{border:1px solid var(--bd);border-radius:8px;overflow:hidden;background:var(--sf);}
 .ds-tbl{width:100%;border-collapse:collapse;font-size:14px;text-align:center;}
 .ds-tbl thead th{padding:12px;font-size:12px;font-weight:600;color:var(--ts);background:var(--sf);border-bottom:1px solid var(--rh);letter-spacing:.01em;}
 .ds-tbl tbody tr{transition:background .12s;}
@@ -349,8 +358,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
   </div>
   <div class="sb-section">
     <div class="sb-label">Components</div>
-    <a class="sb-item" href="#button"><span class="sb-dot"></span>Button<span class="sb-badge">4 variant</span></a>
-    <a class="sb-item" href="#badge"><span class="sb-dot"></span>Badge<span class="sb-badge">5 variant</span></a>
+    <a class="sb-item" href="#button"><span class="sb-dot"></span>Button<span class="sb-badge">5 variant</span></a>
+    <a class="sb-item" href="#badge"><span class="sb-dot"></span>Badge<span class="sb-badge">6 variant</span></a>
     <a class="sb-item" href="#checkbox"><span class="sb-dot"></span>Checkbox</a>
     <a class="sb-item" href="#input"><span class="sb-dot"></span>Input / Select</a>
     <a class="sb-item" href="#chip"><span class="sb-dot"></span>Filter Chip</a>
@@ -593,26 +602,45 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
   <section class="section" id="badge">
     <div class="section-header">
       <div class="section-title"><span class="accent"></span>Badge</div>
-      <p class="section-desc">상태, 날짜, 태그 표시에 사용. <code style="font-family:monospace;font-size:12px">rounded-full</code> · 12px · font-weight 500.</p>
+      <p class="section-desc">Toss TDS 기반. <code style="font-family:monospace;font-size:12px">weak</code>(연한 배경) / <code style="font-family:monospace;font-size:12px">fill</code>(solid) · rounded-full · 12px</p>
     </div>
+
+    <div class="subsection-label">Weak (기본)</div>
     <div class="demo-wrap">
       <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <span class="badge b-default">2026.02.01</span>
-        <span class="badge b-primary">진행중</span>
-        <span class="badge b-success">정상</span>
+        <span class="badge b-default">대기</span>
+        <span class="badge b-primary">종합진단</span>
+        <span class="badge b-teal">보험료점검</span>
+        <span class="badge b-green">정상</span>
         <span class="badge b-danger">해촉</span>
-        <span class="badge b-warning">주의</span>
+        <span class="badge b-warning">일시제한</span>
       </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">badge.tsx — variant prop</span></div>
+      <div class="demo-toolbar"><span class="demo-toolbar-label">variant — default/primary/teal/green/danger/warning</span></div>
+    </div>
+
+    <div class="subsection-label">Fill</div>
+    <div class="demo-wrap">
+      <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="badge fill b-default">대기</span>
+        <span class="badge fill b-primary">종합진단</span>
+        <span class="badge fill b-teal">보험료점검</span>
+        <span class="badge fill b-green">정상</span>
+        <span class="badge fill b-danger">해촉</span>
+        <span class="badge fill b-warning">일시제한</span>
+      </div>
+      <div class="demo-toolbar"><span class="demo-toolbar-label">fill prop — solid 배경, 흰 텍스트</span></div>
     </div>
 
     <div class="code-block">
       <div class="code-header"><span class="code-lang">tsx</span><button class="code-copy" onclick="copyCode(this)">복사</button></div>
       <div class="code-body"><span class="kw">import</span> { <span class="ty">Badge</span> } <span class="kw">from</span> <span class="st">'@/components/ui/badge'</span>;
 
-<span class="cm">// variant: 'default' | 'primary' | 'success' | 'danger' | 'warning'</span>
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"success"</span>&gt;정상&lt;/<span class="ty">Badge</span>&gt;
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"danger"</span>&gt;해촉&lt;/<span class="ty">Badge</span>&gt;</div>
+<span class="cm">// variant: 'default' | 'primary' | 'teal' | 'green' | 'danger' | 'warning'</span>
+<span class="cm">// fill?: boolean — true = solid 배경, false(기본) = weak 연한 배경</span>
+&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"primary"</span>&gt;종합진단&lt;/<span class="ty">Badge</span>&gt;
+&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"teal"</span>&gt;보험료점검&lt;/<span class="ty">Badge</span>&gt;
+&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"danger"</span>&gt;해촉&lt;/<span class="ty">Badge</span>&gt;
+&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"green"</span> <span class="at">fill</span>&gt;정상&lt;/<span class="ty">Badge</span>&gt;</div>
     </div>
 
     <div class="props-wrap">
@@ -779,9 +807,9 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:va
               </tr>
             </thead>
             <tbody>
-              <tr><td><input type="checkbox" class="cb"/></td><td>3</td><td>이민혁</td><td>kris</td><td>본사 › 사업단 1</td><td><span class="badge b-default">2026.02.01</span></td><td><span class="badge b-success">정상</span></td></tr>
-              <tr><td><input type="checkbox" class="cb" checked/></td><td>2</td><td>김지은</td><td>jieun</td><td>본사 › 사업단 1 › 지점 1</td><td><span class="badge b-primary">진행중</span></td><td><span class="badge b-success">정상</span></td></tr>
-              <tr><td><input type="checkbox" class="cb"/></td><td>1</td><td>박지훈</td><td>jihoon</td><td>본사 › 사업단 1 › 지점 1 › 팀 1</td><td><span class="badge b-danger">해촉</span></td><td><span class="badge b-default">대기</span></td></tr>
+              <tr><td><input type="checkbox" class="cb"/></td><td>3</td><td>이민혁</td><td>kris</td><td>본사 › 사업단 1</td><td>2026.02.01</td><td>정상</td></tr>
+              <tr><td><input type="checkbox" class="cb" checked/></td><td>2</td><td>김지은</td><td>jieun</td><td>본사 › 사업단 1 › 지점 1</td><td>2026.01.15</td><td>정상</td></tr>
+              <tr><td><input type="checkbox" class="cb"/></td><td>1</td><td>박지훈</td><td>jihoon</td><td>본사 › 사업단 1 › 지점 1 › 팀 1</td><td>대기</td><td>대기</td></tr>
             </tbody>
           </table>
         </div>

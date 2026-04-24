@@ -2,6 +2,7 @@ import React from 'react';
 import { User, ChevronLeft } from 'lucide-react';
 import { Footer } from './Footer';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 
 export interface AdminUser {
   id: string;
@@ -111,7 +112,9 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               <div className="flex border-b border-gray-200">
                 <div className="w-[200px] bg-gray-50 px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">승인상태</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center gap-4">
-                  <span>{user.approvalStatus === 'approved' ? '승인' : '대기'}</span>
+                  <Badge variant={user.approvalStatus === 'approved' ? 'success' : 'default'}>
+                    {user.approvalStatus === 'approved' ? '승인' : '대기'}
+                  </Badge>
                   {user.approvalStatus === 'pending' && (
                     <div className="flex items-center gap-1.5">
                       <button className="bg-primary-subtle text-primary border border-primary/20 px-4 py-1 rounded-md text-xs font-medium hover:bg-primary/10 transition-colors">
@@ -126,7 +129,13 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               </div>
               <div className="flex border-b border-gray-200">
                 <div className="w-[200px] bg-gray-50 px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">활동상태</div>
-                <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.activityStatus}</div>
+                <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">
+                  <Badge variant={
+                    user.activityStatus === '정상' ? 'success' :
+                    user.activityStatus === '해촉' ? 'danger' :
+                    user.activityStatus === '일시제한' ? 'warning' : 'default'
+                  }>{user.activityStatus}</Badge>
+                </div>
               </div>
               <div className="flex border-b border-gray-200">
                 <div className="w-[200px] bg-gray-50 px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">가입일</div>

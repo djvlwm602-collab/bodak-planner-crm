@@ -5,6 +5,13 @@
 import React from 'react';
 import { StatusDropdown, type CustomerStatus } from './StatusDropdown';
 import { mockCustomer } from './mock-data';
+import { Badge } from '../ui/badge';
+
+const tagVariant = (tag: string): 'primary' | 'teal' | 'default' => {
+  if (tag === '종합진단')   return 'primary';
+  if (tag === '보험료점검') return 'teal';
+  return 'default';
+};
 
 interface Props {
   status: CustomerStatus;
@@ -21,9 +28,9 @@ export function CustomerHeader({ status, onStatusChange }: Props) {
             <h1 className="text-[17px] font-semibold text-text-primary tracking-tight">
               {mockCustomer.name} ({mockCustomer.age}세 / {mockCustomer.gender} / {mockCustomer.location})
             </h1>
-            <span className="inline-flex items-center px-2 py-0.5 bg-danger-subtle text-danger text-[12px] font-semibold rounded-sm">
+            <Badge variant={tagVariant(mockCustomer.tag)} className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">
               {mockCustomer.tag}
-            </span>
+            </Badge>
           </div>
           <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-[13px] text-text-secondary">
             <span>{mockCustomer.phone}</span>

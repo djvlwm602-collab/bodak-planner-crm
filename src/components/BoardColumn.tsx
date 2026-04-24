@@ -32,10 +32,10 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
   return (
     <div className="flex flex-col w-full min-w-[200px] bg-[#F0F2F5] rounded-md h-full">
       <div className="flex items-center gap-2 p-3 pb-2 shrink-0">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide truncate">
+        <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wide truncate">
           {column.title}
         </h3>
-        <span className="text-xs text-gray-400">{tasks.length}</span>
+        <span className="text-xs font-semibold text-gray-500">{tasks.length}</span>
       </div>
 
       <div

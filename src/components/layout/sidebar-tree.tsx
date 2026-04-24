@@ -1,6 +1,7 @@
 /**
  * Role: 조직 트리 사이드바 — 배정 고객 관리, DB 배정 관리 페이지 공통
  * Key Features: 재귀적 트리 아이템, 활성 항목 하이라이트
+ * Notes: 왼쪽 화살표 + depth 들여쓰기 — depth당 12px 증가, 추가 장식 없음
  */
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
@@ -74,25 +75,24 @@ function TreeItem({
   return (
     <div className="flex flex-col">
       <div
+        style={{ paddingLeft: `${8 + depth * 12}px` }}
         className={cn(
-          'flex items-center gap-1.5 py-1.5 px-2 cursor-pointer rounded-md text-[13px] transition-colors',
+          'flex items-center gap-1 py-1.5 pr-2 cursor-pointer rounded-md text-[13px] transition-colors',
           isActive
             ? 'bg-[#F0F1F3] text-[#4B5563] font-medium'
             : 'text-text-primary hover:bg-bg',
-          depth > 0 && 'pl-6',
         )}
         onClick={() => {
           if (hasChildren) setIsExpanded((v) => !v);
           onSelect?.(node.id);
         }}
       >
+        {/* 화살표 — 자식 있을 때만, 없으면 동일 너비 공백 유지 */}
         <div className="w-4 h-4 flex items-center justify-center shrink-0">
           {hasChildren ? (
-            isExpanded ? (
-              <ChevronDown size={14} className="text-text-secondary" />
-            ) : (
-              <ChevronRight size={14} className="text-text-secondary" />
-            )
+            isExpanded
+              ? <ChevronDown size={13} className="text-text-secondary" />
+              : <ChevronRight size={13} className="text-text-secondary" />
           ) : null}
         </div>
         <span className="truncate">{node.label}</span>
@@ -114,13 +114,31 @@ function TreeItem({
   );
 }
 
-/** 기본 조직 트리 데이터 (목 데이터 — API 연결 전까지 사용) */
+/** 5단계 뎁스 예시 포함 기본 트리 데이터 */
 export const defaultTreeNodes: TreeNode[] = [
   {
     id: 'branch-a',
     label: 'A 지점',
     children: [
-      { id: 'team-a1', label: 'A 팀' },
+      {
+        id: 'team-a1',
+        label: 'A 팀',
+        children: [
+          {
+            id: 'group-a1-1',
+            label: '1조',
+            children: [
+              {
+                id: 'unit-a1-1-1',
+                label: '가 그룹',
+                children: [
+                  { id: 'member-a1-1-1-1', label: '홍길동' },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       { id: 'team-a2', label: 'B 팀' },
       { id: 'team-a3', label: 'C 팀' },
     ],

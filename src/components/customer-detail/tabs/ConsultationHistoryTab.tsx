@@ -7,11 +7,12 @@ import React from 'react';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { mockTimeline, mockCallStats, type CallStatus } from '../mock-data';
+import { Badge } from '../../ui/badge';
 
-const statusMeta: Record<CallStatus, { label: (d?: string) => string; className: string }> = {
-  missed:  { label: () => '부재중',                  className: 'text-danger' },
-  valid:   { label: (d) => `유효통화 (${d ?? ''})`,  className: 'text-success' },
-  success: { label: (d) => `통화성공 (${d ?? ''})`,  className: 'text-primary' },
+const statusMeta: Record<CallStatus, { label: (d?: string) => string; variant: 'danger' | 'teal' | 'primary' }> = {
+  missed:  { label: () => '부재중',                  variant: 'danger'   },
+  valid:   { label: (d) => `유효통화 (${d ?? ''})`,  variant: 'teal'     },
+  success: { label: (d) => `통화성공 (${d ?? ''})`,  variant: 'primary'  },
 };
 
 export function ConsultationHistoryTab() {
@@ -37,9 +38,12 @@ export function ConsultationHistoryTab() {
                   <span className="text-text-disabled">-</span>
                   <span className="font-semibold text-text-primary">{evt.title}</span>
                   {evt.status && (
-                    <span className={cn('font-semibold', statusMeta[evt.status].className)}>
+                    <Badge
+                      variant={statusMeta[evt.status].variant}
+                      className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none"
+                    >
                       {statusMeta[evt.status].label(evt.duration)}
-                    </span>
+                    </Badge>
                   )}
                 </div>
 

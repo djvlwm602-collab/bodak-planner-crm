@@ -43,6 +43,10 @@
   /* 중립(버튼 secondary) */
   --color-neutral: #6B7280;
   --color-neutral-hover: #4B5563;
+
+  /* 경고 */
+  --color-warning: #B45309;
+  --color-warning-subtle: #FFFBEB;
 }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */

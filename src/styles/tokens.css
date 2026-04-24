@@ -30,6 +30,10 @@
   --color-primary-subtle: #EBF3FF;
   --color-success-subtle: #E8FAF5;
   --color-danger-subtle: #FFF0F0;
+  --color-warning-subtle: #FFFBEB;
+
+  /* ── 경고 ── */
+  --color-warning: #B45309;
 
   /* ── 타이포그래피 ── */
   --font-size-xs: 11px;
