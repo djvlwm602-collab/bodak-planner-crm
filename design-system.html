@@ -6,1042 +6,658 @@
 <title>Design System — 보닥 플래너</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
 <style>
-/* ── 토큰 ───────────────────────────────────── */
-:root{
-  --p:#3182F6; --ph:#1B64DA; --ps:#EBF3FF;
-  --sc:#0ED1A0; --su:#00B493; --sus:#E8FAF5;
-  --da:#FF5B5B; --das:#FFF0F0;
-  --wa:#B45309; --was:#FFFBEB;
-  --neutral:#6B7280; --neutralh:#4B5563;
+/* ── 토큰 (tokens.css + index.css @theme 동기화) ── */
+:root {
+  --brand-primary-hover: #1B64DA;
+  --brand-success: #00B493;
 
-  --bg:#F5F6F8;
-  --sf:#FFFFFF;
-  --bd:#E8EBED; --bds:#CDD1D5;
-  --tp:#191F28; --ts:#4E5968; --td:#AEB5BC;
-  --rh:#F3F4F6;
-  --cb-bg:#E8EBED;
+  --color-primary: #3182F6;
+  --color-primary-hover: #1B64DA;
+  --color-success: #00B493;
+  --color-danger: #FF5B5B;
+  --color-warning: #B45309;
 
-  --nav-h:52px;
-  --sb-w:240px;
-  --toc-w:220px;
-  --code-bg:#1C1C1E;
-  --code-line:#2C2C2E;
+  --color-bg: #F9FAFB;
+  --color-surface: #FFFFFF;
+
+  --color-text-primary: #191F28;
+  --color-text-secondary: #4E5968;
+  --color-text-disabled: #AEB5BC;
+
+  --color-border: #E8EBED;
+  --color-border-subtle: #CDD1D5;
+
+  --color-primary-subtle: #EBF3FF;
+  --color-success-subtle: #E8FAF5;
+  --color-danger-subtle: #FFF0F0;
+  --color-warning-subtle: #FFFBEB;
+
+  --color-neutral: #6B7280;
+  --color-neutral-hover: #4B5563;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--tp);line-height:1.6;font-size:14px;}
+body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);color:var(--color-text-primary);font-size:14px;line-height:1.6;}
 
-/* ── 탑바 ─────────────────────────────────── */
-.topbar{
-  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:300;
-  background:var(--sf);border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;padding:0 24px;gap:32px;
-}
-.topbar-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.topbar-logo .mark{width:28px;height:28px;background:var(--p);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
-.topbar-logo .wordmark{font-size:14px;font-weight:700;color:var(--tp);letter-spacing:-.01em;}
-.topbar-logo .version{font-size:11px;padding:2px 7px;border-radius:99px;background:var(--bg);color:var(--td);font-family:monospace;margin-left:4px;border:1px solid var(--bd);}
-.topbar-nav{display:flex;align-items:center;gap:2px;flex:1;}
-.topbar-nav a{padding:6px 12px;font-size:13px;color:var(--ts);border-radius:6px;cursor:pointer;transition:all .15s;text-decoration:none;white-space:nowrap;}
-.topbar-nav a:hover{color:var(--tp);background:var(--bg);}
-.topbar-nav a.active{color:var(--p);font-weight:600;background:var(--ps);}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
-.topbar-github{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:12px;color:var(--ts);border:1px solid var(--bd);cursor:pointer;transition:all .15s;text-decoration:none;}
-.topbar-github:hover{border-color:var(--bds);color:var(--tp);}
+/* ── 레이아웃 ── */
+.topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;padding:0 24px;gap:8px;}
+.logo-mark{width:28px;height:28px;border-radius:7px;background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.logo-name{font-size:14px;font-weight:700;}
+.logo-ver{font-size:11px;padding:2px 7px;border-radius:99px;background:var(--color-bg);color:var(--color-text-disabled);border:1px solid var(--color-border);font-family:monospace;margin-left:4px;}
+.topbar-nav{display:flex;gap:2px;margin-left:20px;}
+.topbar-nav a{padding:5px 12px;font-size:13px;color:var(--color-text-secondary);border-radius:6px;text-decoration:none;transition:all .15s;}
+.topbar-nav a:hover{background:var(--color-bg);color:var(--color-text-primary);}
+.topbar-nav a.active{color:var(--color-primary);font-weight:600;background:var(--color-primary-subtle);}
 
-/* ── 레이아웃 ─────────────────────────────── */
-.layout{display:flex;padding-top:var(--nav-h);min-height:100vh;}
+.layout{display:flex;padding-top:52px;min-height:100vh;}
+.sidebar{width:196px;flex-shrink:0;position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;padding:16px 10px;border-right:1px solid var(--color-border);background:var(--color-surface);}
+.sidebar-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.08em;text-transform:uppercase;padding:10px 8px 4px;}
+.sidebar-link{display:block;padding:5px 8px;font-size:13px;color:var(--color-text-secondary);border-radius:6px;text-decoration:none;transition:all .12s;}
+.sidebar-link:hover{color:var(--color-text-primary);background:var(--color-bg);}
+.sidebar-link.active{color:var(--color-primary);font-weight:600;background:var(--color-primary-subtle);}
 
-/* ── 왼쪽 사이드바 ────────────────────────── */
-.sidebar{
-  position:fixed;top:var(--nav-h);left:0;width:var(--sb-w);height:calc(100vh - var(--nav-h));
-  background:var(--sf);border-right:1px solid var(--bd);overflow-y:auto;
-  padding:24px 0 60px;flex-shrink:0;
-}
-.sidebar::-webkit-scrollbar{width:3px;}
-.sidebar::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+.main{margin-left:196px;padding:40px 48px;max-width:1040px;}
+.section{margin-bottom:72px;}
+.section-header{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--color-border);}
+.section-title{font-size:20px;font-weight:700;margin-bottom:4px;}
+.section-desc{font-size:13px;color:var(--color-text-secondary);}
+.subsection{margin-bottom:32px;}
+.subsection-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-disabled);margin-bottom:12px;}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.col{display:flex;flex-direction:column;gap:10px;}
+.preview{padding:20px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;margin-bottom:12px;}
+.preview-label{font-size:11px;color:var(--color-text-disabled);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;}
+.chip{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--color-bg);font-family:monospace;font-size:12px;color:var(--color-text-secondary);border:1px solid var(--color-border);}
+.dot{display:inline-block;width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.08);vertical-align:middle;margin-right:6px;}
 
-.sb-section{margin-bottom:4px;}
-.sb-label{font-size:10px;font-weight:700;color:var(--td);text-transform:uppercase;letter-spacing:.08em;padding:14px 20px 6px;}
-.sb-item{display:flex;align-items:center;gap:8px;padding:7px 20px;font-size:13px;color:var(--ts);cursor:pointer;transition:all .12s;border-left:2px solid transparent;text-decoration:none;}
-.sb-item:hover{background:var(--bg);color:var(--tp);}
-.sb-item.active{background:#EBF3FF;color:var(--p);border-left-color:var(--p);font-weight:600;}
-.sb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;flex-shrink:0;}
-.sb-badge{margin-left:auto;font-size:10px;padding:1px 6px;border-radius:99px;background:var(--sus);color:var(--su);font-weight:600;}
+/* ── Color Swatches ── */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.swatch{border-radius:8px;overflow:hidden;border:1px solid var(--color-border);background:var(--color-surface);}
+.swatch-color{height:56px;}
+.swatch-info{padding:9px 11px;}
+.swatch-name{font-size:12px;font-weight:600;margin-bottom:1px;}
+.swatch-token{font-size:11px;font-family:monospace;color:var(--color-text-secondary);}
+.swatch-hex{font-size:11px;font-family:monospace;color:var(--color-text-disabled);}
 
-/* ── 메인 ─────────────────────────────────── */
-.main{
-  margin-left:var(--sb-w);margin-right:var(--toc-w);
-  padding:48px 56px 120px;min-width:0;flex:1;
-}
+/* ── Typography ── */
+.type-row{display:flex;align-items:baseline;gap:20px;padding:12px 0;border-bottom:1px solid var(--color-border);}
+.type-row:last-child{border-bottom:none;}
+.type-meta{flex:0 0 130px;}
+.type-label{font-size:11px;font-weight:600;color:var(--color-text-disabled);font-family:monospace;}
+.type-px{font-size:11px;color:var(--color-text-secondary);font-family:monospace;}
 
-/* ── 오른쪽 TOC ───────────────────────────── */
-.toc{
-  position:fixed;top:var(--nav-h);right:0;width:var(--toc-w);height:calc(100vh - var(--nav-h));
-  padding:32px 20px;overflow-y:auto;border-left:1px solid var(--bd);
-}
-.toc-title{font-size:10px;font-weight:700;color:var(--td);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
-.toc-item{display:block;font-size:12px;color:var(--ts);padding:5px 0 5px 12px;border-left:2px solid var(--bd);margin-bottom:2px;text-decoration:none;transition:all .12s;line-height:1.4;}
-.toc-item:hover{color:var(--tp);border-left-color:var(--bds);}
-.toc-item.active{color:var(--p);border-left-color:var(--p);font-weight:600;}
-.toc-sub{padding-left:20px;font-size:11px;color:var(--td);}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   COMPONENT STYLES (실제 코드 기준)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* ── 페이지 헤더 ──────────────────────────── */
-.page-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--bd);}
-.page-eyebrow{font-size:11px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
-.page-title{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.2;margin-bottom:12px;}
-.page-desc{font-size:15px;color:var(--ts);line-height:1.7;max-width:600px;}
-.page-meta{display:flex;gap:16px;margin-top:20px;}
-.page-meta-item{font-size:12px;color:var(--td);}
-.page-meta-item strong{color:var(--ts);}
-
-/* ── 섹션 ─────────────────────────────────── */
-.section{margin-bottom:72px;scroll-margin-top:80px;}
-.section-header{margin-bottom:24px;}
-.section-title{font-size:20px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;}
-.section-title .accent{width:4px;height:18px;background:var(--p);border-radius:2px;flex-shrink:0;}
-.section-desc{font-size:13px;color:var(--ts);margin-top:8px;line-height:1.6;max-width:560px;}
-.subsection-label{font-size:10px;font-weight:700;color:var(--td);text-transform:uppercase;letter-spacing:.08em;margin:28px 0 10px;}
-
-/* ── 데모 박스 ────────────────────────────── */
-.demo-wrap{border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:12px;}
-.demo-area{background:var(--bg);padding:28px 24px;border-bottom:1px solid var(--bd);}
-.demo-area.white{background:var(--sf);}
-.demo-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--sf);}
-.demo-toolbar-label{font-size:11px;color:var(--td);font-weight:500;}
-.demo-toolbar-actions{display:flex;gap:6px;}
-.demo-tab{font-size:11px;padding:3px 10px;border-radius:5px;border:1px solid var(--bd);background:none;color:var(--ts);cursor:pointer;font-family:inherit;transition:all .12s;}
-.demo-tab.active{background:var(--p);color:#fff;border-color:var(--p);}
-
-/* ── 코드 블록 ────────────────────────────── */
-.code-block{background:var(--code-bg);border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--code-line);}
-.code-lang{font-size:11px;color:rgba(255,255,255,.3);font-family:monospace;}
-.code-copy{font-size:11px;color:rgba(255,255,255,.35);border:none;background:none;cursor:pointer;padding:2px 8px;border-radius:4px;font-family:inherit;transition:all .12s;}
-.code-copy:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);}
-.code-body{padding:16px 20px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:1.7;color:rgba(255,255,255,.75);white-space:pre;overflow-x:auto;}
-.code-body .kw{color:#FF9F0A;}
-.code-body .ty{color:#64D2FF;}
-.code-body .st{color:#30D158;}
-.code-body .cm{color:rgba(255,255,255,.3);}
-.code-body .nu{color:#FF6B6B;}
-.code-body .at{color:#BF5AF2;}
-
-/* ── Props 테이블 ─────────────────────────── */
-.props-wrap{border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:8px;}
-.props-table{width:100%;border-collapse:collapse;font-size:13px;}
-.props-table thead th{padding:10px 16px;background:var(--bg);font-size:11px;font-weight:700;color:var(--td);text-align:left;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.04em;}
-.props-table tbody td{padding:11px 16px;border-bottom:1px solid var(--bd);color:var(--ts);vertical-align:top;}
-.props-table tbody tr:last-child td{border-bottom:none;}
-.props-table tbody tr:hover td{background:var(--bg);}
-.prop-name{font-family:monospace;font-size:12px;color:var(--p);font-weight:600;}
-.prop-type{font-family:monospace;font-size:11px;color:var(--su);background:var(--sus);padding:1px 7px;border-radius:4px;white-space:nowrap;}
-.prop-default{font-family:monospace;font-size:11px;color:var(--ts);}
-.prop-required{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--das);color:var(--da);font-weight:600;}
-.prop-optional{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--bg);color:var(--td);font-weight:600;}
-
-/* ── 힌트 ─────────────────────────────────── */
-.hint{font-size:12px;color:var(--ts);line-height:1.7;}
-.hint-info{background:var(--ps);border:1px solid rgba(49,130,246,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--ph);line-height:1.6;margin-bottom:12px;}
-.code-token{display:inline-block;font-size:11px;font-family:monospace;padding:1px 6px;background:var(--bg);border:1px solid var(--bd);border-radius:4px;color:var(--ts);}
-
-/* ── 색상 ─────────────────────────────────── */
-.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.color-card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .15s;}
-.color-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px);}
-.color-swatch{height:80px;position:relative;display:flex;align-items:flex-end;padding:8px;}
-.color-copy{opacity:0;font-size:10px;background:rgba(0,0,0,.35);color:#fff;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-family:inherit;transition:opacity .15s;}
-.color-card:hover .color-copy{opacity:1;}
-.color-info{padding:11px 13px;}
-.color-name{font-size:12px;font-weight:600;margin-bottom:2px;}
-.color-hex{font-size:11px;color:var(--ts);font-family:monospace;}
-.color-token{font-size:10px;color:var(--td);margin-top:3px;font-family:monospace;}
-
-/* ── 타이포 ───────────────────────────────── */
-.typo-row{display:flex;align-items:baseline;gap:16px;padding:14px 18px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:6px;}
-.typo-meta{display:flex;flex-direction:column;gap:2px;width:130px;flex-shrink:0;}
-.typo-tag{font-size:11px;font-weight:700;color:var(--ts);font-family:monospace;}
-.typo-detail{font-size:10px;color:var(--td);font-family:monospace;}
-.typo-sample{flex:1;color:var(--tp);}
-
-/* ── 라운드 ───────────────────────────────── */
-.radius-grid{display:flex;gap:10px;flex-wrap:wrap;}
-.radius-card{background:var(--sf);border:1px solid var(--bd);padding:20px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:10px;min-width:110px;}
-.radius-box{width:52px;height:52px;background:var(--ps);border:2px solid var(--p);}
-.radius-name{font-size:11px;font-weight:700;color:var(--ts);font-family:monospace;}
-.radius-px{font-size:10px;color:var(--td);font-family:monospace;}
-.radius-usage{font-size:10px;color:var(--td);text-align:center;line-height:1.4;}
-
-/* ── 간격 ─────────────────────────────────── */
-.spacing-row{display:flex;align-items:center;gap:20px;padding:12px 18px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:6px;}
-.spacing-token{font-size:12px;font-family:monospace;font-weight:600;color:var(--ts);width:160px;flex-shrink:0;}
-.spacing-bar{height:20px;background:var(--ps);border:1.5px solid var(--p);border-radius:3px;}
-.spacing-px{font-size:11px;color:var(--td);font-family:monospace;min-width:32px;}
-.spacing-usage{font-size:11px;color:var(--td);}
-
-/* ── 버튼 컴포넌트 ────────────────────────── */
-@keyframes btn-dot{0%,60%,100%{opacity:.25;transform:scale(.75)}30%{opacity:1;transform:scale(1)}}
-.btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:500;border:none;cursor:pointer;transition:all .15s;line-height:1;white-space:nowrap;}
-.v-primary{background:var(--p);color:#fff;} .v-primary:hover{background:var(--ph);}
-.v-weak{background:var(--ps);color:var(--p);} .v-weak:hover{background:rgba(49,130,246,.1);}
-.v-secondary{background:var(--neutral);color:#fff;} .v-secondary:hover{background:var(--neutralh);}
-.v-ghost{background:transparent;color:var(--ts);border:1px solid var(--bd);} .v-ghost:hover{border-color:var(--bds);}
-.v-danger{background:var(--da);color:#fff;} .v-danger:hover{background:#e04f4f;}
-.s-xs{padding:4px 12px;font-size:12px;border-radius:4px;}
-.s-sm{padding:6px 16px;font-size:13px;border-radius:4px;}
-.s-md{padding:8px 20px;font-size:14px;border-radius:8px;}
-.s-lg{padding:10px 40px;font-size:14px;border-radius:12px;}
+/* ── Button: 4 variants × 3 sizes, border-radius: 2px ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:500;border-radius:2px;border:none;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .btn:disabled{opacity:.4;cursor:not-allowed;}
-.btn-dots{display:flex;align-items:center;gap:6px;}
-.btn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
-.btn-comb{display:inline-flex;align-items:center;gap:8px;}
+.btn-primary{background:#3182F6;color:#fff;}
+.btn-primary:hover:not(:disabled){background:#1B64DA;}
+.btn-secondary{background:#191F28;color:#fff;}
+.btn-secondary:hover:not(:disabled){background:rgba(25,31,40,.85);}
+.btn-ghost{background:transparent;color:#4E5968;border:1px solid #E8EBED;}
+.btn-ghost:hover:not(:disabled){background:#F9FAFB;}
+.btn-ghost:active:not(:disabled){background:#E8EBED;}
+.btn-danger{background:#FF5B5B;color:#fff;}
+.btn-danger:hover:not(:disabled){background:rgba(255,91,91,.85);}
+.btn-sm{padding:6px 16px;font-size:13px;}
+.btn-md{padding:6px 32px;font-size:14px;}
+.btn-lg{padding:10px 40px;font-size:14px;}
 
-/* ── 뱃지 ─────────────────────────────────── */
-/* weak(연한) — 기본 */
-.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500;white-space:nowrap;}
-.b-default{background:var(--bd);color:var(--ts);border:1px solid var(--bd);}
-.b-primary{background:#E1E9FD;color:#5779DB;}
-.b-teal{background:#DFE9EA;color:#548989;}
-.b-green{background:#E2EEE4;color:#4B8C57;}
-.b-danger{background:var(--das);color:var(--da);}
-.b-warning{background:var(--was);color:var(--wa);}
-/* fill(solid) — .fill 클래스 조합 */
-.badge.fill.b-default{background:var(--neutral);color:#fff;border:none;}
-.badge.fill.b-primary{background:var(--p);color:#fff;border:none;}
-.badge.fill.b-teal{background:var(--su);color:#fff;border:none;}
-.badge.fill.b-green{background:#4B8C57;color:#fff;border:none;}
-.badge.fill.b-danger{background:var(--da);color:#fff;border:none;}
-.badge.fill.b-warning{background:var(--wa);color:#fff;border:none;}
+/* ── Badge: 5 variants, no fill, border-radius: 9999px ── */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:12px;font-weight:500;white-space:nowrap;}
+.bdg-default{background:#F9FAFB;color:#4E5968;border:1px solid #E8EBED;}
+.bdg-primary{background:#EBF3FF;color:#3182F6;}
+.bdg-success{background:#E8FAF5;color:#00B493;}
+.bdg-danger{background:#FFF0F0;color:#FF5B5B;border:1px solid rgba(255,91,91,.2);}
+.bdg-warning{background:#FEF3C7;color:#92400E;border:1px solid rgba(180,83,9,.2);}
 
-/* ── 체크박스 ─────────────────────────────── */
-.cb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:4px;background:var(--cb-bg);cursor:pointer;position:relative;vertical-align:middle;flex-shrink:0;}
-.cb:checked{background:var(--p);}
-.cb:checked::after{content:'';position:absolute;top:50%;left:50%;width:5px;height:8px;border:solid white;border-width:0 2px 2px 0;transform:translate(-50%,-62%) rotate(45deg);}
-.cb-label{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ts);cursor:pointer;}
+/* ── Input: border-radius: 2px, placeholder: text-secondary ── */
+.input-wrap{display:flex;align-items:center;gap:12px;}
+.input-label-text{font-size:14px;font-weight:700;color:#191F28;white-space:nowrap;}
+.input-inner{position:relative;}
+.input-field{border:1px solid #E8EBED;border-radius:2px;font-size:14px;font-family:inherit;color:#191F28;background:#fff;padding:6px 12px;outline:none;transition:border .15s;}
+.input-field:focus{border-color:#191F28;}
+.input-field::placeholder{color:#4E5968;}
+.input-field:disabled{background:#F9FAFB;color:#AEB5BC;cursor:not-allowed;}
+.input-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#4E5968;pointer-events:none;display:flex;}
+.input-field.has-icon{padding-left:32px;}
 
-/* ── 인풋 ─────────────────────────────────── */
-.inp{border:1px solid var(--bd);border-radius:8px;font-size:14px;color:var(--tp);background:var(--sf);padding:8px 12px;font-family:inherit;outline:none;transition:border-color .15s;width:200px;}
-.inp:focus{border-color:var(--tp);}
-.inp::placeholder{color:var(--td);}
-.inp:disabled{opacity:.4;cursor:not-allowed;}
-.sel{appearance:none;border:1px solid var(--bd);border-radius:8px;font-size:14px;color:var(--tp);background:var(--sf) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;padding:8px 32px 8px 12px;font-family:inherit;outline:none;width:200px;cursor:pointer;}
-.form-label{font-size:12px;font-weight:600;color:var(--ts);margin-bottom:6px;display:block;}
+/* ── Select: border-radius: 2px ── */
+.select-wrap{position:relative;}
+.select-field{width:100%;appearance:none;border:1px solid #E8EBED;border-radius:2px;font-size:14px;font-family:inherit;color:#191F28;background:#fff;padding:6px 32px 6px 12px;outline:none;cursor:pointer;transition:border .15s;}
+.select-field:focus{border-color:#191F28;}
+.select-arrow{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#4E5968;pointer-events:none;}
 
-/* ── 필터 칩 ──────────────────────────────── */
-.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--bd);background:var(--sf);color:var(--ts);cursor:pointer;transition:all .15s;position:relative;user-select:none;white-space:nowrap;}
-.chip:hover{border-color:var(--bds);}
-.chip.open{background:var(--ps);border-color:var(--p);color:var(--p);}
-.chip-sep{color:var(--td);opacity:.6;}
-.chip.open .chip-sep{opacity:.5;}
-.chip-val{color:var(--p);}
-.chip-arr{font-size:10px;color:var(--td);margin-left:2px;transition:transform .15s;}
-.chip.open .chip-arr{color:var(--p);transform:rotate(180deg);}
-.chip-drop{position:absolute;top:calc(100% + 6px);left:0;background:var(--sf);border:1px solid var(--bd);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.1);padding:6px;min-width:160px;z-index:200;display:none;}
-.chip.open .chip-drop{display:block;}
-.chip-opt{padding:8px 12px;font-size:13px;color:var(--ts);cursor:pointer;border-radius:6px;transition:background .1s;}
-.chip-opt:hover{background:var(--bg);}
-.chip-opt.sel{color:var(--p);font-weight:600;background:var(--ps);}
+/* ── Filter Chip ── */
+.fchip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E8EBED;cursor:pointer;color:#4E5968;}
+.fchip:hover{border-color:#CDD1D5;}
+.fchip.active{border-color:#3182F6;background:#EBF3FF;color:#3182F6;}
+.fchip-x{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#3182F6;color:#fff;font-size:9px;font-weight:700;}
 
-/* ── KPI ──────────────────────────────────── */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
-.kpi-card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px;}
-.kpi-title{font-size:12px;font-weight:500;color:var(--ts);margin-bottom:16px;}
-.kpi-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
-.kpi-value{font-size:22px;font-weight:700;color:var(--tp);line-height:1;letter-spacing:-.02em;}
-.kpi-trend{display:inline-flex;align-items:center;gap:2px;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;}
-.kpi-up{background:var(--sus);color:var(--su);}
-.kpi-down{background:var(--das);color:var(--da);}
+/* ── Input Chip ── */
+.ichip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E8EBED;color:#4E5968;min-width:120px;}
+.ichip.focused{border-color:#3182F6;}
+.ichip input{border:none;outline:none;font-size:13px;font-family:inherit;color:#191F28;background:transparent;width:80px;}
 
-/* ── 테이블 ───────────────────────────────── */
-.tbl-wrap{border:1px solid var(--bd);border-radius:8px;overflow:hidden;background:var(--sf);}
-.ds-tbl{width:100%;border-collapse:collapse;font-size:14px;text-align:center;}
-.ds-tbl thead th{padding:12px;font-size:12px;font-weight:600;color:var(--ts);background:var(--sf);border-bottom:1px solid var(--rh);letter-spacing:.01em;}
-.ds-tbl tbody tr{transition:background .12s;}
-.ds-tbl tbody tr:hover{background:var(--rh);}
-.ds-tbl tbody td{padding:12px;color:var(--ts);font-weight:500;font-size:14px;}
+/* ── Date Range Chip ── */
+.drchip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E8EBED;cursor:pointer;color:#4E5968;}
+.drchip.active{border-color:#3182F6;background:#EBF3FF;color:#3182F6;}
 
-/* ── 페이지네이션 ─────────────────────────── */
-.pgn{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--ts);}
-.pgn-left{display:flex;align-items:center;gap:8px;}
-.rpp-sel{appearance:none;background:var(--sf) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 8px center;border:1px solid var(--bd);border-radius:6px;padding:4px 26px 4px 10px;font-size:13px;color:var(--tp);font-family:inherit;outline:none;cursor:pointer;}
-.pgn-btns{display:flex;align-items:center;gap:2px;}
-.pg-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:none;background:none;font-size:13px;color:var(--ts);cursor:pointer;font-family:inherit;transition:background .12s;}
-.pg-btn:hover{background:var(--bg);}
-.pg-btn.cur{background:#F0F1F3;color:var(--tp);font-weight:600;}
-.pg-btn:disabled{opacity:.35;cursor:not-allowed;}
+/* ── KPI Card: border-radius: 8px, value: font-bold ── */
+.kpi{background:#fff;border:1px solid #E8EBED;border-radius:8px;padding:16px;display:flex;flex-direction:column;min-width:150px;}
+.kpi-title{font-size:13px;font-weight:500;color:#4E5968;margin-bottom:8px;}
+.kpi-bottom{display:flex;align-items:flex-end;justify-content:space-between;}
+.kpi-value{font-size:22px;font-weight:700;color:#191F28;}
+.kpi-trend{display:flex;align-items:center;gap:2px;font-size:12px;font-weight:500;padding:2px 6px;border-radius:2px;}
+.kpi-up{color:#00B493;background:#E8FAF5;}
+.kpi-down{color:#FF5B5B;background:#FFF0F0;}
 
-/* ── 칸반 ─────────────────────────────────── */
-.kanban-wrap{display:flex;gap:10px;overflow-x:auto;}
-.k-col{width:244px;background:#F0F2F5;border-radius:10px;padding:12px 8px;flex-shrink:0;}
-.k-head{display:flex;align-items:center;gap:7px;padding:4px 8px 10px;}
-.k-head h3{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;}
-.k-head .cnt{font-size:11px;color:var(--td);}
-.t-card{background:#fff;padding:14px;border-radius:8px;border:1px solid var(--bd);cursor:grab;margin-bottom:8px;transition:box-shadow .15s;}
-.t-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
-.t-card:last-child{margin-bottom:0;}
-.t-name{font-size:14px;font-weight:600;color:var(--tp);}
-.t-phone{font-size:12px;color:var(--td);margin-top:3px;}
-.t-dates{display:flex;flex-direction:column;gap:3px;margin-top:12px;font-size:12px;}
-.t-drow{display:flex;justify-content:space-between;color:var(--ts);}
-.t-dlabel{color:var(--td);}
-.t-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:11px;border-top:1px solid #F3F4F6;}
-.tag-종합{background:#FFE4E6;color:#9F1239;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
-.tag-보험{background:#FEF3C7;color:#92400E;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
-.tag-보장{background:#D1FAE5;color:#065F46;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
-.t-calls{font-size:12px;font-weight:500;color:var(--ts);}
+/* ── Summary Stats ── */
+.stats{display:flex;align-items:center;gap:16px;font-size:14px;}
+.stats-item{color:#4E5968;}
+.stats-item strong{color:#191F28;font-weight:600;}
+.stats-sep{width:1px;height:12px;background:#CDD1D5;}
 
-/* ── 상태 버튼 ────────────────────────────── */
-.s-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .15s;}
-.s-계약예정{background:var(--ps);color:var(--p);}
-.s-상담중{background:var(--p);color:#fff;}
-.s-상담종료{background:var(--bg);color:var(--ts);border:1px solid var(--bd);}
+/* ── Approval Actions ── */
+.approve-btn{padding:4px 12px;font-size:12px;font-weight:500;border-radius:6px;border:none;cursor:pointer;font-family:inherit;}
+.approve-ok{background:#EBF3FF;color:#3182F6;}
+.approve-ng{background:#FFF0F0;color:#FF5B5B;}
 
-/* ── 레이아웃 패턴 ────────────────────────── */
-.layout-demo{border:1px solid var(--bd);border-radius:12px;overflow:hidden;height:360px;display:flex;font-size:12px;}
-.ld-sb{width:175px;background:#F9FAFB;border-right:1px solid var(--bd);padding:14px 0;flex-shrink:0;overflow:hidden;}
-.ld-sb-logo{padding:0 14px 14px;border-bottom:1px solid var(--bd);margin-bottom:10px;}
-.ld-sb-mark{width:26px;height:26px;background:var(--p);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;margin-bottom:6px;}
-.ld-sb-name{font-size:12px;font-weight:700;color:var(--tp);}
-.ld-sb-sub{font-size:10px;color:var(--td);}
-.ld-sb-group{margin-bottom:8px;}
-.ld-sb-lbl{font-size:9px;font-weight:700;color:var(--td);text-transform:uppercase;letter-spacing:.07em;padding:0 14px 4px;}
-.ld-sb-item{padding:6px 14px;font-size:11px;color:var(--ts);border-left:2px solid transparent;}
-.ld-sb-item.active{background:var(--ps);color:var(--p);font-weight:600;border-left-color:var(--p);}
-.ld-body{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.ld-topbar{height:48px;background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
-.ld-topbar .tit{font-size:13px;font-weight:700;color:var(--tp);}
-.ld-topbar .right{display:flex;align-items:center;gap:8px;}
-.ld-topbar .tm{font-size:10px;color:var(--ts);}
-.ld-topbar .av{width:26px;height:26px;border-radius:50%;background:var(--ps);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--p);font-weight:700;}
-.ld-content{flex:1;padding:16px 18px;overflow:hidden;}
-.ld-ptitle{font-size:14px;font-weight:700;color:var(--tp);margin-bottom:10px;}
-.ld-filter{display:flex;gap:6px;margin-bottom:12px;}
-.ld-chip-s{padding:4px 10px;font-size:10px;border:1px solid var(--bd);border-radius:4px;background:var(--sf);color:var(--ts);}
-.ld-trow{display:flex;border-bottom:1px solid var(--rh);}
-.ld-trow.hd{font-size:9px;font-weight:700;color:var(--td);}
-.ld-trow .cell{flex:1;padding:6px 8px;font-size:10px;color:var(--ts);text-align:center;}
-.ld-footer{height:38px;background:var(--sf);border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:flex-end;padding:0 18px;font-size:10px;color:var(--td);flex-shrink:0;gap:12px;}
+/* ── Pagination: justify-end, "N to N of N" format ── */
+.pg{display:flex;align-items:center;justify-content:flex-end;gap:0;font-size:13px;color:#4E5968;}
+.pg-navbtn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;border:none;background:transparent;cursor:pointer;color:#4E5968;}
+.pg-navbtn:hover:not(:disabled){background:#F9FAFB;}
+.pg-navbtn:disabled{opacity:.35;cursor:not-allowed;}
+.pg-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:2px;font-size:13px;cursor:pointer;color:#4E5968;border:none;background:transparent;}
+.pg-num.active{background:#F0F1F3;color:#191F28;font-weight:600;}
+.pg-sep{color:#CDD1D5;padding:0 16px;font-size:12px;}
+.pg-range{padding-right:16px;white-space:nowrap;}
+.pg-range strong{color:#191F28;font-weight:600;}
+.pg-pagesize{display:flex;align-items:center;gap:6px;padding-right:16px;}
+.pg-select{appearance:none;border:1px solid #E8EBED;border-radius:2px;font-size:13px;padding:3px 20px 3px 8px;background:#fff;cursor:pointer;color:#191F28;}
+
+/* ── Data Table: border-t only, even행 bg-bg, hover:primary-subtle ── */
+.dt-wrap{border-top:1px solid #E8EBED;}
+.dt{width:100%;font-size:14px;border-collapse:collapse;text-align:center;}
+.dt thead th{padding:14px 12px;font-weight:700;font-size:13px;color:#191F28;background:#F9FAFB;border-bottom:1px solid #E8EBED;position:sticky;top:0;z-index:1;}
+.dt tbody tr:nth-child(even){background:#F9FAFB;}
+.dt tbody tr:hover{background:#EBF3FF!important;}
+.dt tbody td{padding:14px 12px;color:#191F28;}
+
+/* ── Page Header ── */
+.pg-header{padding:20px 24px;border-bottom:1px solid #E8EBED;background:#fff;display:flex;align-items:center;justify-content:space-between;}
+.pg-header-left{display:flex;align-items:flex-end;gap:16px;}
+.pg-header-title{font-size:19px;font-weight:700;color:#191F28;letter-spacing:-.01em;}
+.pg-header-subtitle{font-size:14px;color:#4E5968;margin-bottom:1px;}
+
+/* ── Filter Box ── */
+.filter-box{border:1px solid #E8EBED;border-radius:6px;padding:16px 20px;background:#fff;}
+.filter-box-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+
+/* ── Token table ── */
+.tktable{width:100%;border-collapse:collapse;font-size:13px;}
+.tktable th{text-align:left;font-size:11px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.05em;padding:0 12px 8px;border-bottom:1px solid var(--color-border);}
+.tktable td{padding:9px 12px;border-bottom:1px solid var(--color-border);vertical-align:middle;}
+.tktable tr:last-child td{border-bottom:none;}
+
+/* ── 주석 박스 ── */
+.note{font-size:12px;color:#AEB5BC;line-height:1.8;margin-top:8px;}
 </style>
 </head>
 <body>
 
-<!-- ── 탑바 ──────────────────────────────── -->
-<header class="topbar">
-  <div class="topbar-logo">
-    <div class="mark">B</div>
-    <span class="wordmark">보닥 플래너</span>
-    <span class="version">v1.0</span>
-  </div>
+<div class="topbar">
+  <div class="logo-mark">B</div>
+  <div class="logo-name">보닥 플래너</div>
+  <span class="logo-ver">v3</span>
   <nav class="topbar-nav">
-    <a class="active">디자인 시스템</a>
-    <a>컴포넌트</a>
-    <a>토큰</a>
-    <a>패턴</a>
-    <a>가이드</a>
+    <a href="#colors">컬러</a>
+    <a href="#typography">타이포</a>
+    <a href="#comp-button" class="active">컴포넌트</a>
+    <a href="#token-ref">토큰</a>
   </nav>
-  <div class="topbar-right">
-    <a class="topbar-github">↗ GitHub</a>
-  </div>
-</header>
+</div>
 
 <div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-label">Foundation</div>
+  <a class="sidebar-link" href="#colors">컬러 시스템</a>
+  <a class="sidebar-link" href="#typography">타이포그래피</a>
+  <a class="sidebar-link" href="#border-radius">라운드 · 테두리</a>
 
-<!-- ── 왼쪽 사이드바 ───────────────────── -->
-<nav class="sidebar">
-  <div class="sb-section">
-    <div class="sb-label">Foundations</div>
-    <a class="sb-item active" href="#colors"><span class="sb-dot"></span>Color Tokens</a>
-    <a class="sb-item" href="#typography"><span class="sb-dot"></span>Typography</a>
-    <a class="sb-item" href="#radius"><span class="sb-dot"></span>Border Radius</a>
-    <a class="sb-item" href="#spacing"><span class="sb-dot"></span>Spacing</a>
-  </div>
-  <div class="sb-section">
-    <div class="sb-label">Components</div>
-    <a class="sb-item" href="#button"><span class="sb-dot"></span>Button<span class="sb-badge">5 variant</span></a>
-    <a class="sb-item" href="#badge"><span class="sb-dot"></span>Badge<span class="sb-badge">6 variant</span></a>
-    <a class="sb-item" href="#checkbox"><span class="sb-dot"></span>Checkbox</a>
-    <a class="sb-item" href="#input"><span class="sb-dot"></span>Input / Select</a>
-    <a class="sb-item" href="#chip"><span class="sb-dot"></span>Filter Chip</a>
-    <a class="sb-item" href="#kpi"><span class="sb-dot"></span>KPI Card</a>
-    <a class="sb-item" href="#table"><span class="sb-dot"></span>DataTable</a>
-    <a class="sb-item" href="#pagination"><span class="sb-dot"></span>Pagination</a>
-    <a class="sb-item" href="#kanban"><span class="sb-dot"></span>Task Card</a>
-    <a class="sb-item" href="#status"><span class="sb-dot"></span>Status Dropdown</a>
-  </div>
-  <div class="sb-section">
-    <div class="sb-label">Patterns</div>
-    <a class="sb-item" href="#layout"><span class="sb-dot"></span>Page Layout</a>
-  </div>
-</nav>
+  <div class="sidebar-label">UI Components</div>
+  <a class="sidebar-link active" href="#comp-button">Button</a>
+  <a class="sidebar-link" href="#comp-badge">Badge</a>
+  <a class="sidebar-link" href="#comp-input">Input</a>
+  <a class="sidebar-link" href="#comp-select">Select Field</a>
+  <a class="sidebar-link" href="#comp-filter-chip">Filter Chip</a>
+  <a class="sidebar-link" href="#comp-input-chip">Input Chip</a>
+  <a class="sidebar-link" href="#comp-date-range">Date Range Chip</a>
+  <a class="sidebar-link" href="#comp-kpi">KPI Card</a>
+  <a class="sidebar-link" href="#comp-stats">Summary Stats</a>
+  <a class="sidebar-link" href="#comp-approval">Approval Actions</a>
+  <a class="sidebar-link" href="#comp-pagination">Pagination</a>
+  <a class="sidebar-link" href="#comp-table">Data Table</a>
 
-<!-- ── 메인 콘텐츠 ──────────────────────── -->
-<main class="main">
+  <div class="sidebar-label">Layout Components</div>
+  <a class="sidebar-link" href="#comp-page-header">Page Header</a>
+  <a class="sidebar-link" href="#comp-filter-box">Filter Box</a>
 
-  <div class="page-header">
-    <div class="page-eyebrow">Design System</div>
-    <h1 class="page-title">보닥 플래너 UI 라이브러리</h1>
-    <p class="page-desc">보험 설계사 관리 시스템의 컴포넌트, 토큰, 패턴을 한 눈에 확인하세요. 화이트레이블 브랜드 시스템 기반으로 설계되었습니다.</p>
-    <div class="page-meta">
-      <span class="page-meta-item">기준일 <strong>2026.04.23</strong></span>
-      <span class="page-meta-item">스택 <strong>React 19 · Tailwind 4 · Vite 6</strong></span>
-      <span class="page-meta-item">컴포넌트 <strong>12개</strong></span>
-    </div>
-  </div>
-
-  <!-- ①  Color Tokens -->
-  <section class="section" id="colors">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Color Tokens</div>
-      <p class="section-desc">CSS 변수 기반 시맨틱 컬러 시스템. <code style="font-family:monospace;font-size:12px">applyBrand()</code>로 전체 브랜드 컬러를 런타임에 교체할 수 있습니다.</p>
-    </div>
-
-    <div class="code-block" style="margin-bottom:20px">
-      <div class="code-header"><span class="code-lang">tokens.css</span><button class="code-copy" onclick="copyCode(this)">복사</button></div>
-      <div class="code-body"><span class="kw">:root</span> {
-  <span class="at">--brand-primary</span>: <span class="st">#3182F6</span>;
-  <span class="at">--brand-secondary</span>: <span class="st">#0ED1A0</span>;
-  <span class="at">--brand-success</span>: <span class="st">#00B493</span>;
-  <span class="at">--brand-danger</span>: <span class="st">#FF5B5B</span>;
-  <span class="cm">/* Tailwind @theme 으로 노출 → bg-primary, text-danger 사용 가능 */</span>
-}</div>
-    </div>
-
-    <div class="subsection-label">Brand</div>
-    <div class="color-grid">
-      <div class="color-card" onclick="copyHex(this,'#3182F6')"><div class="color-swatch" style="background:#3182F6"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Primary</div><div class="color-hex">#3182F6</div><div class="color-token">bg-primary · --primary</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#1B64DA')"><div class="color-swatch" style="background:#1B64DA"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Primary Hover</div><div class="color-hex">#1B64DA</div><div class="color-token">hover:bg-primary-hover</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#0ED1A0')"><div class="color-swatch" style="background:#0ED1A0"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Secondary</div><div class="color-hex">#0ED1A0</div><div class="color-token">bg-secondary</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#00B493')"><div class="color-swatch" style="background:#00B493"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Success</div><div class="color-hex">#00B493</div><div class="color-token">bg-success</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#FF5B5B')"><div class="color-swatch" style="background:#FF5B5B"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Danger</div><div class="color-hex">#FF5B5B</div><div class="color-token">bg-danger</div></div></div>
-    </div>
-
-    <div class="subsection-label">Semantic Surface</div>
-    <div class="color-grid">
-      <div class="color-card" onclick="copyHex(this,'#F3F3F5')"><div class="color-swatch" style="background:#F3F3F5;border-bottom:1px solid #E8EBED"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">App BG</div><div class="color-hex">#F3F3F5</div><div class="color-token">bg-bg</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#FFFFFF')"><div class="color-swatch" style="background:#FFFFFF;border-bottom:1px solid #E8EBED"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Surface</div><div class="color-hex">#FFFFFF</div><div class="color-token">bg-surface</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#E8EBED')"><div class="color-swatch" style="background:#E8EBED"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Border</div><div class="color-hex">#E8EBED</div><div class="color-token">border-border</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#CDD1D5')"><div class="color-swatch" style="background:#CDD1D5"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Border Strong</div><div class="color-hex">#CDD1D5</div><div class="color-token">border-border-strong</div></div></div>
-    </div>
-
-    <div class="subsection-label">Text</div>
-    <div class="color-grid">
-      <div class="color-card" onclick="copyHex(this,'#191F28')"><div class="color-swatch" style="background:#191F28"><button class="color-copy" style="color:rgba(255,255,255,.7)">복사</button></div><div class="color-info"><div class="color-name">Text Primary</div><div class="color-hex">#191F28</div><div class="color-token">text-text-primary</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#4E5968')"><div class="color-swatch" style="background:#4E5968"><button class="color-copy" style="color:rgba(255,255,255,.7)">복사</button></div><div class="color-info"><div class="color-name">Text Secondary</div><div class="color-hex">#4E5968</div><div class="color-token">text-text-secondary</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#AEB5BC')"><div class="color-swatch" style="background:#AEB5BC"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Text Disabled</div><div class="color-hex">#AEB5BC</div><div class="color-token">text-text-disabled</div></div></div>
-    </div>
-
-    <div class="subsection-label">Tint (Subtle)</div>
-    <div class="color-grid">
-      <div class="color-card" onclick="copyHex(this,'#EBF3FF')"><div class="color-swatch" style="background:#EBF3FF"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Primary Subtle</div><div class="color-hex">#EBF3FF</div><div class="color-token">bg-primary-subtle</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#E8FAF5')"><div class="color-swatch" style="background:#E8FAF5"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Success Subtle</div><div class="color-hex">#E8FAF5</div><div class="color-token">bg-success-subtle</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#FFF0F0')"><div class="color-swatch" style="background:#FFF0F0"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Danger Subtle</div><div class="color-hex">#FFF0F0</div><div class="color-token">bg-danger-subtle</div></div></div>
-      <div class="color-card" onclick="copyHex(this,'#FFFBEB')"><div class="color-swatch" style="background:#FFFBEB"><button class="color-copy">복사</button></div><div class="color-info"><div class="color-name">Warning Subtle</div><div class="color-hex">#FFFBEB</div><div class="color-token">bg-amber-50 (임시)</div></div></div>
-    </div>
-  </section>
-
-  <!-- ② Typography -->
-  <section class="section" id="typography">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Typography</div>
-      <p class="section-desc">폰트: <strong>Pretendard</strong> · 기본 line-height 1.5 · 6단계 스케일</p>
-    </div>
-
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">xl</span><span class="typo-detail">22px / semibold / KPI 수치</span></div><span class="typo-sample" style="font-size:22px;font-weight:600">1,284건</span></div>
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">lg</span><span class="typo-detail">19px / bold / 페이지 제목</span></div><span class="typo-sample" style="font-size:19px;font-weight:700">상담 진행 고객</span></div>
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">md</span><span class="typo-detail">16px / bold / 섹션 제목</span></div><span class="typo-sample" style="font-size:16px;font-weight:700">배정 현황 요약</span></div>
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">base</span><span class="typo-detail">14px / regular·medium / 본문</span></div><span class="typo-sample" style="font-size:14px">본문 텍스트 · 버튼 md/lg · 테이블 셀 · 인풋</span></div>
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">sm</span><span class="typo-detail">13px / regular·semibold / 보조</span></div><span class="typo-sample" style="font-size:13px;color:#4E5968">테이블 헤더 · 버튼 sm · 필터 칩 · 페이지네이션</span></div>
-    <div class="typo-row"><div class="typo-meta"><span class="typo-tag">xs</span><span class="typo-detail">11px / regular·bold / 캡션</span></div><span class="typo-sample" style="font-size:11px;color:#AEB5BC">캡션 · 트렌드 뱃지 · 네비 레이블 · 토큰 표시</span></div>
-  </section>
-
-  <!-- ③ Border Radius -->
-  <section class="section" id="radius">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Border Radius</div>
-      <p class="section-desc">컴포넌트 종류에 따라 일관된 라운드 값을 사용합니다.</p>
-    </div>
-    <div class="radius-grid">
-      <div class="radius-card"><div class="radius-box" style="border-radius:0"></div><div class="radius-name">none</div><div class="radius-px">0px</div><div class="radius-usage">구분선</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:4px"></div><div class="radius-name">rounded-sm</div><div class="radius-px">4px</div><div class="radius-usage">버튼 · 인풋 · 칩</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:6px"></div><div class="radius-name">rounded-md-</div><div class="radius-px">6px</div><div class="radius-usage">페이지네이션 버튼 · 상태 드롭다운</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:8px"></div><div class="radius-name">rounded-md</div><div class="radius-px">8px</div><div class="radius-usage">칸반 카드 · 열 · 드롭다운</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:10px"></div><div class="radius-name">rounded-lg-</div><div class="radius-px">10px</div><div class="radius-usage">테이블 · KPI 카드</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:12px"></div><div class="radius-name">rounded-lg</div><div class="radius-px">12px</div><div class="radius-usage">데모 박스 · 모달</div></div>
-      <div class="radius-card"><div class="radius-box" style="border-radius:9999px"></div><div class="radius-name">rounded-full</div><div class="radius-px">9999px</div><div class="radius-usage">뱃지 · 아바타</div></div>
-    </div>
-  </section>
-
-  <!-- ④ Spacing -->
-  <section class="section" id="spacing">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Spacing</div>
-      <p class="section-desc">페이지 레이아웃과 컴포넌트 내부에서 사용하는 공통 간격 규칙입니다.</p>
-    </div>
-    <div class="spacing-row"><span class="spacing-token">--spacing-page-x</span><div class="spacing-bar" style="width:96px"></div><span class="spacing-px">24px</span><span class="spacing-usage">페이지 좌우 여백</span></div>
-    <div class="spacing-row"><span class="spacing-token">--spacing-page-y</span><div class="spacing-bar" style="width:80px"></div><span class="spacing-px">20px</span><span class="spacing-usage">페이지 상하 여백</span></div>
-    <div class="spacing-row"><span class="spacing-token">--spacing-section</span><div class="spacing-bar" style="width:96px"></div><span class="spacing-px">24px</span><span class="spacing-usage">섹션 간 여백</span></div>
-    <div class="spacing-row"><span class="spacing-token">gap-chip</span><div class="spacing-bar" style="width:40px"></div><span class="spacing-px">10px</span><span class="spacing-usage">필터 칩 행 간격</span></div>
-    <div class="spacing-row"><span class="spacing-token">gap-kpi</span><div class="spacing-bar" style="width:48px"></div><span class="spacing-px">12px</span><span class="spacing-usage">KPI 카드 그리드 갭</span></div>
-  </section>
-
-  <!-- ⑤ Button -->
-  <section class="section" id="button">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Button</div>
-      <p class="section-desc">4가지 variant × 4가지 size 조합. radius는 size별 차등 적용 — XS/SM <code style="font-family:monospace;font-size:12px">4px</code> · MD <code style="font-family:monospace;font-size:12px">8px</code> · LG <code style="font-family:monospace;font-size:12px">12px</code></p>
-    </div>
-
-    <div class="subsection-label">Variant</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <button class="btn v-primary s-md">Primary</button>
-        <button class="btn v-weak s-md">Weak</button>
-        <button class="btn v-secondary s-md">Secondary</button>
-        <button class="btn v-ghost s-md">Ghost</button>
-        <button class="btn v-danger s-md">Danger</button>
-        <button class="btn v-primary s-md" disabled>Disabled</button>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">button.tsx — variant prop</span></div>
-    </div>
-
-    <div class="code-block">
-      <div class="code-header"><span class="code-lang">tsx</span><button class="code-copy" onclick="copyCode(this)">복사</button></div>
-      <div class="code-body"><span class="kw">import</span> { <span class="ty">Button</span> } <span class="kw">from</span> <span class="st">'@/components/ui/button'</span>;
-
-<span class="cm">// variant: 'primary' | 'secondary' | 'ghost' | 'danger'</span>
-<span class="cm">// size:    'xs' | 'sm' | 'md' | 'lg'</span>
-&lt;<span class="ty">Button</span> <span class="at">variant</span>=<span class="st">"primary"</span> <span class="at">size</span>=<span class="st">"md"</span>&gt;등록&lt;/<span class="ty">Button</span>&gt;
-&lt;<span class="ty">Button</span> <span class="at">variant</span>=<span class="st">"ghost"</span> <span class="at">size</span>=<span class="st">"sm"</span>&gt;취소&lt;/<span class="ty">Button</span>&gt;</div>
-    </div>
-
-    <div class="subsection-label">Size</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <button class="btn v-primary s-xs">XS</button>
-        <button class="btn v-primary s-sm">SM</button>
-        <button class="btn v-primary s-md">MD</button>
-        <button class="btn v-primary s-lg">LG</button>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">XS 12px / SM 13px / MD 14px / LG 14px</span></div>
-    </div>
-
-    <div class="subsection-label">Loading</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <button class="btn v-primary s-md" disabled aria-busy="true">
-          <span class="btn-dots">
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.2s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.4s infinite"></span>
-          </span>
-        </button>
-        <button class="btn v-secondary s-md" disabled aria-busy="true">
-          <span class="btn-dots">
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.2s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.4s infinite"></span>
-          </span>
-        </button>
-        <button class="btn v-ghost s-md" disabled aria-busy="true">
-          <span class="btn-dots">
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.2s infinite"></span>
-            <span class="btn-dot" style="animation:btn-dot 1.2s ease-in-out 0.4s infinite"></span>
-          </span>
-        </button>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">isLoading=true — 3-dot 순차 애니메이션, 클릭 비활성화, aria-busy</span></div>
-    </div>
-
-    <div class="subsection-label">Combination</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;flex-direction:column;gap:20px;">
-        <div>
-          <div style="font-size:11px;color:var(--td);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">단독 수정 버튼</div>
-          <div class="btn-comb">
-            <button class="btn v-secondary s-md">수정</button>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:var(--td);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">취소 + 확인 (2버튼)</div>
-          <div class="btn-comb">
-            <button class="btn v-ghost s-md">취소</button>
-            <button class="btn v-primary s-md">확인</button>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:var(--td);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">삭제 + 저장 (위험 조합)</div>
-          <div class="btn-comb">
-            <button class="btn v-danger s-md">삭제</button>
-            <button class="btn v-secondary s-md">저장</button>
-          </div>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">버튼 조합 패턴 — 항상 취소·보조 좌측, 확인·주요 우측</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Required</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">variant</span></td><td><span class="prop-type">'primary'|'weak'|'secondary'|'ghost'|'danger'</span></td><td><span class="prop-default">'primary'</span></td><td><span class="prop-optional">optional</span></td><td>버튼 스타일 variant</td></tr>
-          <tr><td><span class="prop-name">size</span></td><td><span class="prop-type">'xs'|'sm'|'md'|'lg'</span></td><td><span class="prop-default">'md'</span></td><td><span class="prop-optional">optional</span></td><td>버튼 크기</td></tr>
-          <tr><td><span class="prop-name">isLoading</span></td><td><span class="prop-type">boolean</span></td><td><span class="prop-default">false</span></td><td><span class="prop-optional">optional</span></td><td>로딩 중 (3-dot 표시, 클릭 비활성)</td></tr>
-          <tr><td><span class="prop-name">disabled</span></td><td><span class="prop-type">boolean</span></td><td><span class="prop-default">false</span></td><td><span class="prop-optional">optional</span></td><td>비활성화 (opacity 0.4)</td></tr>
-          <tr><td><span class="prop-name">children</span></td><td><span class="prop-type">ReactNode</span></td><td>—</td><td><span class="prop-required">required</span></td><td>버튼 내용</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="hint">
-      <strong>사용 가이드:</strong> 등록·저장·확인 = <span class="code-token">primary</span> · 필터·검색 도구 = <span class="code-token">weak</span> · 수정·재배정 = <span class="code-token">secondary</span> · 닫기·취소 = <span class="code-token">ghost</span> · 해촉·삭제 = <span class="code-token">danger</span>
-    </p>
-  </section>
-
-  <!-- ⑥ Badge -->
-  <section class="section" id="badge">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Badge</div>
-      <p class="section-desc">Toss TDS 기반. <code style="font-family:monospace;font-size:12px">weak</code>(연한 배경) / <code style="font-family:monospace;font-size:12px">fill</code>(solid) · rounded-full · 12px</p>
-    </div>
-
-    <div class="subsection-label">Weak (기본)</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <span class="badge b-default">대기</span>
-        <span class="badge b-primary">종합진단</span>
-        <span class="badge b-teal">보험료점검</span>
-        <span class="badge b-green">정상</span>
-        <span class="badge b-danger">해촉</span>
-        <span class="badge b-warning">일시제한</span>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">variant — default/primary/teal/green/danger/warning</span></div>
-    </div>
-
-    <div class="subsection-label">Fill</div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <span class="badge fill b-default">대기</span>
-        <span class="badge fill b-primary">종합진단</span>
-        <span class="badge fill b-teal">보험료점검</span>
-        <span class="badge fill b-green">정상</span>
-        <span class="badge fill b-danger">해촉</span>
-        <span class="badge fill b-warning">일시제한</span>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">fill prop — solid 배경, 흰 텍스트</span></div>
-    </div>
-
-    <div class="code-block">
-      <div class="code-header"><span class="code-lang">tsx</span><button class="code-copy" onclick="copyCode(this)">복사</button></div>
-      <div class="code-body"><span class="kw">import</span> { <span class="ty">Badge</span> } <span class="kw">from</span> <span class="st">'@/components/ui/badge'</span>;
-
-<span class="cm">// variant: 'default' | 'primary' | 'teal' | 'green' | 'danger' | 'warning'</span>
-<span class="cm">// fill?: boolean — true = solid 배경, false(기본) = weak 연한 배경</span>
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"primary"</span>&gt;종합진단&lt;/<span class="ty">Badge</span>&gt;
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"teal"</span>&gt;보험료점검&lt;/<span class="ty">Badge</span>&gt;
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"danger"</span>&gt;해촉&lt;/<span class="ty">Badge</span>&gt;
-&lt;<span class="ty">Badge</span> <span class="at">variant</span>=<span class="st">"green"</span> <span class="at">fill</span>&gt;정상&lt;/<span class="ty">Badge</span>&gt;</div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Required</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">variant</span></td><td><span class="prop-type">'default'|'primary'|'success'|'danger'|'warning'</span></td><td><span class="prop-default">'default'</span></td><td><span class="prop-optional">optional</span></td><td>뱃지 색상 variant</td></tr>
-          <tr><td><span class="prop-name">children</span></td><td><span class="prop-type">ReactNode</span></td><td>—</td><td><span class="prop-required">required</span></td><td>뱃지 텍스트</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="hint-info">⚠ <strong>warning</strong> variant는 토큰 미정의 — 현재 Tailwind 기본 색상(<span class="code-token">bg-amber-50 text-amber-700</span>) 임시 사용 중</div>
-  </section>
-
-  <!-- ⑦ Checkbox -->
-  <section class="section" id="checkbox">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Checkbox</div>
-      <p class="section-desc">테두리 없는 면 배경 방식. 미선택 <span class="code-token">#E8EBED</span> → 선택 <span class="code-token">primary</span>.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:28px;align-items:center">
-        <label class="cb-label"><input type="checkbox" class="cb"/> 미선택</label>
-        <label class="cb-label"><input type="checkbox" class="cb" checked/> 선택</label>
-        <label class="cb-label"><input type="checkbox" class="cb" disabled/> 비활성</label>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">네이티브 input [type=checkbox] 커스텀 스타일</span></div>
-    </div>
-  </section>
-
-  <!-- ⑧ Input / Select -->
-  <section class="section" id="input">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Input / Select</div>
-      <p class="section-desc">border-radius 4px · 기본 테두리 <span class="code-token">#E8EBED</span> → focus 시 <span class="code-token">#191F28</span>으로 전환.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:24px;flex-wrap:wrap">
-        <div>
-          <label class="form-label">이름</label>
-          <input class="inp" placeholder="검색어 입력"/>
-        </div>
-        <div>
-          <label class="form-label">소속</label>
-          <select class="sel"><option>전체</option><option>본사</option><option>사업단 1</option></select>
-        </div>
-        <div>
-          <label class="form-label">비활성</label>
-          <input class="inp" placeholder="비활성" disabled/>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">input.tsx / select-field.tsx</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">label</span></td><td><span class="prop-type">string</span></td><td>좌측 라벨 텍스트 (inline 방식)</td></tr>
-          <tr><td><span class="prop-name">prefixIcon</span></td><td><span class="prop-type">ReactNode</span></td><td>입력 필드 좌측 아이콘</td></tr>
-          <tr><td><span class="prop-name">wrapperClassName</span></td><td><span class="prop-type">string</span></td><td>래퍼 div 클래스 추가</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑨ Filter Chip -->
-  <section class="section" id="chip">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Filter Chip</div>
-      <p class="section-desc">목록 상단 필터 행에서 사용. 드롭다운 선택, 다중 선택, 날짜 범위 선택 3가지 모드를 지원합니다.</p>
-    </div>
-
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap;position:relative">
-        <div class="chip" onclick="toggleChip(this)">담당설계사 <span class="chip-sep">·</span><span class="chip-val">전체</span><span class="chip-arr">▼</span>
-          <div class="chip-drop">
-            <div class="chip-opt sel" onclick="pickOpt(event,this)">전체</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">김지은</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">이민혁</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">박지훈</div>
-          </div>
-        </div>
-        <div class="chip" onclick="toggleChip(this)">지역 <span class="chip-sep">·</span><span class="chip-val">서울</span><span class="chip-arr">▼</span>
-          <div class="chip-drop">
-            <div class="chip-opt" onclick="pickOpt(event,this)">전체</div>
-            <div class="chip-opt sel" onclick="pickOpt(event,this)">서울</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">경기</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">부산</div>
-          </div>
-        </div>
-        <div class="chip" onclick="toggleChip(this)">상태 <span class="chip-sep">·</span><span class="chip-val">전체</span><span class="chip-arr">▼</span>
-          <div class="chip-drop">
-            <div class="chip-opt sel" onclick="pickOpt(event,this)">전체</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">진행중</div>
-            <div class="chip-opt" onclick="pickOpt(event,this)">완료</div>
-          </div>
-        </div>
-        <div class="chip">기간 <span class="chip-sep">·</span><span class="chip-val">03.14 ~ 04.23</span><span class="chip-arr">▼</span></div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">filter-chip.tsx — 클릭하면 드롭다운이 열립니다</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">label</span></td><td><span class="prop-type">string</span></td><td>—</td><td>칩에 표시되는 필터 이름</td></tr>
-          <tr><td><span class="prop-name">options</span></td><td><span class="prop-type">&#123;value,label&#125;[]</span></td><td>—</td><td>드롭다운 선택 목록</td></tr>
-          <tr><td><span class="prop-name">multiple</span></td><td><span class="prop-type">boolean</span></td><td><span class="prop-default">false</span></td><td>다중 선택 모드</td></tr>
-          <tr><td><span class="prop-name">searchable</span></td><td><span class="prop-type">boolean</span></td><td><span class="prop-default">false</span></td><td>드롭다운 내 검색창 활성화</td></tr>
-          <tr><td><span class="prop-name">columns</span></td><td><span class="prop-type">number</span></td><td><span class="prop-default">1</span></td><td>드롭다운 그리드 열 수</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑩ KPI Card -->
-  <section class="section" id="kpi">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>KPI Card</div>
-      <p class="section-desc">대시보드 상단 수치 요약 카드. 제목 · 수치 · 트렌드 뱃지(선택)로 구성.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area">
-        <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-title">전체 배정 DB</div><div class="kpi-bottom"><span class="kpi-value">1,284</span><span class="kpi-trend kpi-up">↑ +12%</span></div></div>
-          <div class="kpi-card"><div class="kpi-title">배정 완료</div><div class="kpi-bottom"><span class="kpi-value">847</span><span class="kpi-trend kpi-up">↑ +8%</span></div></div>
-          <div class="kpi-card"><div class="kpi-title">미배정</div><div class="kpi-bottom"><span class="kpi-value">437</span><span class="kpi-trend kpi-down">↓ -3%</span></div></div>
-          <div class="kpi-card"><div class="kpi-title">이번 달 계약</div><div class="kpi-bottom"><span class="kpi-value">92</span></div></div>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">kpi-card.tsx</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">title</span></td><td><span class="prop-type">string</span></td><td>카드 제목 (13px / text-secondary)</td></tr>
-          <tr><td><span class="prop-name">value</span></td><td><span class="prop-type">string</span></td><td>수치 (22px / semibold)</td></tr>
-          <tr><td><span class="prop-name">trend</span></td><td><span class="prop-type">string</span></td><td>트렌드 문자열 (예: "+12%")</td></tr>
-          <tr><td><span class="prop-name">isPositive</span></td><td><span class="prop-type">boolean</span></td><td>true → success / false → danger 색상</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑪ DataTable -->
-  <section class="section" id="table">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>DataTable</div>
-      <p class="section-desc">전체 흰 배경 · 줄무늬 없음 · 행 hover <span class="code-token">#F3F4F6</span> · 헤더 하단선 얇게.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area white" style="padding:0">
-        <div class="tbl-wrap" style="border-radius:0;border:none">
-          <table class="ds-tbl">
-            <thead>
-              <tr>
-                <th style="width:44px"><input type="checkbox" class="cb"/></th>
-                <th style="width:52px">No.</th><th>이름</th><th>아이디</th><th>소속</th>
-                <th style="width:130px">승인상태</th><th style="width:90px">활동상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td><input type="checkbox" class="cb"/></td><td>3</td><td>이민혁</td><td>kris</td><td>본사 › 사업단 1</td><td>2026.02.01</td><td>정상</td></tr>
-              <tr><td><input type="checkbox" class="cb" checked/></td><td>2</td><td>김지은</td><td>jieun</td><td>본사 › 사업단 1 › 지점 1</td><td>2026.01.15</td><td>정상</td></tr>
-              <tr><td><input type="checkbox" class="cb"/></td><td>1</td><td>박지훈</td><td>jihoon</td><td>본사 › 사업단 1 › 지점 1 › 팀 1</td><td>대기</td><td>대기</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">data-table.tsx — DataTable / DataTableHead / DataTableBody / DataTableRow / DataTableCell</span></div>
-    </div>
-  </section>
-
-  <!-- ⑫ Pagination -->
-  <section class="section" id="pagination">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Pagination</div>
-      <p class="section-desc">좌측 Rows per page 셀렉터 + 우측 범위 표시 + 페이지 번호 버튼. 최대 10개 페이지 버튼.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area white">
-        <div class="pgn">
-          <div class="pgn-left">
-            <span>Rows per page</span>
-            <select class="rpp-sel" id="rpp" onchange="rppChange(this)">
-              <option value="5">5</option><option value="10">10</option>
-              <option value="20">20</option><option value="50">50</option>
-            </select>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px">
-            <span id="pg-range">1 - 5 of 12</span>
-            <div class="pgn-btns" id="pg-btns"></div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">pagination.tsx — 클릭으로 페이지 이동 가능</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">currentPage</span></td><td><span class="prop-type">number</span></td><td><span class="prop-default">1</span></td><td>현재 페이지</td></tr>
-          <tr><td><span class="prop-name">totalPages</span></td><td><span class="prop-type">number</span></td><td><span class="prop-default">3</span></td><td>전체 페이지 수 (최대 10 버튼)</td></tr>
-          <tr><td><span class="prop-name">rowsPerPage</span></td><td><span class="prop-type">number</span></td><td><span class="prop-default">5</span></td><td>페이지당 행 수 (5·10·20·50)</td></tr>
-          <tr><td><span class="prop-name">totalItems</span></td><td><span class="prop-type">number</span></td><td><span class="prop-default">12</span></td><td>전체 항목 수</td></tr>
-          <tr><td><span class="prop-name">onPageChange</span></td><td><span class="prop-type">(page: number) =&gt; void</span></td><td>—</td><td>페이지 변경 콜백</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑬ Task Card -->
-  <section class="section" id="kanban">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Task Card (Kanban)</div>
-      <p class="section-desc">칸반 보드의 고객 카드. 드래그앤드롭 지원 · 이름 클릭 시 고객 상세 새 탭.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="overflow-x:auto">
-        <div class="kanban-wrap">
-          <div class="k-col"><div class="k-head"><h3>통화 전</h3><span class="cnt">1</span></div>
-            <div class="t-card"><div class="t-name">홍길동 (42세 / 남 / 서울)</div><div class="t-phone">010-1234-5678</div>
-              <div class="t-dates"><div class="t-drow"><span class="t-dlabel">배정일</span><span>2026.04.20</span></div><div class="t-drow"><span class="t-dlabel">최초통화</span><span>—</span></div><div class="t-drow"><span class="t-dlabel">최근통화</span><span>—</span></div></div>
-              <div class="t-footer"><span class="tag-종합">종합진단</span><span class="t-calls">0회 통화</span></div>
-            </div>
-          </div>
-          <div class="k-col"><div class="k-head"><h3>부재중</h3><span class="cnt">1</span></div>
-            <div class="t-card"><div class="t-name">이수진 (35세 / 여 / 경기)</div><div class="t-phone">010-9876-5432</div>
-              <div class="t-dates"><div class="t-drow"><span class="t-dlabel">배정일</span><span>2026.04.18</span></div><div class="t-drow"><span class="t-dlabel">최초통화</span><span>2026.04.19</span></div><div class="t-drow"><span class="t-dlabel">최근통화</span><span>2026.04.21</span></div></div>
-              <div class="t-footer"><span class="tag-보험">보험료점검</span><span class="t-calls">2회 통화</span></div>
-            </div>
-          </div>
-          <div class="k-col"><div class="k-head"><h3>통화성공</h3><span class="cnt">1</span></div>
-            <div class="t-card"><div class="t-name">김민준 (28세 / 남 / 부산)</div><div class="t-phone">010-5555-1234</div>
-              <div class="t-dates"><div class="t-drow"><span class="t-dlabel">배정일</span><span>2026.04.10</span></div><div class="t-drow"><span class="t-dlabel">최초통화</span><span>2026.04.11</span></div><div class="t-drow"><span class="t-dlabel">최근통화</span><span>2026.04.22</span></div></div>
-              <div class="t-footer"><span class="tag-보장">보장확대</span><span class="t-calls">4회 통화</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">task-card.tsx — 태그 3종: 종합진단 / 보험료점검 / 보장확대</span></div>
-    </div>
-
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>Task 필드</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">name</span></td><td><span class="prop-type">string</span></td><td>이름 (클릭 시 상세 새 탭)</td></tr>
-          <tr><td><span class="prop-name">tag</span></td><td><span class="prop-type">'종합진단'|'보험료점검'|'보장확대'</span></td><td>고객 상담 유형</td></tr>
-          <tr><td><span class="prop-name">callCount</span></td><td><span class="prop-type">number</span></td><td>통화 횟수</td></tr>
-          <tr><td><span class="prop-name">isCancelled</span></td><td><span class="prop-type">boolean</span></td><td>true 시 카드에 취소 오버레이 표시</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑭ Status Dropdown -->
-  <section class="section" id="status">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Status Dropdown</div>
-      <p class="section-desc">고객 상세 사이드바에서 사용하는 3단계 상담 상태 버튼. 상태별 색상 단계가 명확히 구분됩니다.</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area" style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="s-btn s-계약예정">계약예정 ▼</button>
-        <button class="s-btn s-상담중">상담중 ▼</button>
-        <button class="s-btn s-상담종료">상담종료 ▼</button>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">status-dropdown.tsx — 3단계 상태 (단계 진행 방향: 계약예정 → 상담중 → 상담종료)</span></div>
-    </div>
-    <div class="props-wrap">
-      <table class="props-table">
-        <thead><tr><th>상태값</th><th>배경</th><th>텍스트</th><th>스타일</th></tr></thead>
-        <tbody>
-          <tr><td><span class="prop-name">계약예정</span></td><td><span class="prop-type">#EBF3FF (primary-subtle)</span></td><td><span class="prop-type">#3182F6 (primary)</span></td><td>연파랑 subtle</td></tr>
-          <tr><td><span class="prop-name">상담중</span></td><td><span class="prop-type">#3182F6 (primary solid)</span></td><td><span class="prop-type">#FFFFFF</span></td><td>진파랑 반전</td></tr>
-          <tr><td><span class="prop-name">상담종료</span></td><td><span class="prop-type">#F3F3F5 (bg)</span></td><td><span class="prop-type">#4E5968 (secondary)</span></td><td>회색 ghost</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ⑮ Page Layout -->
-  <section class="section" id="layout">
-    <div class="section-header">
-      <div class="section-title"><span class="accent"></span>Page Layout</div>
-      <p class="section-desc">사이드바(220px) + 탑바(52px) + 콘텐츠 + 푸터 구조. 사이드바는 접기/펼치기 지원(w-16 ↔ 220px).</p>
-    </div>
-    <div class="demo-wrap">
-      <div class="demo-area white" style="padding:0">
-        <div class="layout-demo">
-          <div class="ld-sb">
-            <div class="ld-sb-logo"><div class="ld-sb-mark">B</div><div class="ld-sb-name">보닥 플래너</div><div class="ld-sb-sub">for 흥국화재</div></div>
-            <div class="ld-sb-group"><div class="ld-sb-lbl">배정 고객 관리</div><div class="ld-sb-item">미배정 DB</div><div class="ld-sb-item active">상담 진행</div><div class="ld-sb-item">상담 종료</div><div class="ld-sb-item">계약 예정</div></div>
-            <div class="ld-sb-group"><div class="ld-sb-lbl">DB 배정 관리</div><div class="ld-sb-item">배정 현황</div><div class="ld-sb-item">배정 상세</div></div>
-          </div>
-          <div class="ld-body">
-            <div class="ld-topbar"><span class="tit">상담 진행 고객</span><div class="right"><span class="tm">14:23:05</span><div class="av">K</div></div></div>
-            <div class="ld-content">
-              <div class="ld-ptitle">상담 진행 고객</div>
-              <div class="ld-filter"><span class="ld-chip-s">담당설계사 · 전체 ▼</span><span class="ld-chip-s">지역 · 전체 ▼</span><span class="ld-chip-s">기간 ▼</span></div>
-              <div class="ld-trow hd"><div class="cell">No.</div><div class="cell">이름</div><div class="cell">지역</div><div class="cell">상태</div><div class="cell">배정일</div></div>
-              <div class="ld-trow"><div class="cell">3</div><div class="cell">홍길동</div><div class="cell">서울</div><div class="cell">진행중</div><div class="cell">04.20</div></div>
-              <div class="ld-trow"><div class="cell">2</div><div class="cell">이수진</div><div class="cell">경기</div><div class="cell">완료</div><div class="cell">04.18</div></div>
-              <div class="ld-trow"><div class="cell">1</div><div class="cell">박지훈</div><div class="cell">부산</div><div class="cell">대기</div><div class="cell">04.10</div></div>
-            </div>
-            <div class="ld-footer"><span>Rows per page 5</span><span>1 - 5 of 12</span><span>‹ 1 2 3 ›</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-toolbar"><span class="demo-toolbar-label">Sidebar 220px · TopBar 52px · Footer · 콘텐츠 flex-grow</span></div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ── 오른쪽 TOC ─────────────────────────── -->
-<aside class="toc">
-  <div class="toc-title">이 페이지에서</div>
-  <a class="toc-item active" href="#colors">Color Tokens</a>
-  <a class="toc-item" href="#typography">Typography</a>
-  <a class="toc-item" href="#radius">Border Radius</a>
-  <a class="toc-item" href="#spacing">Spacing</a>
-  <a class="toc-item" href="#button">Button</a>
-  <a class="toc-item" href="#badge">Badge</a>
-  <a class="toc-item" href="#checkbox">Checkbox</a>
-  <a class="toc-item" href="#input">Input / Select</a>
-  <a class="toc-item" href="#chip">Filter Chip</a>
-  <a class="toc-item" href="#kpi">KPI Card</a>
-  <a class="toc-item" href="#table">DataTable</a>
-  <a class="toc-item" href="#pagination">Pagination</a>
-  <a class="toc-item" href="#kanban">Task Card</a>
-  <a class="toc-item" href="#status">Status Dropdown</a>
-  <a class="toc-item" href="#layout">Page Layout</a>
+  <div class="sidebar-label">Reference</div>
+  <a class="sidebar-link" href="#token-ref">전체 토큰</a>
 </aside>
 
-</div><!-- .layout -->
+<main class="main">
 
-<script>
-/* ── 사이드바 + TOC 스크롤 연동 ─────── */
-const sIds=['colors','typography','radius','spacing','button','badge','checkbox','input','chip','kpi','table','pagination','kanban','status','layout'];
-window.addEventListener('scroll',()=>{
-  let cur=sIds[0];
-  sIds.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)cur=id;});
-  document.querySelectorAll('.sb-item').forEach(n=>n.classList.toggle('active',n.getAttribute('href')==='#'+cur));
-  document.querySelectorAll('.toc-item').forEach(n=>n.classList.toggle('active',n.getAttribute('href')==='#'+cur));
-},{passive:true});
+<!-- ══════════════════════ COLORS -->
+<section class="section" id="colors">
+  <div class="section-header">
+    <div class="section-title">컬러 시스템</div>
+    <div class="section-desc">활성 토큰 17개. Brand → Semantic → Background → Text → Border → Tint.</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Brand / Semantic Action</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#3182F6;"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-token">--color-primary</div><div class="swatch-hex">#3182F6</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1B64DA;"></div><div class="swatch-info"><div class="swatch-name">Primary Hover</div><div class="swatch-token">--color-primary-hover</div><div class="swatch-hex">#1B64DA</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#00B493;"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-token">--color-success</div><div class="swatch-hex">#00B493</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FF5B5B;"></div><div class="swatch-info"><div class="swatch-name">Danger</div><div class="swatch-token">--color-danger</div><div class="swatch-hex">#FF5B5B</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#B45309;"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-token">--color-warning</div><div class="swatch-hex">#B45309</div></div></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Background / Text / Border</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#F9FAFB;border-bottom:1px solid #E8EBED;"></div><div class="swatch-info"><div class="swatch-name">bg</div><div class="swatch-token">--color-bg</div><div class="swatch-hex">#F9FAFB</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#fff;border-bottom:1px solid #E8EBED;"></div><div class="swatch-info"><div class="swatch-name">surface</div><div class="swatch-token">--color-surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#191F28;"></div><div class="swatch-info"><div class="swatch-name">text-primary</div><div class="swatch-token">--color-text-primary</div><div class="swatch-hex">#191F28</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4E5968;"></div><div class="swatch-info"><div class="swatch-name">text-secondary</div><div class="swatch-token">--color-text-secondary</div><div class="swatch-hex">#4E5968</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#AEB5BC;"></div><div class="swatch-info"><div class="swatch-name">text-disabled</div><div class="swatch-token">--color-text-disabled</div><div class="swatch-hex">#AEB5BC</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8EBED;"></div><div class="swatch-info"><div class="swatch-name">border</div><div class="swatch-token">--color-border</div><div class="swatch-hex">#E8EBED</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#CDD1D5;"></div><div class="swatch-info"><div class="swatch-name">border-subtle</div><div class="swatch-token">--color-border-subtle</div><div class="swatch-hex">#CDD1D5</div></div></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Subtle Tint</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#EBF3FF;"></div><div class="swatch-info"><div class="swatch-name">primary-subtle</div><div class="swatch-token">--color-primary-subtle</div><div class="swatch-hex">#EBF3FF</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8FAF5;"></div><div class="swatch-info"><div class="swatch-name">success-subtle</div><div class="swatch-token">--color-success-subtle</div><div class="swatch-hex">#E8FAF5</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FFF0F0;"></div><div class="swatch-info"><div class="swatch-name">danger-subtle</div><div class="swatch-token">--color-danger-subtle</div><div class="swatch-hex">#FFF0F0</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FFFBEB;"></div><div class="swatch-info"><div class="swatch-name">warning-subtle</div><div class="swatch-token">--color-warning-subtle</div><div class="swatch-hex">#FFFBEB</div></div></div>
+    </div>
+  </div>
+</section>
 
-/* ── 필터 칩 ─────────────────────────── */
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.chip'))document.querySelectorAll('.chip.open').forEach(c=>c.classList.remove('open'));
-});
-function toggleChip(el){
-  const was=el.classList.contains('open');
-  document.querySelectorAll('.chip.open').forEach(c=>c.classList.remove('open'));
-  if(!was)el.classList.add('open');
-}
-function pickOpt(e,el){
-  e.stopPropagation();
-  const chip=el.closest('.chip');
-  el.closest('.chip-drop').querySelectorAll('.chip-opt').forEach(o=>o.classList.remove('sel'));
-  el.classList.add('sel');
-  chip.querySelector('.chip-val').textContent=el.textContent;
-  chip.classList.remove('open');
-}
+<!-- ══════════════════════ TYPOGRAPHY -->
+<section class="section" id="typography">
+  <div class="section-header">
+    <div class="section-title">타이포그래피</div>
+    <div class="section-desc">Pretendard. font-size-xs(11px) ~ xl(22px) 6단계.</div>
+  </div>
+  <div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-xl</div><div class="type-px">22px · 700</div></div><span style="font-size:22px;font-weight:700;letter-spacing:-.02em;">페이지 제목</span></div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-lg</div><div class="type-px">19px · 700</div></div><span style="font-size:19px;font-weight:700;letter-spacing:-.01em;">섹션 헤딩 — PageHeader title</span></div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-md</div><div class="type-px">16px · 600</div></div><span style="font-size:16px;font-weight:600;">서브 헤딩</span></div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-base</div><div class="type-px">14px · 400</div></div><span style="font-size:14px;">본문 기본. 테이블 셀, 레이블, 폼 입력값. DataTableCell.</span></div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-sm</div><div class="type-px">13px · 400</div></div><span style="font-size:13px;color:#4E5968;">보조 텍스트. 버튼 sm, 페이지네이션, DataTableHeadCell.</span></div>
+    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-xs</div><div class="type-px">11px · 700</div></div><span style="font-size:11px;color:#AEB5BC;letter-spacing:.06em;font-weight:700;text-transform:uppercase;">LABEL · CAPTION · SECTION TAG</span></div>
+  </div>
+</section>
 
-/* ── 페이지네이션 ─────────────────────── */
-(function(){
-  let cur=1,total=3,rpp=5,items=12;
-  function render(){
-    const s=items===0?0:(cur-1)*rpp+1,e=Math.min(cur*rpp,items);
-    document.getElementById('pg-range').textContent=s+' - '+e+' of '+items;
-    const btns=document.getElementById('pg-btns');btns.innerHTML='';
-    const prev=document.createElement('button');prev.className='pg-btn';prev.textContent='‹';prev.disabled=cur===1;prev.onclick=()=>{if(cur>1){cur--;render();}};btns.appendChild(prev);
-    for(let i=1;i<=total;i++){const b=document.createElement('button');b.className='pg-btn'+(i===cur?' cur':'');b.textContent=i;b.onclick=(n=>()=>{cur=n;render();})(i);btns.appendChild(b);}
-    const next=document.createElement('button');next.className='pg-btn';next.textContent='›';next.disabled=cur===total;next.onclick=()=>{if(cur<total){cur++;render();}};btns.appendChild(next);
-  }
-  window.rppChange=function(sel){rpp=+sel.value;cur=1;render();};
-  render();
-})();
+<!-- ══════════════════════ BORDER / RADIUS -->
+<section class="section" id="border-radius">
+  <div class="section-header">
+    <div class="section-title">라운드 · 테두리</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Border Radius</div>
+    <div class="row" style="align-items:flex-start;gap:20px;">
+      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:2px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-sm</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">2px</div><div style="font-size:10px;color:#AEB5BC;">버튼·인풋·셀렉트</div></div>
+      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:4px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">4px</div><div style="font-size:10px;color:#AEB5BC;">뱃지·소형 UI</div></div>
+      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:6px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-md</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">6px</div><div style="font-size:10px;color:#AEB5BC;">칩·필터박스</div></div>
+      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:8px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-lg</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">8px</div><div style="font-size:10px;color:#AEB5BC;">KPI 카드·칸반</div></div>
+      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:12px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-xl</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">12px</div><div style="font-size:10px;color:#AEB5BC;">모달</div></div>
+    </div>
+  </div>
+</section>
 
-/* ── 클립보드 ─────────────────────────── */
-function copyHex(card,hex){
-  navigator.clipboard?.writeText(hex).then(()=>{
-    const btn=card.querySelector('.color-copy');
-    const orig=btn.textContent;btn.textContent='✓ 복사됨';
-    setTimeout(()=>{btn.textContent=orig;},1500);
-  });
-}
-function copyCode(btn){
-  const code=btn.closest('.code-block').querySelector('.code-body').textContent;
-  navigator.clipboard?.writeText(code).then(()=>{
-    const orig=btn.textContent;btn.textContent='✓ 완료';
-    setTimeout(()=>{btn.textContent=orig;},1500);
-  });
-}
-</script>
+<!-- ══════════════════════ BUTTON -->
+<section class="section" id="comp-button">
+  <div class="section-header">
+    <div class="section-title">Button</div>
+    <div class="section-desc">4 variants × 3 sizes. rounded-sm(2px). disabled: opacity-40.</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Variants (md 기준)</div>
+    <div class="preview">
+      <div class="row">
+        <button class="btn btn-primary btn-md">primary</button>
+        <button class="btn btn-secondary btn-md">secondary</button>
+        <button class="btn btn-ghost btn-md">ghost</button>
+        <button class="btn btn-danger btn-md">danger</button>
+      </div>
+      <div class="note">
+        primary: bg-primary → hover:bg-primary-hover<br>
+        secondary: bg-text-primary(#191F28) → hover:opacity-85<br>
+        ghost: border-border → hover:bg-bg, active:bg-border<br>
+        danger: bg-danger → hover:opacity-85
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Sizes</div>
+    <div class="preview"><div class="preview-label">sm — 13px · py-1.5 px-4</div><div class="row"><button class="btn btn-primary btn-sm">primary</button><button class="btn btn-secondary btn-sm">secondary</button><button class="btn btn-ghost btn-sm">ghost</button><button class="btn btn-danger btn-sm">danger</button></div></div>
+    <div class="preview"><div class="preview-label">md — 14px · py-1.5 px-8 (기본값)</div><div class="row"><button class="btn btn-primary btn-md">primary</button><button class="btn btn-secondary btn-md">secondary</button><button class="btn btn-ghost btn-md">ghost</button><button class="btn btn-danger btn-md">danger</button></div></div>
+    <div class="preview"><div class="preview-label">lg — 14px · py-2.5 px-10</div><div class="row"><button class="btn btn-primary btn-lg">primary</button><button class="btn btn-secondary btn-lg">secondary</button><button class="btn btn-ghost btn-lg">ghost</button><button class="btn btn-danger btn-lg">danger</button></div></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Disabled</div>
+    <div class="row"><button class="btn btn-primary btn-md" disabled>primary</button><button class="btn btn-secondary btn-md" disabled>secondary</button><button class="btn btn-ghost btn-md" disabled>ghost</button><button class="btn btn-danger btn-md" disabled>danger</button></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">조합 규칙</div>
+    <div class="preview">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">취소 + 확인</span><button class="btn btn-ghost btn-sm">취소</button><button class="btn btn-primary btn-sm">확인</button></div>
+        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">삭제 + 저장</span><button class="btn btn-danger btn-sm">삭제</button><button class="btn btn-secondary btn-sm">저장</button></div>
+        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">단독 수정</span><button class="btn btn-secondary btn-sm">수정</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ BADGE -->
+<section class="section" id="comp-badge">
+  <div class="section-header">
+    <div class="section-title">Badge</div>
+    <div class="section-desc">5 variants. rounded-full. fill 없음.</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">Variants</div>
+    <div class="row">
+      <span class="badge bdg-default">default</span>
+      <span class="badge bdg-primary">primary</span>
+      <span class="badge bdg-success">success</span>
+      <span class="badge bdg-danger">danger</span>
+      <span class="badge bdg-warning">warning</span>
+    </div>
+    <div class="note">
+      default: bg-bg · text-text-secondary · border-border<br>
+      primary: bg-primary-subtle · text-primary<br>
+      success: bg-success-subtle · text-success<br>
+      danger: bg-danger-subtle · text-danger · border-danger/20<br>
+      warning: bg-amber-50 · text-amber-700 (TODO: 토큰 미정의)
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">실사용 예시</div>
+    <div class="preview">
+      <div class="row">
+        <span class="badge bdg-primary">배정 완료</span>
+        <span class="badge bdg-warning">상담 예정</span>
+        <span class="badge bdg-success">계약 완료</span>
+        <span class="badge bdg-danger">상담 종료</span>
+        <span class="badge bdg-default">미배정</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ INPUT -->
+<section class="section" id="comp-input">
+  <div class="section-header">
+    <div class="section-title">Input</div>
+    <div class="section-desc">rounded-sm(2px). placeholder: text-text-secondary. focus: border-text-primary.</div>
+  </div>
+  <div class="col" style="max-width:400px;">
+    <div class="input-inner"><input class="input-field" placeholder="기본 인풋" style="width:280px;"/></div>
+    <div class="input-wrap"><span class="input-label-text">이름</span><div class="input-inner"><input class="input-field" placeholder="이름 입력" style="width:220px;"/></div></div>
+    <div class="input-inner"><span class="input-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input class="input-field has-icon" placeholder="검색" style="width:280px;"/></div>
+    <div class="input-inner"><input class="input-field" placeholder="비활성" disabled style="width:280px;"/></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SELECT -->
+<section class="section" id="comp-select">
+  <div class="section-header">
+    <div class="section-title">Select Field</div>
+    <div class="section-desc">rounded-sm(2px). 커스텀 화살표 포함. 레이블 옵션.</div>
+  </div>
+  <div class="col" style="max-width:360px;">
+    <div class="select-wrap" style="width:200px;"><select class="select-field"><option>전체</option><option>배정 완료</option><option>미배정</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+    <div class="input-wrap"><span class="input-label-text">담당자</span><div class="select-wrap" style="width:200px;"><select class="select-field"><option>전체</option><option>김철수</option><option>이영희</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FILTER CHIP -->
+<section class="section" id="comp-filter-chip">
+  <div class="section-header">
+    <div class="section-title">Filter Chip</div>
+    <div class="section-desc">단일/다중 선택, 드롭다운 내 검색. 선택 시 border-primary + bg-primary-subtle.</div>
+  </div>
+  <div class="row">
+    <button class="fchip">담당자 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <button class="fchip active">배정 완료 <span class="fchip-x">✕</span></button>
+    <button class="fchip active">03.27~04.26 <span class="fchip-x">✕</span></button>
+    <button class="fchip">보험사 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+  </div>
+</section>
+
+<!-- ══════════════════════ INPUT CHIP -->
+<section class="section" id="comp-input-chip">
+  <div class="section-header">
+    <div class="section-title">Input Chip</div>
+    <div class="section-desc">칩 안에서 직접 입력. 자동완성 드롭다운. focus: border-primary.</div>
+  </div>
+  <div class="row">
+    <div class="ichip"><span style="font-size:12px;color:#AEB5BC;">고객명</span><input placeholder="입력"/></div>
+    <div class="ichip focused"><span style="font-size:12px;color:#3182F6;font-weight:500;">고객명</span><input value="김철수"/></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DATE RANGE CHIP -->
+<section class="section" id="comp-date-range">
+  <div class="section-header">
+    <div class="section-title">Date Range Chip</div>
+    <div class="section-desc">프리셋 + 듀얼 캘린더 팝업. 선택 시 active 스타일.</div>
+  </div>
+  <div class="row">
+    <button class="drchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>날짜 선택<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <button class="drchip active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>03.27 ~ 04.26<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+  </div>
+</section>
+
+<!-- ══════════════════════ KPI CARD -->
+<section class="section" id="comp-kpi">
+  <div class="section-header">
+    <div class="section-title">KPI Card</div>
+    <div class="section-desc">rounded-lg(8px). value: font-bold. trend: success-subtle / danger-subtle.</div>
+  </div>
+  <div class="row" style="align-items:stretch;">
+    <div class="kpi" style="flex:1;"><div class="kpi-title">총 배정 DB</div><div class="kpi-bottom"><span class="kpi-value">1,284</span></div></div>
+    <div class="kpi" style="flex:1;"><div class="kpi-title">이번 달 신규</div><div class="kpi-bottom"><span class="kpi-value">342</span><span class="kpi-trend kpi-up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>+12.4%</span></div></div>
+    <div class="kpi" style="flex:1;"><div class="kpi-title">미배정</div><div class="kpi-bottom"><span class="kpi-value">87</span><span class="kpi-trend kpi-down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="7" x2="17" y2="17"/><polyline points="17 7 17 17 7 17"/></svg>-3.1%</span></div></div>
+    <div class="kpi" style="flex:1;"><div class="kpi-title">계약 전환율</div><div class="kpi-bottom"><span class="kpi-value">24.7%</span><span class="kpi-trend kpi-up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>+2.1%</span></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SUMMARY STATS -->
+<section class="section" id="comp-stats">
+  <div class="section-header">
+    <div class="section-title">Summary Stats</div>
+    <div class="section-desc">세로 구분선(bg-border-subtle) 자동 삽입. 값: font-semibold, text-text-primary.</div>
+  </div>
+  <div class="preview">
+    <div class="stats">
+      <div class="stats-item">전체 <strong>1,284건</strong></div>
+      <div class="stats-sep"></div>
+      <div class="stats-item">배정 완료 <strong>1,197건</strong></div>
+      <div class="stats-sep"></div>
+      <div class="stats-item">미배정 <strong>87건</strong></div>
+      <div class="stats-sep"></div>
+      <div class="stats-item">이번 달 신규 <strong>342건</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ APPROVAL ACTIONS -->
+<section class="section" id="comp-approval">
+  <div class="section-header">
+    <div class="section-title">Approval Actions</div>
+    <div class="section-desc">테이블 행 인라인 승인/거절 버튼 쌍. primary-subtle / danger-subtle.</div>
+  </div>
+  <div class="preview">
+    <div class="row"><button class="approve-btn approve-ok">승인</button><button class="approve-btn approve-ng">거절</button></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ PAGINATION -->
+<section class="section" id="comp-pagination">
+  <div class="section-header">
+    <div class="section-title">Pagination</div>
+    <div class="section-desc">justify-end 우측 정렬. 포맷: "N to N of N". showPageSize prop으로 셀렉터 토글.</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">showPageSize=false (기본)</div>
+    <div class="preview">
+      <div class="pg">
+        <span class="pg-range"><strong>1</strong> to 10 of 284</span>
+        <span class="pg-sep">|</span>
+        <button class="pg-navbtn" disabled>&#171;</button>
+        <button class="pg-navbtn" disabled>&#8249;</button>
+        <button class="pg-num active">1</button>
+        <button class="pg-num">2</button>
+        <button class="pg-num">3</button>
+        <button class="pg-num" style="color:#AEB5BC;">···</button>
+        <button class="pg-num">10</button>
+        <button class="pg-navbtn">&#8250;</button>
+        <button class="pg-navbtn">&#187;</button>
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">showPageSize=true</div>
+    <div class="preview">
+      <div class="pg">
+        <div class="pg-pagesize"><span style="font-size:12px;color:#AEB5BC;">Page Size:</span><select class="pg-select"><option>10</option><option>20</option><option>50</option></select></div>
+        <span class="pg-sep">|</span>
+        <span class="pg-range"><strong>1</strong> to 10 of 284</span>
+        <span class="pg-sep">|</span>
+        <button class="pg-navbtn" disabled>&#171;</button>
+        <button class="pg-navbtn" disabled>&#8249;</button>
+        <button class="pg-num active">1</button>
+        <button class="pg-num">2</button>
+        <button class="pg-num">3</button>
+        <button class="pg-num" style="color:#AEB5BC;">···</button>
+        <button class="pg-num">10</button>
+        <button class="pg-navbtn">&#8250;</button>
+        <button class="pg-navbtn">&#187;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DATA TABLE -->
+<section class="section" id="comp-table">
+  <div class="section-header">
+    <div class="section-title">Data Table</div>
+    <div class="section-desc">border-t only (라운드 없음). even행 bg-bg. hover: bg-primary-subtle. HeadCell: bg-bg, font-bold.</div>
+  </div>
+  <div class="dt-wrap">
+    <table class="dt">
+      <thead><tr><th>고객명</th><th>담당자</th><th>상태</th><th>배정일</th><th>승인</th></tr></thead>
+      <tbody>
+        <tr><td>홍길동</td><td>김철수</td><td><span class="badge bdg-primary">배정 완료</span></td><td>2025.04.01</td><td><div style="display:flex;gap:4px;justify-content:center;"><button class="approve-btn approve-ok">승인</button><button class="approve-btn approve-ng">거절</button></div></td></tr>
+        <tr><td>이순신</td><td>이영희</td><td><span class="badge bdg-warning">상담 예정</span></td><td>2025.04.02</td><td><div style="display:flex;gap:4px;justify-content:center;"><button class="approve-btn approve-ok">승인</button><button class="approve-btn approve-ng">거절</button></div></td></tr>
+        <tr><td>강감찬</td><td>박민준</td><td><span class="badge bdg-success">계약 완료</span></td><td>2025.04.03</td><td>—</td></tr>
+        <tr><td>유관순</td><td>최지은</td><td><span class="badge bdg-danger">상담 종료</span></td><td>2025.04.04</td><td>—</td></tr>
+        <tr><td>세종대왕</td><td>—</td><td><span class="badge bdg-default">미배정</span></td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-top:8px;">
+    DataTable: border-t border-border · DataTableHead: sticky top-0 z-10<br>
+    DataTableHeadCell: bg-bg · font-bold · text-text-primary · border-b border-border<br>
+    DataTableBody: [&gt;tr:nth-child(even)]:bg-bg · DataTableRow: hover:bg-primary-subtle<br>
+    DataTableCell: py-3.5 px-3 · text-text-primary
+  </div>
+</section>
+
+<!-- ══════════════════════ PAGE HEADER (신규) -->
+<section class="section" id="comp-page-header">
+  <div class="section-header">
+    <div class="section-title">Page Header</div>
+    <div class="section-desc">페이지 상단 고정 영역. title + subtitle(선택) + actions 슬롯(우측). border-b border-border.</div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">title + subtitle + actions</div>
+    <div class="pg-header" style="border-radius:8px;border:1px solid #E8EBED;">
+      <div class="pg-header-left"><span class="pg-header-title">설계사 관리</span><span class="pg-header-subtitle">총 284명</span></div>
+      <div class="row" style="margin:0;"><button class="btn btn-ghost btn-sm">내보내기</button><button class="btn btn-primary btn-sm">설계사 추가</button></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-title">title only</div>
+    <div class="pg-header" style="border-radius:8px;border:1px solid #E8EBED;">
+      <div class="pg-header-left"><span class="pg-header-title">DB 현황</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FILTER BOX (신규) -->
+<section class="section" id="comp-filter-box">
+  <div class="section-header">
+    <div class="section-title">Filter Box</div>
+    <div class="section-desc">검색/필터 컨테이너. border rounded-md. 검색·초기화 버튼 슬롯(우측 끝).</div>
+  </div>
+  <div class="filter-box">
+    <div class="filter-box-row">
+      <div class="input-wrap"><span class="input-label-text">기간</span><button class="drchip active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>03.27 ~ 04.26</button></div>
+      <div class="input-wrap"><span class="input-label-text">담당자</span><div class="select-wrap" style="width:160px;"><select class="select-field"><option>전체</option><option>김철수</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
+      <div class="input-wrap"><span class="input-label-text">상태</span><div class="select-wrap" style="width:140px;"><select class="select-field"><option>전체</option><option>배정 완료</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
+      <div style="margin-left:auto;display:flex;gap:8px;"><button class="btn btn-ghost btn-sm">초기화</button><button class="btn btn-primary btn-sm">검색</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TOKEN REF -->
+<section class="section" id="token-ref">
+  <div class="section-header">
+    <div class="section-title">전체 토큰 참조표</div>
+    <div class="section-desc">활성 토큰 19개 (tokens.css + index.css @theme).</div>
+  </div>
+  <table class="tktable">
+    <thead><tr><th>토큰</th><th>값</th><th>카테고리</th><th>Figma 명칭</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip">--brand-primary-hover</span></td><td><span class="dot" style="background:#1B64DA;"></span>#1B64DA</td><td>Brand</td><td>—</td></tr>
+      <tr><td><span class="chip">--brand-success</span></td><td><span class="dot" style="background:#00B493;"></span>#00B493</td><td>Brand</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-primary</span></td><td><span class="dot" style="background:#3182F6;"></span>#3182F6</td><td>Semantic</td><td>button_accent_primary</td></tr>
+      <tr><td><span class="chip">--color-primary-hover</span></td><td><span class="dot" style="background:#1B64DA;"></span>#1B64DA</td><td>Semantic</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-success</span></td><td><span class="dot" style="background:#00B493;"></span>#00B493</td><td>Semantic</td><td>success</td></tr>
+      <tr><td><span class="chip">--color-danger</span></td><td><span class="dot" style="background:#FF5B5B;"></span>#FF5B5B</td><td>Semantic</td><td>error</td></tr>
+      <tr><td><span class="chip">--color-warning</span></td><td><span class="dot" style="background:#B45309;"></span>#B45309</td><td>Semantic</td><td>warning</td></tr>
+      <tr><td><span class="chip">--color-bg</span></td><td><span class="dot" style="background:#F9FAFB;border:1px solid #E8EBED;"></span>#F9FAFB</td><td>Background</td><td>bg_primary</td></tr>
+      <tr><td><span class="chip">--color-surface</span></td><td><span class="dot" style="background:#fff;border:1px solid #E8EBED;"></span>#FFFFFF</td><td>Background</td><td>bg_surface</td></tr>
+      <tr><td><span class="chip">--color-text-primary</span></td><td><span class="dot" style="background:#191F28;"></span>#191F28</td><td>Text</td><td>text_primary</td></tr>
+      <tr><td><span class="chip">--color-text-secondary</span></td><td><span class="dot" style="background:#4E5968;"></span>#4E5968</td><td>Text</td><td>text_secondary</td></tr>
+      <tr><td><span class="chip">--color-text-disabled</span></td><td><span class="dot" style="background:#AEB5BC;"></span>#AEB5BC</td><td>Text</td><td>text_disabled</td></tr>
+      <tr><td><span class="chip">--color-border</span></td><td><span class="dot" style="background:#E8EBED;border:1px solid #CDD1D5;"></span>#E8EBED</td><td>Border</td><td>border_primary</td></tr>
+      <tr><td><span class="chip">--color-border-subtle</span></td><td><span class="dot" style="background:#CDD1D5;"></span>#CDD1D5</td><td>Border</td><td>border_subtle</td></tr>
+      <tr><td><span class="chip">--color-primary-subtle</span></td><td><span class="dot" style="background:#EBF3FF;border:1px solid #D4E4FF;"></span>#EBF3FF</td><td>Tint</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-success-subtle</span></td><td><span class="dot" style="background:#E8FAF5;border:1px solid #BEF0E6;"></span>#E8FAF5</td><td>Tint</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-danger-subtle</span></td><td><span class="dot" style="background:#FFF0F0;border:1px solid #FFD4D4;"></span>#FFF0F0</td><td>Tint</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-warning-subtle</span></td><td><span class="dot" style="background:#FFFBEB;border:1px solid #FEF3C7;"></span>#FFFBEB</td><td>Tint</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-neutral</span></td><td><span class="dot" style="background:#6B7280;"></span>#6B7280</td><td>Neutral</td><td>—</td></tr>
+      <tr><td><span class="chip">--color-neutral-hover</span></td><td><span class="dot" style="background:#4B5563;"></span>#4B5563</td><td>Neutral</td><td>—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+</div>
 </body>
 </html>

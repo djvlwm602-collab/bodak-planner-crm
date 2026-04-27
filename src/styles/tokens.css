@@ -1,39 +1,35 @@
 /* ============================================================
-   디자인 토큰 — 브랜드 독립적인 시맨틱 색상 정의
+   디자인 토큰 — Figma 디자인시스템 v3 명명 구조 기반
+   카테고리: 배경 → 텍스트 → 테두리 → 시맨틱 → 버튼 중립
    브랜드 컬러는 applyBrand()가 :root에 주입한다.
    ============================================================ */
 
 :root {
-  /* ── 브랜드 컬러 기본값 (JS 미실행 환경 폴백) ── */
-  --brand-primary: #3182F6;
+  /* ── 브랜드 고유 컬러 폴백 (applyBrand()가 동적 주입) ── */
   --brand-primary-hover: #1B64DA;
-  --brand-secondary: #0ED1A0;
   --brand-success: #00B493;
-  --brand-danger: #FF5B5B;
 
-  /* ── 중립 팔레트 (브랜드 무관) ── */
-  --color-bg: #F9FAFB;
-  --color-surface: #FFFFFF;
-  --color-border: #E8EBED;
-  --color-border-strong: #CDD1D5;
+  /* ── 배경 (Background) ── */
+  --color-bg: #F9FAFB;        /* bg_primary */
+  --color-surface: #FFFFFF;   /* bg_surface */
 
-  /* ── 텍스트 ── */
-  --color-text-primary: #191F28;
-  --color-text-secondary: #4E5968;
-  --color-text-disabled: #AEB5BC;
+  /* ── 텍스트 (Text) ── */
+  --color-text-primary: #191F28;   /* text_primary */
+  --color-text-secondary: #4E5968; /* text_secondary */
+  --color-text-disabled: #AEB5BC;  /* text_disabled */
+
+  /* ── 테두리 (Border) ── */
+  --color-border: #E8EBED;         /* border_primary */
+  --color-border-subtle: #CDD1D5;  /* border_subtle */
+
+  /* ── 상태 배경 틴트 ── */
+  --color-primary-subtle: #EBF3FF;
+  --color-success-subtle: #E8FAF5;
+  --color-danger-subtle: #FFF0F0;
 
   /* ── 중립 (버튼 secondary 전용) ── */
   --color-neutral: #6B7280;
   --color-neutral-hover: #4B5563;
-
-  /* ── 상태 배경 (연한 틴트) ── */
-  --color-primary-subtle: #EBF3FF;
-  --color-success-subtle: #E8FAF5;
-  --color-danger-subtle: #FFF0F0;
-  --color-warning-subtle: #FFFBEB;
-
-  /* ── 경고 ── */
-  --color-warning: #B45309;
 
   /* ── 타이포그래피 ── */
   --font-size-xs: 11px;
