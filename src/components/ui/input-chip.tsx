@@ -76,7 +76,7 @@ export function InputChip({
           'inline-flex items-center gap-1.5 rounded-md border transition-colors',
           focused
             ? 'border-primary bg-primary-subtle'
-            : 'border-border bg-surface hover:border-border-strong',
+            : 'border-border bg-surface hover:border-border-subtle',
           // 값만 있고 포커스 아닐 때는 FilterChip의 선택 상태와 동일하게 — 기본 배경/테두리에 라벨은 회색, 값만 파란색
         )}
       >

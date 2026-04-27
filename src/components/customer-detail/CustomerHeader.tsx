@@ -34,15 +34,15 @@ export function CustomerHeader({ status, onStatusChange }: Props) {
           </div>
           <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-[13px] text-text-secondary">
             <span>{mockCustomer.phone}</span>
-            <span className="text-border-strong">|</span>
+            <span className="text-border-subtle">|</span>
             <span>{mockCustomer.riskType}</span>
-            <span className="text-border-strong">|</span>
+            <span className="text-border-subtle">|</span>
             <span>결혼 {mockCustomer.marriage}</span>
-            <span className="text-border-strong">|</span>
+            <span className="text-border-subtle">|</span>
             <span>운전 {mockCustomer.driving}</span>
-            <span className="text-border-strong">|</span>
+            <span className="text-border-subtle">|</span>
             <span>자녀 {mockCustomer.children}</span>
-            <span className="text-border-strong">|</span>
+            <span className="text-border-subtle">|</span>
             <span>상령일: {mockCustomer.birthday}</span>
           </div>
         </div>

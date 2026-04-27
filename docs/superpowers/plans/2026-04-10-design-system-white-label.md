@@ -1,5 +1,16 @@
 # Design System & White-Label Architecture Implementation Plan
 
+> ## ✅ 구현 완료 (2026-04-27 기준)
+>
+> **이 문서는 초기 설계 의도를 기록한 역사적 계획서입니다.** 실제 구현은 모두 완료되었으며, 본문의 토큰 정의/체크박스는 작성 시점의 초안이라 현재 코드와 일부 다를 수 있습니다.
+>
+> **현재 디자인 시스템 단일 소스 (Source of Truth):**
+> - 토큰 정의 → `src/styles/tokens.css`, `src/index.css` `@theme` 블록
+> - 컴포넌트 → `src/components/ui/`, `src/components/layout/`
+> - 시각화 페이지 → `design-system.html`
+>
+> **이 계획서의 토큰 정의는 참고용으로만 사용하세요. 신규 작업은 위 코드 파일을 우선 참조해주세요.**
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Toss증권 스타일의 디자인 토큰 시스템을 구축하고, 브랜드 컬러 1~2개 변경만으로 전체 UI가 재브랜딩되는 화이트레이블 아키텍처와 재사용 가능한 컴포넌트 라이브러리를 구현한다.

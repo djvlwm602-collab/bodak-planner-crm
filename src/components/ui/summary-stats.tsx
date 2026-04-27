@@ -21,7 +21,7 @@ export function SummaryStats({ items }: SummaryStatsProps) {
       {items.map((item, i) => (
         <React.Fragment key={item.label}>
           {/* 항목 사이 세로 구분선 — 첫 항목 앞에는 생략 */}
-          {i > 0 && <span className="w-px h-3 bg-border-strong" />}
+          {i > 0 && <span className="w-px h-3 bg-border-subtle" />}
           <span className="text-text-secondary">
             {item.label}{' '}
             <span className="text-text-primary font-semibold">

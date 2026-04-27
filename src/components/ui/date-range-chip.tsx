@@ -150,7 +150,7 @@ export function DateRangeChip({ startDate, endDate, onApply, className }: DateRa
           'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-[14px] font-medium border transition-colors whitespace-nowrap',
           open
             ? 'bg-primary-subtle border-primary text-text-secondary'
-            : 'bg-surface border-border text-text-secondary hover:border-border-strong',
+            : 'bg-surface border-border text-text-secondary hover:border-border-subtle',
         )}
       >
         <Calendar size={14} />

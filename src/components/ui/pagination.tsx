@@ -78,7 +78,7 @@ export function Pagination({
               <select
                 value={rpp}
                 onChange={(e) => handleRpp(Number(e.target.value))}
-                className="appearance-none bg-white border border-border rounded pl-2.5 pr-6 py-[3px] text-[13px] text-text-primary cursor-pointer hover:border-border-strong transition-colors focus:outline-none focus:border-primary"
+                className="appearance-none bg-white border border-border rounded pl-2.5 pr-6 py-[3px] text-[13px] text-text-primary cursor-pointer hover:border-border-subtle transition-colors focus:outline-none focus:border-primary"
               >
                 {pageSizeOptions.map((n) => (
                   <option key={n} value={n}>{n}</option>
@@ -90,7 +90,7 @@ export function Pagination({
               />
             </div>
           </div>
-          <span className="text-border-strong pr-4">|</span>
+          <span className="text-border-subtle pr-4">|</span>
         </>
       )}
 
@@ -103,7 +103,7 @@ export function Pagination({
         <span className="font-normal text-text-secondary">{totalItems}</span>
       </span>
 
-      <span className="text-border-strong pr-4">|</span>
+      <span className="text-border-subtle pr-4">|</span>
 
       {/* ── 네비게이션 ── */}
       <div className="flex items-center gap-0.5">

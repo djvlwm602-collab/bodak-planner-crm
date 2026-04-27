@@ -30,7 +30,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   secondary:
     'bg-neutral text-white hover:bg-neutral-hover active:bg-neutral-hover',
   ghost:
-    'bg-transparent text-text-secondary border border-border hover:border-border-strong',
+    'bg-transparent text-text-secondary border border-border hover:border-border-subtle',
   danger:
     'bg-danger text-white hover:bg-[#e04f4f] active:bg-[#d44040]',
 };

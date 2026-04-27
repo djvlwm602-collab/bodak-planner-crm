@@ -24,7 +24,7 @@ export function ConsultationHistoryTab() {
 
         <div className="relative pl-6">
           {/* 세로 라인 */}
-          <div className="absolute left-2 top-1.5 bottom-0 w-px bg-border-strong" />
+          <div className="absolute left-2 top-1.5 bottom-0 w-px bg-border-subtle" />
 
           <ul className="flex flex-col gap-8">
             {mockTimeline.map((evt) => (

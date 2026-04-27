@@ -133,7 +133,7 @@ export function FilterChip({
           'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-[14px] font-medium border transition-colors whitespace-nowrap',
           open
             ? 'bg-primary-subtle border-primary text-primary'
-            : 'bg-surface border-border text-text-secondary hover:border-border-strong',
+            : 'bg-surface border-border text-text-secondary hover:border-border-subtle',
         )}
       >
         <span>{label}</span>
@@ -206,7 +206,7 @@ export function FilterChip({
                           'w-4 h-4 rounded-sm border flex items-center justify-center text-[10px] shrink-0',
                           isSelected
                             ? 'border-primary text-primary'
-                            : 'border-border-strong',
+                            : 'border-border-subtle',
                         )}>
                           {isSelected && '✓'}
                         </span>
@@ -238,7 +238,7 @@ export function FilterChip({
                         'w-4 h-4 rounded-sm border flex items-center justify-center text-[10px] shrink-0',
                         isSelected
                           ? 'bg-primary border-primary text-white'
-                          : 'border-border-strong',
+                          : 'border-border-subtle',
                       )}>
                         {isSelected && '✓'}
                       </span>

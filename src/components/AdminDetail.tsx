@@ -130,11 +130,11 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               <div className="flex border-b border-gray-200">
                 <div className="w-[200px] bg-gray-50 px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">활동상태</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">
-                  <Badge variant={
-                    user.activityStatus === '정상' ? 'success' :
-                    user.activityStatus === '해촉' ? 'danger' :
-                    user.activityStatus === '일시제한' ? 'warning' : 'default'
-                  }>{user.activityStatus}</Badge>
+                  <span className={
+                    user.activityStatus === '정상' ? 'text-success' :
+                    user.activityStatus === '해촉' ? 'text-danger' :
+                    user.activityStatus === '일시제한' ? 'text-warning' : 'text-text-secondary'
+                  }>{user.activityStatus}</span>
                 </div>
               </div>
               <div className="flex border-b border-gray-200">

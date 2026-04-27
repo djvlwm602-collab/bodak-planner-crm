@@ -40,7 +40,7 @@ export function Badge({ variant = 'default', fill = false, children, className }
   return (
     <span
       className={cn(
-        'inline-flex items-center px-[10px] py-[4px] rounded-full text-[12px] font-medium whitespace-nowrap',
+        'inline-flex items-center px-[10px] py-[4px] rounded-xl text-[12px] font-medium whitespace-nowrap',
         fill ? fillClasses[variant] : weakClasses[variant],
         className,
       )}
