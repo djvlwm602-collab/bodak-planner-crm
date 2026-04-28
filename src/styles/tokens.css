@@ -1,10 +1,221 @@
 /* ============================================================
    디자인 토큰 — Figma 디자인시스템 v3 명명 구조 기반
-   카테고리: 배경 → 텍스트 → 테두리 → 시맨틱 → 버튼 중립
+   카테고리: Value Tokens(원자 팔레트) → 레거시 시맨틱(--color-*)
+   Value Tokens 출처: DESIGN_SYSTEM.md § 2 (Figma v3 정본)
+   ⚠️ 표시 항목은 Figma 원본 export로 추후 검증 예정 (현재 사용에 영향 없음)
    브랜드 컬러는 applyBrand()가 :root에 주입한다.
    ============================================================ */
 
 :root {
+  /* ============================================================
+     Tier 1 — Value Tokens (원자 팔레트)
+     출처: DESIGN_SYSTEM.md § 2.1 ~ § 2.16
+     이 토큰들은 Phase 1에서 선언만 됨 — 컴포넌트 직접 참조 금지.
+     ============================================================ */
+
+  /* ── § 2.1 Common ── */
+  --common-100: #FFFFFF;
+  --common-0:   #000000;
+
+  /* ── § 2.2 Cool Neutral (20단계 — UI 골격) ── */
+  --cool-neutral-50:  #F9F9F9;
+  --cool-neutral-100: #F2F4F6;
+  --cool-neutral-150: #E9EBEF;
+  --cool-neutral-200: #E1E3E7;
+  --cool-neutral-250: #DAD7DC; /* ⚠️ */
+  --cool-neutral-300: #C8C9CE;
+  --cool-neutral-350: #B5B6BF;
+  --cool-neutral-400: #A4A8AF;
+  --cool-neutral-450: #969A9F;
+  --cool-neutral-500: #898B93;
+  --cool-neutral-550: #7D8085;
+  --cool-neutral-600: #6F7177;
+  --cool-neutral-650: #61656A;
+  --cool-neutral-700: #54595E;
+  --cool-neutral-750: #494D53;
+  --cool-neutral-800: #3D4147;
+  --cool-neutral-850: #31353A;
+  --cool-neutral-900: #26282D;
+  --cool-neutral-950: #1D2024;
+  --cool-neutral-990: #161B1C;
+
+  /* ── § 2.3 Blue Dim (10단계 — 차분한 청색) ── */
+  --blue-dim-50:  #EAF2F7;
+  --blue-dim-100: #DBE4ED;
+  --blue-dim-200: #BBCDDD;
+  --blue-dim-300: #A29ACC; /* ⚠️ */
+  --blue-dim-400: #7B98AE;
+  --blue-dim-500: #67659B; /* ⚠️ */
+  --blue-dim-600: #476984;
+  --blue-dim-700: #295060;
+  --blue-dim-800: #113653;
+  --blue-dim-900: #052238;
+
+  /* ── § 2.4 Light Blue (10단계 — v3 액센트, 400=핵심) ── */
+  --light-blue-50:  #E5F7FF;
+  --light-blue-100: #D1F0FD;
+  --light-blue-200: #B4E9FA;
+  --light-blue-300: #7CD8FB;
+  --light-blue-400: #10C5FF;
+  --light-blue-500: #00AEFF;
+  --light-blue-600: #008BCC;
+  --light-blue-700: #006796;
+  --light-blue-800: #004261;
+  --light-blue-900: #002130;
+
+  /* ── § 2.5 Blue (10단계 — 정보·링크) ── */
+  --blue-50:  #ECF4FF;
+  --blue-100: #D8E6FB;
+  --blue-200: #B9D2F8;
+  --blue-300: #7DACF3;
+  --blue-400: #4087F2;
+  --blue-500: #1E68DE;
+  --blue-600: #1358BE;
+  --blue-700: #134A9D;
+  --blue-800: #0D3571;
+  --blue-900: #051F46;
+
+  /* ── § 2.6 Cyan (10단계) ── */
+  --cyan-50:  #EBFAFC;
+  --cyan-100: #CFF3F9;
+  --cyan-200: #AAEAF5;
+  --cyan-300: #6EDDF1;
+  --cyan-400: #20C8E5;
+  --cyan-500: #05B0CE;
+  --cyan-600: #0092A9;
+  --cyan-700: #006F82;
+  --cyan-800: #004854;
+  --cyan-900: #063239;
+
+  /* ── § 2.7 Green (10단계 — 성공) ── */
+  --green-50:  #E6F9F2;
+  --green-100: #CDF6D8;
+  --green-200: #9FEEBA;
+  --green-300: #6BE191;
+  --green-400: #33D287;
+  --green-500: #16BE4E;
+  --green-600: #009632;
+  --green-700: #006625;
+  --green-800: #004517;
+  --green-900: #00240C;
+
+  /* ── § 2.8 Lime (11단계 — 150 포함) ── */
+  --lime-50:  #F8FFF2;
+  --lime-100: #EFF9E7;
+  --lime-150: #DEF3CE;
+  --lime-200: #DBE999;
+  --lime-300: #96E35E;
+  --lime-400: #7AD33A;
+  --lime-500: #6DB032;
+  --lime-600: #4B9E0F;
+  --lime-700: #347D00;
+  --lime-800: #225200;
+  --lime-900: #112D00;
+
+  /* ── § 2.9 Amber (10단계 — CRM warning 강조 톤) ── */
+  --amber-50:  #FFFDEE;
+  --amber-100: #FFF5CB;
+  --amber-200: #FFE363;
+  --amber-300: #FFC53D;
+  --amber-400: #FFA838;
+  --amber-500: #FF9200;
+  --amber-600: #D47800;
+  --amber-700: #9C5800;
+  --amber-800: #663A00;
+  --amber-900: #361E00;
+
+  /* ── § 2.10 Orange (10단계) ── */
+  --orange-50:  #FFF8F1;
+  --orange-100: #FFE3D3;
+  --orange-200: #FFBD86;
+  --orange-300: #FF9D61;
+  --orange-400: #F87E36;
+  --orange-500: #EB6817;
+  --orange-600: #C94A00;
+  --orange-700: #913500;
+  --orange-800: #592100;
+  --orange-900: #2D0F00;
+
+  /* ── § 2.11 Red (10단계 — error) ── */
+  --red-50:  #FFF6F6;
+  --red-100: #FDF2E5;
+  --red-200: #FBCACF;
+  --red-300: #FC9D9C;
+  --red-400: #FF7070;
+  --red-500: #F34D58;
+  --red-600: #D93242;
+  --red-700: #862A37;
+  --red-800: #741212;
+  --red-900: #450E0E;
+
+  /* ── § 2.12 Magenta (10단계) ── */
+  --magenta-50:  #FBEAF8;
+  --magenta-100: #F7D2F1;
+  --magenta-200: #F596EB;
+  --magenta-300: #F289D0; /* ⚠️ */
+  --magenta-400: #FA73E3;
+  --magenta-500: #F553DA;
+  --magenta-600: #D331BB;
+  --magenta-700: #A81690;
+  --magenta-800: #730560;
+  --magenta-900: #3D0133;
+
+  /* ── § 2.13 Purple (10단계) ── */
+  --purple-50:  #FEFBFF;
+  --purple-100: #F6E3FF;
+  --purple-200: #EABEFF;
+  --purple-300: #DE96FF;
+  --purple-400: #D478FF;
+  --purple-500: #C859FF;
+  --purple-600: #AD36E3;
+  --purple-700: #8810B8;
+  --purple-800: #580A7D; /* ⚠️ */
+  --purple-900: #290247;
+
+  /* ── § 2.14 Violet (10단계) ── */
+  --violet-50:  #FBFBFF;
+  --violet-100: #ECE7FF;
+  --violet-200: #C8BBFF;
+  --violet-300: #9E86FC;
+  --violet-400: #7D5EF7;
+  --violet-500: #6541F2;
+  --violet-600: #4F29E5;
+  --violet-700: #3A16C9;
+  --violet-800: #23098F;
+  --violet-900: #11024D;
+
+  /* ── § 2.15 Alpha White (오버레이·그라데이션 전용) ── */
+  --alpha-white-50:  rgba(255, 255, 255, 0.05);
+  --alpha-white-100: rgba(255, 255, 255, 0.10);
+  --alpha-white-200: rgba(255, 255, 255, 0.20);
+  --alpha-white-300: rgba(255, 255, 255, 0.30);
+  --alpha-white-400: rgba(255, 255, 255, 0.40);
+  --alpha-white-500: rgba(255, 255, 255, 0.50);
+  --alpha-white-600: rgba(255, 255, 255, 0.60);
+  --alpha-white-700: rgba(255, 255, 255, 0.70);
+  --alpha-white-800: rgba(255, 255, 255, 0.80);
+  --alpha-white-900: rgba(255, 255, 255, 0.90);
+
+  /* ── § 2.15 Alpha Black ── */
+  --alpha-black-50:  rgba(0, 0, 0, 0.05);
+  --alpha-black-100: rgba(0, 0, 0, 0.10);
+  --alpha-black-200: rgba(0, 0, 0, 0.20);
+  --alpha-black-300: rgba(0, 0, 0, 0.30);
+  --alpha-black-400: rgba(0, 0, 0, 0.40);
+  --alpha-black-500: rgba(0, 0, 0, 0.50);
+  --alpha-black-600: rgba(0, 0, 0, 0.60);
+  --alpha-black-700: rgba(0, 0, 0, 0.70);
+  --alpha-black-800: rgba(0, 0, 0, 0.80);
+  --alpha-black-900: rgba(0, 0, 0, 0.90);
+
+  /* ── § 2.16 Service (서비스 브랜드 — 로그인 버튼 전용) ── */
+  --naver-green:  #03C75A;
+  --kakao-yellow: #FEE500;
+
+  /* ============================================================
+     Tier 2 (이하) — 레거시 --color-* (Phase 2에서 Semantic 별칭 추가 예정)
+     ============================================================ */
+
   /* ── 브랜드 고유 컬러 폴백 (applyBrand()가 동적 주입) ── */
   --brand-primary-hover: #1B64DA;
   --brand-success: #00B493;
