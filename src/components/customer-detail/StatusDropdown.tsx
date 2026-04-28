@@ -40,7 +40,7 @@ export function StatusDropdown({ value, onChange }: Props) {
       <button
         type="button"
         className={cn(
-          'inline-flex items-center justify-between gap-2 px-3 py-1 rounded-md text-[13px] font-semibold border min-w-[110px]',
+          'inline-flex items-center justify-between gap-2 px-3 py-1 rounded-md text-body4 font-semibold border min-w-[110px]',
           statusColors[value]
         )}
         onClick={() => setOpen((v) => !v)}
@@ -56,7 +56,7 @@ export function StatusDropdown({ value, onChange }: Props) {
               key={opt}
               type="button"
               className={cn(
-                'w-full px-3 py-1.5 text-[13px] text-left hover:bg-bg transition-colors',
+                'w-full px-3 py-1.5 text-body4 text-left hover:bg-bg transition-colors',
                 opt === value ? 'font-semibold text-text-primary' : 'text-text-secondary'
               )}
               onClick={() => {

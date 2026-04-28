@@ -171,7 +171,7 @@ export function AssignedDB() {
           <div className="flex flex-col px-6 pb-6 pt-2">
             {/* 테이블 상단 툴바 */}
             <div className="flex items-center justify-between mb-4">
-              <div className="text-[14px] font-medium text-text-primary">
+              <div className="text-body3 font-medium text-text-primary">
                 총 <span className="font-semibold">10</span>개
               </div>
               <div className="flex items-center gap-2">

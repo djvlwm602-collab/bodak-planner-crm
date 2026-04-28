@@ -56,7 +56,7 @@ export function ReassignTypeSettings() {
               <div className="border border-border-primary rounded-lg bg-white overflow-hidden">
 
                 {/* 헤더 */}
-                <div className="flex items-center bg-white border-b border-bg-faint text-[13px] font-semibold text-text-secondary">
+                <div className="flex items-center bg-white border-b border-bg-faint text-body4 font-semibold text-text-secondary">
                   <div className="w-[18%] py-3.5 pl-8 pr-5">타입 이름</div>
                   <div className="flex-1 py-3.5 px-5">설명</div>
                   <div className="w-[200px] py-3.5 px-5">노출 여부</div>
@@ -69,14 +69,14 @@ export function ReassignTypeSettings() {
                 {rows.length === 0 && (
                   <div className="flex items-center min-h-[52px] bg-bg-primary/60 border-b border-dashed border-border-primary">
                     <div className="w-[18%] py-3.5 pl-8 pr-5">
-                      <span className="text-[13px] text-gray-300">타입 이름</span>
+                      <span className="text-body4 text-gray-300">타입 이름</span>
                     </div>
                     <div className="flex-1 py-3.5 px-5 flex items-center gap-2">
-                      <span className="text-[13px] text-gray-300">입력한 설명이 노출됩니다.</span>
-                      <span className="text-[10px] text-gray-300 border border-border-primary rounded px-1.5 py-0.5 leading-none">예시</span>
+                      <span className="text-body4 text-gray-300">입력한 설명이 노출됩니다.</span>
+                      <span className="text-caption text-gray-300 border border-border-primary rounded px-1.5 py-0.5 leading-none">예시</span>
                     </div>
                     <div className="w-[200px] py-3.5 px-5">
-                      <span className="text-[13px] text-gray-300">노출 여부</span>
+                      <span className="text-body4 text-gray-300">노출 여부</span>
                     </div>
                     <div className="w-[100px]" />
                   </div>
@@ -93,13 +93,13 @@ export function ReassignTypeSettings() {
                       {isEditing ? (
                         <input
                           type="text"
-                          className="w-full px-3 py-1.5 border border-border rounded-md text-[14px] text-text-primary bg-bg focus:outline-none focus:border-text-primary"
+                          className="w-full px-3 py-1.5 border border-border rounded-md text-body3 text-text-primary bg-bg focus:outline-none focus:border-text-primary"
                           value={type.name}
                           onChange={e => handleTypeChange(type.id, 'name', e.target.value)}
                           placeholder="타입 이름"
                         />
                       ) : (
-                        <span className="text-[14px] text-text-primary font-medium">{type.name}</span>
+                        <span className="text-body3 text-text-primary font-medium">{type.name}</span>
                       )}
                     </div>
 
@@ -108,13 +108,13 @@ export function ReassignTypeSettings() {
                       {isEditing ? (
                         <input
                           type="text"
-                          className="w-full px-3 py-1.5 border border-border rounded-md text-[14px] text-text-primary bg-bg focus:outline-none focus:border-text-primary"
+                          className="w-full px-3 py-1.5 border border-border rounded-md text-body3 text-text-primary bg-bg focus:outline-none focus:border-text-primary"
                           value={type.description}
                           onChange={e => handleTypeChange(type.id, 'description', e.target.value)}
                           placeholder="입력한 설명이 노출됩니다."
                         />
                       ) : (
-                        <span className="text-[14px] text-text-secondary">{type.description}</span>
+                        <span className="text-body3 text-text-secondary">{type.description}</span>
                       )}
                     </div>
 
@@ -130,7 +130,7 @@ export function ReassignTypeSettings() {
                               checked={type.isUsed === true}
                               onChange={() => handleTypeChange(type.id, 'isUsed', true)}
                             />
-                            <span className="text-[13px] text-text-primary whitespace-nowrap">노출함</span>
+                            <span className="text-body4 text-text-primary whitespace-nowrap">노출함</span>
                           </label>
                           <label className="flex items-center gap-1.5 cursor-pointer">
                             <input
@@ -140,11 +140,11 @@ export function ReassignTypeSettings() {
                               checked={type.isUsed === false}
                               onChange={() => handleTypeChange(type.id, 'isUsed', false)}
                             />
-                            <span className="text-[13px] text-text-primary whitespace-nowrap">노출안함</span>
+                            <span className="text-body4 text-text-primary whitespace-nowrap">노출안함</span>
                           </label>
                         </div>
                       ) : (
-                        <span className="text-[14px] text-text-secondary">{type.isUsed ? '노출함' : '노출안함'}</span>
+                        <span className="text-body3 text-text-secondary">{type.isUsed ? '노출함' : '노출안함'}</span>
                       )}
                     </div>
 
@@ -167,7 +167,7 @@ export function ReassignTypeSettings() {
                 {isEditing && (
                   <button
                     onClick={handleAddType}
-                    className="w-full flex items-center justify-center h-[48px] pb-4 text-[13px] text-text-secondary hover:text-primary hover:font-medium transition-colors"
+                    className="w-full flex items-center justify-center h-[48px] pb-4 text-body4 text-text-secondary hover:text-primary hover:font-medium transition-colors"
                   >
                     + 새 타입 추가
                   </button>

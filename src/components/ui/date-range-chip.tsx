@@ -147,7 +147,7 @@ export function DateRangeChip({ startDate, endDate, onApply, className }: DateRa
           setOpen(!open);
         }}
         className={cn(
-          'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-[14px] font-medium border transition-colors whitespace-nowrap',
+          'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-body3 font-medium border transition-colors whitespace-nowrap',
           open
             ? 'bg-primary-subtle border-primary text-text-secondary'
             : 'bg-surface border-border text-text-secondary hover:border-border-subtle',
@@ -168,14 +168,14 @@ export function DateRangeChip({ startDate, endDate, onApply, className }: DateRa
         >
           {/* 프리셋 사이드바 */}
           <div className="w-[130px] border-r border-border py-2 shrink-0">
-            <div className="px-3 py-1.5 text-[12px] font-semibold text-text-secondary">프리셋</div>
+            <div className="px-3 py-1.5 text-body5 font-semibold text-text-secondary">프리셋</div>
             {PRESETS.map(preset => (
               <button
                 key={preset.label}
                 type="button"
                 onClick={() => handlePreset(preset)}
                 className={cn(
-                  'w-full text-left px-3 py-2 text-[13px] hover:bg-bg transition-colors',
+                  'w-full text-left px-3 py-2 text-body4 hover:bg-bg transition-colors',
                   activePreset === preset.label
                     ? 'bg-primary-subtle text-primary font-medium'
                     : 'text-text-primary',
@@ -198,10 +198,10 @@ export function DateRangeChip({ startDate, endDate, onApply, className }: DateRa
                 <ChevronLeft size={16} />
               </button>
               <div className="flex gap-12">
-                <span className="text-[14px] font-semibold text-text-primary">
+                <span className="text-body3 font-semibold text-text-primary">
                   {format(leftMonth, 'yyyy년 M월', { locale: ko })}
                 </span>
-                <span className="text-[14px] font-semibold text-text-primary">
+                <span className="text-body3 font-semibold text-text-primary">
                   {format(rightMonth, 'yyyy년 M월', { locale: ko })}
                 </span>
               </div>
@@ -233,14 +233,14 @@ export function DateRangeChip({ startDate, endDate, onApply, className }: DateRa
               <button
                 type="button"
                 onClick={handleCancel}
-                className="px-4 py-1.5 text-[13px] font-medium rounded-md border border-border text-text-secondary hover:bg-bg transition-colors"
+                className="px-4 py-1.5 text-body4 font-medium rounded-md border border-border text-text-secondary hover:bg-bg transition-colors"
               >
                 취소
               </button>
               <button
                 type="button"
                 onClick={handleApply}
-                className="px-4 py-1.5 text-[13px] font-medium rounded-md bg-primary text-white hover:bg-primary-hover transition-colors"
+                className="px-4 py-1.5 text-body4 font-medium rounded-md bg-primary text-white hover:bg-primary-hover transition-colors"
               >
                 적용
               </button>
@@ -299,7 +299,7 @@ function MonthGrid({
               onClick={() => onDayClick(day)}
               disabled={!inMonth}
               className={cn(
-                'w-9 h-9 flex items-center justify-center text-[13px] rounded-full transition-colors relative',
+                'w-9 h-9 flex items-center justify-center text-body4 rounded-full transition-colors relative',
                 !inMonth && 'invisible',
                 inMonth && !isStart && !isEnd && !inRange && 'hover:bg-bg text-text-primary',
                 inRange && !isStart && !isEnd && 'bg-primary-subtle text-primary rounded-none',

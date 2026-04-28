@@ -92,7 +92,7 @@ export function ConsultationEnded() {
           <div className="flex flex-col flex-1 min-h-0 px-6 pb-6">
             {/* 목록 수 / 페이지 크기 선택 */}
             <div className="flex items-center justify-between mb-4">
-              <div className="text-[14px] font-medium text-text-primary">
+              <div className="text-body3 font-medium text-text-primary">
                 총 <span className="font-semibold">10</span>개
               </div>
             </div>

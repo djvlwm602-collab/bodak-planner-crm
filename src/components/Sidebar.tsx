@@ -39,14 +39,14 @@ export function Sidebar({ className, activePage, onPageChange }: SidebarProps) {
       <div className={cn("h-14 px-4 flex items-center shrink-0", isCollapsed ? "justify-center px-2" : "justify-between")}>
         {!isCollapsed && (
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 shrink-0 bg-primary rounded-md flex items-center justify-center text-white font-semibold text-[13px]">
+            <div className="w-8 h-8 shrink-0 bg-primary rounded-md flex items-center justify-center text-white font-semibold text-body4">
               {getBrandAttr('data-brand-initial', 'B')}
             </div>
             <div className="overflow-hidden whitespace-nowrap">
-              <h2 className="font-semibold text-text-primary text-[13px]">
+              <h2 className="font-semibold text-text-primary text-body4">
                 {getBrandAttr('data-brand-name', '보닥 플래너')}
               </h2>
-              <p className="text-[12px] text-text-secondary">
+              <p className="text-body5 text-text-secondary">
                 {getBrandAttr('data-brand-partner', 'for 흥국화재')}
               </p>
             </div>

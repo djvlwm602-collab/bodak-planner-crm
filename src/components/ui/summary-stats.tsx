@@ -17,7 +17,7 @@ interface SummaryStatsProps {
 
 export function SummaryStats({ items }: SummaryStatsProps) {
   return (
-    <div className="flex items-center gap-4 text-[14px]">
+    <div className="flex items-center gap-4 text-body3">
       {items.map((item, i) => (
         <React.Fragment key={item.label}>
           {/* 항목 사이 세로 구분선 — 첫 항목 앞에는 생략 */}

@@ -19,7 +19,7 @@ export function ProductDetailTab() {
     <div className="p-6 flex flex-col gap-6">
       {/* 헤더 — 타이틀 옆에 엑셀 버튼 붙임 */}
       <div className="flex items-center gap-3">
-        <h2 className="text-[16px] font-semibold text-text-primary">상품별 상세 진단</h2>
+        <h2 className="text-body2 font-semibold text-text-primary">상품별 상세 진단</h2>
         <Button size="xs" variant="secondary">엑셀 다운로드</Button>
       </div>
 
@@ -32,7 +32,7 @@ export function ProductDetailTab() {
 
       {/* 상품 정보 (2열 테이블) */}
       <div className="max-w-[560px] border border-border-primary rounded-lg overflow-hidden bg-white">
-        <table className="w-full text-[13px]">
+        <table className="w-full text-body4">
           <tbody>
             {[
               { label: '보험회사', value: mockProductDetail.company },
@@ -57,9 +57,9 @@ export function ProductDetailTab() {
 
       {/* 담보 상세 테이블 */}
       <div>
-        <div className="text-right text-[12px] text-text-secondary mb-2">(단위 : 만원)</div>
+        <div className="text-right text-body5 text-text-secondary mb-2">(단위 : 만원)</div>
         <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
-          <table className="w-full text-[13px]">
+          <table className="w-full text-body4">
             <thead>
               <tr className="bg-bg">
                 <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-20">담보분류</th>
@@ -86,7 +86,7 @@ export function ProductDetailTab() {
                     <td className="py-2.5 px-3 font-medium text-text-secondary">
                       <ul className="flex flex-col gap-0.5">
                         {row.details.map((d, i) => (
-                          <li key={i} className="text-[13px] leading-relaxed">{d}</li>
+                          <li key={i} className="text-body4 leading-relaxed">{d}</li>
                         ))}
                       </ul>
                     </td>

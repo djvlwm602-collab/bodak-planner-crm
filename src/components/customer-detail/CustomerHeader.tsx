@@ -32,7 +32,7 @@ export function CustomerHeader({ status, onStatusChange }: Props) {
               {mockCustomer.tag}
             </Badge>
           </div>
-          <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-[13px] text-text-secondary">
+          <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-body4 text-text-secondary">
             <span>{mockCustomer.phone}</span>
             <span className="text-border-subtle">|</span>
             <span>{mockCustomer.riskType}</span>
@@ -49,7 +49,7 @@ export function CustomerHeader({ status, onStatusChange }: Props) {
 
         {/* 우측 — 설계사 + 상태 */}
         <div className="flex flex-col items-end gap-2 shrink-0">
-          <div className="text-[13px] text-text-secondary">
+          <div className="text-body4 text-text-secondary">
             설계사 <span className="font-semibold text-text-primary ml-1">{mockCustomer.planner}</span>
           </div>
           <StatusDropdown value={status} onChange={onStatusChange} />

@@ -22,10 +22,10 @@ export function SummaryTab() {
     <div className="p-6 flex flex-col gap-8">
       {/* ① 보험 진단 유형 */}
       <section>
-        <h2 className="text-[16px] font-semibold text-text-primary mb-3">보험 진단 유형</h2>
+        <h2 className="text-body2 font-semibold text-text-primary mb-3">보험 진단 유형</h2>
         <div className="border border-border rounded-lg bg-surface p-5">
           <h3 className="text-[19px] font-semibold text-text-primary mb-2">{mockDiagnosisType.title}</h3>
-          <p className="text-[13px] text-text-secondary leading-relaxed whitespace-pre-line">
+          <p className="text-body4 text-text-secondary leading-relaxed whitespace-pre-line">
             {mockDiagnosisType.description}
           </p>
         </div>
@@ -33,10 +33,10 @@ export function SummaryTab() {
 
       {/* ② 보험 계약 정보 */}
       <section>
-        <h2 className="text-[16px] font-semibold text-text-primary mb-3">보험 계약 정보</h2>
+        <h2 className="text-body2 font-semibold text-text-primary mb-3">보험 계약 정보</h2>
 
         {/* 라디오 필터 */}
-        <div className="flex items-center flex-wrap gap-x-5 gap-y-2 mb-3 text-[13px]">
+        <div className="flex items-center flex-wrap gap-x-5 gap-y-2 mb-3 text-body4">
           {[
             { v: 'all' as const, label: '전체' },
             { v: 'same' as const, label: '계약자(본인) = 피보험자(본인)' },
@@ -71,7 +71,7 @@ export function SummaryTab() {
 
       {/* ③ 주요 보장 구성 */}
       <section>
-        <h2 className="text-[16px] font-semibold text-text-primary mb-3">주요 보장 구성</h2>
+        <h2 className="text-body2 font-semibold text-text-primary mb-3">주요 보장 구성</h2>
         <div className="grid grid-cols-4 border border-border rounded-lg bg-surface overflow-hidden">
           {(Object.keys(mockCoverageComposition) as CoverageStatus[]).map((key, idx) => {
             const col = mockCoverageComposition[key];
@@ -82,13 +82,13 @@ export function SummaryTab() {
               >
                 <div className="flex items-center gap-2 px-4 py-3 bg-bg border-b border-border">
                   <CoverageStatusIcon status={key} size={16} />
-                  <span className="text-[13px] font-semibold text-text-primary">
+                  <span className="text-body4 font-semibold text-text-primary">
                     {col.title} ({col.count}건)
                   </span>
                 </div>
                 <ul className="py-2">
                   {col.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 px-4 py-1 text-[13px] text-text-secondary">
+                    <li key={item} className="flex items-center gap-2 px-4 py-1 text-body4 text-text-secondary">
                       <CoverageStatusIcon status={key} size={12} />
                       <span className="truncate">{item}</span>
                     </li>
@@ -107,8 +107,8 @@ export function SummaryTab() {
 function Cell({ label, value, border = false }: { label: string; value: string; border?: boolean }) {
   return (
     <div className={`flex flex-col items-center justify-center gap-1.5 py-6 ${border ? 'border-r border-border' : ''}`}>
-      <div className="text-[12px] text-text-secondary">{label}</div>
-      <div className="text-[18px] font-semibold text-text-primary">{value}</div>
+      <div className="text-body5 text-text-secondary">{label}</div>
+      <div className="text-body1 font-semibold text-text-primary">{value}</div>
     </div>
   );
 }

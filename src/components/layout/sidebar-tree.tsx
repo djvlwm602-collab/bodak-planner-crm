@@ -36,7 +36,7 @@ export function SidebarTree({
       )}
     >
       <div className="px-4 pt-8 pb-3">
-        <h2 className="text-[13px] font-semibold text-text-primary">{title}</h2>
+        <h2 className="text-body4 font-semibold text-text-primary">{title}</h2>
       </div>
       <div className="p-2">
         {nodes.map((node) => (
@@ -77,7 +77,7 @@ function TreeItem({
       <div
         style={{ paddingLeft: `${8 + depth * 12}px` }}
         className={cn(
-          'flex items-center gap-1 py-1.5 pr-2 cursor-pointer rounded-md text-[13px] transition-colors',
+          'flex items-center gap-1 py-1.5 pr-2 cursor-pointer rounded-md text-body4 transition-colors',
           isActive
             ? 'bg-bg-selected-subtle text-text-strong font-medium'
             : 'text-text-primary hover:bg-bg',

@@ -25,7 +25,7 @@ export function SelectField({
   return (
     <div className={cn('flex items-center gap-3', wrapperClassName)}>
       {label && (
-        <span className="text-[14px] font-semibold text-text-primary shrink-0">
+        <span className="text-body3 font-semibold text-text-primary shrink-0">
           {label}
         </span>
       )}
@@ -34,7 +34,7 @@ export function SelectField({
           {...props}
           className={cn(
             'w-full appearance-none border border-border rounded-md',
-            'text-[14px] text-text-primary bg-surface',
+            'text-body3 text-text-primary bg-surface',
             'pl-3 pr-8 py-2 focus:outline-none focus:border-text-primary',
             'cursor-pointer transition-colors',
             className,

@@ -32,20 +32,20 @@ export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatu
           
           {/* Table Header Controls */}
           <div className="flex justify-between items-center mb-4">
-            <div className="text-[14px] font-medium text-text-primary">총 <span className="font-semibold">10</span>개</div>
+            <div className="text-body3 font-medium text-text-primary">총 <span className="font-semibold">10</span>개</div>
           </div>
 
           {/* Table */}
           <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
-            <table className="w-full text-[14px] text-center table-fixed">
+            <table className="w-full text-body3 text-center table-fixed">
               <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-bg-faint">
                 <tr>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white w-20">No.</th>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white" style={{ width: 'calc((100% - 13rem) * 3 / 9)' }}>기간</th>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>계약 공급 수량</th>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>실 공급 수량</th>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>철회 수량</th>
-                  <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white w-32">상태</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white w-20">No.</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white" style={{ width: 'calc((100% - 13rem) * 3 / 9)' }}>기간</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>계약 공급 수량</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>실 공급 수량</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white" style={{ width: 'calc((100% - 13rem) * 2 / 9)' }}>철회 수량</th>
+                  <th className="py-3.5 px-3 font-semibold text-text-primary text-body4 bg-white w-32">상태</th>
                 </tr>
               </thead>
               <tbody className="[&>tr:nth-child(odd)]:bg-row-stripe">

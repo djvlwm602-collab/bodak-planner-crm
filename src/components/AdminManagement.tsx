@@ -189,7 +189,7 @@ export function AdminManagement() {
                     <DataTableCell>{row.joinDate}</DataTableCell>
                     <DataTableCell>
                       {row.approvalStatus === 'approved' ? (
-                        <span className="text-[14px] text-text-secondary">{row.approvalDate}</span>
+                        <span className="text-body3 text-text-secondary">{row.approvalDate}</span>
                       ) : (
                         <ApprovalActions />
                       )}

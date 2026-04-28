@@ -81,7 +81,7 @@ export function InputChip({
         )}
       >
         <span className={cn(
-          'pl-4 text-[14px] font-medium shrink-0 select-none',
+          'pl-4 text-body3 font-medium shrink-0 select-none',
           focused ? 'text-primary' : 'text-text-secondary',
         )}>
           {label}
@@ -89,7 +89,7 @@ export function InputChip({
 
         {/* 구분자 — 값이 있거나 포커스일 때 */}
         {(value || focused) && (
-          <span className={cn('text-[14px]', focused ? 'text-primary/30' : 'text-primary/50')}>·</span>
+          <span className={cn('text-body3', focused ? 'text-primary/30' : 'text-primary/50')}>·</span>
         )}
 
         <input
@@ -100,7 +100,7 @@ export function InputChip({
           onFocus={handleFocus}
           placeholder={focused ? '이름 입력' : ''}
           className={cn(
-            'bg-transparent outline-none text-[14px] font-medium py-2 min-w-[60px]',
+            'bg-transparent outline-none text-body3 font-medium py-2 min-w-[60px]',
             focused || value ? 'w-[100px] text-primary placeholder:text-primary/40' : 'w-0',
             !value && !focused && 'pr-3',
           )}
@@ -137,7 +137,7 @@ export function InputChip({
               key={name}
               type="button"
               onClick={() => handleSelect(name)}
-              className="w-full text-left px-3 py-2 text-[13px] text-text-primary hover:bg-bg transition-colors"
+              className="w-full text-left px-3 py-2 text-body4 text-text-primary hover:bg-bg transition-colors"
             >
               {/* 매칭 부분 하이라이트 */}
               {highlightMatch(name, value)}

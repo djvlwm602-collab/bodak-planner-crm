@@ -18,14 +18,14 @@ export function AgeCoverageTab() {
     <div className="p-6 flex flex-col gap-6">
       {/* 헤더 — 타이틀 옆에 엑셀 버튼 붙임 */}
       <div className="flex items-center gap-3">
-        <h2 className="text-[16px] font-semibold text-text-primary">나이별 보장 진단</h2>
+        <h2 className="text-body2 font-semibold text-text-primary">나이별 보장 진단</h2>
         <Button size="xs" variant="secondary">엑셀 다운로드</Button>
       </div>
 
       <div>
-        <div className="text-right text-[12px] text-text-secondary mb-2">(단위 : 만원)</div>
+        <div className="text-right text-body5 text-text-secondary mb-2">(단위 : 만원)</div>
         <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
-          <table className="w-full text-[13px]">
+          <table className="w-full text-body4">
             <thead>
               <tr className="bg-bg">
                 <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-20">담보분류</th>

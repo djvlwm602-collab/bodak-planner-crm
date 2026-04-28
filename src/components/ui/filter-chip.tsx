@@ -130,7 +130,7 @@ export function FilterChip({
           setOpen(!open);
         }}
         className={cn(
-          'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-[14px] font-medium border transition-colors whitespace-nowrap',
+          'inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-body3 font-medium border transition-colors whitespace-nowrap',
           open
             ? 'bg-primary-subtle border-primary text-primary'
             : 'bg-surface border-border text-text-secondary hover:border-border-subtle',
@@ -162,7 +162,7 @@ export function FilterChip({
                   placeholder="검색"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full pl-8 pr-3 py-1.5 text-[13px] border border-border rounded bg-bg focus:outline-none"
+                  className="w-full pl-8 pr-3 py-1.5 text-body4 border border-border rounded bg-bg focus:outline-none"
                 />
                 {search && (
                   <button
@@ -182,7 +182,7 @@ export function FilterChip({
             columns > 1 && 'px-1',
           )}>
             {filtered.length === 0 ? (
-              <div className="px-3 py-2 text-[13px] text-text-disabled text-center">결과 없음</div>
+              <div className="px-3 py-2 text-body4 text-text-disabled text-center">결과 없음</div>
             ) : columns > 1 ? (
               /* 다중 열 그리드 레이아웃 — 전체도 동일 그리드에 포함 */
               <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
@@ -196,14 +196,14 @@ export function FilterChip({
                       type="button"
                       onClick={() => handleSelect(opt.value)}
                       className={cn(
-                        'text-left px-3 py-2 text-[13px] flex items-center gap-2 hover:bg-bg transition-colors',
+                        'text-left px-3 py-2 text-body4 flex items-center gap-2 hover:bg-bg transition-colors',
                         isSelected && !multiple && 'bg-primary-subtle text-primary font-medium',
                       )}
                     >
                       {multiple && (
                         /* 라인 스타일 체크박스 — 선택 시에도 면 채움 없이 테두리·체크마크만 primary 색 */
                         <span className={cn(
-                          'w-4 h-4 rounded-sm border flex items-center justify-center text-[10px] shrink-0',
+                          'w-4 h-4 rounded-sm border flex items-center justify-center text-caption shrink-0',
                           isSelected
                             ? 'border-primary text-primary'
                             : 'border-border-subtle',
@@ -229,13 +229,13 @@ export function FilterChip({
                     type="button"
                     onClick={() => handleSelect(opt.value)}
                     className={cn(
-                      'w-full text-left px-3 py-2 text-[13px] flex items-center gap-2 hover:bg-bg transition-colors',
+                      'w-full text-left px-3 py-2 text-body4 flex items-center gap-2 hover:bg-bg transition-colors',
                       isSelected && !multiple && 'bg-primary-subtle text-primary font-medium',
                     )}
                   >
                     {multiple && (
                       <span className={cn(
-                        'w-4 h-4 rounded-sm border flex items-center justify-center text-[10px] shrink-0',
+                        'w-4 h-4 rounded-sm border flex items-center justify-center text-caption shrink-0',
                         isSelected
                           ? 'bg-primary border-primary text-white'
                           : 'border-border-subtle',

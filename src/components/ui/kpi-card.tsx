@@ -22,13 +22,13 @@ export function KpiCard({ title, value, trend, isPositive, className }: KpiCardP
         className,
       )}
     >
-      <span className="text-[13px] font-medium text-text-secondary mb-2">{title}</span>
+      <span className="text-body4 font-medium text-text-secondary mb-2">{title}</span>
       <div className="flex items-end justify-between">
-        <span className="text-[22px] font-semibold text-text-primary">{value}</span>
+        <span className="text-h4 font-semibold text-text-primary">{value}</span>
         {trend && (
           <div
             className={cn(
-              'flex items-center text-[12px] font-medium px-1.5 py-0.5 rounded-sm',
+              'flex items-center text-body5 font-medium px-1.5 py-0.5 rounded-sm',
               isPositive
                 ? 'text-success bg-success-subtle'
                 : 'text-danger bg-danger-subtle',

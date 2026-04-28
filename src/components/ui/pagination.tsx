@@ -65,7 +65,7 @@ export function Pagination({
   return (
     <div
       className={cn(
-        'flex items-center justify-end gap-0 mt-6 text-[13px] text-text-secondary select-none',
+        'flex items-center justify-end gap-0 mt-6 text-body4 text-text-secondary select-none',
         className,
       )}
     >
@@ -73,12 +73,12 @@ export function Pagination({
       {showPageSize && (
         <>
           <div className="flex items-center gap-1.5 pr-4">
-            <span className="text-[12px] text-text-disabled whitespace-nowrap">Page Size:</span>
+            <span className="text-body5 text-text-disabled whitespace-nowrap">Page Size:</span>
             <div className="relative">
               <select
                 value={rpp}
                 onChange={(e) => handleRpp(Number(e.target.value))}
-                className="appearance-none bg-white border border-border rounded pl-2.5 pr-6 py-[3px] text-[13px] text-text-primary cursor-pointer hover:border-border-subtle transition-colors focus:outline-none focus:border-primary"
+                className="appearance-none bg-white border border-border rounded pl-2.5 pr-6 py-[3px] text-body4 text-text-primary cursor-pointer hover:border-border-subtle transition-colors focus:outline-none focus:border-primary"
               >
                 {pageSizeOptions.map((n) => (
                   <option key={n} value={n}>{n}</option>
@@ -128,7 +128,7 @@ export function Pagination({
         {/* 페이지 번호 */}
         {pages.map((item, idx) =>
           item === '...' ? (
-            <span key={`ellipsis-${idx}`} className="w-7 h-7 flex items-center justify-center text-text-disabled text-[13px]">
+            <span key={`ellipsis-${idx}`} className="w-7 h-7 flex items-center justify-center text-text-disabled text-body4">
               …
             </span>
           ) : (
@@ -136,7 +136,7 @@ export function Pagination({
               key={item}
               onClick={() => handlePage(item)}
               className={cn(
-                'min-w-[28px] h-7 px-1 flex items-center justify-center rounded text-[13px] transition-colors',
+                'min-w-[28px] h-7 px-1 flex items-center justify-center rounded text-body4 transition-colors',
                 item === page
                   ? 'bg-bg-selected-subtle text-text-primary font-semibold'
                   : 'text-text-secondary hover:bg-bg',

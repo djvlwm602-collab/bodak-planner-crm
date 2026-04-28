@@ -14,7 +14,7 @@ interface DataTableProps {
 export function DataTable({ children, className }: DataTableProps) {
   return (
     <div className={cn('border border-border-primary rounded-lg overflow-hidden bg-white', className)}>
-      <table className="w-full text-[14px] text-center">{children}</table>
+      <table className="w-full text-body3 text-center">{children}</table>
     </div>
   );
 }
@@ -36,7 +36,7 @@ export function DataTableHeadCell({
   className?: string;
 }) {
   return (
-    <th className={cn('py-3 px-3 font-semibold text-text-secondary text-[12px] bg-white', className)}>
+    <th className={cn('py-3 px-3 font-semibold text-text-secondary text-body5 bg-white', className)}>
       {children}
     </th>
   );

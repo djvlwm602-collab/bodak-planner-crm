@@ -13,10 +13,10 @@ export function TopBar({ onCreateTask, title, subtitle, actions }: TopBarProps) 
       {/* 좌측: 페이지 타이틀 */}
       <div className="flex items-baseline gap-3 min-w-0">
         {title && (
-          <h1 className="text-[22px] font-semibold text-text-primary tracking-tight shrink-0">{title}</h1>
+          <h1 className="text-h4 font-semibold text-text-primary tracking-tight shrink-0">{title}</h1>
         )}
         {subtitle && (
-          <span className="text-[13px] text-text-secondary truncate">{subtitle}</span>
+          <span className="text-body4 text-text-secondary truncate">{subtitle}</span>
         )}
       </div>
 

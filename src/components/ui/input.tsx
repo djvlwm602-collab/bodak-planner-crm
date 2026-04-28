@@ -22,7 +22,7 @@ export function Input({
   return (
     <div className={cn('flex items-center gap-3', wrapperClassName)}>
       {label && (
-        <span className="text-[14px] font-semibold text-text-primary shrink-0">
+        <span className="text-body3 font-semibold text-text-primary shrink-0">
           {label}
         </span>
       )}
@@ -35,7 +35,7 @@ export function Input({
         <input
           {...props}
           className={cn(
-            'border border-border rounded-md text-[14px] text-text-primary bg-surface',
+            'border border-border rounded-md text-body3 text-text-primary bg-surface',
             'px-3 py-2 focus:outline-none focus:border-text-primary transition-colors',
             'placeholder:text-text-disabled',
             prefixIcon && 'pl-8',
