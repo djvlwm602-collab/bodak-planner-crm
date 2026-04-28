@@ -59,14 +59,14 @@ export function AutoRetrieveSettings() {
 
                     <div className={cn(
                       'flex items-center text-sm ml-2 transition-colors',
-                      isUsed ? 'text-gray-700' : 'text-gray-400'
+                      isUsed ? 'text-gray-700' : 'text-text-quaternary'
                     )}>
                       (
                       <input
                         type="text"
                         className={cn(
                           'w-16 px-3 py-1.5 mx-2 border rounded-md text-center focus:outline-none focus:border-gray-900',
-                          isUsed ? 'border-border-subtle bg-white' : 'border-border-primary bg-bg-primary text-gray-400'
+                          isUsed ? 'border-border-subtle bg-white' : 'border-border-primary bg-bg-primary text-text-quaternary'
                         )}
                         value={hours}
                         onChange={e => setHours(e.target.value)}

@@ -104,7 +104,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
       {checked ? (
         <CheckSquare size={18} className="text-black" />
       ) : (
-        <Square size={18} className="text-gray-400" />
+        <Square size={18} className="text-text-quaternary" />
       )}
       <span className="text-sm text-gray-900">{label}</span>
     </div>

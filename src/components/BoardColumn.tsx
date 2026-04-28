@@ -32,7 +32,7 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
   return (
     <div className="flex flex-col w-full min-w-[200px] bg-kanban-column-bg rounded-md h-full">
       <div className="flex items-center gap-2 p-3 pb-2 shrink-0">
-        <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wide truncate">
+        <h3 className="text-xs font-medium text-text-quaternary uppercase tracking-wide truncate">
           {column.title}
         </h3>
         <span className="text-xs font-semibold text-neutral">{tasks.length}</span>

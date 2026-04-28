@@ -54,7 +54,7 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
             <div className="flex border-t border-border-subtle border-b border-border-primary">
               <div className="w-[200px] flex items-center justify-center border-r border-border-primary p-6">
                 <div className="w-24 h-24 bg-bg-faint rounded-full flex items-center justify-center overflow-hidden">
-                  <User size={48} className="text-gray-400" />
+                  <User size={48} className="text-text-quaternary" />
                 </div>
               </div>
               <div className="flex-1 flex flex-col">

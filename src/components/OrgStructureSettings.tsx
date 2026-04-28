@@ -288,7 +288,7 @@ export function OrgStructureSettings() {
           >
             {depth > 0 && (
               <div className="flex items-center mr-2 cursor-grab active:cursor-grabbing">
-                <DragHandleIcon className={cn("text-gray-400", isSelected && "text-blue-400")} />
+                <DragHandleIcon className={cn("text-text-quaternary", isSelected && "text-blue-400")} />
               </div>
             )}
             <span className={cn("text-sm font-medium", depth === 0 && "font-semibold")}>
@@ -309,7 +309,7 @@ export function OrgStructureSettings() {
             <button
               className={cn(
                 "p-1 rounded-md hover:bg-border-primary/50",
-                isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-gray-400 hover:text-text-strong"
+                isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-text-quaternary hover:text-text-strong"
               )}
               onClick={(e) => handleAddChild(node.id, e)}
             >
@@ -319,7 +319,7 @@ export function OrgStructureSettings() {
               <button
                 className={cn(
                   "p-1 rounded-md hover:bg-border-primary/50",
-                  isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-gray-400 hover:text-text-strong"
+                  isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-text-quaternary hover:text-text-strong"
                 )}
                 onClick={(e) => toggleExpand(node.id, e)}
               >

@@ -59,15 +59,15 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
 
       <div className="flex flex-col gap-0.5 mb-4 text-xs text-text-strong">
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">배정일</span>
+          <span className="text-text-quaternary">배정일</span>
           <span>{task.assignedDate}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">최초통화</span>
+          <span className="text-text-quaternary">최초통화</span>
           <span>{task.isCancelled ? '삭제 예정' : task.firstCallDate}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">최근통화</span>
+          <span className="text-text-quaternary">최근통화</span>
           <span>{task.recentCallDate}</span>
         </div>
       </div>
