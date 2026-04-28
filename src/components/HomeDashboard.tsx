@@ -367,7 +367,7 @@ function SectionCard({ title, children }: { title: string; children: React.React
       <h3 className="text-sm font-semibold text-gray-900 mb-3">
         {title}
       </h3>
-      <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+      <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
         {children}
       </div>
     </section>

@@ -23,7 +23,7 @@ export function AutoRetrieveSettings() {
           <div className="px-[30px] pt-8">
             <div className="w-full flex flex-col">
 
-              <div className="border border-gray-200 rounded-lg bg-white p-10">
+              <div className="border border-border-primary rounded-lg bg-white p-10">
                 <div className="mb-10">
                   <p className="text-sm font-semibold text-gray-900">
                     설계사에게 배정한 DB를 설정한 시간 내 상담을 시작하지 않으면 자동으로 DB를 미배정으로 회수할 수 있어요.
@@ -66,7 +66,7 @@ export function AutoRetrieveSettings() {
                         type="text"
                         className={cn(
                           'w-16 px-3 py-1.5 mx-2 border rounded-md text-center focus:outline-none focus:border-gray-900',
-                          isUsed ? 'border-gray-300 bg-white' : 'border-gray-200 bg-bg-primary text-gray-400'
+                          isUsed ? 'border-border-subtle bg-white' : 'border-border-primary bg-bg-primary text-gray-400'
                         )}
                         value={hours}
                         onChange={e => setHours(e.target.value)}

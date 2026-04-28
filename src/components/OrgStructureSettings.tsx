@@ -273,9 +273,9 @@ export function OrgStructureSettings() {
           }}
           className={cn(
             "flex items-center py-2 px-4 cursor-pointer transition-colors group relative",
-            isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-bg-primary text-gray-900",
+            isSelected ? "bg-bg-emphasis-primary text-button-accent-primary-hover" : "hover:bg-bg-primary text-gray-900",
             isDragging && "opacity-40",
-            isDragOver && "bg-blue-100/50 ring-1 ring-inset ring-blue-400"
+            isDragOver && "bg-status-info-bg/50 ring-1 ring-inset ring-blue-400"
           )}
           onClick={() => {
             setSelectedNodeId(node.id);
@@ -308,8 +308,8 @@ export function OrgStructureSettings() {
             {/* 트리 액션 아이콘 — 본문 텍스트보다 한 단계 옅은 색상으로 강조도 낮춤 */}
             <button
               className={cn(
-                "p-1 rounded-md hover:bg-gray-200/50",
-                isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-text-strong"
+                "p-1 rounded-md hover:bg-border-primary/50",
+                isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-gray-400 hover:text-text-strong"
               )}
               onClick={(e) => handleAddChild(node.id, e)}
             >
@@ -318,8 +318,8 @@ export function OrgStructureSettings() {
             {hasChildren ? (
               <button
                 className={cn(
-                  "p-1 rounded-md hover:bg-gray-200/50",
-                  isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-text-strong"
+                  "p-1 rounded-md hover:bg-border-primary/50",
+                  isSelected ? "text-blue-400 hover:bg-status-info-bg" : "text-gray-400 hover:text-text-strong"
                 )}
                 onClick={(e) => toggleExpand(node.id, e)}
               >
@@ -353,7 +353,7 @@ export function OrgStructureSettings() {
             <h2 className="text-base font-semibold text-gray-900 mb-4">
               조직 구조
             </h2>
-            <div className="border border-gray-200 rounded-lg py-2 min-h-[500px] bg-white">
+            <div className="border border-border-primary rounded-lg py-2 min-h-[500px] bg-white">
               {renderTree(orgData)}
             </div>
           </div>
@@ -366,7 +366,7 @@ export function OrgStructureSettings() {
 
             {selectedNode ? (
               <div className="flex flex-col">
-                <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+                <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
                   <div className="flex border-b border-bg-faint">
                     <div className="w-[160px] bg-bg-primary/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-bg-faint flex items-center justify-center">
                       조직명
@@ -375,7 +375,7 @@ export function OrgStructureSettings() {
                       {isEditing ? (
                         <input
                           type="text"
-                          className="w-64 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-900 bg-white"
+                          className="w-64 px-3 py-1.5 border border-border-subtle rounded-lg text-sm focus:outline-none focus:border-gray-900 bg-white"
                           value={editName}
                           onChange={(e) => setEditName(e.target.value)}
                         />
@@ -395,7 +395,7 @@ export function OrgStructureSettings() {
                             <input
                               type="radio"
                               name="orgIsUsed"
-                              className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                              className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                               checked={editIsUsed === true}
                               onChange={() => setEditIsUsed(true)}
                             />
@@ -405,7 +405,7 @@ export function OrgStructureSettings() {
                             <input
                               type="radio"
                               name="orgIsUsed"
-                              className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                              className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                               checked={editIsUsed === false}
                               onChange={() => setEditIsUsed(false)}
                             />
@@ -461,7 +461,7 @@ export function OrgStructureSettings() {
                 </div>
               </div>
             ) : (
-              <div className="border border-gray-200 flex items-center justify-center h-[240px] text-sm text-neutral bg-bg-primary">
+              <div className="border border-border-primary flex items-center justify-center h-[240px] text-sm text-neutral bg-bg-primary">
                 조직을 선택해주세요.
               </div>
             )}

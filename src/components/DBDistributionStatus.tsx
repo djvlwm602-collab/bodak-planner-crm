@@ -36,7 +36,7 @@ export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatu
           </div>
 
           {/* Table */}
-          <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+          <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
             <table className="w-full text-[14px] text-center table-fixed">
               <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-bg-faint">
                 <tr>

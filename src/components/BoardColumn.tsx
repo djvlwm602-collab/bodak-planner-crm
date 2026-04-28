@@ -44,7 +44,7 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
         onDrop={handleDrop}
         className={cn(
           "flex-1 px-2 pb-2 flex flex-col gap-2 transition-colors",
-          isDragOver ? "bg-blue-50/50" : ""
+          isDragOver ? "bg-bg-emphasis-primary/50" : ""
         )}
       >
         {tasks.map(task => (

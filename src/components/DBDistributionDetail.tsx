@@ -99,7 +99,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
         <div 
           className={cn(
             "flex items-center py-2 px-4 cursor-pointer transition-colors group",
-            node.isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-bg-primary text-gray-900"
+            node.isSelected ? "bg-bg-emphasis-primary text-button-accent-primary-hover" : "hover:bg-bg-primary text-gray-900"
           )}
         >
           <div 
@@ -118,7 +118,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
             <div className="flex items-center justify-end w-8">
               {hasChildren && (
                 <button 
-                  className={cn("p-1 rounded-md hover:bg-gray-200/50", node.isSelected && "hover:bg-blue-100")}
+                  className={cn("p-1 rounded-md hover:bg-border-primary/50", node.isSelected && "hover:bg-status-info-bg")}
                 >
                   {node.isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                 </button>
@@ -148,7 +148,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
           </h2>
 
           {/* Tabs */}
-          <div className="flex border-b border-gray-300 mb-6">
+          <div className="flex border-b border-border-subtle mb-6">
             <button 
               className={cn(
                 "px-12 py-3 text-sm font-semibold border-b-2 transition-colors",
@@ -171,14 +171,14 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
 
           <div className="flex gap-6 items-start">
             {/* Left Panel - Tree */}
-            <div className="w-[300px] border border-gray-300 bg-white shrink-0 py-2 overflow-x-auto">
+            <div className="w-[300px] border border-border-subtle bg-white shrink-0 py-2 overflow-x-auto">
               {renderTree(treeData)}
             </div>
 
             {/* Right Panel - Content */}
             <div className="flex-1 flex flex-col min-w-0">
               {/* Summary Box */}
-              <div className="bg-bg-primary border border-gray-200 py-6 px-8 flex justify-center gap-16 mb-6 shrink-0">
+              <div className="bg-bg-primary border border-border-primary py-6 px-8 flex justify-center gap-16 mb-6 shrink-0">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-black rounded-full"></div>
                   <span className="text-base font-semibold text-gray-900">총 공급 수량 : 1,100건</span>
@@ -201,10 +201,10 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
               </div>
 
               {/* Table */}
-              <div className="border border-gray-300 bg-white">
+              <div className="border border-border-subtle bg-white">
                 {activeTab === '설계사 별 수량' ? (
                   <table className="w-full text-sm text-center">
-                    <thead className="bg-bg-primary border-b border-gray-300 sticky top-0">
+                    <thead className="bg-bg-primary border-b border-border-subtle sticky top-0">
                       <tr>
                         <th className="py-3 font-semibold text-gray-900 w-16">No.</th>
                         <th className="py-3 font-semibold text-gray-900 w-24">이름</th>
@@ -230,7 +230,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
                   </table>
                 ) : (
                   <table className="w-full text-sm text-center">
-                    <thead className="bg-bg-primary border-b border-gray-300 sticky top-0">
+                    <thead className="bg-bg-primary border-b border-border-subtle sticky top-0">
                       <tr>
                         <th className="py-3 font-semibold text-gray-900 w-32">권역</th>
                         <th className="py-3 font-semibold text-gray-900">총 공급 수량</th>

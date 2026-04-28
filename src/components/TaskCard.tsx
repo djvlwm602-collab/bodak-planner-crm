@@ -29,7 +29,7 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
       draggable
       onDragStart={(e: any) => onDragStart(e, task.id)}
       className={cn(
-        "bg-white p-4 rounded-md border border-gray-200 cursor-grab active:cursor-grabbing hover:bg-bg-primary transition-colors group relative overflow-hidden",
+        "bg-white p-4 rounded-md border border-border-primary cursor-grab active:cursor-grabbing hover:bg-bg-primary transition-colors group relative overflow-hidden",
         task.isCancelled && "bg-bg-primary"
       )}
     >

@@ -31,7 +31,7 @@ export function ProductDetailTab() {
       </div>
 
       {/* 상품 정보 (2열 테이블) */}
-      <div className="max-w-[560px] border border-gray-200 rounded-lg overflow-hidden bg-white">
+      <div className="max-w-[560px] border border-border-primary rounded-lg overflow-hidden bg-white">
         <table className="w-full text-[13px]">
           <tbody>
             {[
@@ -58,7 +58,7 @@ export function ProductDetailTab() {
       {/* 담보 상세 테이블 */}
       <div>
         <div className="text-right text-[12px] text-text-secondary mb-2">(단위 : 만원)</div>
-        <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+        <div className="border border-border-primary rounded-lg overflow-hidden bg-white">
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-bg">

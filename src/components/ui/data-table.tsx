@@ -13,7 +13,7 @@ interface DataTableProps {
 
 export function DataTable({ children, className }: DataTableProps) {
   return (
-    <div className={cn('border border-gray-200 rounded-lg overflow-hidden bg-white', className)}>
+    <div className={cn('border border-border-primary rounded-lg overflow-hidden bg-white', className)}>
       <table className="w-full text-[14px] text-center">{children}</table>
     </div>
   );

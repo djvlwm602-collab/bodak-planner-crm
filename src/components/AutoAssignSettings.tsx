@@ -21,7 +21,7 @@ export function AutoAssignSettings() {
           <div className="px-[30px] pt-8">
             <div className="w-full flex flex-col">
 
-              <div className="border border-gray-200 rounded-lg bg-white p-10">
+              <div className="border border-border-primary rounded-lg bg-white p-10">
                 <div className="mb-10">
                   <p className="text-sm font-semibold text-gray-900">
                     사용함을 선택하시면, 보닥에서 제공하는 DB를 설계사에게 까지 자동 배정해 드립니다.

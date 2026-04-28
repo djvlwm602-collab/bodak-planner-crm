@@ -113,7 +113,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
   return (
     <div className="flex-1 flex flex-col h-full bg-bg overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-5 border-b border-gray-200 flex items-center justify-between shrink-0">
+      <div className="px-6 py-5 border-b border-border-primary flex items-center justify-between shrink-0">
         <div className="flex items-end gap-4">
           <h1 className="text-[19px] font-semibold text-gray-900 tracking-tight">직책·권한 설정</h1>
           <span className="text-sm text-neutral mb-0.5">조직을 담당하는 직책 및 메뉴 권한을 부여합니다.</span>
@@ -132,11 +132,11 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               직책/직급명
             </h2>
-            <div className="border border-gray-300 p-6 bg-bg-primary/30">
+            <div className="border border-border-subtle p-6 bg-bg-primary/30">
               <div className="flex items-center gap-2">
                 <input 
                   type="text" 
-                  className="w-64 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-900 bg-white"
+                  className="w-64 px-3 py-1.5 border border-border-subtle rounded-lg text-sm focus:outline-none focus:border-gray-900 bg-white"
                   value={roleName}
                   onChange={(e) => setRoleName(e.target.value)}
                 />
@@ -151,12 +151,12 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               업무 권한
             </h2>
-            <div className="border border-gray-300 p-6 bg-bg-primary/30 flex items-center gap-10">
+            <div className="border border-border-subtle p-6 bg-bg-primary/30 flex items-center gap-10">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input 
                   type="radio" 
                   name="permissionType" 
-                  className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                  className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                   checked={permissionType === 'admin'}
                   onChange={() => setPermissionType('admin')}
                 />
@@ -166,7 +166,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                 <input 
                   type="radio" 
                   name="permissionType" 
-                  className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                  className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                   checked={permissionType === 'planner'}
                   onChange={() => setPermissionType('planner')}
                 />
@@ -185,10 +185,10 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               <span className="text-xs text-neutral">체크되지 않은 메뉴는, 해당 직책/직급자에게 보이지 않습니다.</span>
             </div>
             
-            <div className="border border-gray-300">
+            <div className="border border-border-subtle">
               {/* 홈 대시보드 */}
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center">
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-6 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center">
                   홈 대시보드
                 </div>
                 <div className="flex-1 px-6 py-4 bg-white"></div>
@@ -197,8 +197,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               {permissionType === 'admin' ? (
                 <>
                   {/* 배정 고객 관리 */}
-                  <div className="flex border-b border-gray-200">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                  <div className="flex border-b border-border-primary">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.customerManagement.main} 
                         onChange={() => toggleMenuPermission('customerManagement', 'main')} 
@@ -225,8 +225,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                   </div>
 
                   {/* DB 배정 관리 */}
-                  <div className="flex border-b border-gray-200">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                  <div className="flex border-b border-border-primary">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.dbManagement.main} 
                         onChange={() => toggleMenuPermission('dbManagement', 'main')} 
@@ -253,8 +253,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                   </div>
 
                   {/* 배정 설정 관리 */}
-                  <div className="flex border-b border-gray-200">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                  <div className="flex border-b border-border-primary">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.settingManagement.main} 
                         onChange={() => toggleMenuPermission('settingManagement', 'main')} 
@@ -276,8 +276,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                   </div>
 
                   {/* 직원/설계사 관리 */}
-                  <div className="flex border-b border-gray-200">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                  <div className="flex border-b border-border-primary">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.staffManagement.main} 
                         onChange={() => toggleMenuPermission('staffManagement', 'main')} 
@@ -299,8 +299,8 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                   </div>
 
                   {/* 조직 및 관리 체계 */}
-                  <div className="flex border-b border-gray-200">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                  <div className="flex border-b border-border-primary">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.orgManagement.main} 
                         onChange={() => toggleMenuPermission('orgManagement', 'main')} 
@@ -323,7 +323,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
 
                   {/* 환경 설정 */}
                   <div className="flex">
-                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-gray-200 flex items-center">
+                    <div className="w-[200px] bg-bg-primary px-6 py-4 border-r border-border-primary flex items-center">
                       <Checkbox 
                         checked={menuPermissions.envSetting.main} 
                         onChange={() => toggleMenuPermission('envSetting', 'main')} 
@@ -342,7 +342,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               ) : (
                 /* 설계사 권한일 때 메뉴 */
                 <div className="flex">
-                  <div className="w-[200px] bg-bg-primary px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center">
+                  <div className="w-[200px] bg-bg-primary px-6 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center">
                     배정 고객 관리
                   </div>
                   <div className="flex-1 px-6 py-4 bg-white flex items-center gap-12">
@@ -361,12 +361,12 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               사용여부
             </h2>
-            <div className="border border-gray-300 p-6 bg-bg-primary/30 flex items-center gap-10">
+            <div className="border border-border-subtle p-6 bg-bg-primary/30 flex items-center gap-10">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input 
                   type="radio" 
                   name="isUsed" 
-                  className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                  className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                   checked={isUsed === true}
                   onChange={() => setIsUsed(true)}
                 />
@@ -376,7 +376,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
                 <input 
                   type="radio" 
                   name="isUsed" 
-                  className="w-4 h-4 text-black focus:ring-black border-gray-300"
+                  className="w-4 h-4 text-black focus:ring-black border-border-subtle"
                   checked={isUsed === false}
                   onChange={() => setIsUsed(false)}
                 />

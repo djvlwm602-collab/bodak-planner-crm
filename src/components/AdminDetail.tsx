@@ -51,27 +51,27 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               기본 정보
             </h2>
-            <div className="flex border-t border-gray-300 border-b border-gray-200">
-              <div className="w-[200px] flex items-center justify-center border-r border-gray-200 p-6">
+            <div className="flex border-t border-border-subtle border-b border-border-primary">
+              <div className="w-[200px] flex items-center justify-center border-r border-border-primary p-6">
                 <div className="w-24 h-24 bg-bg-faint rounded-full flex items-center justify-center overflow-hidden">
                   <User size={48} className="text-gray-400" />
                 </div>
               </div>
               <div className="flex-1 flex flex-col">
-                <div className="flex border-b border-gray-200">
-                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">아이디</div>
+                <div className="flex border-b border-border-primary">
+                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">아이디</div>
                   <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.userId}</div>
                 </div>
-                <div className="flex border-b border-gray-200">
-                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">이름</div>
+                <div className="flex border-b border-border-primary">
+                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">이름</div>
                   <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.name}</div>
                 </div>
-                <div className="flex border-b border-gray-200">
-                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">휴대폰 번호</div>
+                <div className="flex border-b border-border-primary">
+                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">휴대폰 번호</div>
                   <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.phone}</div>
                 </div>
                 <div className="flex">
-                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">보조 휴대폰 번호</div>
+                  <div className="w-[160px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">보조 휴대폰 번호</div>
                   <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">-</div>
                 </div>
               </div>
@@ -84,17 +84,17 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               직책 및 소속
             </h2>
-            <div className="flex flex-col border-t border-gray-300 border-b border-gray-200">
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">직책</div>
+            <div className="flex flex-col border-t border-border-subtle border-b border-border-primary">
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">직책</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.position}</div>
               </div>
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">업무</div>
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">업무</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">운영/관리자</div>
               </div>
               <div className="flex">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">소속</div>
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">소속</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">
                   {user.affiliation}
                 </div>
@@ -108,9 +108,9 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
               <span className="w-1 h-1 rounded-full bg-black"></span>
               상태 정보
             </h2>
-            <div className="flex flex-col border-t border-gray-300 border-b border-gray-200">
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">승인상태</div>
+            <div className="flex flex-col border-t border-border-subtle border-b border-border-primary">
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">승인상태</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center gap-4">
                   <Badge variant={user.approvalStatus === 'approved' ? 'success' : 'default'}>
                     {user.approvalStatus === 'approved' ? '승인' : '대기'}
@@ -127,8 +127,8 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
                   )}
                 </div>
               </div>
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">활동상태</div>
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">활동상태</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">
                   <span className={
                     user.activityStatus === '정상' ? 'text-success' :
@@ -137,12 +137,12 @@ export function AdminDetail({ user, onBack }: AdminDetailProps) {
                   }>{user.activityStatus}</span>
                 </div>
               </div>
-              <div className="flex border-b border-gray-200">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">가입일</div>
+              <div className="flex border-b border-border-primary">
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">가입일</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">{user.joinDate}</div>
               </div>
               <div className="flex">
-                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-gray-200 flex items-center justify-center">최근 접속일</div>
+                <div className="w-[200px] bg-bg-primary px-4 py-4 text-sm font-semibold text-gray-900 border-r border-border-primary flex items-center justify-center">최근 접속일</div>
                 <div className="flex-1 px-6 py-4 text-sm text-gray-700 flex items-center">-</div>
               </div>
             </div>

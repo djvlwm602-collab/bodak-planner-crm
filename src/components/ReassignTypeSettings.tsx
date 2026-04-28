@@ -53,7 +53,7 @@ export function ReassignTypeSettings() {
             <div className="w-full flex flex-col gap-6">
 
               {/* 테이블 */}
-              <div className="border border-gray-200 rounded-lg bg-white overflow-hidden">
+              <div className="border border-border-primary rounded-lg bg-white overflow-hidden">
 
                 {/* 헤더 */}
                 <div className="flex items-center bg-white border-b border-bg-faint text-[13px] font-semibold text-text-secondary">
@@ -67,13 +67,13 @@ export function ReassignTypeSettings() {
 
                 {/* 빈 상태 — 타입이 하나도 없을 때만 표시 */}
                 {rows.length === 0 && (
-                  <div className="flex items-center min-h-[52px] bg-bg-primary/60 border-b border-dashed border-gray-200">
+                  <div className="flex items-center min-h-[52px] bg-bg-primary/60 border-b border-dashed border-border-primary">
                     <div className="w-[18%] py-3.5 pl-8 pr-5">
                       <span className="text-[13px] text-gray-300">타입 이름</span>
                     </div>
                     <div className="flex-1 py-3.5 px-5 flex items-center gap-2">
                       <span className="text-[13px] text-gray-300">입력한 설명이 노출됩니다.</span>
-                      <span className="text-[10px] text-gray-300 border border-gray-200 rounded px-1.5 py-0.5 leading-none">예시</span>
+                      <span className="text-[10px] text-gray-300 border border-border-primary rounded px-1.5 py-0.5 leading-none">예시</span>
                     </div>
                     <div className="w-[200px] py-3.5 px-5">
                       <span className="text-[13px] text-gray-300">노출 여부</span>
