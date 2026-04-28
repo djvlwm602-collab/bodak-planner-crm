@@ -13,6 +13,7 @@
 3. **Figma v3 네이밍을 정본**으로 한다. 코드 변수는 v3 토큰명을 1:1로 따른다 (snake_case → kebab-case 변환만 허용).
 4. **현실 갭은 토큰으로 흡수한다.** 현재 코드와 v3 정의가 다르면 코드의 시각값을 유지한 채 v3 이름을 매핑하고, 갭을 § 6에 명시한다 — 가급적 다음 Figma 정리 라운드에 역수입한다.
 5. **B2B 화이트레이블은 단일 진입점**(`brand.ts` + 의미 토큰)으로만 작동한다. 컴포넌트는 절대 hex를 직접 참조하지 않는다.
+6. **시각 정렬은 별도 페이즈로 분리한다.** 디자인 시스템 정렬 마라톤(Phase 1~5)은 *이름·구조 정렬*만 한다. 시각값 정렬(코드 hex → v3 spec hex 이주)은 **Phase 6 — v3 visual alignment pass** 로 분리하고, 디자이너 검토·승인 후 별도 진행한다. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 *코드 현재 hex 를 보유*한다.
 
 ---
 
@@ -249,6 +250,8 @@
 
 > Figma v3 `Semantic Color` 그대로. **컴포넌트는 이 토큰만 사용한다.**
 > CSS 변수명: `--{token}` (snake_case → kebab-case는 하지 않고 그대로 underscore 유지 권장 — Figma와 1:1 검색이 가능해짐). Tailwind 노출 시에는 단축형 별칭을 추가한다.
+
+> **본 § 의 spec 표는 v3 정의에 따른 *명명 기준*이다.** § 0.1 "시각 변화 0" 원칙을 준수하기 위해, **§ 6.4 갭에 등재된 토큰**(`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle` 등)은 Phase 2 시점의 코드 구현에서 *코드 현재 hex 를 literal 로 보유*한다 (예: `--text-primary: #191F28;`). v3 spec 정렬은 § 0.6 / § 10 Phase 6 (visual alignment pass) 에서 디자이너 승인 후 진행.
 
 ### 3.1 Background
 
@@ -568,6 +571,21 @@
 
 ### 6.4 신설 토큰 (도메인/시스템 보강)
 
+#### 6.4.1 Tier 2 Semantic 갭 — 코드 hex 보존, v3 spec 차이 (Phase 6 정렬 대상)
+
+> Phase 2 에서 Tier 2 Semantic 토큰을 도입할 때 § 0.1 시각 변화 0 원칙을 위해 **코드 현재 hex 를 literal 로 보유**한 항목. v3 spec 으로의 이주는 Phase 6 visual alignment pass 에서 디자이너 승인 후 진행.
+
+| 토큰              | 코드 보유 hex (Phase 2) | v3 spec 권장값                       | 차이 정도        | 처리 방안                                            |
+| ----------------- | ----------------------- | ------------------------------------ | ---------------- | ---------------------------------------------------- |
+| `--bg-primary`    | `#F9FAFB`               | `cool_neutral_100` = `#F2F4F6`        | 미세 (1~2 단계)  | Phase 6 visual alignment pass 에서 합의 후 이주.     |
+| `--text-primary`  | `#191F28`               | `cool_neutral_950` = `#1D2024`        | 미세             | 동상.                                                |
+| `--text-secondary`| `#4E5968`               | `cool_neutral_700` = `#54595E`        | 미세             | 동상.                                                |
+| `--text-disabled` | `#AEB5BC` (≈ `cool_neutral_350`) | `cool_neutral_300` = `#C8C9CE` | **큼**          | 동상. v3 가 더 진함 → 디자이너 합의 필요.           |
+| `--border-primary`| `#E8EBED` (≈ `cool_neutral_150`) | `cool_neutral_300` = `#C8C9CE` | **큼, 명도 반전** | § 2.6 ↔ § 3.4 매핑 모순. Figma 측 정정 검토 권장. |
+| `--border-subtle` | `#CDD1D5` (≈ `cool_neutral_300`) | `cool_neutral_150` = `#E9EBEF` | **큼, 명도 반전** | 동상.                                                |
+
+#### 6.4.2 도메인/시스템 보강 토큰 (v3 미정의)
+
 | 위치                       | 현재값            | 제안 토큰                        | 비고                                            |
 | -------------------------- | ----------------- | -------------------------------- | ----------------------------------------------- |
 | Badge primary weak BG      | `#E1E9FD`         | `--status-info-bg`               | `bg_emphasis_secondary` 톤 흡수 가능.           |
@@ -814,19 +832,22 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 
 ---
 
-## 10. 점진 마이그레이션 플랜 (5단계, 시각 변화 0)
+## 10. 점진 마이그레이션 플랜 (시각 변화 0 마라톤 + v3 visual alignment pass)
+
+> Phase 1~5 는 **이름·구조 정렬만** 한다 (§ 0.1 시각 변화 0). v3 spec hex 로의 이주는 Phase 6 에서 디자이너 검토·승인 후 별도 진행.
 
 | 단계 | 작업                                                                                     | 산출물                                       | 영향          |
 | ---- | ---------------------------------------------------------------------------------------- | -------------------------------------------- | ------------- |
 | 1    | Value 토큰(§ 2) 전체를 `tokens.css`에 추가 (코드는 아직 사용 안 함).                     | `--cool-neutral-50 ~ 990` 등 전부            | 시각 변화 X   |
-| 2    | Semantic 토큰(§ 3)을 추가하고 *기존* `--color-*` 변수에 alias 부여.                       | `--text-primary: var(--color-text-primary);` | 시각 변화 X   |
+| 2    | Semantic 토큰(§ 3)을 추가하고 *기존* `--color-*` 변수에 alias 부여. § 6.4.1 갭 토큰은 코드 hex literal 보유. | Tier 2 + identity alias                  | 시각 변화 X   |
 | 3a   | **임의 hex 직박이 치환** (Badge / DataTable / App / Sidebar / Button). § 5.1 매핑표 적용. | hex 직박이 0건 PR                            | 시각 변화 X (1px 이내 검증) |
 | 3b   | **Tailwind 기본 팔레트 380건 일괄 치환** (`gray-*` / `blue-*` 등). § 5.4 매핑표 적용. PR-by-PR. | 위반 0건 + lint 도입                         | 시각 변화 X   |
 | 3c   | **차트 팔레트 신설** (`--chart-accent / --chart-grid / --chart-axis / --chart-tooltip-border`) + `HomeDashboard.tsx` recharts inline hex 치환. | 차트 토큰 PR                                 | 시각 변화 X   |
 | 4    | Typography 매크로 클래스(`text-h4` 등) 도입 + `text-[NNpx]` 일괄 치환. **§ 4.2.1 짝수 규칙 적용** (19→20, 17→18, 11→12). | `index.css` + 변경 PR                        | **미세 변화 발생 가능** — 1px 정렬은 합의된 시각 변화. |
 | 5    | `brand.ts` → `palette/` + `brand/` + `copy/` 분리, `applyBrand()` 가 Semantic 토큰을 갱신하게 변경. | B2B 화이트레이블 1차 운영 가능               | 시각 변화 X   |
+| **6** | **v3 visual alignment pass** — § 6.4.1 갭 6건의 코드 hex 를 v3 spec hex 로 이주 (`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle`). § 2.6 ↔ § 3.4 border 매핑 모순도 함께 해소. | 디자이너 검토·승인 PR                         | **시각 변화 발생** — 합의된 정렬. baseline 갱신 필수. |
 
-각 단계 끝나면 § 6 “갭 추적” 표를 갱신하고, 합의된 항목은 *시각 정렬*로 닫는다.
+각 단계 끝나면 § 6 "갭 추적" 표를 갱신하고, 합의된 항목은 *시각 정렬*로 닫는다.
 
 ---
 
