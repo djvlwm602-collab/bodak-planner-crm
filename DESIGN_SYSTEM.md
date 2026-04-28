@@ -515,10 +515,10 @@
 | `bg-gray-50`                | `--bg-primary` (#F9FAFB hex 일치) | `bg-bg-primary`           | ✅ **Phase 3b-A 적용 완료** (38건, alpha modifier 8 포함). |
 | `bg-gray-100`               | `--bg-faint` (#F3F4F6 hex 일치) | `bg-bg-faint`              | ✅ **Phase 3b-A 적용 완료** (2건). 신토큰. |
 | `border-gray-100`           | `--bg-faint` 재활용             | `border-bg-faint`            | ✅ **Phase 3b-A 적용 완료** (51건). bg/border 동일 hex 한 토큰. |
-| `border-gray-200`           | `--border-primary` (4 byte diff) | `border-border-primary`     | ⚠️ Group B — Phase 3b-B 샘플 진행 중. AdminDetail.tsx 우선 검증. |
-| `border-gray-300`           | `--border-subtle` (6 byte diff) | `border-border-subtle`      | Group B — Phase 3b-B 결정 대기.         |
-| `text-gray-300`             | (적합 토큰 없음 — 신설 검토)    | —                            | Group B — 의미 미스매치. 신토큰 `--text-faint` 후보. |
-| `text-gray-400`             | `--text-quaternary` (8 byte diff) | `text-text-quaternary`     | Group B — Phase 3b-B 결정 대기.         |
+| `border-gray-200`           | `--border-primary` (4 byte diff) | `border-border-primary`     | ✅ **Phase 3b-B1 적용 완료** (60건). AdminDetail 샘플 12px@th=0, 0px@th=0.1. |
+| `border-gray-300`           | `--border-subtle` (6 byte diff) | `border-border-subtle`      | ✅ **Phase 3b-B1 적용 완료** (26건). |
+| `text-gray-300`             | (적합 토큰 없음 — 신설 검토)    | —                            | ✋ **Phase 6 보류** (4건). 의미 미스매치 — `--text-disabled` 와 36 byte 차. 신토큰 `--text-faint` 후보 또는 v3 cool_neutral 정렬과 함께 결정. |
+| `text-gray-400`             | `--text-quaternary` (8 byte diff) | `text-text-quaternary`     | ✅ **Phase 3b-B2/B3 적용 완료** (16건). 사후 측정: th=0 8538 px, th=0.05 0 px. |
 | `text-gray-500`             | `--color-neutral` (#6B7280 hex 일치) | `text-neutral`         | ✅ **Phase 3b-A 적용 완료** (12건).     |
 | `text-gray-600`             | `--text-strong` (#4B5563 hex 일치) | `text-text-strong`       | ✅ **Phase 3b-A 적용 완료** (6건).      |
 | `text-gray-700`             | `--text-secondary` (24 byte diff) | `text-text-secondary`     | **Group C — Phase 6** 일괄 정렬 (35건). |
@@ -526,12 +526,12 @@
 | `text-gray-900`             | `--text-primary` (8 byte diff) | `text-text-primary`         | **Group C — Phase 6** (74건, 최다 영향). |
 | `border-gray-900`           | `--text-primary` 재활용         | `border-text-primary`        | **Group C — Phase 6** (3건).            |
 | `bg-gray-900/60`            | 동상                           | `bg-text-primary/60`         | **Group C — Phase 6** (1건).            |
-| `bg-gray-200` / `bg-gray-200/50` | `--border-primary` 재활용 | `bg-border-primary` / `/50` | Group B — Phase 3b-B 결정 대기 (4건). |
-| `bg-blue-50` / `/50`        | `--bg-emphasis-primary` (4 byte diff) | `bg-bg-emphasis-primary` | Group B (3건). Phase 3b-B 결정 대기. |
-| `bg-blue-100` / `/50`       | `--status-info-bg` (6 byte diff) | `bg-status-info-bg`       | Group B (4건). Phase 3b-B 결정 대기. |
+| `bg-gray-200` / `bg-gray-200/50` | `--border-primary` 재활용 | `bg-border-primary` / `/50` | ✅ **Phase 3b-B1 적용 완료** (4건). |
+| `bg-blue-50` / `/50`        | `--bg-emphasis-primary` (4 byte diff) | `bg-bg-emphasis-primary` | ✅ **Phase 3b-B1 적용 완료** (3건). |
+| `bg-blue-100` / `/50`       | `--status-info-bg` (6 byte diff) | `bg-status-info-bg`       | ✅ **Phase 3b-B1 적용 완료** (4건). |
 | `text-blue-400` / `bg-blue-400` | `--button-accent-primary` (47 byte diff) | `bg-primary` / `text-primary` | **Group C — Phase 6** (4건). |
 | `text-blue-600` / `bg-blue-600` | `--button-accent-primary-hover` (17 byte diff) | `bg-primary-hover` | **Group C — Phase 6** (3건). |
-| `text-blue-700` / `bg-blue-700` | `--button-accent-primary-hover` (2 byte diff) | 동상  | Group B (3건). Phase 3b-B 결정 대기. |
+| `text-blue-700` / `bg-blue-700` | `--button-accent-primary-hover` (2 byte diff) | 동상  | ✅ **Phase 3b-B1 적용 완료** (3건). |
 | `text-emerald-*` / `bg-emerald-*` | `--status-success` (40+ byte diff) | `bg-success` 또는 도메인 | **Group C — Phase 6** (2건). |
 | `bg-amber-*`                | `--warning` (108 byte diff)    | `bg-warning`                 | **Group C — Phase 6** (1건). 톤 합의 필요. |
 | `bg-green-600`              | `--status-success` (73 byte diff) | `bg-success`              | **Group C — Phase 6** (1건).            |
@@ -609,8 +609,36 @@
 | 차트 축 tick               | `#9ca3af`         | `--chart-axis` (= `cool_neutral_400`) | Phase 3c. recharts inline.             |
 | 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border` (= `cool_neutral_150`) | Phase 3c. recharts inline.     |
 | Tailwind 기본 팔레트 — 그룹 A (exact) | `gray-50/100, border-gray-100, gray-500/600` 109건 | § 5.4 참조 | ✅ **Phase 3b-A 적용 완료**. 시각 변화 0. |
-| Tailwind 기본 팔레트 — 그룹 B (near, 2~6 byte) | `gray-200/300, gray-400, blue-50/100/700` 120건 | § 5.4 참조 | Phase 3b-B 진행 중 (AdminDetail.tsx 샘플 검증). |
-| Tailwind 기본 팔레트 — 그룹 C (far, 7+ byte) | `gray-700/800/900, blue-400/500/600, emerald-*, amber-*, red-500` 129건 | § 5.4 참조 | **Phase 6 v3 visual alignment 일괄 처리**. |
+| Tailwind 기본 팔레트 — 그룹 B (near, 2~6 byte) | `border-gray-200/300, bg-gray-200, bg-blue-50/100, blue-700` 100건 | § 5.4 참조 | ✅ **Phase 3b-B1 적용 완료**. 21/21 pass (HomeDashboard 5px sub-pixel ceiling). |
+| Tailwind 기본 팔레트 — text-gray-400 (8 byte) | 16건 | § 5.4 참조 | ✅ **Phase 3b-B2/B3 적용 완료**. 21/21 pass. |
+| Tailwind 기본 팔레트 — text-gray-300 (의미 미스매치) | 4건 | (적합 토큰 없음) | ✋ **Phase 6 보류**. `--text-disabled` 36 byte 차 — 신토큰 `--text-faint` 신설 또는 v3 정렬과 함께 결정. |
+| Tailwind 기본 팔레트 — 그룹 C (far, 7+ byte) | `gray-700/800/900, blue-400/600, emerald-*, amber-*, red-500` 129건 | § 5.4 참조 | **Phase 6 v3 visual alignment 일괄 처리** — § 6.4.3 상세 표 참조. |
+
+#### 6.4.3 Phase 6 visual alignment 후보 (그룹 C 상세)
+
+> Tailwind preset 의 시각값과 코드 토큰의 시각값이 7+ byte 차이로 인지 가능한 시각 차가 발생하는 항목. Phase 6 visual alignment pass 에서 디자이너 검토·승인 후 일괄 정렬. 정렬 시 baseline 갱신 필수.
+
+| Tailwind preset             | preset hex | 의미 토큰 (Phase 6 후보) | 토큰 hex | max ch diff | 건수 |
+| --------------------------- | ---------- | ------------------------ | -------- | ----------- | ---- |
+| `text-gray-900`             | `#111827`  | `--text-primary`         | `#191F28` | 8           | 74   |
+| `border-gray-900`           | 동상       | `--text-primary` 재활용  | 동상     | 8           | 3    |
+| `bg-gray-900/60`            | 동상       | `--text-primary` 재활용  | 동상     | 8           | 1    |
+| `text-gray-700`             | `#374151`  | `--text-secondary`       | `#4E5968` | 24          | 35   |
+| `text-gray-800`             | `#1F2937`  | `--text-primary`         | `#191F28` | 15          | 3    |
+| `text-blue-400`             | `#60A5FA`  | `--button-accent-primary` | `#3182F6` | 47          | 3    |
+| `bg-blue-400`               | 동상       | 동상                     | 동상     | 47          | 1    |
+| `text-blue-600`             | `#2563EB`  | `--button-accent-primary-hover` | `#1B64DA` | 17  | 2    |
+| `bg-blue-600`               | 동상       | 동상                     | 동상     | 17          | 1    |
+| `text-emerald-600`          | `#059669`  | `--status-success`       | `#00B493` | 42          | 1    |
+| `bg-emerald-400`            | `#34D399`  | `--status-success`       | 동상     | 52          | 1    |
+| `bg-amber-400`              | `#FBBF24`  | `--warning`              | `#B45309` | 108         | 1    |
+| `bg-green-600`              | `#16A34A`  | `--status-success`       | `#00B493` | 73          | 1    |
+| `text-red-500`              | `#EF4444`  | `--error`                | `#FF5B5B` | 24          | 2    |
+
+**총 129건**. Phase 6 진행 시 디자이너와 다음 결정 필요:
+- A. 코드 토큰 hex 그대로 유지 (브랜드 톤) → Tailwind preset 사용 금지로 일관성 강제
+- B. 코드 토큰을 v3/Tailwind 톤으로 정렬 (시각 변화 발생, baseline 갱신)
+- C. 도메인별 분리 — 차트 등 곧 사라질 영역만 별도 처리
 
 ---
 
