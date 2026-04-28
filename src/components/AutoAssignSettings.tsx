@@ -26,7 +26,7 @@ export function AutoAssignSettings() {
                   <p className="text-sm font-semibold text-gray-900">
                     사용함을 선택하시면, 보닥에서 제공하는 DB를 설계사에게 까지 자동 배정해 드립니다.
                   </p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-neutral mt-1">
                     (변경된 설정 값은 익일 00:00시 부터 적용)
                   </p>
                 </div>

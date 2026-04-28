@@ -47,7 +47,7 @@ export function ProductDetailTab() {
               { label: '총 납입 보험료', value: `${mockProductDetail.total.toLocaleString()}원` },
             ].map((row, i) => (
               <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-row-stripe'}>
-                <th className="w-36 py-2.5 px-3 text-center font-semibold text-text-secondary bg-bg border-r border-gray-100">{row.label}</th>
+                <th className="w-36 py-2.5 px-3 text-center font-semibold text-text-secondary bg-bg border-r border-bg-faint">{row.label}</th>
                 <td className="py-2.5 px-3 text-center font-medium text-text-secondary">{row.value}</td>
               </tr>
             ))}
@@ -62,10 +62,10 @@ export function ProductDetailTab() {
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-bg">
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 w-20">담보분류</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 w-32 text-left">담보명</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 w-24">가입금액</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-gray-100 text-left">보장내역</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-20">담보분류</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-32 text-left">담보명</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-24">가입금액</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-bg-faint text-left">보장내역</th>
               </tr>
             </thead>
             <tbody>
@@ -77,12 +77,12 @@ export function ProductDetailTab() {
                 return (
                   <tr key={`${row.category}-${row.name}`} className={zebra}>
                     {showCategory && (
-                      <td rowSpan={rowSpan[row.category]} className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-gray-100 align-middle bg-bg">
+                      <td rowSpan={rowSpan[row.category]} className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-bg-faint align-middle bg-bg">
                         {row.category}
                       </td>
                     )}
-                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-gray-100 align-middle text-left">{row.name}</td>
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100 align-middle">{row.amount.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-bg-faint align-middle text-left">{row.name}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint align-middle">{row.amount.toLocaleString()}</td>
                     <td className="py-2.5 px-3 font-medium text-text-secondary">
                       <ul className="flex flex-col gap-0.5">
                         {row.details.map((d, i) => (

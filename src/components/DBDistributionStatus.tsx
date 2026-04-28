@@ -38,7 +38,7 @@ export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatu
           {/* Table */}
           <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
             <table className="w-full text-[14px] text-center table-fixed">
-              <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-gray-100">
+              <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-bg-faint">
                 <tr>
                   <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white w-20">No.</th>
                   <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white" style={{ width: 'calc((100% - 13rem) * 3 / 9)' }}>기간</th>

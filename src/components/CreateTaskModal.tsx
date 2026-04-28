@@ -46,7 +46,7 @@ export function CreateTaskModal({ isOpen, onClose, onCreate, defaultColumnId }: 
       <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-800">이슈 만들기</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 transition-colors">
+          <button onClick={onClose} className="text-neutral hover:text-gray-700 transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -134,7 +134,7 @@ export function CreateTaskModal({ isOpen, onClose, onCreate, defaultColumnId }: 
           </form>
         </div>
 
-        <div className="p-6 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
+        <div className="p-6 border-t border-gray-200 flex justify-end gap-3 bg-bg-primary">
           <button 
             type="button" 
             onClick={onClose}

@@ -40,9 +40,9 @@ export function ProductSummaryTab() {
               { label: '총 납입 보험료', values: mockProductCompanies.map((c) => `${c.total.toLocaleString()}원`) },
             ].map((row, i) => (
               <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-row-stripe'}>
-                <th className="w-32 py-2.5 px-3 text-center font-semibold text-text-secondary bg-bg border-r border-gray-100">{row.label}</th>
+                <th className="w-32 py-2.5 px-3 text-center font-semibold text-text-secondary bg-bg border-r border-bg-faint">{row.label}</th>
                 {row.values.map((v, idx) => (
-                  <td key={idx} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100 last:border-r-0">{v}</td>
+                  <td key={idx} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint last:border-r-0">{v}</td>
                 ))}
               </tr>
             ))}
@@ -57,15 +57,15 @@ export function ProductSummaryTab() {
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-bg">
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 w-20">담보분류</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 text-left">담보명</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-20">담보분류</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint text-left">담보명</th>
                 {mockProductCompanies.map((_, i) => (
-                  <th key={i} className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">가입금액</th>
+                  <th key={i} className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">가입금액</th>
                 ))}
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">총 가입금액</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">권장금액</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">40대 평균</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-gray-100">보장상태</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">총 가입금액</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">권장금액</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">40대 평균</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-bg-faint">보장상태</th>
               </tr>
             </thead>
             <tbody>
@@ -79,18 +79,18 @@ export function ProductSummaryTab() {
                     {showCategory && (
                       <td
                         rowSpan={categoryRowSpan[row.category]}
-                        className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-gray-100 align-middle bg-bg"
+                        className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-bg-faint align-middle bg-bg"
                       >
                         {row.category}
                       </td>
                     )}
-                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-gray-100 text-left">{row.name}</td>
+                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-bg-faint text-left">{row.name}</td>
                     {row.amounts.map((a, i) => (
-                      <td key={i} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{a.toLocaleString()}</td>
+                      <td key={i} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{a.toLocaleString()}</td>
                     ))}
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.total.toLocaleString()}</td>
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.recommended.toLocaleString()}</td>
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.avg40.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.total.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.recommended.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.avg40.toLocaleString()}</td>
                     <td className="py-2.5 px-3 text-center">
                       <div className="flex justify-center"><CoverageStatusIcon status={row.status} size={16} /></div>
                     </td>

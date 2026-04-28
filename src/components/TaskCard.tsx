@@ -29,8 +29,8 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
       draggable
       onDragStart={(e: any) => onDragStart(e, task.id)}
       className={cn(
-        "bg-white p-4 rounded-md border border-gray-200 cursor-grab active:cursor-grabbing hover:bg-gray-50 transition-colors group relative overflow-hidden",
-        task.isCancelled && "bg-gray-50"
+        "bg-white p-4 rounded-md border border-gray-200 cursor-grab active:cursor-grabbing hover:bg-bg-primary transition-colors group relative overflow-hidden",
+        task.isCancelled && "bg-bg-primary"
       )}
     >
       {task.isCancelled && (
@@ -54,10 +54,10 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
         >
           {task.name} ({task.age}세 / {task.gender} / {task.location})
         </h4>
-        <p className="text-gray-500 text-xs">{task.phone}</p>
+        <p className="text-neutral text-xs">{task.phone}</p>
       </div>
 
-      <div className="flex flex-col gap-0.5 mb-4 text-xs text-gray-600">
+      <div className="flex flex-col gap-0.5 mb-4 text-xs text-text-strong">
         <div className="flex items-center justify-between">
           <span className="text-gray-400">배정일</span>
           <span>{task.assignedDate}</span>

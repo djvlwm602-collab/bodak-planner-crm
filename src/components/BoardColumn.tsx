@@ -35,7 +35,7 @@ export function BoardColumn({ column, tasks, onDragStart, onDrop, onCreateTask }
         <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wide truncate">
           {column.title}
         </h3>
-        <span className="text-xs font-semibold text-gray-500">{tasks.length}</span>
+        <span className="text-xs font-semibold text-neutral">{tasks.length}</span>
       </div>
 
       <div

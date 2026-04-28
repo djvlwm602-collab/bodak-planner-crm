@@ -273,7 +273,7 @@ export function OrgStructureSettings() {
           }}
           className={cn(
             "flex items-center py-2 px-4 cursor-pointer transition-colors group relative",
-            isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-gray-50 text-gray-900",
+            isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-bg-primary text-gray-900",
             isDragging && "opacity-40",
             isDragOver && "bg-blue-100/50 ring-1 ring-inset ring-blue-400"
           )}
@@ -298,7 +298,7 @@ export function OrgStructureSettings() {
 
           {depth > 0 && (
             <div className="w-24 text-center">
-              <span className={cn("text-sm", isSelected ? "text-blue-600" : "text-gray-600")}>
+              <span className={cn("text-sm", isSelected ? "text-blue-600" : "text-text-strong")}>
                 {node.isUsed ? '사용함' : '사용안함'}
               </span>
             </div>
@@ -309,7 +309,7 @@ export function OrgStructureSettings() {
             <button
               className={cn(
                 "p-1 rounded-md hover:bg-gray-200/50",
-                isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-gray-600"
+                isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-text-strong"
               )}
               onClick={(e) => handleAddChild(node.id, e)}
             >
@@ -319,7 +319,7 @@ export function OrgStructureSettings() {
               <button
                 className={cn(
                   "p-1 rounded-md hover:bg-gray-200/50",
-                  isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-gray-600"
+                  isSelected ? "text-blue-400 hover:bg-blue-100" : "text-gray-400 hover:text-text-strong"
                 )}
                 onClick={(e) => toggleExpand(node.id, e)}
               >
@@ -367,8 +367,8 @@ export function OrgStructureSettings() {
             {selectedNode ? (
               <div className="flex flex-col">
                 <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-                  <div className="flex border-b border-gray-100">
-                    <div className="w-[160px] bg-gray-50/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-100 flex items-center justify-center">
+                  <div className="flex border-b border-bg-faint">
+                    <div className="w-[160px] bg-bg-primary/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-bg-faint flex items-center justify-center">
                       조직명
                     </div>
                     <div className="flex-1 px-6 py-4 text-sm text-gray-700 bg-white flex items-center">
@@ -384,8 +384,8 @@ export function OrgStructureSettings() {
                       )}
                     </div>
                   </div>
-                  <div className="flex border-b border-gray-100">
-                    <div className="w-[160px] bg-gray-50/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-100 flex items-center justify-center">
+                  <div className="flex border-b border-bg-faint">
+                    <div className="w-[160px] bg-bg-primary/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-bg-faint flex items-center justify-center">
                       사용 여부
                     </div>
                     <div className="flex-1 px-6 py-4 text-sm text-gray-700 bg-white flex items-center">
@@ -417,8 +417,8 @@ export function OrgStructureSettings() {
                       )}
                     </div>
                   </div>
-                  <div className="flex border-b border-gray-100">
-                    <div className="w-[160px] bg-gray-50/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-100 flex items-center justify-center">
+                  <div className="flex border-b border-bg-faint">
+                    <div className="w-[160px] bg-bg-primary/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-bg-faint flex items-center justify-center">
                       생성일
                     </div>
                     <div className="flex-1 px-6 py-4 text-sm text-gray-700 bg-white flex items-center">
@@ -426,7 +426,7 @@ export function OrgStructureSettings() {
                     </div>
                   </div>
                   <div className="flex">
-                    <div className="w-[160px] bg-gray-50/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-gray-100 flex items-center justify-center">
+                    <div className="w-[160px] bg-bg-primary/50 px-6 py-4 text-sm font-semibold text-gray-900 border-r border-bg-faint flex items-center justify-center">
                       수정일
                     </div>
                     <div className="flex-1 px-6 py-4 text-sm text-gray-700 bg-white flex items-center">
@@ -461,7 +461,7 @@ export function OrgStructureSettings() {
                 </div>
               </div>
             ) : (
-              <div className="border border-gray-200 flex items-center justify-center h-[240px] text-sm text-gray-500 bg-gray-50">
+              <div className="border border-gray-200 flex items-center justify-center h-[240px] text-sm text-neutral bg-bg-primary">
                 조직을 선택해주세요.
               </div>
             )}

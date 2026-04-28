@@ -56,7 +56,7 @@ export function ReassignTypeSettings() {
               <div className="border border-gray-200 rounded-lg bg-white overflow-hidden">
 
                 {/* 헤더 */}
-                <div className="flex items-center bg-white border-b border-gray-100 text-[13px] font-semibold text-text-secondary">
+                <div className="flex items-center bg-white border-b border-bg-faint text-[13px] font-semibold text-text-secondary">
                   <div className="w-[18%] py-3.5 pl-8 pr-5">타입 이름</div>
                   <div className="flex-1 py-3.5 px-5">설명</div>
                   <div className="w-[200px] py-3.5 px-5">노출 여부</div>
@@ -67,7 +67,7 @@ export function ReassignTypeSettings() {
 
                 {/* 빈 상태 — 타입이 하나도 없을 때만 표시 */}
                 {rows.length === 0 && (
-                  <div className="flex items-center min-h-[52px] bg-gray-50/60 border-b border-dashed border-gray-200">
+                  <div className="flex items-center min-h-[52px] bg-bg-primary/60 border-b border-dashed border-gray-200">
                     <div className="w-[18%] py-3.5 pl-8 pr-5">
                       <span className="text-[13px] text-gray-300">타입 이름</span>
                     </div>

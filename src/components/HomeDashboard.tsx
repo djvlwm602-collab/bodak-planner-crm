@@ -178,7 +178,7 @@ export function HomeDashboard() {
               <SectionCard title="리드 타임">
                 {/* KPI 행: 박스형 카드 정렬 */}
                 <div className="flex gap-3 p-4">
-                  <div className="w-[220px] shrink-0 px-4 py-3 border border-gray-100 rounded-lg bg-white">
+                  <div className="w-[220px] shrink-0 px-4 py-3 border border-bg-faint rounded-lg bg-white">
                     <div className="text-xs text-gray-400 mb-1">평균 반응 시간</div>
                     <div className="flex items-end gap-1.5">
                       <span className="text-xl font-semibold text-gray-900">23시간</span>
@@ -186,7 +186,7 @@ export function HomeDashboard() {
                     </div>
                   </div>
                   {leadTimeKpis.map((item, i) => (
-                    <div key={i} className="flex-1 px-4 py-3 border border-gray-100 rounded-lg bg-white">
+                    <div key={i} className="flex-1 px-4 py-3 border border-bg-faint rounded-lg bg-white">
                       <div className="text-xs text-gray-400 mb-1">{item.label}</div>
                       <span className="text-xl font-semibold text-gray-900">{item.value}건</span>
                     </div>
@@ -239,7 +239,7 @@ export function HomeDashboard() {
                 {/* KPI 행: 박스형 카드 — 퍼널 3개 + 참고 지표 */}
                 <div className="flex gap-3 p-4">
                   {funnelSteps.map((step, i) => (
-                    <div key={i} className="flex-1 px-4 py-3 border border-gray-100 rounded-lg bg-white">
+                    <div key={i} className="flex-1 px-4 py-3 border border-bg-faint rounded-lg bg-white">
                       <div className="text-xs text-gray-400 mb-1">{step.label}</div>
                       <div className="flex items-end gap-1.5">
                         <span className="text-xl font-semibold text-gray-900">{step.rate}%</span>
@@ -248,7 +248,7 @@ export function HomeDashboard() {
                     </div>
                   ))}
                   {otherPerformanceKpis.map((kpi, i) => (
-                    <div key={`other-${i}`} className="flex-1 px-4 py-3 border border-gray-100 rounded-lg bg-white">
+                    <div key={`other-${i}`} className="flex-1 px-4 py-3 border border-bg-faint rounded-lg bg-white">
                       <div className="text-xs text-gray-400 mb-1">{kpi.label}</div>
                       <div className="flex items-end gap-1.5">
                         <span className="text-xl font-semibold text-gray-900">{kpi.value}</span>
@@ -304,7 +304,7 @@ export function HomeDashboard() {
                 {/* KPI 행: 박스형 카드 정렬 */}
                 <div className="flex gap-3 p-4">
                   {unresponsiveKpis.map((item, i) => (
-                    <div key={i} className="flex-1 px-4 py-3 border border-gray-100 rounded-lg bg-white">
+                    <div key={i} className="flex-1 px-4 py-3 border border-bg-faint rounded-lg bg-white">
                       <div className="text-xs text-gray-400 mb-1">{item.label}</div>
                       <div className="flex items-end gap-1.5">
                         <span className="text-xl font-semibold text-gray-900">{item.value}건</span>

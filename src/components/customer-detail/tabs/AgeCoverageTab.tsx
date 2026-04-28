@@ -28,15 +28,15 @@ export function AgeCoverageTab() {
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-bg">
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 w-20">담보분류</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100 text-left">담보명</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint w-20">담보분류</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint text-left">담보명</th>
                 {ageColumns.map((age) => (
-                  <th key={age} className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">{age}</th>
+                  <th key={age} className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">{age}</th>
                 ))}
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">총 가입금액</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">권장금액</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-gray-100">40대 평균</th>
-                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-gray-100">보장상태</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">총 가입금액</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">권장금액</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-r border-b border-bg-faint">40대 평균</th>
+                <th className="py-2.5 px-3 font-semibold text-text-secondary border-b border-bg-faint">보장상태</th>
               </tr>
             </thead>
             <tbody>
@@ -48,17 +48,17 @@ export function AgeCoverageTab() {
                 return (
                   <tr key={`${row.category}-${row.name}`} className={zebra}>
                     {showCategory && (
-                      <td rowSpan={rowSpan[row.category]} className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-gray-100 align-middle bg-bg">
+                      <td rowSpan={rowSpan[row.category]} className="py-2.5 px-3 text-center font-semibold text-text-primary border-r border-bg-faint align-middle bg-bg">
                         {row.category}
                       </td>
                     )}
-                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-gray-100 text-left">{row.name}</td>
+                    <td className="py-2.5 px-3 font-medium text-text-secondary border-r border-bg-faint text-left">{row.name}</td>
                     {row.amounts.map((a, i) => (
-                      <td key={i} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{a.toLocaleString()}</td>
+                      <td key={i} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{a.toLocaleString()}</td>
                     ))}
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.total.toLocaleString()}</td>
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.recommended.toLocaleString()}</td>
-                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100">{row.avg40.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.total.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.recommended.toLocaleString()}</td>
+                    <td className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-bg-faint">{row.avg40.toLocaleString()}</td>
                     <td className="py-2.5 px-3 text-center">
                       <div className="flex justify-center"><CoverageStatusIcon status={row.status} size={16} /></div>
                     </td>

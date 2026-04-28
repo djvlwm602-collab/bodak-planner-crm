@@ -22,7 +22,7 @@ export function DataTable({ children, className }: DataTableProps) {
 export function DataTableHead({ children }: { children: React.ReactNode }) {
   return (
     /* 헤더 하단선만 유지 — 헤더/데이터 구분 */
-    <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-gray-100">
+    <thead className="sticky top-0 z-10 [&>tr>th]:border-b [&>tr>th]:border-bg-faint">
       {children}
     </thead>
   );

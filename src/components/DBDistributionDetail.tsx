@@ -99,7 +99,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
         <div 
           className={cn(
             "flex items-center py-2 px-4 cursor-pointer transition-colors group",
-            node.isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-gray-50 text-gray-900"
+            node.isSelected ? "bg-blue-50 text-blue-700" : "hover:bg-bg-primary text-gray-900"
           )}
         >
           <div 
@@ -112,7 +112,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
           </div>
           
           <div className="flex items-center gap-2">
-            <span className={cn("text-sm", node.isSelected ? "text-blue-600" : "text-gray-600")}>
+            <span className={cn("text-sm", node.isSelected ? "text-blue-600" : "text-text-strong")}>
               {node.count}
             </span>
             <div className="flex items-center justify-end w-8">
@@ -152,7 +152,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
             <button 
               className={cn(
                 "px-12 py-3 text-sm font-semibold border-b-2 transition-colors",
-                activeTab === '설계사 별 수량' ? "border-black text-black" : "border-transparent text-gray-500 hover:text-gray-900"
+                activeTab === '설계사 별 수량' ? "border-black text-black" : "border-transparent text-neutral hover:text-gray-900"
               )}
               onClick={() => setActiveTab('설계사 별 수량')}
             >
@@ -161,7 +161,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
             <button 
               className={cn(
                 "px-12 py-3 text-sm font-semibold border-b-2 transition-colors",
-                activeTab === '권역별 수량' ? "border-black text-black" : "border-transparent text-gray-500 hover:text-gray-900"
+                activeTab === '권역별 수량' ? "border-black text-black" : "border-transparent text-neutral hover:text-gray-900"
               )}
               onClick={() => setActiveTab('권역별 수량')}
             >
@@ -178,7 +178,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
             {/* Right Panel - Content */}
             <div className="flex-1 flex flex-col min-w-0">
               {/* Summary Box */}
-              <div className="bg-gray-50 border border-gray-200 py-6 px-8 flex justify-center gap-16 mb-6 shrink-0">
+              <div className="bg-bg-primary border border-gray-200 py-6 px-8 flex justify-center gap-16 mb-6 shrink-0">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-black rounded-full"></div>
                   <span className="text-base font-semibold text-gray-900">총 공급 수량 : 1,100건</span>
@@ -204,7 +204,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
               <div className="border border-gray-300 bg-white">
                 {activeTab === '설계사 별 수량' ? (
                   <table className="w-full text-sm text-center">
-                    <thead className="bg-gray-50 border-b border-gray-300 sticky top-0">
+                    <thead className="bg-bg-primary border-b border-gray-300 sticky top-0">
                       <tr>
                         <th className="py-3 font-semibold text-gray-900 w-16">No.</th>
                         <th className="py-3 font-semibold text-gray-900 w-24">이름</th>
@@ -230,7 +230,7 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
                   </table>
                 ) : (
                   <table className="w-full text-sm text-center">
-                    <thead className="bg-gray-50 border-b border-gray-300 sticky top-0">
+                    <thead className="bg-bg-primary border-b border-gray-300 sticky top-0">
                       <tr>
                         <th className="py-3 font-semibold text-gray-900 w-32">권역</th>
                         <th className="py-3 font-semibold text-gray-900">총 공급 수량</th>

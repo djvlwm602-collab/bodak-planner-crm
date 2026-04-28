@@ -286,7 +286,7 @@ export default function App() {
             onBack={() => handlePageChange('DB 분배 현황')}
           />
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50 text-gray-500">
+          <div className="flex-1 flex items-center justify-center bg-bg-primary text-neutral">
             <div className="text-center">
               <h3 className="text-lg font-medium text-gray-900 mb-2">{activePage}</h3>
               <p>준비 중인 페이지입니다.</p>
