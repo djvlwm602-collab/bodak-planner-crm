@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Visual baseline verification artifacts — 매 phase 마다 재생성되므로 추적하지 않음
+# (보존 가치 있는 baseline 은 docs/visual-baseline/before/ 에 별도 commit 됨)
+docs/visual-baseline/after-*/
+docs/visual-baseline/diff/
