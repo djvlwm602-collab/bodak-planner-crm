@@ -200,33 +200,33 @@ export function HomeDashboard() {
                       <AreaChart data={leadTimeByHour} margin={{ top: 10, right: 20, left: -20, bottom: 20 }}>
                         <defs>
                           <linearGradient id="avgFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.15} />
-                            <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.03} />
+                            <stop offset="0%" stopColor="var(--chart-accent)" stopOpacity={0.15} />
+                            <stop offset="100%" stopColor="var(--chart-accent)" stopOpacity={0.03} />
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-                        <XAxis dataKey="hour" type="number" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#9ca3af' }} dy={10} padding={{ left: 15, right: 15 }} domain={[0, 96]} ticks={[0, 24, 48, 72, 96]} tickFormatter={(v) => `${v / 24}일`} />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
+                        <XAxis dataKey="hour" type="number" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} domain={[0, 96]} ticks={[0, 24, 48, 72, 96]} tickFormatter={(v) => `${v / 24}일`} />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: '#9ca3af', textAnchor: 'end' }}
+                          tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }}
                           tickFormatter={(v) => `${v}건`}
                           width={55}
                         />
-                        <ReferenceLine x={23} stroke="#3b82f6" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 11, fill: '#3b82f6', fontWeight: 600, dy: -5 }} />
+                        <ReferenceLine x={23} stroke="var(--chart-accent)" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 11, fill: 'var(--chart-accent)', fontWeight: 600, dy: -5 }} />
                         <Tooltip
                           labelFormatter={(h: any) => formatHourTooltip(h)}
                           formatter={(v: any) => [`${v}건`, '']}
-                          contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--chart-tooltip-border)', fontSize: '12px' }}
                         />
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke="#3b82f6"
+                          stroke="var(--chart-accent)"
                           strokeWidth={2.5}
                           fill="url(#avgFill)"
                           dot={false}
-                          activeDot={{ r: 5, fill: '#3b82f6', strokeWidth: 0 }}
+                          activeDot={{ r: 5, fill: 'var(--chart-accent)', strokeWidth: 0 }}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
@@ -266,29 +266,29 @@ export function HomeDashboard() {
                         data={funnelSteps.map(s => ({ name: s.label.replace('평균 ', ''), value: s.rate }))}
                         margin={{ top: 10, right: 20, left: -20, bottom: 20 }}
                       >
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
                         <XAxis
                           dataKey="name"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: '#9ca3af' }}
+                          tick={{ fontSize: 11, fill: 'var(--chart-axis)' }}
                           dy={10}
                         />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: '#9ca3af', textAnchor: 'end' }}
+                          tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }}
                           tickFormatter={(v) => `${v}%`}
                           width={55}
                           domain={[0, 100]}
                         />
                         <Tooltip
                           formatter={(v: any) => [`${v}%`, '']}
-                          contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--chart-tooltip-border)', fontSize: '12px' }}
                         />
                         <Bar
                           dataKey="value"
-                          fill="#3b82f6"
+                          fill="var(--chart-accent)"
                           radius={[4, 4, 0, 0]}
                           barSize={48}
                           fillOpacity={0.75}
@@ -321,25 +321,25 @@ export function HomeDashboard() {
                       <AreaChart data={unresponsiveHistory} margin={{ top: 10, right: 20, left: -20, bottom: 20 }}>
                         <defs>
                           <linearGradient id="unrespFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.15} />
-                            <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.03} />
+                            <stop offset="0%" stopColor="var(--chart-accent)" stopOpacity={0.15} />
+                            <stop offset="100%" stopColor="var(--chart-accent)" stopOpacity={0.03} />
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#9ca3af' }} dy={10} padding={{ left: 15, right: 15 }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#9ca3af', textAnchor: 'end' }} tickFormatter={(v) => `${v}건`} width={55} />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
+                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }} tickFormatter={(v) => `${v}건`} width={55} />
                         <Tooltip
                           formatter={(v: any) => [`${v}건`, '미대응 총 건수']}
-                          contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--chart-tooltip-border)', fontSize: '12px' }}
                         />
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke="#3b82f6"
+                          stroke="var(--chart-accent)"
                           strokeWidth={2.5}
                           fill="url(#unrespFill)"
                           dot={false}
-                          activeDot={{ r: 5, fill: '#3b82f6', strokeWidth: 0 }}
+                          activeDot={{ r: 5, fill: 'var(--chart-accent)', strokeWidth: 0 }}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
