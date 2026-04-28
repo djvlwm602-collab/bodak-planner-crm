@@ -8,6 +8,8 @@
 import type { BrandPalette } from '../palette/types';
 
 export interface Brand {
+  /** 브랜드 식별자 — VITE_BRAND env 와 매칭 (Phase 5-C 정식 도입). 미지정 시 'default' */
+  key?: string;
   /** 서비스 이름 (사이드바 상단 표시) */
   name: string;
   /** 보험사/제휴사 이름 (부제목) */
