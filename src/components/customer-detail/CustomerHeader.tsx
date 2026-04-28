@@ -25,10 +25,10 @@ export function CustomerHeader({ status, onStatusChange }: Props) {
         {/* 좌측 — 이름/태그 + 상세 정보 */}
         <div className="flex flex-col gap-1.5 min-w-0">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-[17px] font-semibold text-text-primary tracking-tight">
+            <h1 className="text-body1 font-semibold text-text-primary tracking-tight">
               {mockCustomer.name} ({mockCustomer.age}세 / {mockCustomer.gender} / {mockCustomer.location})
             </h1>
-            <Badge variant={tagVariant(mockCustomer.tag)} className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">
+            <Badge variant={tagVariant(mockCustomer.tag)} className="text-body5 px-[8px] py-[6px] rounded-md border-0 leading-none">
               {mockCustomer.tag}
             </Badge>
           </div>

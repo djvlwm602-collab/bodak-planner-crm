@@ -22,7 +22,7 @@ export function PageHeader({ title, subtitle, actions, className }: PageHeaderPr
       )}
     >
       <div className="flex items-end gap-4">
-        <h1 className="text-[19px] font-semibold text-text-primary tracking-tight">
+        <h1 className="text-h5 font-semibold text-text-primary tracking-tight">
           {title}
         </h1>
         {subtitle && (

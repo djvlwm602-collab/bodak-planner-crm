@@ -275,7 +275,7 @@ function MonthGrid({
       {/* 요일 헤더 */}
       <div className="grid grid-cols-7 mb-1">
         {weekDays.map(d => (
-          <div key={d} className="w-9 h-7 flex items-center justify-center text-[11px] font-medium text-text-disabled">
+          <div key={d} className="w-9 h-7 flex items-center justify-center text-body5 font-medium text-text-disabled">
             {d}
           </div>
         ))}

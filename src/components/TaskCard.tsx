@@ -74,8 +74,8 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
 
         <div className="flex items-center justify-between mt-auto pt-3">
           <div className="flex items-center gap-1.5">
-            <Badge variant={getTagVariant(task.tag)} className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">{task.tag}</Badge>
-            <Badge variant="green" className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none">AI 상담내역</Badge>
+            <Badge variant={getTagVariant(task.tag)} className="text-body5 px-[8px] py-[6px] rounded-md border-0 leading-none">{task.tag}</Badge>
+            <Badge variant="green" className="text-body5 px-[8px] py-[6px] rounded-md border-0 leading-none">AI 상담내역</Badge>
           </div>
           <span className="text-body4 font-semibold text-text-secondary">
             {task.callCount}회 통화

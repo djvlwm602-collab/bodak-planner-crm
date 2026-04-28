@@ -40,7 +40,7 @@ export function ConsultationHistoryTab() {
                   {evt.status && (
                     <Badge
                       variant={statusMeta[evt.status].variant}
-                      className="text-[11px] px-[8px] py-[6px] rounded-md border-0 leading-none"
+                      className="text-body5 px-[8px] py-[6px] rounded-md border-0 leading-none"
                     >
                       {statusMeta[evt.status].label(evt.duration)}
                     </Badge>

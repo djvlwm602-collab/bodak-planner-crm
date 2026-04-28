@@ -115,7 +115,7 @@ export function RolePermissionForm({ onBack }: RolePermissionFormProps) {
       {/* Header */}
       <div className="px-6 py-5 border-b border-border-primary flex items-center justify-between shrink-0">
         <div className="flex items-end gap-4">
-          <h1 className="text-[19px] font-semibold text-gray-900 tracking-tight">직책·권한 설정</h1>
+          <h1 className="text-h5 font-semibold text-gray-900 tracking-tight">직책·권한 설정</h1>
           <span className="text-sm text-neutral mb-0.5">조직을 담당하는 직책 및 메뉴 권한을 부여합니다.</span>
         </div>
       </div>

@@ -24,7 +24,7 @@ export function SummaryTab() {
       <section>
         <h2 className="text-body2 font-semibold text-text-primary mb-3">보험 진단 유형</h2>
         <div className="border border-border rounded-lg bg-surface p-5">
-          <h3 className="text-[19px] font-semibold text-text-primary mb-2">{mockDiagnosisType.title}</h3>
+          <h3 className="text-h5 font-semibold text-text-primary mb-2">{mockDiagnosisType.title}</h3>
           <p className="text-body4 text-text-secondary leading-relaxed whitespace-pre-line">
             {mockDiagnosisType.description}
           </p>
