@@ -759,75 +759,120 @@ Semantic 계층 (공통)
 
 이 구조라면 컴포넌트는 *영원히 변하지 않는다.* `button_accent_primary` 만 보고 그린다.
 
-### 8.2 디렉터리 구조
+### 8.2 디렉터리 구조 (Phase 5 결과)
 
 ```
 src/config/
-├─ brand/
-│  ├─ index.ts          ← getActiveBrand() — env/host로 분기
-│  ├─ types.ts          ← Brand 인터페이스
-│  ├─ default.ts        ← 보닥 (현 defaultBrand)
-│  ├─ heungkuk.ts
-│  └─ samsung.ts
-├─ palette/
-│  ├─ bodak.ts          ← 보닥용 Value 색상 그룹 (#3182F6 계열)
-│  └─ {brand}.ts
-└─ copy/
-   ├─ default.ko.ts     ← 페이지/메뉴/뱃지 라벨 사전
-   └─ {brand}.ko.ts
+├── brand/
+│   ├── types.ts       Brand 인터페이스
+│   ├── default.ts     보닥 (흥국화재) — defaultBrand
+│   ├── sample.ts      데모용 sample 브랜드 (red 톤)
+│   ├── apply.ts       applyBrand() — :root CSS vars 주입
+│   └── index.ts       getActiveBrand() — VITE_BRAND env 분기
+├── palette/
+│   ├── types.ts       BrandPalette 인터페이스
+│   ├── bodak.ts       보닥 핵심 hex (primary/hover/success/danger)
+│   └── sample.ts      sample 핵심 hex
+└── copy/
+    ├── types.ts       PageCopy / PageMeta 인터페이스
+    └── default.ko.ts  보닥 페이지 카피 (15 페이지)
+
+public/brand/{brandKey}/
+├── logo.svg
+├── favicon.svg
+└── og.png
 ```
 
-### 8.3 `Brand` 타입 확장 (현행 7필드 → 13필드)
+### 8.3 `Brand` 타입 (Phase 5-C 구현)
 
 ```ts
+// src/config/brand/types.ts
 export interface Brand {
-  // 식별
-  key: string;                      // 'bodak' | 'heungkuk' | …
-  name: string;                     // '보닥 플래너'
-  partnerName: string;              // 'for 흥국화재'
+  /** 브랜드 식별자 — VITE_BRAND env 와 매칭 */
+  key: string;
+  /** 서비스 이름 (사이드바 상단) */
+  name: string;
+  /** 보험사/제휴사 이름 (부제목) */
+  partnerName: string;
+  /** 상품명 (선택) */
   productName?: string;
-
-  // 시각
-  logoInitial: string;              // 1자
-  logoUrl?: string;                 // SVG/PNG (선택)
+  /** 로고 이니셜 (1자) */
+  logoInitial: string;
+  /** 로고/파비콘/OG 이미지 경로 (선택) */
+  logoUrl?: string;
   faviconUrl?: string;
   ogImageUrl?: string;
-
-  // 컬러 (Value 단계)
-  palette: {
-    primary: string;       primaryHover: string;
-    success: string;       danger: string;
-    warning?: string;      accent?: string;       // 보조 강조
-  };
-
-  // 운영
+  /** 브랜드 핵심 컬러 */
+  palette: BrandPalette;
+  /** 운영 메타 */
   termsUrl?: string;
   privacyUrl?: string;
   supportEmail?: string;
 }
+
+// src/config/palette/types.ts
+export interface BrandPalette {
+  primary: string;
+  primaryHover: string;
+  emphasisPrimary?: string;  // primary 의 미세 강조 배경
+  accent?: string;           // default = primary
+  success: string;
+  danger: string;
+  warning?: string;          // default = '#B45309' (brand-safe amber)
+}
 ```
 
-`applyBrand(brand)` 는 `--button-accent-primary`, `--error`, `--warning`, `--accent`, `data-brand-*` 어트리뷰트를 :root에 1회 주입한다 (현 `applyBrand()`와 동일한 패턴 — 이미 잘 구성되어 있음).
+`applyBrand(brand)` 가 `:root` 에 주입하는 토큰 (Phase 5-B):
 
-### 8.4 활성 브랜드 결정 우선순위
+| Tier 3 (legacy 호환)              | Tier 2 (의미 토큰, § 3) |
+| -------------------------------- | ----------------------- |
+| `--color-primary`                | `--button-accent-primary` |
+| `--color-primary-hover`          | `--button-accent-primary-hover` |
+| `--color-success`                | `--status-success`      |
+| `--color-danger`                 | `--error`               |
+| `--brand-primary-hover`          | `--bg-emphasis-primary` (있을 때만) |
+| `--brand-success`                | `--accent` (= palette.accent ?? primary) |
+|                                  | `--warning` (= palette.warning ?? '#B45309') |
 
-1. `import.meta.env.VITE_BRAND` (빌드 타임)
-2. `window.location.hostname` 화이트리스트 매핑 (`heungkuk.bodak.kr` → `heungkuk`)
-3. URL 쿼리 `?brand=…` (디버깅용)
-4. 기본값 `default`
+**`data-brand-*` 어트리뷰트**: `data-brand-key`, `data-brand-name`, `data-brand-partner`, `data-brand-initial`.
 
-### 8.5 카피·도메인 용어 분리
+### 8.4 활성 브랜드 결정
 
-`PAGE_META`(App.tsx)와 Sidebar의 한국어 라벨이 코드에 박혀 있다. 보험사마다 **상담 진행 고객 ↔ 진행 중 고객 ↔ 활성 리드** 로 다르게 부르므로:
-
+**현재 (Phase 5-C)**: 빌드 시점 `VITE_BRAND` env 만.
+```ts
+// src/config/brand/index.ts
+export function getActiveBrand(): Brand {
+  const key = (import.meta.env.VITE_BRAND as string | undefined) ?? 'default';
+  return brands[key] ?? defaultBrand;  // 알 수 없는 키 → default 폴백
+}
 ```
-src/copy/{brandKey}.ko.ts   ← key→label 맵
-src/i18n.ts                 ← getCopy('page.consult-active') → '상담 진행 고객'
+
+```bash
+npm run dev                          # default
+VITE_BRAND=sample npm run dev        # sample (red 톤 데모)
 ```
 
-PAGE_META는 키만 들고, 라벨은 사전에서 가져오게 한다. 향후 다국어/일본어 진출에도 유리.
+**향후 후속 phase 검토**: hostname 라우팅 (`heungkuk.bodak.kr` → `heungkuk`), URL 쿼리 (`?brand=…` 디버깅용).
 
-### 8.6 도메인 데이터 어댑터
+### 8.5 카피·도메인 용어 분리 (Phase 5-D 구현)
+
+`PAGE_META` 가 `App.tsx` 에서 `src/config/copy/default.ko.ts` 로 분리됨. 브랜드별 분기는 향후 `src/config/copy/{brandKey}.ko.ts` 패턴으로 확장 가능 (예: heungkuk 의 '진행 중 고객' vs default 의 '상담 진행 고객').
+
+```ts
+// src/config/copy/types.ts
+export interface PageCopy { title: string; subtitle?: string; }
+export type PageMeta = Record<string, PageCopy>;
+
+// src/config/copy/default.ko.ts
+export const pageMeta: PageMeta = { /* 15 페이지 매핑 */ };
+```
+
+App.tsx 의 import:
+```ts
+import { pageMeta as PAGE_META } from './config/copy/default.ko';
+```
+
+### 8.6 도메인 데이터 어댑터 (후속 phase 검토)
 
 `mock-data.ts` 의 도메인 가정(설계사/플래너/지점 구조)을 `src/domain/{boundedContext}` 로 옮기고 `interface Customer / DB / Org` 인터페이스 + 어댑터 패턴을 적용. 각 보험사의 백엔드 스키마 차이를 어댑터에서 흡수.
 
@@ -835,22 +880,24 @@ PAGE_META는 키만 들고, 라벨은 사전에서 가져오게 한다. 향후 �
 
 ```
 public/brand/{brandKey}/
-  ├─ logo.svg
-  ├─ favicon.svg
-  └─ og.png
+├── logo.svg
+├── favicon.svg
+└── og.png
 ```
 
-`applyBrand()` 가 `<link rel="icon">` / `<meta property="og:image">` 를 동적 갱신.
+Phase 5-E 에서 `default` / `sample` 폴더 placeholder 생성. `applyBrand()` 가 `<link rel="icon">` / `<meta property="og:image">` 를 동적 갱신하는 로직은 후속 phase 에서 추가 예정.
 
 ### 8.8 신규 브랜드 출시 체크리스트
 
-1. `src/config/brand/{brandKey}.ts` 추가
-2. `src/config/palette/{brandKey}.ts` 색상 그룹 추가 (3~5색)
-3. `public/brand/{brandKey}/` 자산 업로드
-4. `src/copy/{brandKey}.ko.ts` 라벨 변경분 (필요 시)
-5. 환경변수/호스트 라우팅 등록
-6. `pnpm dev` → 모든 페이지 hover/active/focus·KPI·Badge 색이 갱신되는지 확인
-7. Figma `브랜드 컬러 페이지`에 새 브랜드 시트 추가 (Value 그룹 동기화)
+운영 절차는 [`docs/WHITE_LABEL.md`](WHITE_LABEL.md) 참조. 요약:
+
+1. `src/config/palette/{brandKey}.ts` — 핵심 hex 정의
+2. `src/config/brand/{brandKey}.ts` — Brand 객체 (key/name/partnerName/logoInitial + palette)
+3. `src/config/brand/index.ts` 의 `brands` 객체에 등록 + import
+4. `public/brand/{brandKey}/` 자산 3개 (logo.svg, favicon.svg, og.png)
+5. (선택) `src/config/copy/{brandKey}.ko.ts` 라벨 분기
+6. `VITE_BRAND={brandKey} npm run dev` → 21 페이지 spot-check
+7. Figma `브랜드 컬러 페이지` 동기화
 
 ### 8.9 화이트레이블 시 *건드리지 말아야 할 것*
 
@@ -930,7 +977,7 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 | 3b   | **Tailwind 기본 팔레트 380건 일괄 치환** (`gray-*` / `blue-*` 등). § 5.4 매핑표 적용. PR-by-PR. | 위반 0건 + lint 도입                         | 시각 변화 X   |
 | 3c   | **차트 팔레트 신설** (`--chart-accent / --chart-grid / --chart-axis / --chart-tooltip-border`) + `HomeDashboard.tsx` recharts inline hex 치환. | 차트 토큰 PR                                 | 시각 변화 X   |
 | 4    | Typography 매크로 클래스(`text-h1~h5`, `text-body1~5`, `text-caption` size-only) 도입 + `tailwind-merge` 확장 + `text-[NNpx]` 일괄 치환 + **§ 4.2.1 짝수 규칙 적용** (19→20, 17→18, 11→12) + HomeDashboard recharts inline 11→12. | `index.css`, `lib/utils.ts`, 컴포넌트 PR-by-PR + baseline 1~2회 갱신     | ✅ **완료** — 짝수 규칙 cascading 의도된 변화 (§ 0.7). 그 외 임의값 치환은 시각 변화 0. |
-| 5    | `brand.ts` → `palette/` + `brand/` + `copy/` 분리, `applyBrand()` 가 Semantic 토큰을 갱신하게 변경. | B2B 화이트레이블 1차 운영 가능               | 시각 변화 X   |
+| 5    | `brand.ts` → `brand/` + `palette/` + `copy/` 분리. applyBrand() 가 Tier 2 의미 토큰 (--button-accent-primary, --error, --status-success 등) 도 함께 주입. VITE_BRAND env 분기 + sample 브랜드 + WHITE_LABEL.md. | ✅ B2B 화이트레이블 1차 운영 가능. `docs/WHITE_LABEL.md`. | 시각 변화 0 (default). sample 브랜드 시각 전환 데모는 별도 빌드. |
 | **6** | **v3 visual alignment pass** — § 6.4.1 갭 6건의 코드 hex 를 v3 spec hex 로 이주 (`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle`). § 2.6 ↔ § 3.4 border 매핑 모순도 함께 해소. | 디자이너 검토·승인 PR                         | **시각 변화 발생** — 합의된 정렬. baseline 갱신 필수. |
 
 각 단계 끝나면 § 6 "갭 추적" 표를 갱신하고, 합의된 항목은 *시각 정렬*로 닫는다.
