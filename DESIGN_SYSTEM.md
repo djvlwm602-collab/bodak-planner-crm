@@ -543,6 +543,13 @@
 - 빈 페이지 placeholder(`App.tsx`의 "준비 중인 페이지입니다")처럼 곧 사라질 영역은 §  6.4에 "후순위" 표시.
 - CI에 `eslint-plugin-tailwindcss` 또는 자체 lint로 신규 PR에서 `bg-gray-*` 같은 패턴이 추가되면 차단(§ 9.6).
 
+**recharts 등 SVG inline hex 처리** (Phase 3c 패턴):
+- recharts 컴포넌트의 `fill` / `stroke` / `stopColor` 속성과 JS object 형태(`tick={{ fill: ... }}`, `contentStyle={{ border: ... }}`)에 hex literal 대신 CSS `var()` 직접 주입.
+- 예: `stroke="#3b82f6"` → `stroke="var(--chart-accent)"`, `border: '1px solid #e5e7eb'` → `border: '1px solid var(--chart-tooltip-border)'`.
+- Recharts는 SVG 속성에 `var()` 를 그대로 패스 — 정상 동작 (Phase 3c 검증).
+- 단, `var()` 해석 안 되는 케이스 발견 시 fallback: `src/styles/chart-tokens.ts` 같은 TS 상수 파일에서 `'var(--chart-accent)'` 문자열 export 후 import 사용.
+- `fontSize` / `fontWeight` 같은 numeric inline은 본 정책 외 — Phase 4 typography 토큰 도입 시 처리.
+
 ---
 
 ## 6. 갭 추적 (코드 vs Figma v3)
@@ -604,10 +611,10 @@
 | Button danger hover        | `#e04f4f`         | `--danger-hover`                 | ✅ **Phase 3a 적용** (§ 6.3 보류 해소). Phase 6 v3 alignment 후보 (`red_500`). |
 | Button danger active       | `#d44040`         | `--danger-active`                | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`red_600`). |
 | Light tint bg/border       | `#F3F4F6`         | `--bg-faint`                     | ✅ **Phase 3b-A 적용** (53건). bg/border 양쪽 활용. Tailwind `gray-100` hex 일치. v3 cool_neutral_100 정렬은 Phase 6. |
-| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent`                 | Phase 3c. recharts inline 전용. `--button-accent-primary` 와 1byte 차 — 통일 가능. |
-| 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `cool_neutral_100`) | Phase 3c. recharts inline.            |
-| 차트 축 tick               | `#9ca3af`         | `--chart-axis` (= `cool_neutral_400`) | Phase 3c. recharts inline.             |
-| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border` (= `cool_neutral_150`) | Phase 3c. recharts inline.     |
+| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent`                 | ✅ **Phase 3c 적용 완료** (10건). `@brand-free`, Tailwind blue-500 톤. `--button-accent-primary` (#3182F6) 와 10 byte 차 — Phase 6 통일 검토. |
+| 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `--bg-faint`)  | ✅ **Phase 3c 적용 완료** (3건). `--bg-faint` 재활용. |
+| 차트 축 tick               | `#9ca3af`         | `--chart-axis`                   | ✅ **Phase 3c 적용 완료** (6건). v3 `cool_neutral_400` (#A4A8AF) 와 8 byte 차 — Phase 6 정렬 후보. |
+| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border`         | ✅ **Phase 3c 적용 완료** (3건). v3 `cool_neutral_150` (#E9EBEF) 와 4 byte 차 — Phase 6 정렬 후보. |
 | Tailwind 기본 팔레트 — 그룹 A (exact) | `gray-50/100, border-gray-100, gray-500/600` 109건 | § 5.4 참조 | ✅ **Phase 3b-A 적용 완료**. 시각 변화 0. |
 | Tailwind 기본 팔레트 — 그룹 B (near, 2~6 byte) | `border-gray-200/300, bg-gray-200, bg-blue-50/100, blue-700` 100건 | § 5.4 참조 | ✅ **Phase 3b-B1 적용 완료**. 21/21 pass (HomeDashboard 5px sub-pixel ceiling). |
 | Tailwind 기본 팔레트 — text-gray-400 (8 byte) | 16건 | § 5.4 참조 | ✅ **Phase 3b-B2/B3 적용 완료**. 21/21 pass. |
