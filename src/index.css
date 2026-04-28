@@ -140,6 +140,12 @@
   --color-status-pending-bg: var(--status-pending-bg);
   --color-status-done: var(--status-done);
   --color-status-done-bg: var(--status-done-bg);
+
+  /* § 6.4 차트 팔레트 (Phase 3c 도입) */
+  --color-chart-accent: var(--chart-accent);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-chart-tooltip-border: var(--chart-tooltip-border);
 }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */

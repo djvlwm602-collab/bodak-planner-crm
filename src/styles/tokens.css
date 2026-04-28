@@ -305,6 +305,12 @@
   --danger-active: #d44040;         /* @brand-safe — Button danger active */
   --bg-faint: #F3F4F6;              /* @brand-safe — light tint (Tailwind gray-100 hex 일치) bg/border 양쪽 활용 — Phase 3b 도입 */
 
+  /* ── § 6.4 차트 팔레트 (recharts inline 전용, Phase 3c 도입) ── */
+  --chart-accent: #3b82f6;          /* @brand-free — 보닥 #3182F6 와 10 byte 차, Phase 6 정렬 후보 */
+  --chart-grid: var(--bg-faint);    /* @brand-safe — #F3F4F6 (--bg-faint 재활용) */
+  --chart-axis: #9ca3af;            /* @brand-safe — recharts axis tick */
+  --chart-tooltip-border: #e5e7eb;  /* @brand-safe — recharts tooltip border */
+
   /* ── § 6.4 도메인 상태 칩 (Badge weak 페어, Phase 3a 도입) ── */
   --status-info: #5779DB;           /* @brand-safe — primary weak text */
   --status-info-bg: #E1E9FD;        /* @brand-safe — primary weak bg */
