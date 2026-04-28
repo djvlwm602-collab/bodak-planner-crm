@@ -18,10 +18,10 @@ import { DBDistributionDetail } from './components/DBDistributionDetail';
 import { HomeDashboard } from './components/HomeDashboard';
 import { CustomerDetailPage } from './components/customer-detail/CustomerDetailPage';
 import { BoardData, Task } from './types';
-import { applyBrand, defaultBrand } from './config/brand';
+import { applyBrand, getActiveBrand } from './config/brand';
 
-// 앱 최상단에서 한 번 호출 — 브랜드 CSS 변수를 :root에 주입한다
-applyBrand(defaultBrand);
+// 앱 최상단에서 한 번 호출 — VITE_BRAND env 기준 활성 브랜드 CSS 변수를 :root에 주입
+applyBrand(getActiveBrand());
 
 // 페이지별 타이틀/부제목 매핑
 const PAGE_META: Record<string, { title: string; subtitle?: string }> = {

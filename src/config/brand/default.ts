@@ -9,6 +9,7 @@ import type { Brand } from './types';
 import { bodakPalette } from '../palette/bodak';
 
 export const defaultBrand: Brand = {
+  key: 'default',
   name: '보닥 플래너',
   partnerName: 'for 흥국화재',
   logoInitial: 'B',
