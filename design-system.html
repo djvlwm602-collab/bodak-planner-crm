@@ -3,728 +3,893 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Design System — 보닥 플래너</title>
+<title>Design System — 보닥 플래너 (v3 Phase 5 완료)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
 <style>
-/* ── 토큰 (tokens.css + index.css @theme 동기화) ── */
+/* ===========================================================
+   Tier 1 — Value Tokens (DESIGN_SYSTEM § 2)
+   =========================================================== */
 :root {
-  --brand-primary-hover: #1B64DA;
-  --brand-success: #00B493;
+  /* § 2.1 Common */
+  --common-100: #FFFFFF;
+  --common-0:   #000000;
 
-  --color-primary: #3182F6;
-  --color-primary-hover: #1B64DA;
-  --color-success: #00B493;
-  --color-danger: #FF5B5B;
-  --color-warning: #B45309;
+  /* § 2.2 Cool Neutral (20단계) */
+  --cn-50: #F9F9F9; --cn-100: #F2F4F6; --cn-150: #E9EBEF; --cn-200: #E1E3E7;
+  --cn-250: #DAD7DC; --cn-300: #C8C9CE; --cn-350: #B5B6BF; --cn-400: #A4A8AF;
+  --cn-450: #969A9F; --cn-500: #898B93; --cn-550: #7D8085; --cn-600: #6F7177;
+  --cn-650: #61656A; --cn-700: #54595E; --cn-750: #494D53; --cn-800: #3D4147;
+  --cn-850: #31353A; --cn-900: #26282D; --cn-950: #1D2024; --cn-990: #161B1C;
 
-  --color-bg: #F9FAFB;
-  --color-surface: #FFFFFF;
+  /* § 2.3 Blue Dim */
+  --blue-dim-50: #EAF2F7; --blue-dim-100: #DBE4ED; --blue-dim-200: #BBCDDD; --blue-dim-300: #A29ACC; --blue-dim-400: #7B98AE;
+  --blue-dim-500: #67659B; --blue-dim-600: #476984; --blue-dim-700: #295060; --blue-dim-800: #113653; --blue-dim-900: #052238;
 
-  --color-text-primary: #191F28;
-  --color-text-secondary: #4E5968;
-  --color-text-disabled: #AEB5BC;
+  /* § 2.4 Light Blue (v3 액센트) */
+  --lb-50: #E5F7FF; --lb-100: #D1F0FD; --lb-200: #B4E9FA; --lb-300: #7CD8FB; --lb-400: #10C5FF;
+  --lb-500: #00AEFF; --lb-600: #008BCC; --lb-700: #006796; --lb-800: #004261; --lb-900: #002130;
 
-  --color-border: #E8EBED;
-  --color-border-subtle: #CDD1D5;
+  /* § 2.5 Blue */
+  --blue-50: #ECF4FF; --blue-100: #D8E6FB; --blue-200: #B9D2F8; --blue-300: #7DACF3; --blue-400: #4087F2;
+  --blue-500: #1E68DE; --blue-600: #1358BE; --blue-700: #134A9D; --blue-800: #0D3571; --blue-900: #051F46;
 
-  --color-primary-subtle: #EBF3FF;
-  --color-success-subtle: #E8FAF5;
-  --color-danger-subtle: #FFF0F0;
-  --color-warning-subtle: #FFFBEB;
+  /* § 2.6 Cyan */
+  --cyan-50: #EBFAFC; --cyan-100: #CFF3F9; --cyan-200: #AAEAF5; --cyan-300: #6EDDF1; --cyan-400: #20C8E5;
+  --cyan-500: #05B0CE; --cyan-600: #0092A9; --cyan-700: #006F82; --cyan-800: #004854; --cyan-900: #063239;
 
+  /* § 2.7 Green */
+  --green-50: #E6F9F2; --green-100: #CDF6D8; --green-200: #9FEEBA; --green-300: #6BE191; --green-400: #33D287;
+  --green-500: #16BE4E; --green-600: #009632; --green-700: #006625; --green-800: #004517; --green-900: #00240C;
+
+  /* § 2.8 Lime (11단계) */
+  --lime-50: #F8FFF2; --lime-100: #EFF9E7; --lime-150: #DEF3CE; --lime-200: #DBE999; --lime-300: #96E35E; --lime-400: #7AD33A;
+  --lime-500: #6DB032; --lime-600: #4B9E0F; --lime-700: #347D00; --lime-800: #225200; --lime-900: #112D00;
+
+  /* § 2.9 Amber */
+  --amber-50: #FFFDEE; --amber-100: #FFF5CB; --amber-200: #FFE363; --amber-300: #FFC53D; --amber-400: #FFA838;
+  --amber-500: #FF9200; --amber-600: #D47800; --amber-700: #9C5800; --amber-800: #663A00; --amber-900: #361E00;
+
+  /* § 2.10 Orange */
+  --orange-50: #FFF8F1; --orange-100: #FFE3D3; --orange-200: #FFBD86; --orange-300: #FF9D61; --orange-400: #F87E36;
+  --orange-500: #EB6817; --orange-600: #C94A00; --orange-700: #913500; --orange-800: #592100; --orange-900: #2D0F00;
+
+  /* § 2.11 Red */
+  --red-50: #FFF6F6; --red-100: #FDF2E5; --red-200: #FBCACF; --red-300: #FC9D9C; --red-400: #FF7070;
+  --red-500: #F34D58; --red-600: #D93242; --red-700: #862A37; --red-800: #741212; --red-900: #450E0E;
+
+  /* § 2.12 Magenta */
+  --magenta-50: #FBEAF8; --magenta-100: #F7D2F1; --magenta-200: #F596EB; --magenta-300: #F289D0; --magenta-400: #FA73E3;
+  --magenta-500: #F553DA; --magenta-600: #D331BB; --magenta-700: #A81690; --magenta-800: #730560; --magenta-900: #3D0133;
+
+  /* § 2.13 Purple */
+  --purple-50: #FEFBFF; --purple-100: #F6E3FF; --purple-200: #EABEFF; --purple-300: #DE96FF; --purple-400: #D478FF;
+  --purple-500: #C859FF; --purple-600: #AD36E3; --purple-700: #8810B8; --purple-800: #580A7D; --purple-900: #290247;
+
+  /* § 2.14 Violet */
+  --violet-50: #FBFBFF; --violet-100: #ECE7FF; --violet-200: #C8BBFF; --violet-300: #9E86FC; --violet-400: #7D5EF7;
+  --violet-500: #6541F2; --violet-600: #4F29E5; --violet-700: #3A16C9; --violet-800: #23098F; --violet-900: #11024D;
+
+  /* § 2.16 Service */
+  --naver-green: #03C75A; --kakao-yellow: #FEE500;
+
+  /* ===========================================================
+     Tier 2 — Semantic Tokens (DESIGN_SYSTEM § 3) — Phase 2
+     §6.4 갭은 코드 hex literal 보유 (Phase 6 정렬 예정)
+     =========================================================== */
+  /* Background */
+  --bg-primary: #F9FAFB;             /* @brand-safe (§ 6.4 갭) */
+  --bg-secondary: var(--cn-50);
+  --bg-tertiary: var(--cn-100);
+  --bg-disabled: var(--blue-dim-100);
+  --bg-emphasis-primary: #EBF3FF;    /* @brand-free (보닥 톤) */
+  --bg-emphasis-secondary: var(--blue-50);
+
+  /* Text */
+  --text-primary: #191F28;           /* @brand-safe (§ 6.4 갭) */
+  --text-secondary: #4E5968;         /* @brand-safe (§ 6.4 갭) */
+  --text-tertiary: var(--cn-550);
+  --text-quaternary: var(--cn-400);
+  --text-disabled: #AEB5BC;          /* @brand-safe (§ 6.4 갭) */
+  --text-inverse-primary: var(--common-100);
+  --text-inverse-secondary: rgba(255,255,255,0.80);
+  --text-inverse-tertiary: rgba(255,255,255,0.40);
+  --text-accent: #3182F6;            /* @brand-free (= button-accent-primary) */
+
+  /* Border */
+  --border-primary: #E8EBED;         /* @brand-safe (§ 6.4 갭) */
+  --border-subtle: #CDD1D5;          /* @brand-safe (§ 6.4 갭) */
+  --border-selected: var(--cn-500);
+  --border-transparent: rgba(0,0,0,0.10);
+
+  /* Component */
+  --modal-background: var(--common-100);
+  --button-accent-primary: #3182F6;
+  --button-accent-primary-hover: #1B64DA;
+  --button-accent-secondary: var(--lb-50);
+  --button-surface-neutral: var(--cn-150);
+
+  /* Status */
+  --accent: #3182F6;                 /* @brand-free */
+  --error: #FF5B5B;                  /* @brand-safe (§ 6.4 갭) */
+  --warning: #B45309;                /* @brand-safe (amber 톤 유지) */
+  --status-success: #00B493;         /* @brand-safe (도메인 보강) */
+
+  /* ===========================================================
+     Phase 3a-3c 도메인 토큰 (§ 6.4)
+     =========================================================== */
+  --row-stripe: #FAFBFC;
+  --row-hover: #F3F4F6;
+  --bg-selected-subtle: #F0F1F3;
+  --kanban-column-bg: #F0F2F5;
+  --bg-app-body: #F3F3F5;
+  --nav-hover-bg: #E8EAED;
+  --text-strong: #4B5563;
+  --danger-hover: #e04f4f;
+  --danger-active: #d44040;
+  --bg-faint: #F3F4F6;
+
+  --status-info: #5779DB;     --status-info-bg: #E1E9FD;
+  --status-pending: #548989;  --status-pending-bg: #DFE9EA;
+  --status-done: #4B8C57;     --status-done-bg: #E2EEE4;
+
+  --chart-accent: #3b82f6;
+  --chart-grid: var(--bg-faint);
+  --chart-axis: #9ca3af;
+  --chart-tooltip-border: #e5e7eb;
+
+  /* Tier 3 Legacy alias (Tier 2 가리킴) */
+  --color-primary: var(--button-accent-primary);
+  --color-primary-hover: var(--button-accent-primary-hover);
+  --color-success: var(--status-success);
+  --color-danger: var(--error);
+  --color-warning: var(--warning);
+  --color-bg: var(--bg-primary);
+  --color-surface: var(--modal-background);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-disabled: var(--text-disabled);
+  --color-border: var(--border-primary);
+  --color-border-subtle: var(--border-subtle);
+  --color-primary-subtle: var(--bg-emphasis-primary);
   --color-neutral: #6B7280;
   --color-neutral-hover: #4B5563;
+
+  /* Radius */
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px;
 }
 
+/* ===========================================================
+   Layout
+   =========================================================== */
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);color:var(--color-text-primary);font-size:14px;line-height:1.6;}
 
-.topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;padding:0 24px;gap:8px;}
-.logo-mark{width:28px;height:28px;border-radius:7px;background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;padding:0 24px;gap:12px;}
+.logo-mark{width:32px;height:32px;border-radius:8px;background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;}
 .logo-name{font-size:14px;font-weight:700;}
-.logo-ver{font-size:11px;padding:2px 7px;border-radius:99px;background:var(--color-bg);color:var(--color-text-disabled);border:1px solid var(--color-border);font-family:monospace;margin-left:4px;}
-.topbar-nav{display:flex;gap:2px;margin-left:20px;}
-.topbar-nav a{padding:5px 12px;font-size:13px;color:var(--color-text-secondary);border-radius:6px;text-decoration:none;}
-.topbar-nav a:hover{background:var(--color-bg);}
-.topbar-nav a.active{color:var(--color-primary);font-weight:600;background:var(--color-primary-subtle);}
+.logo-partner{font-size:11px;color:var(--color-text-secondary);}
+.logo-ver{font-size:10px;padding:3px 8px;border-radius:99px;background:var(--bg-emphasis-primary);color:var(--color-primary);font-family:monospace;font-weight:700;letter-spacing:.04em;margin-left:8px;}
+.topbar-meta{margin-left:auto;font-size:11px;color:var(--color-text-disabled);font-family:monospace;}
 
-.layout{display:flex;padding-top:52px;min-height:100vh;}
-.sidebar{width:200px;flex-shrink:0;position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;padding:16px 10px;border-right:1px solid var(--color-border);background:var(--color-surface);}
-.sidebar-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.08em;text-transform:uppercase;padding:10px 8px 4px;}
-.sidebar-link{display:block;padding:5px 8px;font-size:13px;color:var(--color-text-secondary);border-radius:6px;text-decoration:none;}
+.layout{display:flex;padding-top:56px;min-height:100vh;}
+.sidebar{width:220px;flex-shrink:0;position:fixed;top:56px;bottom:0;left:0;overflow-y:auto;padding:16px 12px;border-right:1px solid var(--color-border);background:var(--color-surface);}
+.sidebar-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.08em;text-transform:uppercase;padding:14px 8px 6px;}
+.sidebar-link{display:block;padding:6px 10px;font-size:12.5px;color:var(--color-text-secondary);border-radius:6px;text-decoration:none;}
 .sidebar-link:hover{color:var(--color-text-primary);background:var(--color-bg);}
 .sidebar-link.active{color:var(--color-primary);font-weight:600;background:var(--color-primary-subtle);}
 
-.main{margin-left:200px;padding:40px 48px;max-width:1040px;}
-.section{margin-bottom:72px;}
+.main{margin-left:220px;padding:40px 48px;max-width:1200px;}
+.section{margin-bottom:80px;scroll-margin-top:80px;}
 .section-header{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--color-border);}
-.section-title{font-size:20px;font-weight:700;margin-bottom:4px;}
+.section-title{font-size:24px;font-weight:700;margin-bottom:6px;}
 .section-desc{font-size:13px;color:var(--color-text-secondary);}
-.subsection{margin-bottom:32px;}
-.subsection-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-disabled);margin-bottom:12px;}
-.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
-.col{display:flex;flex-direction:column;gap:10px;}
-.preview{padding:20px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;margin-bottom:12px;}
-.preview-label{font-size:11px;color:var(--color-text-disabled);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;}
-.note{font-size:12px;color:var(--color-text-disabled);line-height:1.8;margin-top:8px;}
-.chip{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--color-bg);font-family:monospace;font-size:12px;color:var(--color-text-secondary);border:1px solid var(--color-border);}
-.dot{display:inline-block;width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.08);vertical-align:middle;margin-right:6px;}
+.section-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--bg-emphasis-primary);color:var(--color-primary);font-family:monospace;letter-spacing:.04em;margin-left:8px;vertical-align:middle;}
 
-/* ── Color Swatches ── */
-.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.swatch{border-radius:8px;overflow:hidden;border:1px solid var(--color-border);}
-.swatch-color{height:56px;}
-.swatch-info{padding:9px 11px;background:#fff;}
-.swatch-name{font-size:12px;font-weight:600;margin-bottom:1px;}
-.swatch-token{font-size:11px;font-family:monospace;color:var(--color-text-secondary);}
-.swatch-hex{font-size:11px;font-family:monospace;color:var(--color-text-disabled);}
+.subsection{margin-bottom:36px;}
+.subsection-title{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--color-text-primary);}
+.subsection-desc{font-size:12px;color:var(--color-text-secondary);margin-bottom:14px;}
 
-/* ── Typography ── */
-.type-row{display:flex;align-items:baseline;gap:20px;padding:12px 0;border-bottom:1px solid var(--color-border);}
+.note{font-size:12px;color:var(--color-text-disabled);line-height:1.7;margin-top:8px;padding:10px 14px;background:var(--bg-secondary);border-left:3px solid var(--border-subtle);border-radius:0 6px 6px 0;}
+.chip{display:inline-block;padding:2px 7px;border-radius:4px;background:var(--color-bg);font-family:monospace;font-size:11px;color:var(--color-text-secondary);border:1px solid var(--color-border);}
+.tag-free{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;background:var(--bg-emphasis-primary);color:var(--color-primary);letter-spacing:.04em;}
+.tag-safe{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;background:var(--cn-100);color:var(--cn-700);letter-spacing:.04em;}
+.tag-gap{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;background:var(--amber-100);color:var(--amber-700);letter-spacing:.04em;}
+
+/* ── Color swatches ── */
+.scale-row{display:grid;grid-template-columns:90px repeat(11,1fr);gap:0;margin-bottom:6px;border-radius:6px;overflow:hidden;border:1px solid var(--color-border);}
+.scale-row.scale10{grid-template-columns:90px repeat(10,1fr);}
+.scale-name{display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;color:var(--color-text-primary);background:var(--color-bg);}
+.scale-cell{aspect-ratio:1.2;display:flex;flex-direction:column;justify-content:flex-end;padding:6px 5px;font-size:9px;font-family:monospace;line-height:1.2;}
+.scale-cell.dark{color:rgba(255,255,255,.85);}
+.scale-cell.light{color:rgba(0,0,0,.7);}
+.scale-step{font-weight:700;}
+.scale-hex{opacity:.85;text-transform:uppercase;}
+
+.alpha-row{display:grid;grid-template-columns:90px repeat(10,1fr);gap:0;margin-bottom:6px;border-radius:6px;overflow:hidden;border:1px solid var(--color-border);}
+.alpha-cell{aspect-ratio:1.2;background-image:linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%);background-size:8px 8px;background-position:0 0,0 4px,4px -4px,-4px 0;position:relative;}
+.alpha-cell::after{content:attr(data-step);position:absolute;bottom:4px;left:5px;font-size:9px;font-weight:700;font-family:monospace;}
+.alpha-cell.white::after{color:#000;}
+.alpha-cell.black::after{color:#fff;}
+
+/* Token cards (semantic) */
+.tok-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.tok{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--color-border);border-radius:8px;background:var(--color-surface);}
+.tok-swatch{width:28px;height:28px;border-radius:6px;flex-shrink:0;border:1px solid rgba(0,0,0,.06);background-image:linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%);background-size:6px 6px;background-position:0 0,0 3px,3px -3px,-3px 0;}
+.tok-swatch>div{width:100%;height:100%;border-radius:5px;}
+.tok-info{flex:1;min-width:0;}
+.tok-name{font-size:11px;font-weight:600;font-family:monospace;color:var(--color-text-primary);margin-bottom:2px;word-break:break-all;}
+.tok-meta{font-size:10px;color:var(--color-text-disabled);font-family:monospace;}
+
+/* Typography demo */
+.type-row{display:flex;align-items:baseline;gap:24px;padding:14px 0;border-bottom:1px solid var(--color-border);}
 .type-row:last-child{border-bottom:none;}
-.type-meta{flex:0 0 140px;}
-.type-label{font-size:11px;font-weight:600;color:var(--color-text-disabled);font-family:monospace;}
+.type-meta{flex:0 0 200px;}
+.type-name{font-size:12px;font-weight:600;color:var(--color-text-primary);font-family:monospace;}
 .type-px{font-size:11px;color:var(--color-text-secondary);font-family:monospace;}
+.type-sample{flex:1;color:var(--color-text-primary);}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   COMPONENT STYLES (실제 코드 기준)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Component demos */
+.demo{padding:20px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;margin-bottom:14px;}
+.demo-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-disabled);margin-bottom:14px;}
+.demo-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.demo-row:last-child{margin-bottom:0;}
 
-/* ── Button: 5 variants × 4 sizes ── */
-@keyframes btn-dot{0%,60%,100%{opacity:.25;transform:scale(.75);}30%{opacity:1;transform:scale(1);}}
-.btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:500;cursor:pointer;border:none;transition:all .15s;white-space:nowrap;}
-.btn:disabled{opacity:.4;cursor:not-allowed;}
-.btn-primary{background:#3182F6;color:#fff;}
-.btn-primary:hover:not(:disabled){background:#1B64DA;}
-.btn-weak{background:#EBF3FF;color:#3182F6;}
-.btn-weak:hover:not(:disabled){background:rgba(49,130,246,.10);}
-.btn-secondary{background:#6B7280;color:#fff;}
-.btn-secondary:hover:not(:disabled){background:#4B5563;}
-.btn-ghost{background:transparent;color:#4E5968;border:1px solid #E8EBED;}
-.btn-ghost:hover:not(:disabled){border-color:#CDD1D5;}
-.btn-danger{background:#FF5B5B;color:#fff;}
-.btn-danger:hover:not(:disabled){background:#e04f4f;}
-/* sizes */
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:500;cursor:pointer;border:none;transition:all .15s;}
+.btn-primary{background:var(--color-primary);color:#fff;}
+.btn-primary:hover{background:var(--color-primary-hover);}
+.btn-weak{background:var(--bg-emphasis-primary);color:var(--color-primary);}
+.btn-ghost{background:transparent;color:var(--color-text-secondary);border:1px solid var(--color-border);}
+.btn-ghost:hover{border-color:var(--color-border-subtle);}
+.btn-secondary{background:var(--color-neutral);color:#fff;}
+.btn-secondary:hover{background:var(--color-neutral-hover);}
+.btn-danger{background:var(--color-danger);color:#fff;}
+.btn-danger:hover{background:var(--danger-hover);}
 .btn-xs{padding:4px 12px;font-size:12px;border-radius:4px;}
 .btn-sm{padding:6px 16px;font-size:13px;border-radius:4px;}
 .btn-md{padding:8px 20px;font-size:14px;border-radius:6px;}
 .btn-lg{padding:10px 40px;font-size:14px;border-radius:8px;}
-/* loading dots */
-.btn-dots{display:flex;gap:5px;align-items:center;}
-.btn-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:btn-dot 1.2s ease-in-out infinite;}
-.btn-dot:nth-child(2){animation-delay:.2s;}
-.btn-dot:nth-child(3){animation-delay:.4s;}
 
-/* ── Badge: 6 variants × 2 fill modes ── */
-.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;}
-/* weak (fill=false) */
-.bdg-default{background:#E8EBED;color:#4E5968;border:1px solid #E8EBED;}
-.bdg-primary{background:#E1E9FD;color:#5779DB;}
-.bdg-teal{background:#DFE9EA;color:#548989;}
-.bdg-green{background:#E2EEE4;color:#4B8C57;}
-.bdg-danger{background:#FFF0F0;color:#FF5B5B;border:1px solid rgba(255,91,91,.2);}
-.bdg-warning{background:#FFFBEB;color:#B45309;border:1px solid rgba(180,83,9,.2);}
-/* fill=true */
-.bdg-fill-default{background:#6B7280;color:#fff;}
-.bdg-fill-primary{background:#3182F6;color:#fff;}
-.bdg-fill-teal{background:#00B493;color:#fff;}
-.bdg-fill-green{background:#16a34a;color:#fff;}
-.bdg-fill-danger{background:#FF5B5B;color:#fff;}
-.bdg-fill-warning{background:#B45309;color:#fff;}
+/* Badges */
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:500;}
+.badge-default{background:var(--color-border);color:var(--color-text-secondary);}
+.badge-info{background:var(--status-info-bg);color:var(--status-info);}
+.badge-pending{background:var(--status-pending-bg);color:var(--status-pending);}
+.badge-done{background:var(--status-done-bg);color:var(--status-done);}
+.badge-danger{background:var(--color-danger);color:#fff;}
+.badge-warning{background:var(--color-warning);color:#fff;}
 
-/* ── Input ── */
-.input-wrap{display:flex;align-items:center;gap:12px;}
-.input-label-text{font-size:14px;font-weight:700;color:#191F28;white-space:nowrap;}
-.input-inner{position:relative;}
-.input-field{border:1px solid #E8EBED;border-radius:4px;font-size:14px;font-family:inherit;color:#191F28;background:#fff;padding:6px 12px;outline:none;transition:border .15s;}
-.input-field:focus{border-color:#191F28;}
-.input-field::placeholder{color:#4E5968;}
-.input-field:disabled{background:#F9FAFB;color:#AEB5BC;cursor:not-allowed;}
-.input-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#4E5968;pointer-events:none;display:flex;}
-.input-field.has-icon{padding-left:32px;}
+/* KPI Card */
+.kpi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:6px;width:200px;}
+.kpi-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);}
+.kpi-value{font-size:22px;font-weight:600;color:var(--color-text-primary);}
+.kpi-trend{font-size:12px;font-weight:500;color:var(--status-success);}
 
-/* ── Select ── */
-.select-wrap{position:relative;}
-.select-field{width:100%;appearance:none;border:1px solid #E8EBED;border-radius:4px;font-size:14px;font-family:inherit;color:#191F28;background:#fff;padding:6px 32px 6px 12px;outline:none;cursor:pointer;}
-.select-field:focus{border-color:#191F28;}
-.select-arrow{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#4E5968;pointer-events:none;}
+/* Brand cards */
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.brand-card{padding:24px;border-radius:12px;background:var(--color-surface);border:1px solid var(--color-border);}
+.brand-card.active{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--bg-emphasis-primary);}
+.brand-card-title{font-size:11px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;}
+.brand-mark{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.brand-mark-logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;}
+.brand-mark-text-name{font-size:16px;font-weight:700;}
+.brand-mark-text-partner{font-size:12px;color:var(--color-text-secondary);}
+.brand-meta{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:12px;}
+.brand-meta dt{color:var(--color-text-disabled);font-family:monospace;}
+.brand-meta dd{color:var(--color-text-primary);font-family:monospace;}
+.brand-palette{display:flex;gap:6px;margin-top:14px;}
+.brand-palette-color{flex:1;height:36px;border-radius:6px;display:flex;align-items:flex-end;justify-content:center;padding:4px;font-size:9px;font-family:monospace;color:rgba(255,255,255,.9);}
 
-/* ── Filter Chip ── */
-.fchip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E8EBED;cursor:pointer;color:#4E5968;}
-.fchip:hover{border-color:#CDD1D5;}
-.fchip.active{border-color:#3182F6;background:#EBF3FF;color:#3182F6;}
-.fchip-x{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#3182F6;color:#fff;font-size:9px;font-weight:700;}
+/* Phase progress */
+.phase-list{display:flex;flex-direction:column;gap:8px;}
+.phase-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;}
+.phase-num{width:32px;height:32px;border-radius:50%;background:var(--status-done-bg);color:var(--status-done);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.phase-info{flex:1;}
+.phase-title{font-size:13px;font-weight:600;margin-bottom:2px;}
+.phase-desc{font-size:11.5px;color:var(--color-text-secondary);}
+.phase-status{font-size:11px;font-weight:700;color:var(--status-done);}
+.phase-item.pending .phase-num{background:var(--cn-100);color:var(--cn-500);}
+.phase-item.pending .phase-status{color:var(--cn-500);}
 
-/* ── Input Chip ── */
-.ichip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;font-size:13px;background:#fff;border:1px solid #E8EBED;color:#4E5968;min-width:120px;}
-.ichip.focused{border-color:#3182F6;}
-.ichip input{border:none;outline:none;font-size:13px;font-family:inherit;color:#191F28;background:transparent;width:80px;}
+/* Radius preview */
+.rad-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.rad-box{aspect-ratio:1;background:var(--bg-emphasis-primary);border:1px solid var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:monospace;color:var(--color-primary);font-weight:600;}
 
-/* ── Date Range Chip ── */
-.drchip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E8EBED;cursor:pointer;color:#4E5968;}
-.drchip.active{border-color:#3182F6;background:#EBF3FF;color:#3182F6;}
-
-/* ── KPI Card ── */
-.kpi{background:#fff;border:1px solid #E8EBED;border-radius:8px;padding:16px;display:flex;flex-direction:column;min-width:150px;}
-.kpi-title{font-size:13px;font-weight:500;color:#4E5968;margin-bottom:8px;}
-.kpi-bottom{display:flex;align-items:flex-end;justify-content:space-between;}
-.kpi-value{font-size:22px;font-weight:700;color:#191F28;}
-.kpi-trend{display:flex;align-items:center;gap:2px;font-size:12px;font-weight:500;padding:2px 6px;border-radius:2px;}
-.kpi-up{color:#00B493;background:#E8FAF5;}
-.kpi-down{color:#FF5B5B;background:#FFF0F0;}
-
-/* ── Summary Stats ── */
-.stats{display:flex;align-items:center;gap:16px;font-size:14px;}
-.stats-item{color:#4E5968;}
-.stats-item strong{color:#191F28;font-weight:600;}
-.stats-sep{width:1px;height:12px;background:#CDD1D5;}
-
-/* ── Approval Actions ── */
-.approve-btn{padding:4px 12px;font-size:12px;font-weight:500;border-radius:6px;border:none;cursor:pointer;font-family:inherit;}
-.approve-ok{background:#EBF3FF;color:#3182F6;}
-.approve-ng{background:#FFF0F0;color:#FF5B5B;}
-
-/* ── Pagination ── */
-.pg{display:flex;align-items:center;justify-content:flex-end;font-size:13px;color:#4E5968;}
-.pg-navbtn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;border:none;background:transparent;cursor:pointer;color:#4E5968;}
-.pg-navbtn:hover:not(:disabled){background:#F9FAFB;}
-.pg-navbtn:disabled{opacity:.35;cursor:not-allowed;}
-.pg-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:2px;font-size:13px;cursor:pointer;color:#4E5968;border:none;background:transparent;}
-.pg-num.active{background:#F0F1F3;color:#191F28;font-weight:600;}
-.pg-sep{color:#CDD1D5;padding:0 16px;font-size:12px;}
-.pg-range{padding-right:16px;white-space:nowrap;}
-.pg-range strong{color:#191F28;font-weight:600;}
-.pg-pagesize{display:flex;align-items:center;gap:6px;padding-right:16px;}
-.pg-select{appearance:none;border:1px solid #E8EBED;border-radius:2px;font-size:13px;padding:3px 20px 3px 8px;background:#fff;cursor:pointer;color:#191F28;}
-
-/* ── Data Table ── */
-.dt-wrap{border-top:1px solid #E8EBED;}
-.dt{width:100%;font-size:14px;border-collapse:collapse;text-align:center;}
-.dt thead th{padding:14px 12px;font-weight:700;font-size:13px;color:#191F28;background:#F9FAFB;border-bottom:1px solid #E8EBED;position:sticky;top:0;z-index:1;}
-.dt tbody tr:nth-child(even){background:#F9FAFB;}
-.dt tbody tr:hover{background:#EBF3FF!important;}
-.dt tbody td{padding:14px 12px;color:#191F28;}
-
-/* ── Page Header ── */
-.pg-header{padding:20px 24px;border-bottom:1px solid #E8EBED;background:#fff;display:flex;align-items:center;justify-content:space-between;}
-.pg-header-left{display:flex;align-items:flex-end;gap:16px;}
-.pg-header-title{font-size:19px;font-weight:700;color:#191F28;letter-spacing:-.01em;}
-.pg-header-subtitle{font-size:14px;color:#4E5968;margin-bottom:1px;}
-
-/* ── Filter Box ── */
-.filter-box{border:1px solid #E8EBED;border-radius:6px;padding:16px 20px;background:#fff;}
-.filter-box-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-
-/* ── Token Table ── */
-.tktable{width:100%;border-collapse:collapse;font-size:13px;}
-.tktable th{text-align:left;font-size:11px;font-weight:700;color:var(--color-text-disabled);letter-spacing:.05em;padding:0 12px 8px;border-bottom:1px solid var(--color-border);}
-.tktable td{padding:9px 12px;border-bottom:1px solid var(--color-border);vertical-align:middle;}
-.tktable tr:last-child td{border-bottom:none;}
+/* Code box */
+.code{font-family:monospace;font-size:12px;background:var(--cn-50);border:1px solid var(--color-border);border-radius:6px;padding:14px 16px;color:var(--cn-800);overflow-x:auto;line-height:1.7;}
+.code .k{color:var(--blue-700);}
+.code .s{color:var(--green-700);}
+.code .c{color:var(--cn-500);}
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<header class="topbar">
   <div class="logo-mark">B</div>
-  <div class="logo-name">보닥 플래너</div>
-  <span class="logo-ver">v3</span>
-  <nav class="topbar-nav">
-    <a href="#colors">컬러</a>
-    <a href="#typography">타이포</a>
-    <a href="#comp-button" class="active">컴포넌트</a>
-    <a href="#token-ref">토큰</a>
-  </nav>
-</div>
+  <div>
+    <div class="logo-name">보닥 플래너</div>
+    <div class="logo-partner">for 흥국화재</div>
+  </div>
+  <span class="logo-ver">v3 / Phase 5 완료</span>
+  <div class="topbar-meta">DESIGN_SYSTEM.md / WHITE_LABEL.md</div>
+</header>
 
 <div class="layout">
 <aside class="sidebar">
-  <div class="sidebar-label">Foundation</div>
-  <a class="sidebar-link" href="#colors">컬러 시스템</a>
-  <a class="sidebar-link" href="#typography">타이포그래피</a>
-  <a class="sidebar-link" href="#border-radius">라운드 · 테두리</a>
+  <div class="sidebar-label">개요</div>
+  <a href="#overview" class="sidebar-link">현재 상태</a>
+  <a href="#phases" class="sidebar-link">Phase 진행 현황</a>
 
-  <div class="sidebar-label">UI Components</div>
-  <a class="sidebar-link active" href="#comp-button">Button</a>
-  <a class="sidebar-link" href="#comp-badge">Badge</a>
-  <a class="sidebar-link" href="#comp-input">Input</a>
-  <a class="sidebar-link" href="#comp-select">Select Field</a>
-  <a class="sidebar-link" href="#comp-filter-chip">Filter Chip</a>
-  <a class="sidebar-link" href="#comp-input-chip">Input Chip</a>
-  <a class="sidebar-link" href="#comp-date-range">Date Range Chip</a>
-  <a class="sidebar-link" href="#comp-kpi">KPI Card</a>
-  <a class="sidebar-link" href="#comp-stats">Summary Stats</a>
-  <a class="sidebar-link" href="#comp-approval">Approval Actions</a>
-  <a class="sidebar-link" href="#comp-pagination">Pagination</a>
-  <a class="sidebar-link" href="#comp-table">Data Table</a>
+  <div class="sidebar-label">Tier 1 — Value</div>
+  <a href="#tier1-common" class="sidebar-link">Common</a>
+  <a href="#tier1-cool-neutral" class="sidebar-link">Cool Neutral</a>
+  <a href="#tier1-color-scales" class="sidebar-link">Color Scales</a>
+  <a href="#tier1-alpha" class="sidebar-link">Alpha</a>
 
-  <div class="sidebar-label">Layout</div>
-  <a class="sidebar-link" href="#comp-page-header">Page Header</a>
-  <a class="sidebar-link" href="#comp-filter-box">Filter Box</a>
+  <div class="sidebar-label">Tier 2 — Semantic</div>
+  <a href="#tier2-bg" class="sidebar-link">Background</a>
+  <a href="#tier2-text" class="sidebar-link">Text</a>
+  <a href="#tier2-border" class="sidebar-link">Border</a>
+  <a href="#tier2-component" class="sidebar-link">Component</a>
+  <a href="#tier2-status" class="sidebar-link">Status</a>
 
-  <div class="sidebar-label">Reference</div>
-  <a class="sidebar-link" href="#token-ref">전체 토큰</a>
+  <div class="sidebar-label">도메인 토큰</div>
+  <a href="#domain-row" class="sidebar-link">Row / Hover</a>
+  <a href="#domain-status" class="sidebar-link">Status Chip</a>
+  <a href="#domain-chart" class="sidebar-link">Chart</a>
+
+  <div class="sidebar-label">Typography</div>
+  <a href="#typo-macros" class="sidebar-link">매크로 (size-only)</a>
+  <a href="#typo-rules" class="sidebar-link">짝수 규칙</a>
+
+  <div class="sidebar-label">Foundations</div>
+  <a href="#radius" class="sidebar-link">Radius</a>
+
+  <div class="sidebar-label">Components</div>
+  <a href="#comp-button" class="sidebar-link">Button</a>
+  <a href="#comp-badge" class="sidebar-link">Badge</a>
+  <a href="#comp-kpi" class="sidebar-link">KPI Card</a>
+
+  <div class="sidebar-label">Brand</div>
+  <a href="#brand" class="sidebar-link">Default / Sample</a>
 </aside>
 
 <main class="main">
 
-<!-- ══ COLORS ══ -->
-<section class="section" id="colors">
+<!-- =================================================================== -->
+<section id="overview" class="section">
   <div class="section-header">
-    <div class="section-title">컬러 시스템</div>
-    <div class="section-desc">Figma 디자인시스템 v3 기반 활성 토큰.</div>
+    <h1 class="section-title">현재 디자인 시스템 상태<span class="section-tag">Phase 5 완료</span></h1>
+    <p class="section-desc">Figma v3 명명 구조 기반, 3-Tier 토큰, B2B 화이트레이블 단일 진입점. 시각 변화 0 원칙 + § 4.2.1 짝수 규칙 사전 합의 예외.</p>
   </div>
-  <div class="subsection">
-    <div class="subsection-title">Brand / Semantic</div>
-    <div class="swatch-grid">
-      <div class="swatch"><div class="swatch-color" style="background:#3182F6;"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-token">--color-primary</div><div class="swatch-hex">#3182F6</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#1B64DA;"></div><div class="swatch-info"><div class="swatch-name">Primary Hover</div><div class="swatch-token">--color-primary-hover</div><div class="swatch-hex">#1B64DA</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#00B493;"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-token">--color-success</div><div class="swatch-hex">#00B493</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#FF5B5B;"></div><div class="swatch-info"><div class="swatch-name">Danger</div><div class="swatch-token">--color-danger</div><div class="swatch-hex">#FF5B5B</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#B45309;"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-token">--color-warning</div><div class="swatch-hex">#B45309</div></div></div>
+  <div class="brand-grid">
+    <div class="brand-card active">
+      <div class="brand-card-title">활성 브랜드 (default)</div>
+      <div class="brand-mark">
+        <div class="brand-mark-logo" style="background:#3182F6;">B</div>
+        <div>
+          <div class="brand-mark-text-name">보닥 플래너</div>
+          <div class="brand-mark-text-partner">for 흥국화재</div>
+        </div>
+      </div>
+      <dl class="brand-meta">
+        <dt>key</dt><dd>default</dd>
+        <dt>primary</dt><dd>#3182F6</dd>
+        <dt>token 수</dt><dd>165 Value + 50+ Semantic</dd>
+        <dt>baseline</dt><dd>21 페이지</dd>
+      </dl>
     </div>
-  </div>
-  <div class="subsection">
-    <div class="subsection-title">Background / Text / Border</div>
-    <div class="swatch-grid">
-      <div class="swatch"><div class="swatch-color" style="background:#F9FAFB;border-bottom:1px solid #E8EBED;"></div><div class="swatch-info"><div class="swatch-name">bg</div><div class="swatch-token">--color-bg</div><div class="swatch-hex">#F9FAFB</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#fff;border-bottom:1px solid #E8EBED;"></div><div class="swatch-info"><div class="swatch-name">surface</div><div class="swatch-token">--color-surface</div><div class="swatch-hex">#FFFFFF</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#191F28;"></div><div class="swatch-info"><div class="swatch-name">text-primary</div><div class="swatch-token">--color-text-primary</div><div class="swatch-hex">#191F28</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#4E5968;"></div><div class="swatch-info"><div class="swatch-name">text-secondary</div><div class="swatch-token">--color-text-secondary</div><div class="swatch-hex">#4E5968</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#AEB5BC;"></div><div class="swatch-info"><div class="swatch-name">text-disabled</div><div class="swatch-token">--color-text-disabled</div><div class="swatch-hex">#AEB5BC</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#E8EBED;"></div><div class="swatch-info"><div class="swatch-name">border</div><div class="swatch-token">--color-border</div><div class="swatch-hex">#E8EBED</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#CDD1D5;"></div><div class="swatch-info"><div class="swatch-name">border-subtle</div><div class="swatch-token">--color-border-subtle</div><div class="swatch-hex">#CDD1D5</div></div></div>
-    </div>
-  </div>
-  <div class="subsection">
-    <div class="subsection-title">Subtle Tint</div>
-    <div class="swatch-grid">
-      <div class="swatch"><div class="swatch-color" style="background:#EBF3FF;"></div><div class="swatch-info"><div class="swatch-name">primary-subtle</div><div class="swatch-token">--color-primary-subtle</div><div class="swatch-hex">#EBF3FF</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#E8FAF5;"></div><div class="swatch-info"><div class="swatch-name">success-subtle</div><div class="swatch-token">--color-success-subtle</div><div class="swatch-hex">#E8FAF5</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#FFF0F0;"></div><div class="swatch-info"><div class="swatch-name">danger-subtle</div><div class="swatch-token">--color-danger-subtle</div><div class="swatch-hex">#FFF0F0</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#FFFBEB;"></div><div class="swatch-info"><div class="swatch-name">warning-subtle</div><div class="swatch-token">--color-warning-subtle</div><div class="swatch-hex">#FFFBEB</div></div></div>
-    </div>
-  </div>
-  <div class="subsection">
-    <div class="subsection-title">Neutral (버튼 secondary 전용)</div>
-    <div class="swatch-grid">
-      <div class="swatch"><div class="swatch-color" style="background:#6B7280;"></div><div class="swatch-info"><div class="swatch-name">neutral</div><div class="swatch-token">--color-neutral</div><div class="swatch-hex">#6B7280</div></div></div>
-      <div class="swatch"><div class="swatch-color" style="background:#4B5563;"></div><div class="swatch-info"><div class="swatch-name">neutral-hover</div><div class="swatch-token">--color-neutral-hover</div><div class="swatch-hex">#4B5563</div></div></div>
+    <div class="brand-card">
+      <div class="brand-card-title">데모 브랜드 (sample)</div>
+      <div class="brand-mark">
+        <div class="brand-mark-logo" style="background:#E53935;">S</div>
+        <div>
+          <div class="brand-mark-text-name">Sample 플래너</div>
+          <div class="brand-mark-text-partner">for Sample Co.</div>
+        </div>
+      </div>
+      <dl class="brand-meta">
+        <dt>key</dt><dd>sample</dd>
+        <dt>primary</dt><dd>#E53935</dd>
+        <dt>활성화</dt><dd>VITE_BRAND=sample npm run dev</dd>
+        <dt>위치</dt><dd>src/config/brand/sample.ts</dd>
+      </dl>
     </div>
   </div>
 </section>
 
-<!-- ══ TYPOGRAPHY ══ -->
-<section class="section" id="typography">
+<!-- =================================================================== -->
+<section id="phases" class="section">
   <div class="section-header">
-    <div class="section-title">타이포그래피</div>
-    <div class="section-desc">Pretendard. --font-size-xs(11) ~ xl(22) 6단계.</div>
+    <h2 class="section-title">Phase 진행 현황</h2>
+    <p class="section-desc">5단계 마라톤 완료. Phase 6 (v3 visual alignment) 는 디자이너 검토 후 별도 진행.</p>
   </div>
-  <div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-xl</div><div class="type-px">22px · 700</div></div><span style="font-size:22px;font-weight:700;letter-spacing:-.02em;">페이지 제목</span></div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-lg</div><div class="type-px">19px · 700</div></div><span style="font-size:19px;font-weight:700;">섹션 헤딩 — PageHeader title</span></div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-md</div><div class="type-px">16px · 600</div></div><span style="font-size:16px;font-weight:600;">서브 헤딩</span></div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-base</div><div class="type-px">14px · 400</div></div><span style="font-size:14px;">본문 기본. 테이블 셀, 폼 입력값, DataTableCell.</span></div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-sm</div><div class="type-px">13px · 400</div></div><span style="font-size:13px;color:#4E5968;">보조 텍스트. 버튼 sm, 페이지네이션, DataTableHeadCell.</span></div>
-    <div class="type-row"><div class="type-meta"><div class="type-label">--font-size-xs</div><div class="type-px">11px · 700</div></div><span style="font-size:11px;color:#AEB5BC;letter-spacing:.06em;font-weight:700;text-transform:uppercase;">LABEL · CAPTION · SECTION TAG</span></div>
+  <div class="phase-list">
+    <div class="phase-item"><div class="phase-num">1</div><div class="phase-info"><div class="phase-title">Value 토큰 165개 도입</div><div class="phase-desc">Common / Cool Neutral 20단 / 색 스케일 11개 × 10단 / Alpha 20단 / Service 2 — tokens.css</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">2</div><div class="phase-info"><div class="phase-title">Semantic Tier 신설 + Legacy alias</div><div class="phase-desc">§ 3 의미 토큰 50+. § 6.4 갭 6개는 코드 hex literal 보유 (Phase 6 정렬 예정).</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">3a</div><div class="phase-info"><div class="phase-title">컴포넌트 hex 직박이 0건</div><div class="phase-desc">15 도메인 토큰 신설. 14 컴포넌트 마이그레이션. row-stripe / status chip / nav-hover-bg 등.</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">3b</div><div class="phase-info"><div class="phase-title">Tailwind preset → 토큰 (229건)</div><div class="phase-desc">A: exact match 109건. B1: 4-6 byte 100건. B2/3: text-gray-400 16건. text-gray-300 4건은 Phase 6 보류.</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">3c</div><div class="phase-info"><div class="phase-title">Chart 팔레트 4개 + recharts 22건</div><div class="phase-desc">--chart-accent / -grid / -axis / -tooltip-border. recharts CSS var() 직접 호환.</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">4</div><div class="phase-info"><div class="phase-title">Typography 매크로 + 짝수 규칙</div><div class="phase-desc">size-only 11개 매크로 + tailwind-merge 확장. text-[NNpx] 121건 치환. 19→20 / 17→18 / 11→12 짝수 정렬 11건 + recharts 7건.</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item"><div class="phase-num">5</div><div class="phase-info"><div class="phase-title">B2B 화이트레이블 단일 진입점</div><div class="phase-desc">brand/ + palette/ + copy/ 분리. applyBrand() Tier 2 주입. VITE_BRAND env. sample 브랜드. WHITE_LABEL.md.</div></div><div class="phase-status">완료</div></div>
+    <div class="phase-item pending"><div class="phase-num">6</div><div class="phase-info"><div class="phase-title">v3 Visual Alignment Pass (대기)</div><div class="phase-desc">§ 6.4.1 hex 갭 6개 + 그룹 C 129건 + text-gray-300 4건. 디자이너 검토·승인 후 baseline 갱신.</div></div><div class="phase-status">대기</div></div>
   </div>
 </section>
 
-<!-- ══ BORDER/RADIUS ══ -->
-<section class="section" id="border-radius">
+<!-- =================================================================== -->
+<section id="tier1-common" class="section">
   <div class="section-header">
-    <div class="section-title">라운드 · 테두리</div>
+    <h2 class="section-title">Tier 1 — Value Tokens<span class="section-tag">§ 2 / 165개</span></h2>
+    <p class="section-desc">원자 팔레트. 색상의 "재료". Component 코드 직접 참조 금지 — Tier 2 통해서만 접근.</p>
   </div>
+
   <div class="subsection">
-    <div class="subsection-title">Border Radius</div>
-    <div class="row" style="align-items:flex-start;gap:20px;">
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:4px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">4px</div><div style="font-size:10px;color:#AEB5BC;">버튼xs/sm</div></div>
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:12px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-xl</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">12px</div><div style="font-size:10px;color:#AEB5BC;">뱃지</div></div>
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:9999px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-full</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">9999px</div><div style="font-size:10px;color:#AEB5BC;">아바타·도트</div></div>
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:6px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-md</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">6px</div><div style="font-size:10px;color:#AEB5BC;">버튼md·인풋·칩</div></div>
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:8px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-lg</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">8px</div><div style="font-size:10px;color:#AEB5BC;">버튼lg·KPI카드</div></div>
-      <div style="text-align:center;"><div style="width:56px;height:56px;background:#3182F6;opacity:.15;border-radius:12px;margin-bottom:8px;"></div><div style="font-size:12px;font-weight:600;">rounded-xl</div><div style="font-size:11px;color:#AEB5BC;font-family:monospace;">12px</div><div style="font-size:10px;color:#AEB5BC;">모달</div></div>
+    <h3 class="subsection-title">§ 2.1 Common</h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#FFFFFF;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--common-100</div><div class="tok-meta">#FFFFFF</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#000000;"></div></div><div class="tok-info"><div class="tok-name">--common-0</div><div class="tok-meta">#000000</div></div></div>
+    </div>
+  </div>
+
+  <div id="tier1-cool-neutral" class="subsection">
+    <h3 class="subsection-title">§ 2.2 Cool Neutral (20단계, UI 골격)</h3>
+    <p class="subsection-desc">텍스트 본문(950), 페이지 배경(100), 보더(150~300) 등 모든 회색 톤의 원천.</p>
+    <div class="scale-row" style="grid-template-columns:90px repeat(20,1fr);">
+      <div class="scale-name">cool_neutral</div>
+      <div class="scale-cell light" style="background:#F9F9F9;"><div class="scale-step">50</div><div class="scale-hex">F9F9F9</div></div>
+      <div class="scale-cell light" style="background:#F2F4F6;"><div class="scale-step">100</div><div class="scale-hex">F2F4F6</div></div>
+      <div class="scale-cell light" style="background:#E9EBEF;"><div class="scale-step">150</div><div class="scale-hex">E9EBEF</div></div>
+      <div class="scale-cell light" style="background:#E1E3E7;"><div class="scale-step">200</div><div class="scale-hex">E1E3E7</div></div>
+      <div class="scale-cell light" style="background:#DAD7DC;"><div class="scale-step">250</div><div class="scale-hex">DAD7DC</div></div>
+      <div class="scale-cell light" style="background:#C8C9CE;"><div class="scale-step">300</div><div class="scale-hex">C8C9CE</div></div>
+      <div class="scale-cell light" style="background:#B5B6BF;"><div class="scale-step">350</div><div class="scale-hex">B5B6BF</div></div>
+      <div class="scale-cell light" style="background:#A4A8AF;"><div class="scale-step">400</div><div class="scale-hex">A4A8AF</div></div>
+      <div class="scale-cell light" style="background:#969A9F;"><div class="scale-step">450</div><div class="scale-hex">969A9F</div></div>
+      <div class="scale-cell dark" style="background:#898B93;"><div class="scale-step">500</div><div class="scale-hex">898B93</div></div>
+      <div class="scale-cell dark" style="background:#7D8085;"><div class="scale-step">550</div><div class="scale-hex">7D8085</div></div>
+      <div class="scale-cell dark" style="background:#6F7177;"><div class="scale-step">600</div><div class="scale-hex">6F7177</div></div>
+      <div class="scale-cell dark" style="background:#61656A;"><div class="scale-step">650</div><div class="scale-hex">61656A</div></div>
+      <div class="scale-cell dark" style="background:#54595E;"><div class="scale-step">700</div><div class="scale-hex">54595E</div></div>
+      <div class="scale-cell dark" style="background:#494D53;"><div class="scale-step">750</div><div class="scale-hex">494D53</div></div>
+      <div class="scale-cell dark" style="background:#3D4147;"><div class="scale-step">800</div><div class="scale-hex">3D4147</div></div>
+      <div class="scale-cell dark" style="background:#31353A;"><div class="scale-step">850</div><div class="scale-hex">31353A</div></div>
+      <div class="scale-cell dark" style="background:#26282D;"><div class="scale-step">900</div><div class="scale-hex">26282D</div></div>
+      <div class="scale-cell dark" style="background:#1D2024;"><div class="scale-step">950</div><div class="scale-hex">1D2024</div></div>
+      <div class="scale-cell dark" style="background:#161B1C;"><div class="scale-step">990</div><div class="scale-hex">161B1C</div></div>
+    </div>
+  </div>
+
+  <div id="tier1-color-scales" class="subsection">
+    <h3 class="subsection-title">§ 2.3~2.14 Color Scales (각 10단계, lime은 11단)</h3>
+    <p class="subsection-desc">brand-free 액센트 (light_blue), 정보 (blue), 성공 (green), 에러 (red), 경고 (amber/orange), 데이터 시각화 (cyan/lime/magenta/purple/violet).</p>
+
+    <div class="scale-row scale10"><div class="scale-name">blue_dim</div>
+      <div class="scale-cell light" style="background:#EAF2F7;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#DBE4ED;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#BBCDDD;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#A29ACC;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#7B98AE;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#67659B;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#476984;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#295060;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#113653;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#052238;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">light_blue ★</div>
+      <div class="scale-cell light" style="background:#E5F7FF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#D1F0FD;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#B4E9FA;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#7CD8FB;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#10C5FF;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#00AEFF;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#008BCC;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006796;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004261;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#002130;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">blue</div>
+      <div class="scale-cell light" style="background:#ECF4FF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#D8E6FB;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#B9D2F8;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#7DACF3;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#4087F2;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#1E68DE;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#1358BE;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#134A9D;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#0D3571;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#051F46;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">cyan</div>
+      <div class="scale-cell light" style="background:#EBFAFC;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#CFF3F9;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#AAEAF5;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#6EDDF1;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#20C8E5;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#05B0CE;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#0092A9;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006F82;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004854;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#063239;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">green</div>
+      <div class="scale-cell light" style="background:#E6F9F2;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#CDF6D8;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#9FEEBA;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#6BE191;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#33D287;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#16BE4E;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#009632;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006625;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004517;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#00240C;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(11,1fr);"><div class="scale-name">lime (11)</div>
+      <div class="scale-cell light" style="background:#F8FFF2;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#EFF9E7;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#DEF3CE;"><div class="scale-step">150</div></div><div class="scale-cell light" style="background:#DBE999;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#96E35E;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#7AD33A;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#6DB032;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#4B9E0F;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#347D00;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#225200;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#112D00;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">amber</div>
+      <div class="scale-cell light" style="background:#FFFDEE;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FFF5CB;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FFE363;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FFC53D;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FFA838;"><div class="scale-step">400</div></div><div class="scale-cell light" style="background:#FF9200;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D47800;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#9C5800;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#663A00;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#361E00;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">orange</div>
+      <div class="scale-cell light" style="background:#FFF8F1;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FFE3D3;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FFBD86;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FF9D61;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#F87E36;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#EB6817;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#C94A00;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#913500;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#592100;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#2D0F00;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">red ★</div>
+      <div class="scale-cell light" style="background:#FFF6F6;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FDF2E5;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FBCACF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FC9D9C;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FF7070;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#F34D58;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D93242;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#862A37;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#741212;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#450E0E;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">magenta</div>
+      <div class="scale-cell light" style="background:#FBEAF8;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#F7D2F1;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#F596EB;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#F289D0;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FA73E3;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#F553DA;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D331BB;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#A81690;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#730560;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#3D0133;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">purple</div>
+      <div class="scale-cell light" style="background:#FEFBFF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#F6E3FF;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#EABEFF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#DE96FF;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#D478FF;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#C859FF;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#AD36E3;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#8810B8;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#580A7D;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#290247;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="scale-row scale10"><div class="scale-name">violet</div>
+      <div class="scale-cell light" style="background:#FBFBFF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#ECE7FF;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#C8BBFF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#9E86FC;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#7D5EF7;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#6541F2;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#4F29E5;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#3A16C9;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#23098F;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#11024D;"><div class="scale-step">900</div></div>
+    </div>
+    <div class="note">★ light_blue 400 = v3 표준 액센트, red 500 = error. 보닥 primary (#3182F6) 는 brand-free 별도 정의 — light_blue_400 (#10C5FF) 와 의도적 분리.</div>
+  </div>
+
+  <div id="tier1-alpha" class="subsection">
+    <h3 class="subsection-title">§ 2.15 Alpha (white / black 각 10단계)</h3>
+    <p class="subsection-desc">오버레이·그라데이션·디스에이블 마스크 전용. step 50=5%, 900=90%.</p>
+    <div class="alpha-row">
+      <div class="scale-name">alpha_white</div>
+      <div class="alpha-cell white" data-step="50" style="background:rgba(255,255,255,0.05);"></div>
+      <div class="alpha-cell white" data-step="100" style="background:rgba(255,255,255,0.1);"></div>
+      <div class="alpha-cell white" data-step="200" style="background:rgba(255,255,255,0.2);"></div>
+      <div class="alpha-cell white" data-step="300" style="background:rgba(255,255,255,0.3);"></div>
+      <div class="alpha-cell white" data-step="400" style="background:rgba(255,255,255,0.4);"></div>
+      <div class="alpha-cell white" data-step="500" style="background:rgba(255,255,255,0.5);"></div>
+      <div class="alpha-cell white" data-step="600" style="background:rgba(255,255,255,0.6);"></div>
+      <div class="alpha-cell white" data-step="700" style="background:rgba(255,255,255,0.7);"></div>
+      <div class="alpha-cell white" data-step="800" style="background:rgba(255,255,255,0.8);"></div>
+      <div class="alpha-cell white" data-step="900" style="background:rgba(255,255,255,0.9);"></div>
+    </div>
+    <div class="alpha-row">
+      <div class="scale-name">alpha_black</div>
+      <div class="alpha-cell black" data-step="50" style="background:rgba(0,0,0,0.05);"></div>
+      <div class="alpha-cell black" data-step="100" style="background:rgba(0,0,0,0.1);"></div>
+      <div class="alpha-cell black" data-step="200" style="background:rgba(0,0,0,0.2);"></div>
+      <div class="alpha-cell black" data-step="300" style="background:rgba(0,0,0,0.3);"></div>
+      <div class="alpha-cell black" data-step="400" style="background:rgba(0,0,0,0.4);"></div>
+      <div class="alpha-cell black" data-step="500" style="background:rgba(0,0,0,0.5);"></div>
+      <div class="alpha-cell black" data-step="600" style="background:rgba(0,0,0,0.6);"></div>
+      <div class="alpha-cell black" data-step="700" style="background:rgba(0,0,0,0.7);"></div>
+      <div class="alpha-cell black" data-step="800" style="background:rgba(0,0,0,0.8);"></div>
+      <div class="alpha-cell black" data-step="900" style="background:rgba(0,0,0,0.9);"></div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">§ 2.16 Service (서비스 브랜드)</h3>
+    <div class="tok-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+      <div class="tok"><div class="tok-swatch"><div style="background:#03C75A;"></div></div><div class="tok-info"><div class="tok-name">--naver-green</div><div class="tok-meta">#03C75A · 네이버 로그인</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FEE500;"></div></div><div class="tok-info"><div class="tok-name">--kakao-yellow</div><div class="tok-meta">#FEE500 · 카카오 로그인</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ══ BUTTON ══ -->
-<section class="section" id="comp-button">
+<!-- =================================================================== -->
+<section id="tier2-bg" class="section">
   <div class="section-header">
-    <div class="section-title">Button</div>
-    <div class="section-desc">5 variants × 4 sizes (xs/sm/md/lg). isLoading 상태. disabled: opacity-40.</div>
+    <h2 class="section-title">Tier 2 — Semantic Tokens<span class="section-tag">§ 3 / 50+ tokens</span></h2>
+    <p class="section-desc">의미·역할 단위. 컴포넌트는 이 Tier 만 참조. 화이트레이블 분기점 (<span class="tag-free">@brand-free</span> 가 applyBrand() 갱신 대상).</p>
   </div>
 
   <div class="subsection">
-    <div class="subsection-title">Variants (md 기준)</div>
-    <div class="preview">
-      <div class="row">
+    <h3 class="subsection-title">§ 3.1 Background <span class="tag-safe">brand-safe</span> + <span class="tag-free">brand-free</span></h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#F9FAFB;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-primary</div><div class="tok-meta">#F9FAFB · <span class="tag-gap">§ 6.4 갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-50);border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-secondary</div><div class="tok-meta">cool_neutral_50</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-100);"></div></div><div class="tok-info"><div class="tok-name">--bg-tertiary</div><div class="tok-meta">cool_neutral_100</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--blue-dim-100);"></div></div><div class="tok-info"><div class="tok-name">--bg-disabled</div><div class="tok-meta">blue_dim_100</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#EBF3FF;"></div></div><div class="tok-info"><div class="tok-name">--bg-emphasis-primary</div><div class="tok-meta">#EBF3FF · <span class="tag-free">@brand-free</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--blue-50);"></div></div><div class="tok-info"><div class="tok-name">--bg-emphasis-secondary</div><div class="tok-meta">blue_50</div></div></div>
+    </div>
+  </div>
+
+  <div id="tier2-text" class="subsection">
+    <h3 class="subsection-title">§ 3.2 Text <span class="tag-safe">brand-safe</span></h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#191F28;"></div></div><div class="tok-info"><div class="tok-name">--text-primary</div><div class="tok-meta">#191F28 · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#4E5968;"></div></div><div class="tok-info"><div class="tok-name">--text-secondary</div><div class="tok-meta">#4E5968 · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-550);"></div></div><div class="tok-info"><div class="tok-name">--text-tertiary</div><div class="tok-meta">cool_neutral_550</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-400);"></div></div><div class="tok-info"><div class="tok-name">--text-quaternary</div><div class="tok-meta">cool_neutral_400</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#AEB5BC;"></div></div><div class="tok-info"><div class="tok-name">--text-disabled</div><div class="tok-meta">#AEB5BC · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--text-accent</div><div class="tok-meta">#3182F6 · <span class="tag-free">brand-free</span></div></div></div>
+    </div>
+    <div class="note">짙은 배경용 inverse: <code class="chip">--text-inverse-primary</code> (white) / <code class="chip">-secondary</code> (white 80%) / <code class="chip">-tertiary</code> (white 40%)</div>
+  </div>
+
+  <div id="tier2-border" class="subsection">
+    <h3 class="subsection-title">§ 3.4 Border <span class="tag-safe">brand-safe</span></h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#E8EBED;"></div></div><div class="tok-info"><div class="tok-name">--border-primary</div><div class="tok-meta">#E8EBED · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#CDD1D5;"></div></div><div class="tok-info"><div class="tok-name">--border-subtle</div><div class="tok-meta">#CDD1D5 · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-500);"></div></div><div class="tok-info"><div class="tok-name">--border-selected</div><div class="tok-meta">cool_neutral_500</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:rgba(0,0,0,0.10);"></div></div><div class="tok-info"><div class="tok-name">--border-transparent</div><div class="tok-meta">alpha_black_100</div></div></div>
+    </div>
+  </div>
+
+  <div id="tier2-component" class="subsection">
+    <h3 class="subsection-title">§ 3.6 Component-specific (선택)</h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--button-accent-primary</div><div class="tok-meta">CTA bg <span class="tag-free">brand-free</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#1B64DA;"></div></div><div class="tok-info"><div class="tok-name">--button-accent-primary-hover</div><div class="tok-meta">CTA hover <span class="tag-free">brand-free</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--lb-50);"></div></div><div class="tok-info"><div class="tok-name">--button-accent-secondary</div><div class="tok-meta">weak CTA bg</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-150);"></div></div><div class="tok-info"><div class="tok-name">--button-surface-neutral</div><div class="tok-meta">secondary bg</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:var(--common-100);border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--modal-background</div><div class="tok-meta">common_100</div></div></div>
+    </div>
+  </div>
+
+  <div id="tier2-status" class="subsection">
+    <h3 class="subsection-title">§ 3.7 Status <span class="tag-safe">brand-safe</span></h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--accent</div><div class="tok-meta">#3182F6 · <span class="tag-free">brand-free</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FF5B5B;"></div></div><div class="tok-info"><div class="tok-name">--error</div><div class="tok-meta">#FF5B5B · <span class="tag-gap">갭</span> (v3=red_500)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#B45309;"></div></div><div class="tok-info"><div class="tok-name">--warning</div><div class="tok-meta">#B45309 · amber 톤 유지</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#00B493;"></div></div><div class="tok-info"><div class="tok-name">--status-success</div><div class="tok-meta">#00B493 · 도메인 보강</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="domain-row" class="section">
+  <div class="section-header">
+    <h2 class="section-title">도메인 / 시스템 보강 토큰<span class="section-tag">Phase 3a-3c · § 6.4</span></h2>
+    <p class="section-desc">v3 미정의 영역. 코드 hex literal 보유 — Phase 6 visual alignment 후보.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">시스템 보강 (Phase 3a/3b)</h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#FAFBFC;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--row-stripe</div><div class="tok-meta">#FAFBFC · DataTable 짝수행</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--row-hover</div><div class="tok-meta">#F3F4F6 · 행 hover</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-faint</div><div class="tok-meta">#F3F4F6 · light tint (Phase 3b)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F0F1F3;"></div></div><div class="tok-info"><div class="tok-name">--bg-selected-subtle</div><div class="tok-meta">#F0F1F3 · 활성 칩/메뉴</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F0F2F5;"></div></div><div class="tok-info"><div class="tok-name">--kanban-column-bg</div><div class="tok-meta">#F0F2F5 · 칸반 컬럼</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F3F5;"></div></div><div class="tok-info"><div class="tok-name">--bg-app-body</div><div class="tok-meta">#F3F3F5 · App 본문 wrap</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#E8EAED;"></div></div><div class="tok-info"><div class="tok-name">--nav-hover-bg</div><div class="tok-meta">#E8EAED · Sidebar hover</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#4B5563;"></div></div><div class="tok-info"><div class="tok-name">--text-strong</div><div class="tok-meta">#4B5563 · 강조 본문</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#e04f4f;"></div></div><div class="tok-info"><div class="tok-name">--danger-hover</div><div class="tok-meta">#e04f4f · button danger hover</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#d44040;"></div></div><div class="tok-info"><div class="tok-name">--danger-active</div><div class="tok-meta">#d44040 · button danger active</div></div></div>
+    </div>
+  </div>
+
+  <div id="domain-status" class="subsection">
+    <h3 class="subsection-title">상태 칩 페어 (Phase 3a) — Badge weak</h3>
+    <div class="demo">
+      <div class="demo-row">
+        <span class="badge badge-info">primary weak · 종합진단</span>
+        <span class="badge badge-pending">teal weak · 진행중</span>
+        <span class="badge badge-done">green weak · 완료</span>
+        <span class="badge badge-default">default · 기본</span>
+        <span class="badge badge-danger">danger · 종료</span>
+        <span class="badge badge-warning">warning · 경고</span>
+      </div>
+    </div>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#E1E9FD;"></div></div><div class="tok-info"><div class="tok-name">--status-info-bg</div><div class="tok-meta">#E1E9FD</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#5779DB;"></div></div><div class="tok-info"><div class="tok-name">--status-info</div><div class="tok-meta">#5779DB</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#DFE9EA;"></div></div><div class="tok-info"><div class="tok-name">--status-pending-bg</div><div class="tok-meta">#DFE9EA</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#548989;"></div></div><div class="tok-info"><div class="tok-name">--status-pending</div><div class="tok-meta">#548989</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#E2EEE4;"></div></div><div class="tok-info"><div class="tok-name">--status-done-bg</div><div class="tok-meta">#E2EEE4</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#4B8C57;"></div></div><div class="tok-info"><div class="tok-name">--status-done</div><div class="tok-meta">#4B8C57</div></div></div>
+    </div>
+  </div>
+
+  <div id="domain-chart" class="subsection">
+    <h3 class="subsection-title">차트 팔레트 (Phase 3c) — recharts 전용</h3>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#3b82f6;"></div></div><div class="tok-info"><div class="tok-name">--chart-accent</div><div class="tok-meta">#3b82f6 · line/bar 액센트</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-grid</div><div class="tok-meta">= --bg-faint</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#9ca3af;"></div></div><div class="tok-info"><div class="tok-name">--chart-axis</div><div class="tok-meta">#9ca3af · axis tick</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#e5e7eb;"></div></div><div class="tok-info"><div class="tok-name">--chart-tooltip-border</div><div class="tok-meta">#e5e7eb · tooltip border</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="typo-macros" class="section">
+  <div class="section-header">
+    <h2 class="section-title">Typography<span class="section-tag">Phase 4 · size-only 11개</span></h2>
+    <p class="section-desc">매크로는 <strong>size only</strong>. weight 는 Tailwind 네이티브 (<code class="chip">font-medium</code> / <code class="chip">font-semibold</code>) 와 조합. line-height / letter-spacing 은 Phase 6 별도 합의 후 추가 가능.</p>
+  </div>
+  <div style="display:flex;gap:32px;align-items:flex-start;">
+    <div style="flex:1;">
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h1</div><div class="type-px">36px</div></div><div class="type-sample" style="font-size:36px;font-weight:600;">대시보드 거대 수치 1,234</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h2</div><div class="type-px">34px</div></div><div class="type-sample" style="font-size:34px;font-weight:600;">페이지 메인 제목</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h3</div><div class="type-px">24px</div></div><div class="type-sample" style="font-size:24px;font-weight:600;">섹션 헤딩</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h4</div><div class="type-px">22px</div></div><div class="type-sample" style="font-size:22px;font-weight:600;">TopBar 제목 / KPI 수치</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h5</div><div class="type-px">20px</div></div><div class="type-sample" style="font-size:20px;font-weight:600;">PageHeader 제목 (19→20)</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body1</div><div class="type-px">18px</div></div><div class="type-sample" style="font-size:18px;font-weight:600;">CustomerHeader 제목 (17→18)</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body2</div><div class="type-px">16px</div></div><div class="type-sample" style="font-size:16px;font-weight:600;">서브 헤딩</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body3</div><div class="type-px">14px ★</div></div><div class="type-sample" style="font-size:14px;font-weight:500;">본문 표준 — 한국 사용자에게 가장 친숙한 본문 크기</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body4</div><div class="type-px">13px (홀수 예외)</div></div><div class="type-sample" style="font-size:13px;font-weight:500;">보조 텍스트, 페이지네이션, 버튼 sm</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body5</div><div class="type-px">12px</div></div><div class="type-sample" style="font-size:12px;font-weight:400;">캡션 본문, Badge (11→12)</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-caption</div><div class="type-px">10px</div></div><div class="type-sample" style="font-size:10px;font-weight:400;">최소 캡션</div></div>
+    </div>
+  </div>
+
+  <div id="typo-rules" class="subsection" style="margin-top:36px;">
+    <h3 class="subsection-title">§ 4.2.1 짝수 규칙 (사전 합의된 1px 정렬)</h3>
+    <p class="subsection-desc">모든 폰트 크기는 <strong>짝수만 사용</strong>. 13px 만 단일 예외 (한국어 가독). 홀수 발견 시 가장 가까운 짝수로 흡수.</p>
+    <div class="code">
+<span class="c">// ✅ 사용 가능</span>
+36 / 34 / 24 / 22 / 20 / 18 / 16 / 14 / <span class="k">13</span> / 12 / 10
+
+<span class="c">// ❌ 사용 금지 → ✅ 정렬</span>
+11 → 12  <span class="c">(Badge / 캘린더 요일 — Phase 4-C, 7건)</span>
+17 → 18  <span class="c">(CustomerHeader 제목 — Phase 4-C, 1건)</span>
+19 → 20  <span class="c">(PageHeader 제목 — Phase 4-C, 3건)</span>
+inline 11 → 12  <span class="c">(HomeDashboard recharts axis — Phase 4-D, 7건)</span>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:24px;">
+    <h3 class="subsection-title">v3 합성 스타일 표현 (size + native weight)</h3>
+    <div class="code">
+<span class="c">// Figma 스타일      ↔  코드 표현</span>
+body3_medium      ↔ <span class="s">"text-body3 font-medium"</span>
+body3_bold        ↔ <span class="s">"text-body3 font-semibold"</span>
+body4_normal      ↔ <span class="s">"text-body4"</span>      <span class="c">// 기본 weight 상속</span>
+h4                ↔ <span class="s">"text-h4 font-semibold"</span>
+caption           ↔ <span class="s">"text-caption"</span>
+    </div>
+    <div class="note">cn() 의 tailwind-merge 확장으로 override 시 size만 교체되고 weight 보존됨 — Phase 4-B-pre. 예: <code class="chip">cn('text-body5 font-medium', 'text-[11px]')</code> → <code class="chip">'text-[11px] font-medium'</code></div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="radius" class="section">
+  <div class="section-header">
+    <h2 class="section-title">Radius (Border Radius)<span class="section-tag">§ 7.4</span></h2>
+  </div>
+  <div class="rad-grid">
+    <div><div class="rad-box" style="border-radius:4px;">sm 4</div><div class="note" style="background:none;border:none;padding:6px 0;">버튼 xs/sm, 인풋, 칩</div></div>
+    <div><div class="rad-box" style="border-radius:8px;">md 8</div><div class="note" style="background:none;border:none;padding:6px 0;">버튼 md, 칸반, 사이드바</div></div>
+    <div><div class="rad-box" style="border-radius:12px;">lg 12</div><div class="note" style="background:none;border:none;padding:6px 0;">버튼 lg, KPI 카드, 차트</div></div>
+    <div><div class="rad-box" style="border-radius:16px;">xl 16</div><div class="note" style="background:none;border:none;padding:6px 0;">Badge, 모달</div></div>
+    <div><div class="rad-box" style="border-radius:9999px;">full</div><div class="note" style="background:none;border:none;padding:6px 0;">아바타, 도트, 시간 칩</div></div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="comp-button" class="section">
+  <div class="section-header">
+    <h2 class="section-title">Components</h2>
+    <p class="section-desc">실제 코드(<code class="chip">src/components/ui</code>)와 동일한 spec 으로 렌더링.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Button — 5 variants × 4 sizes</h3>
+    <div class="demo">
+      <div class="demo-label">Variants (md size)</div>
+      <div class="demo-row">
         <button class="btn btn-primary btn-md">primary</button>
         <button class="btn btn-weak btn-md">weak</button>
         <button class="btn btn-secondary btn-md">secondary</button>
         <button class="btn btn-ghost btn-md">ghost</button>
         <button class="btn btn-danger btn-md">danger</button>
       </div>
-      <div class="note">
-        primary: bg-primary → hover:bg-primary-hover<br>
-        weak: bg-primary-subtle text-primary → hover:bg-primary/10<br>
-        secondary: bg-neutral → hover:bg-neutral-hover<br>
-        ghost: border-border → hover:border-border-subtle<br>
-        danger: bg-danger → hover:#e04f4f
+      <div class="demo-label" style="margin-top:18px;">Sizes (primary)</div>
+      <div class="demo-row">
+        <button class="btn btn-primary btn-xs">xs</button>
+        <button class="btn btn-primary btn-sm">sm</button>
+        <button class="btn btn-primary btn-md">md</button>
+        <button class="btn btn-primary btn-lg">lg</button>
+      </div>
+    </div>
+    <div class="note">조합 규칙: 취소+확인 = ghost + primary · 삭제+저장 = danger + secondary · 단독 수정 = secondary · 필터 도구 = weak.</div>
+  </div>
+
+  <div id="comp-badge" class="subsection">
+    <h3 class="subsection-title">Badge — 6 variants</h3>
+    <div class="demo">
+      <div class="demo-row">
+        <span class="badge badge-default">default</span>
+        <span class="badge badge-info">primary weak</span>
+        <span class="badge badge-pending">teal weak</span>
+        <span class="badge badge-done">green weak</span>
+        <span class="badge badge-danger">danger</span>
+        <span class="badge badge-warning">warning</span>
       </div>
     </div>
   </div>
 
-  <div class="subsection">
-    <div class="subsection-title">Sizes</div>
-    <div class="preview"><div class="preview-label">xs — 12px · rounded(4px) · px-3 py-1</div><div class="row"><button class="btn btn-primary btn-xs">primary</button><button class="btn btn-weak btn-xs">weak</button><button class="btn btn-secondary btn-xs">secondary</button><button class="btn btn-ghost btn-xs">ghost</button><button class="btn btn-danger btn-xs">danger</button></div></div>
-    <div class="preview"><div class="preview-label">sm — 13px · rounded(4px) · px-4 py-1.5</div><div class="row"><button class="btn btn-primary btn-sm">primary</button><button class="btn btn-weak btn-sm">weak</button><button class="btn btn-secondary btn-sm">secondary</button><button class="btn btn-ghost btn-sm">ghost</button><button class="btn btn-danger btn-sm">danger</button></div></div>
-    <div class="preview"><div class="preview-label">md — 14px · rounded-md(6px) · px-5 py-2 (기본값)</div><div class="row"><button class="btn btn-primary btn-md">primary</button><button class="btn btn-weak btn-md">weak</button><button class="btn btn-secondary btn-md">secondary</button><button class="btn btn-ghost btn-md">ghost</button><button class="btn btn-danger btn-md">danger</button></div></div>
-    <div class="preview"><div class="preview-label">lg — 14px · rounded-lg(8px) · px-10 py-2.5</div><div class="row"><button class="btn btn-primary btn-lg">primary</button><button class="btn btn-weak btn-lg">weak</button><button class="btn btn-secondary btn-lg">secondary</button><button class="btn btn-ghost btn-lg">ghost</button><button class="btn btn-danger btn-lg">danger</button></div></div>
-  </div>
-
-  <div class="subsection">
-    <div class="subsection-title">States</div>
-    <div class="row">
-      <button class="btn btn-primary btn-md" disabled>primary disabled</button>
-      <button class="btn btn-secondary btn-md" disabled>secondary disabled</button>
-      <button class="btn btn-ghost btn-md" disabled>ghost disabled</button>
-    </div>
-    <div class="row" style="margin-top:8px;">
-      <button class="btn btn-primary btn-md" style="cursor:wait;">
-        <span class="btn-dots"><span class="btn-dot"></span><span class="btn-dot"></span><span class="btn-dot"></span></span>
-      </button>
-      <button class="btn btn-weak btn-md" style="cursor:wait;">
-        <span class="btn-dots"><span class="btn-dot"></span><span class="btn-dot"></span><span class="btn-dot"></span></span>
-      </button>
-      <button class="btn btn-secondary btn-md" style="cursor:wait;">
-        <span class="btn-dots"><span class="btn-dot"></span><span class="btn-dot"></span><span class="btn-dot"></span></span>
-      </button>
-      <span style="font-size:12px;color:#AEB5BC;">← isLoading</span>
-    </div>
-  </div>
-
-  <div class="subsection">
-    <div class="subsection-title">조합 규칙</div>
-    <div class="preview">
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">취소 + 확인</span><button class="btn btn-ghost btn-sm">취소</button><button class="btn btn-primary btn-sm">확인</button></div>
-        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">삭제 + 저장</span><button class="btn btn-danger btn-sm">삭제</button><button class="btn btn-secondary btn-sm">저장</button></div>
-        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">단독 수정</span><button class="btn btn-secondary btn-sm">수정</button></div>
-        <div class="row"><span style="width:140px;font-size:12px;color:#AEB5BC;">필터·검색 도구</span><button class="btn btn-weak btn-sm">필터 적용</button></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ BADGE ══ -->
-<section class="section" id="comp-badge">
-  <div class="section-header">
-    <div class="section-title">Badge</div>
-    <div class="section-desc">6 variants × 2 fill modes (weak=false / fill=true). border-radius: 12px.</div>
-  </div>
-
-  <div class="subsection">
-    <div class="subsection-title">Weak (fill=false, 기본) — 연한 배경 + 컬러 텍스트</div>
-    <div class="row">
-      <span class="badge bdg-default">default</span>
-      <span class="badge bdg-primary">primary</span>
-      <span class="badge bdg-teal">teal</span>
-      <span class="badge bdg-green">green</span>
-      <span class="badge bdg-danger">danger</span>
-      <span class="badge bdg-warning">warning</span>
-    </div>
-    <div class="note">
-      default: bg-border · text-text-secondary · border-border<br>
-      primary: bg-[#E1E9FD] · text-[#5779DB] (하드코딩)<br>
-      teal: bg-[#DFE9EA] · text-[#548989] (하드코딩)<br>
-      green: bg-[#E2EEE4] · text-[#4B8C57] (하드코딩)<br>
-      danger: bg-danger-subtle · text-danger · border-danger/20<br>
-      warning: bg-warning-subtle · text-warning · border-warning/20
-    </div>
-  </div>
-
-  <div class="subsection">
-    <div class="subsection-title">Fill (fill=true) — Solid 배경 + 흰 텍스트</div>
-    <div class="row">
-      <span class="badge bdg-fill-default">default</span>
-      <span class="badge bdg-fill-primary">primary</span>
-      <span class="badge bdg-fill-teal">teal</span>
-      <span class="badge bdg-fill-green">green</span>
-      <span class="badge bdg-fill-danger">danger</span>
-      <span class="badge bdg-fill-warning">warning</span>
-    </div>
-    <div class="note">
-      default: bg-neutral · teal: bg-success · green: bg-green-600
-    </div>
-  </div>
-
-  <div class="subsection">
-    <div class="subsection-title">실사용 예시</div>
-    <div class="preview">
-      <div class="row">
-        <span class="badge bdg-primary">배정 완료</span>
-        <span class="badge bdg-teal">계약 예정</span>
-        <span class="badge bdg-green">계약 완료</span>
-        <span class="badge bdg-danger">상담 종료</span>
-        <span class="badge bdg-default">미배정</span>
-      </div>
-      <div class="row" style="margin-top:8px;">
-        <span class="badge bdg-fill-primary">승인</span>
-        <span class="badge bdg-fill-danger">거절</span>
-        <span class="badge bdg-fill-teal">정상</span>
+  <div id="comp-kpi" class="subsection">
+    <h3 class="subsection-title">KPI Card</h3>
+    <div class="demo">
+      <div class="demo-row">
+        <div class="kpi-card">
+          <div class="kpi-title">상담 진행 중</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+            <div class="kpi-value">142</div>
+            <div class="kpi-trend">▲ 12.3%</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">계약 완료</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+            <div class="kpi-value">38</div>
+            <div class="kpi-trend" style="color:var(--color-danger);">▼ 4.1%</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">총 DB</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+            <div class="kpi-value">1,234</div>
+            <div class="kpi-trend">▲ 8.7%</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ INPUT ══ -->
-<section class="section" id="comp-input">
+<!-- =================================================================== -->
+<section id="brand" class="section">
   <div class="section-header">
-    <div class="section-title">Input</div>
-    <div class="section-desc">rounded(4px). placeholder: text-text-secondary. focus: border-text-primary.</div>
+    <h2 class="section-title">Brand 구조<span class="section-tag">Phase 5 · § 8</span></h2>
+    <p class="section-desc">B2B 화이트레이블 단일 진입점. 컴포넌트 코드 수정 0 으로 새 customer 추가 가능.</p>
   </div>
-  <div class="col" style="max-width:400px;">
-    <div class="input-inner"><input class="input-field" placeholder="기본 인풋" style="width:280px;"/></div>
-    <div class="input-wrap"><span class="input-label-text">이름</span><div class="input-inner"><input class="input-field" placeholder="이름 입력" style="width:220px;"/></div></div>
-    <div class="input-inner"><span class="input-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input class="input-field has-icon" placeholder="검색" style="width:280px;"/></div>
-    <div class="input-inner"><input class="input-field" placeholder="비활성" disabled style="width:280px;"/></div>
-  </div>
-</section>
 
-<!-- ══ SELECT ══ -->
-<section class="section" id="comp-select">
-  <div class="section-header">
-    <div class="section-title">Select Field</div>
-    <div class="section-desc">rounded(4px). 커스텀 화살표 포함. 레이블 옵션.</div>
-  </div>
-  <div class="col" style="max-width:360px;">
-    <div class="select-wrap" style="width:200px;"><select class="select-field"><option>전체</option><option>배정 완료</option><option>미배정</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div>
-    <div class="input-wrap"><span class="input-label-text">담당자</span><div class="select-wrap" style="width:200px;"><select class="select-field"><option>전체</option><option>김철수</option><option>이영희</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
-  </div>
-</section>
+  <div class="subsection">
+    <h3 class="subsection-title">활성 브랜드 결정 (VITE_BRAND env)</h3>
+    <div class="code">
+<span class="c">// src/config/brand/index.ts</span>
+<span class="k">export function</span> getActiveBrand(): Brand {
+  <span class="k">const</span> key = (<span class="k">import</span>.meta.env.VITE_BRAND <span class="k">as</span> <span class="k">string</span> | <span class="k">undefined</span>) ?? <span class="s">'default'</span>;
+  <span class="k">return</span> brands[key] ?? defaultBrand;  <span class="c">// 알 수 없는 키 → default 폴백</span>
+}
 
-<!-- ══ FILTER CHIP ══ -->
-<section class="section" id="comp-filter-chip">
-  <div class="section-header">
-    <div class="section-title">Filter Chip</div>
-    <div class="section-desc">단일/다중 선택, 드롭다운 내 검색. 선택 시 border-primary + bg-primary-subtle.</div>
-  </div>
-  <div class="row">
-    <button class="fchip">담당자 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-    <button class="fchip active">배정 완료 <span class="fchip-x">✕</span></button>
-    <button class="fchip active">03.27~04.26 <span class="fchip-x">✕</span></button>
-    <button class="fchip">보험사 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-  </div>
-</section>
-
-<!-- ══ INPUT CHIP ══ -->
-<section class="section" id="comp-input-chip">
-  <div class="section-header">
-    <div class="section-title">Input Chip</div>
-    <div class="section-desc">칩 안에서 직접 입력. 자동완성 드롭다운. focus: border-primary.</div>
-  </div>
-  <div class="row">
-    <div class="ichip"><span style="font-size:12px;color:#AEB5BC;">고객명</span><input placeholder="입력"/></div>
-    <div class="ichip focused"><span style="font-size:12px;color:#3182F6;font-weight:500;">고객명</span><input value="김철수"/></div>
-  </div>
-</section>
-
-<!-- ══ DATE RANGE CHIP ══ -->
-<section class="section" id="comp-date-range">
-  <div class="section-header">
-    <div class="section-title">Date Range Chip</div>
-    <div class="section-desc">프리셋 + 듀얼 캘린더 팝업. 선택 시 active 스타일.</div>
-  </div>
-  <div class="row">
-    <button class="drchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>날짜 선택<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-    <button class="drchip active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>03.27 ~ 04.26<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-  </div>
-</section>
-
-<!-- ══ KPI CARD ══ -->
-<section class="section" id="comp-kpi">
-  <div class="section-header">
-    <div class="section-title">KPI Card</div>
-    <div class="section-desc">rounded-lg(8px). value: font-bold(700). trend: success-subtle / danger-subtle.</div>
-  </div>
-  <div class="row" style="align-items:stretch;">
-    <div class="kpi" style="flex:1;"><div class="kpi-title">총 배정 DB</div><div class="kpi-bottom"><span class="kpi-value">1,284</span></div></div>
-    <div class="kpi" style="flex:1;"><div class="kpi-title">이번 달 신규</div><div class="kpi-bottom"><span class="kpi-value">342</span><span class="kpi-trend kpi-up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>+12.4%</span></div></div>
-    <div class="kpi" style="flex:1;"><div class="kpi-title">미배정</div><div class="kpi-bottom"><span class="kpi-value">87</span><span class="kpi-trend kpi-down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="7" x2="17" y2="17"/><polyline points="17 7 17 17 7 17"/></svg>-3.1%</span></div></div>
-    <div class="kpi" style="flex:1;"><div class="kpi-title">계약 전환율</div><div class="kpi-bottom"><span class="kpi-value">24.7%</span><span class="kpi-trend kpi-up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>+2.1%</span></div></div>
-  </div>
-</section>
-
-<!-- ══ SUMMARY STATS ══ -->
-<section class="section" id="comp-stats">
-  <div class="section-header">
-    <div class="section-title">Summary Stats</div>
-    <div class="section-desc">세로 구분선(bg-border-subtle) 자동 삽입. 값: font-semibold, text-text-primary.</div>
-  </div>
-  <div class="preview">
-    <div class="stats">
-      <div class="stats-item">전체 <strong>1,284건</strong></div>
-      <div class="stats-sep"></div>
-      <div class="stats-item">배정 완료 <strong>1,197건</strong></div>
-      <div class="stats-sep"></div>
-      <div class="stats-item">미배정 <strong>87건</strong></div>
-      <div class="stats-sep"></div>
-      <div class="stats-item">이번 달 신규 <strong>342건</strong></div>
+<span class="c">// 사용</span>
+$ npm run dev                       <span class="c"># default</span>
+$ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</span>
     </div>
   </div>
-</section>
 
-<!-- ══ APPROVAL ACTIONS ══ -->
-<section class="section" id="comp-approval">
-  <div class="section-header">
-    <div class="section-title">Approval Actions</div>
-    <div class="section-desc">테이블 행 인라인 승인/거절 버튼 쌍. primary-subtle / danger-subtle.</div>
-  </div>
-  <div class="preview">
-    <div class="row"><button class="approve-btn approve-ok">승인</button><button class="approve-btn approve-ng">거절</button></div>
-  </div>
-</section>
-
-<!-- ══ PAGINATION ══ -->
-<section class="section" id="comp-pagination">
-  <div class="section-header">
-    <div class="section-title">Pagination</div>
-    <div class="section-desc">justify-end 우측 정렬. "N to N of N" 포맷. showPageSize prop으로 셀렉터 토글.</div>
-  </div>
   <div class="subsection">
-    <div class="subsection-title">showPageSize=false (기본)</div>
-    <div class="preview">
-      <div class="pg">
-        <span class="pg-range"><strong>1</strong> to 10 of 284</span>
-        <span class="pg-sep">|</span>
-        <button class="pg-navbtn" disabled>&#171;</button>
-        <button class="pg-navbtn" disabled>&#8249;</button>
-        <button class="pg-num active">1</button>
-        <button class="pg-num">2</button>
-        <button class="pg-num">3</button>
-        <button class="pg-num" style="color:#AEB5BC;">···</button>
-        <button class="pg-num">10</button>
-        <button class="pg-navbtn">&#8250;</button>
-        <button class="pg-navbtn">&#187;</button>
+    <h3 class="subsection-title">Brand 카드</h3>
+    <div class="brand-grid">
+      <div class="brand-card active">
+        <div class="brand-card-title">default — 보닥 (활성)</div>
+        <div class="brand-mark">
+          <div class="brand-mark-logo" style="background:#3182F6;">B</div>
+          <div>
+            <div class="brand-mark-text-name">보닥 플래너</div>
+            <div class="brand-mark-text-partner">for 흥국화재</div>
+          </div>
+        </div>
+        <div class="brand-palette">
+          <div class="brand-palette-color" style="background:#3182F6;">#3182F6</div>
+          <div class="brand-palette-color" style="background:#1B64DA;">#1B64DA</div>
+          <div class="brand-palette-color" style="background:#00B493;">#00B493</div>
+          <div class="brand-palette-color" style="background:#FF5B5B;">#FF5B5B</div>
+        </div>
+        <div class="note" style="margin-top:14px;font-size:11px;">primary / hover / success / danger</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-card-title">sample — 데모용</div>
+        <div class="brand-mark">
+          <div class="brand-mark-logo" style="background:#E53935;">S</div>
+          <div>
+            <div class="brand-mark-text-name">Sample 플래너</div>
+            <div class="brand-mark-text-partner">for Sample Co.</div>
+          </div>
+        </div>
+        <div class="brand-palette">
+          <div class="brand-palette-color" style="background:#E53935;">#E53935</div>
+          <div class="brand-palette-color" style="background:#C62828;">#C62828</div>
+          <div class="brand-palette-color" style="background:#00B493;">#00B493</div>
+          <div class="brand-palette-color" style="background:#FF5B5B;">#FF5B5B</div>
+        </div>
+        <div class="note" style="margin-top:14px;font-size:11px;">+ <code class="chip">--bg-emphasis-primary: #FFEBEE</code> (red weak tint)</div>
       </div>
     </div>
   </div>
+
   <div class="subsection">
-    <div class="subsection-title">showPageSize=true</div>
-    <div class="preview">
-      <div class="pg">
-        <div class="pg-pagesize"><span style="font-size:12px;color:#AEB5BC;">Page Size:</span><select class="pg-select"><option>10</option><option>20</option><option>50</option></select></div>
-        <span class="pg-sep">|</span>
-        <span class="pg-range"><strong>1</strong> to 10 of 284</span>
-        <span class="pg-sep">|</span>
-        <button class="pg-navbtn" disabled>&#171;</button>
-        <button class="pg-navbtn" disabled>&#8249;</button>
-        <button class="pg-num active">1</button>
-        <button class="pg-num">2</button>
-        <button class="pg-num">3</button>
-        <button class="pg-num" style="color:#AEB5BC;">···</button>
-        <button class="pg-num">10</button>
-        <button class="pg-navbtn">&#8250;</button>
-        <button class="pg-navbtn">&#187;</button>
-      </div>
+    <h3 class="subsection-title">@brand-free vs @brand-safe 토큰 분류</h3>
+    <div class="code">
+<span class="c">// applyBrand() 가 갱신하는 토큰 (brand-free)</span>
+<span class="s">--button-accent-primary</span>           = palette.primary
+<span class="s">--button-accent-primary-hover</span>     = palette.primaryHover
+<span class="s">--bg-emphasis-primary</span>            = palette.emphasisPrimary (있을 때만)
+<span class="s">--accent</span>                         = palette.accent ?? palette.primary
+<span class="s">--error</span>                          = palette.danger
+<span class="s">--status-success</span>                 = palette.success
+<span class="s">--warning</span>                        = palette.warning ?? <span class="s">'#B45309'</span>
+<span class="s">--color-primary[-hover/-success/-danger]</span>  <span class="c">// Tier 3 legacy</span>
+
+<span class="c">// 모든 브랜드에서 동일 (brand-safe)</span>
+<span class="s">--text-*  --bg-primary  --border-*  --row-*  --bg-faint</span>
+<span class="s">--cool-neutral-*  --light-blue-*  ...  (Tier 1 전체)</span>
     </div>
+    <div class="note">신규 브랜드 추가 절차는 <code class="chip">docs/WHITE_LABEL.md</code> 참조 (7단계 체크리스트).</div>
   </div>
 </section>
 
-<!-- ══ DATA TABLE ══ -->
-<section class="section" id="comp-table">
-  <div class="section-header">
-    <div class="section-title">Data Table</div>
-    <div class="section-desc">border-t only (라운드 없음). even행 bg-bg. hover: bg-primary-subtle. HeadCell: bg-bg, font-bold.</div>
-  </div>
-  <div class="dt-wrap">
-    <table class="dt">
-      <thead><tr><th>고객명</th><th>담당자</th><th>상태</th><th>배정일</th><th>승인</th></tr></thead>
-      <tbody>
-        <tr><td>홍길동</td><td>김철수</td><td><span class="badge bdg-primary">배정 완료</span></td><td>2025.04.01</td><td><div style="display:flex;gap:4px;justify-content:center;"><button class="approve-btn approve-ok">승인</button><button class="approve-btn approve-ng">거절</button></div></td></tr>
-        <tr><td>이순신</td><td>이영희</td><td><span class="badge bdg-teal">계약 예정</span></td><td>2025.04.02</td><td>—</td></tr>
-        <tr><td>강감찬</td><td>박민준</td><td><span class="badge bdg-green">계약 완료</span></td><td>2025.04.03</td><td>—</td></tr>
-        <tr><td>유관순</td><td>최지은</td><td><span class="badge bdg-danger">상담 종료</span></td><td>2025.04.04</td><td>—</td></tr>
-        <tr><td>세종대왕</td><td>—</td><td><span class="badge bdg-default">미배정</span></td><td>—</td><td>—</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="note" style="margin-top:8px;">
-    DataTable: border-t · DataTableHead: sticky · DataTableHeadCell: bg-bg · font-bold · border-b<br>
-    DataTableBody: [&gt;tr:nth-child(even)]:bg-bg · DataTableRow: hover:bg-primary-subtle · DataTableCell: py-3.5 px-3
-  </div>
-</section>
-
-<!-- ══ PAGE HEADER ══ -->
-<section class="section" id="comp-page-header">
-  <div class="section-header">
-    <div class="section-title">Page Header</div>
-    <div class="section-desc">페이지 상단 고정. title + subtitle(선택) + actions 슬롯(우측). border-b.</div>
-  </div>
-  <div class="subsection">
-    <div class="subsection-title">title + subtitle + actions</div>
-    <div class="pg-header" style="border-radius:8px;border:1px solid #E8EBED;">
-      <div class="pg-header-left"><span class="pg-header-title">설계사 관리</span><span class="pg-header-subtitle">총 284명</span></div>
-      <div class="row" style="margin:0;"><button class="btn btn-ghost btn-sm">내보내기</button><button class="btn btn-primary btn-sm">설계사 추가</button></div>
-    </div>
-  </div>
-  <div class="subsection">
-    <div class="subsection-title">title only</div>
-    <div class="pg-header" style="border-radius:8px;border:1px solid #E8EBED;">
-      <div class="pg-header-left"><span class="pg-header-title">DB 현황</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FILTER BOX ══ -->
-<section class="section" id="comp-filter-box">
-  <div class="section-header">
-    <div class="section-title">Filter Box</div>
-    <div class="section-desc">검색/필터 컨테이너. border rounded-md. 검색·초기화 버튼 슬롯(우측 끝).</div>
-  </div>
-  <div class="filter-box">
-    <div class="filter-box-row">
-      <div class="input-wrap"><span class="input-label-text">기간</span><button class="drchip active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>03.27 ~ 04.26</button></div>
-      <div class="input-wrap"><span class="input-label-text">담당자</span><div class="select-wrap" style="width:160px;"><select class="select-field"><option>전체</option><option>김철수</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
-      <div class="input-wrap"><span class="input-label-text">상태</span><div class="select-wrap" style="width:140px;"><select class="select-field"><option>전체</option><option>배정 완료</option></select><span class="select-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div></div>
-      <div style="margin-left:auto;display:flex;gap:8px;"><button class="btn btn-ghost btn-sm">초기화</button><button class="btn btn-primary btn-sm">검색</button></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TOKEN REF ══ -->
-<section class="section" id="token-ref">
-  <div class="section-header">
-    <div class="section-title">전체 토큰 참조표</div>
-    <div class="section-desc">활성 토큰 21개 (tokens.css + index.css @theme).</div>
-  </div>
-  <table class="tktable">
-    <thead><tr><th>토큰</th><th>값</th><th>카테고리</th><th>Figma 명칭</th></tr></thead>
-    <tbody>
-      <tr><td><span class="chip">--brand-primary-hover</span></td><td><span class="dot" style="background:#1B64DA;"></span>#1B64DA</td><td>Brand</td><td>—</td></tr>
-      <tr><td><span class="chip">--brand-success</span></td><td><span class="dot" style="background:#00B493;"></span>#00B493</td><td>Brand</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-primary</span></td><td><span class="dot" style="background:#3182F6;"></span>#3182F6</td><td>Semantic</td><td>button_accent_primary</td></tr>
-      <tr><td><span class="chip">--color-primary-hover</span></td><td><span class="dot" style="background:#1B64DA;"></span>#1B64DA</td><td>Semantic</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-success</span></td><td><span class="dot" style="background:#00B493;"></span>#00B493</td><td>Semantic</td><td>success</td></tr>
-      <tr><td><span class="chip">--color-danger</span></td><td><span class="dot" style="background:#FF5B5B;"></span>#FF5B5B</td><td>Semantic</td><td>error</td></tr>
-      <tr><td><span class="chip">--color-warning</span></td><td><span class="dot" style="background:#B45309;"></span>#B45309</td><td>Semantic</td><td>warning</td></tr>
-      <tr><td><span class="chip">--color-bg</span></td><td><span class="dot" style="background:#F9FAFB;border:1px solid #E8EBED;"></span>#F9FAFB</td><td>Background</td><td>bg_primary</td></tr>
-      <tr><td><span class="chip">--color-surface</span></td><td><span class="dot" style="background:#fff;border:1px solid #E8EBED;"></span>#FFFFFF</td><td>Background</td><td>bg_surface</td></tr>
-      <tr><td><span class="chip">--color-text-primary</span></td><td><span class="dot" style="background:#191F28;"></span>#191F28</td><td>Text</td><td>text_primary</td></tr>
-      <tr><td><span class="chip">--color-text-secondary</span></td><td><span class="dot" style="background:#4E5968;"></span>#4E5968</td><td>Text</td><td>text_secondary</td></tr>
-      <tr><td><span class="chip">--color-text-disabled</span></td><td><span class="dot" style="background:#AEB5BC;"></span>#AEB5BC</td><td>Text</td><td>text_disabled</td></tr>
-      <tr><td><span class="chip">--color-border</span></td><td><span class="dot" style="background:#E8EBED;border:1px solid #CDD1D5;"></span>#E8EBED</td><td>Border</td><td>border_primary</td></tr>
-      <tr><td><span class="chip">--color-border-subtle</span></td><td><span class="dot" style="background:#CDD1D5;"></span>#CDD1D5</td><td>Border</td><td>border_subtle</td></tr>
-      <tr><td><span class="chip">--color-primary-subtle</span></td><td><span class="dot" style="background:#EBF3FF;"></span>#EBF3FF</td><td>Tint</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-success-subtle</span></td><td><span class="dot" style="background:#E8FAF5;"></span>#E8FAF5</td><td>Tint</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-danger-subtle</span></td><td><span class="dot" style="background:#FFF0F0;"></span>#FFF0F0</td><td>Tint</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-warning-subtle</span></td><td><span class="dot" style="background:#FFFBEB;"></span>#FFFBEB</td><td>Tint</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-neutral</span></td><td><span class="dot" style="background:#6B7280;"></span>#6B7280</td><td>Neutral</td><td>—</td></tr>
-      <tr><td><span class="chip">--color-neutral-hover</span></td><td><span class="dot" style="background:#4B5563;"></span>#4B5563</td><td>Neutral</td><td>—</td></tr>
-    </tbody>
-  </table>
-</section>
+<!-- =================================================================== -->
+<footer style="margin-top:80px;padding-top:24px;border-top:1px solid var(--color-border);font-size:11px;color:var(--color-text-disabled);text-align:center;line-height:1.8;">
+  <div>보닥 플래너 디자인 시스템 — Phase 1~5 완료 (2026-04-28)</div>
+  <div>출처: <code class="chip">DESIGN_SYSTEM.md</code> · <code class="chip">WHITE_LABEL.md</code> · <code class="chip">docs/visual-baseline/</code></div>
+  <div style="margin-top:6px;">현재 활성: default 브랜드 / 21 baseline 페이지 / 165 Value tokens / 50+ Semantic / 11 Typography 매크로</div>
+</footer>
 
 </main>
 </div>
