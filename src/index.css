@@ -193,36 +193,24 @@
 }
 
 /* ============================================================
-   § 5.3 v3 Typography Macros (Phase 4-A 도입)
-   size + weight only. line-height / letter-spacing 미포함.
-   필요 시 leading-* / tracking-* 명시적으로 추가 (Phase 6 visual alignment 에서
-   v3 full spec 통합 검토).
+   § 5.3 v3 Typography Macros — size only (Phase 4-A' 재정의)
+   각 매크로는 font-size 만 정의. weight 는 Tailwind 네이티브 (font-medium /
+   font-semibold / font-normal) 와 조합 사용.
+   이유: monolithic (size+weight) 매크로는 cn() override 시 weight 까지 함께
+   사라지는 패턴을 만들었음. size-only 분리하면 weight 가 자연스럽게 보존됨.
+   line-height / letter-spacing 은 Phase 6 visual alignment 에서 별도 합의.
    ============================================================ */
-.text-h1-bold      { font-size: 36px; font-weight: 600; }
-.text-h2-bold      { font-size: 34px; font-weight: 600; }
-.text-h2           { font-size: 34px; font-weight: 500; }
-.text-h3-bold      { font-size: 24px; font-weight: 600; }
-.text-h3           { font-size: 24px; font-weight: 500; }
-.text-h4           { font-size: 22px; font-weight: 600; }
-.text-h5-bold      { font-size: 20px; font-weight: 600; }
-.text-h5-medium    { font-size: 20px; font-weight: 500; }
-.text-h5           { font-size: 20px; font-weight: 400; }
-.text-body1-bold   { font-size: 18px; font-weight: 600; }
-.text-body1        { font-size: 18px; font-weight: 500; }
-.text-body2-bold   { font-size: 16px; font-weight: 600; }
-.text-body2-medium { font-size: 16px; font-weight: 500; }
-.text-body2-normal { font-size: 16px; font-weight: 400; }
-.text-body3-bold   { font-size: 14px; font-weight: 600; }
-.text-body3-medium { font-size: 14px; font-weight: 500; }
-.text-body3-normal { font-size: 14px; font-weight: 400; }
-.text-body4-bold   { font-size: 13px; font-weight: 600; }
-.text-body4-medium { font-size: 13px; font-weight: 500; }
-.text-body4-normal { font-size: 13px; font-weight: 400; }
-.text-body5-bold   { font-size: 12px; font-weight: 600; }
-.text-body5-medium { font-size: 12px; font-weight: 500; }
-.text-body5-normal { font-size: 12px; font-weight: 400; }
-.text-caption-bold { font-size: 10px; font-weight: 600; }
-.text-caption      { font-size: 10px; font-weight: 400; }
+.text-h1       { font-size: 36px; }
+.text-h2       { font-size: 34px; }
+.text-h3       { font-size: 24px; }
+.text-h4       { font-size: 22px; }
+.text-h5       { font-size: 20px; }
+.text-body1    { font-size: 18px; }
+.text-body2    { font-size: 16px; }
+.text-body3    { font-size: 14px; }
+.text-body4    { font-size: 13px; }
+.text-body5    { font-size: 12px; }
+.text-caption  { font-size: 10px; }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */
 input[type="checkbox"] {
