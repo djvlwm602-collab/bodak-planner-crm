@@ -14,6 +14,7 @@
 4. **현실 갭은 토큰으로 흡수한다.** 현재 코드와 v3 정의가 다르면 코드의 시각값을 유지한 채 v3 이름을 매핑하고, 갭을 § 6에 명시한다 — 가급적 다음 Figma 정리 라운드에 역수입한다.
 5. **B2B 화이트레이블은 단일 진입점**(`brand.ts` + 의미 토큰)으로만 작동한다. 컴포넌트는 절대 hex를 직접 참조하지 않는다.
 6. **시각 정렬은 별도 페이즈로 분리한다.** 디자인 시스템 정렬 마라톤(Phase 1~5)은 *이름·구조 정렬*만 한다. 시각값 정렬(코드 hex → v3 spec hex 이주)은 **Phase 6 — v3 visual alignment pass** 로 분리하고, 디자이너 검토·승인 후 별도 진행한다. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 *코드 현재 hex 를 보유*한다.
+7. **§ 4.2.1 짝수 규칙은 § 0.1 시각 변화 0 원칙의 사전 합의된 예외다.** Phase 4-C / 4-D 의 1px 폰트 정렬(19→20, 17→18, 11→12)은 § 4.2.1 의 명시 합의에 따른 의도된 시각 변화이며, cascading layout shift 는 그 자연스러운 결과다. 적용 후 baseline 을 1회 갱신한다.
 
 ---
 
@@ -418,13 +419,14 @@
 
 | 현재 코드 사용                                  | v3 Style                       | 정합성        |
 | ----------------------------------------------- | ------------------------------ | ------------- |
-| TopBar 제목 `text-[22px] font-semibold`         | `h4`                           | ✅ 그대로 매핑 |
-| PageHeader 제목 `text-[19px] font-semibold`     | `h5_bold` (20px)               | ✅ **20으로 정렬 확정** (짝수 규칙) |
-| CustomerHeader 제목 `text-[17px]`               | `body1_bold` / `body1` (18px)  | ✅ **18로 정렬 확정** (짝수 규칙) |
-| 본문/표 `text-[14px]`                           | `body3_medium` / `body3_normal` | ✅            |
-| 보조 `text-[13px]`                              | `body4_medium` / `body4_normal` | ✅ (홀수 단일 예외) |
-| 캡션 `text-[11px]`                              | `body5_normal` (12px)          | ✅ **12로 정렬 확정** (짝수 규칙) |
-| KPI 수치 `text-[22px] font-semibold`            | `h4`                           | ✅            |
+| TopBar 제목 `text-[22px] font-semibold`         | `h4`                           | ✅ **Phase 4-B 적용 완료** — `text-h4 font-semibold` |
+| PageHeader 제목 `text-[19px] font-semibold`     | `h5_bold` (20px)               | ✅ **Phase 4-C 적용 완료 (20px 정렬, baseline 갱신)** — `text-h5 font-semibold` |
+| CustomerHeader 제목 `text-[17px]`               | `body1_bold` / `body1` (18px)  | ✅ **Phase 4-C 적용 완료 (18px 정렬, baseline 갱신)** — `text-body1 font-semibold` |
+| 본문/표 `text-[14px]`                           | `body3_medium` / `body3_normal` | ✅ **Phase 4-B 적용 완료** — `text-body3 [font-medium]` |
+| 보조 `text-[13px]`                              | `body4_medium` / `body4_normal` | ✅ **Phase 4-B 적용 완료** — `text-body4 [font-medium]` (홀수 단일 예외) |
+| 캡션 `text-[11px]`                              | `body5_normal` (12px)          | ✅ **Phase 4-C 적용 완료 (12px 정렬, baseline 갱신)** — `text-body5` |
+| KPI 수치 `text-[22px] font-semibold`            | `h4`                           | ✅ **Phase 4-B 적용 완료** |
+| HomeDashboard recharts inline `fontSize: 11`    | (chart axis label)             | ✅ **Phase 4-D 적용 완료 (12로 정렬, baseline 갱신)** |
 
 > 결론: 19px과 11px 두 군데만 v3에서 비표준. 시각 변경 최소화하려면 19→20, 11→12로 합의 후 일괄 치환을 권장한다(매우 작은 변화). 즉시 변경이 부담이면 `--font-size-19`, `--font-size-11`을 *임시 토큰*으로 등록해 v3에서 의도적 예외임을 명시.
 
@@ -486,20 +488,60 @@
 
 ### 5.3 Tailwind 유틸 매크로 (typography 스타일)
 
-> 빈도 높은 v3 스타일은 컴포넌트 클래스 또는 `@apply` 매크로로 단축한다.
+> **정책 (Phase 4-A' 재정의)**: 매크로는 **size only**. weight 는 Tailwind 네이티브 (`font-medium` / `font-semibold` / `font-normal`) 와 조합. line-height / letter-spacing 은 미포함 — Phase 6 visual alignment 에서 별도 합의 후 도입 가능.
+>
+> **근거**: monolithic 매크로(`text-body5-medium`)는 cn() override 패턴(예: Badge 베이스 + Consumer 외부 className)에서 weight 까지 함께 사라지는 문제를 만들었음. size + weight 분리 + tailwind-merge 확장(§ 5.3.1) 조합으로 override 시 size 만 교체되고 weight 가 자연스럽게 보존됨.
 
 ```css
-/* index.css */
-.text-h4              { font-size: 22px; line-height: 32px; font-weight: 600; letter-spacing: -0.5px; }
-.text-h5-bold         { font-size: 20px; line-height: 30px; font-weight: 600; letter-spacing: -0.5px; }
-.text-body3-medium    { font-size: 14px; line-height: 22px; font-weight: 500; letter-spacing: -0.5px; }
-.text-body3-normal    { font-size: 14px; line-height: 22px; font-weight: 400; letter-spacing: -0.5px; }
-.text-body4-medium    { font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: -0.5px; }
-.text-body5-normal    { font-size: 12px; line-height: 18px; font-weight: 400; letter-spacing: -0.5px; }
-.text-caption         { font-size: 10px; line-height: 16px; font-weight: 400; letter-spacing: -0.5px; }
+/* index.css — Phase 4-A' size-only macros (11개) */
+.text-h1       { font-size: 36px; }
+.text-h2       { font-size: 34px; }
+.text-h3       { font-size: 24px; }
+.text-h4       { font-size: 22px; }
+.text-h5       { font-size: 20px; }
+.text-body1    { font-size: 18px; }
+.text-body2    { font-size: 16px; }
+.text-body3    { font-size: 14px; }
+.text-body4    { font-size: 13px; }
+.text-body5    { font-size: 12px; }
+.text-caption  { font-size: 10px; }
 ```
 
-> 컴포넌트는 `text-[22px] font-semibold`처럼 임의값을 박지 않고 `text-h4` 한 클래스만 사용한다. **Figma 명칭과 코드 클래스가 1:1로 검색된다는 점이 핵심.**
+**v3 합성 스타일 표현**:
+| Figma v3 스타일 | 코드 표현                              |
+| --------------- | -------------------------------------- |
+| `body3_medium`  | `text-body3 font-medium`               |
+| `body3_bold`    | `text-body3 font-semibold`             |
+| `body4_normal`  | `text-body4` (기본 weight 상속)        |
+| `h4`            | `text-h4 font-semibold`                |
+| `caption`       | `text-caption` (기본 weight 상속)      |
+
+> 컴포넌트는 `text-[22px] font-semibold`처럼 임의값을 박지 않고 `text-h4 font-semibold` 두 클래스로 사용한다. **Figma 명칭과 코드 클래스가 1:1로 검색된다는 점이 핵심.**
+
+#### 5.3.1 tailwind-merge 확장 (cn() override 호환)
+
+`src/lib/utils.ts` 의 `cn()` 함수가 v3 size-only 매크로를 font-size class group 으로 인식하도록 `extendTailwindMerge` 적용. Override 시 size 만 교체되고 weight 보존:
+
+```ts
+const customTwMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [
+        'text-h1', 'text-h2', 'text-h3', 'text-h4', 'text-h5',
+        'text-body1', 'text-body2', 'text-body3', 'text-body4', 'text-body5',
+        'text-caption',
+      ],
+    },
+  },
+});
+```
+
+예시:
+```jsx
+// Badge 베이스: 'text-body5 font-medium'
+// Consumer override: className="text-[11px]"
+// cn 결과: 'text-[11px] font-medium' ✓ (size 만 override, weight 보존)
+```
 
 ### 5.4 Tailwind 기본 팔레트 사용 금지 + 일괄 매핑 가이드
 
@@ -561,9 +603,10 @@
 | 위치                       | 현재값       | v3 가장 가까운 토큰         | 결정                                                 |
 | -------------------------- | ------------ | --------------------------- | ---------------------------------------------------- |
 | App 본문 배경              | `#F3F3F5`    | `cool_neutral_100 (#F2F4F6)` | ✅ **Phase 3a 적용 완료** — `--bg-app-body` 도메인 토큰 신설로 치환 (시각 변화 0). v3 cool_neutral_100 정렬은 Phase 6. |
-| `text-[19px]` (PageHeader 3곳) | 19px      | `h5_bold` 20px              | ✅ **20px로 정렬 확정** (§ 4.2.1 짝수 규칙).         |
-| `text-[17px]` (CustomerHeader 1곳) | 17px  | `body1_*` 18px              | ✅ **18px로 정렬 확정** (짝수 규칙).                 |
-| `text-[11px]` (5곳)        | 11px         | `body5_*` 12px              | ✅ **12px로 정렬 확정** (짝수 규칙). 위치: TaskCard, CustomerHeader, ConsultationHistoryTab, date-range-chip. |
+| `text-[19px]` (PageHeader 3곳) | 19px      | `h5` 20px                   | ✅ **Phase 4-C 적용 완료** — `text-h5 font-semibold`. baseline 갱신.       |
+| `text-[17px]` (CustomerHeader 1곳) | 17px  | `body1` 18px                | ✅ **Phase 4-C 적용 완료** — `text-body1 font-semibold`. baseline 갱신.    |
+| `text-[11px]` (7곳)        | 11px         | `body5` 12px                | ✅ **Phase 4-C 적용 완료** — `text-body5`. 위치: TaskCard Badge x2, CustomerHeader Badge, ConsultationHistoryTab Badge, date-range-chip 요일. baseline 갱신. |
+| HomeDashboard inline `fontSize: 11` (7곳) | 11 | font-size 12 (짝수)        | ✅ **Phase 4-D 적용 완료** — recharts axis tick / ReferenceLine label. baseline 갱신. |
 
 ### 6.2 의도된 갭 (브랜드/도메인 자유)
 
@@ -886,7 +929,7 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 | 3a   | **임의 hex 직박이 치환** (Badge / DataTable / App / Sidebar / Button). § 5.1 매핑표 적용. | hex 직박이 0건 PR                            | 시각 변화 X (1px 이내 검증) |
 | 3b   | **Tailwind 기본 팔레트 380건 일괄 치환** (`gray-*` / `blue-*` 등). § 5.4 매핑표 적용. PR-by-PR. | 위반 0건 + lint 도입                         | 시각 변화 X   |
 | 3c   | **차트 팔레트 신설** (`--chart-accent / --chart-grid / --chart-axis / --chart-tooltip-border`) + `HomeDashboard.tsx` recharts inline hex 치환. | 차트 토큰 PR                                 | 시각 변화 X   |
-| 4    | Typography 매크로 클래스(`text-h4` 등) 도입 + `text-[NNpx]` 일괄 치환. **§ 4.2.1 짝수 규칙 적용** (19→20, 17→18, 11→12). | `index.css` + 변경 PR                        | **미세 변화 발생 가능** — 1px 정렬은 합의된 시각 변화. |
+| 4    | Typography 매크로 클래스(`text-h1~h5`, `text-body1~5`, `text-caption` size-only) 도입 + `tailwind-merge` 확장 + `text-[NNpx]` 일괄 치환 + **§ 4.2.1 짝수 규칙 적용** (19→20, 17→18, 11→12) + HomeDashboard recharts inline 11→12. | `index.css`, `lib/utils.ts`, 컴포넌트 PR-by-PR + baseline 1~2회 갱신     | ✅ **완료** — 짝수 규칙 cascading 의도된 변화 (§ 0.7). 그 외 임의값 치환은 시각 변화 0. |
 | 5    | `brand.ts` → `palette/` + `brand/` + `copy/` 분리, `applyBrand()` 가 Semantic 토큰을 갱신하게 변경. | B2B 화이트레이블 1차 운영 가능               | 시각 변화 X   |
 | **6** | **v3 visual alignment pass** — § 6.4.1 갭 6건의 코드 hex 를 v3 spec hex 로 이주 (`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle`). § 2.6 ↔ § 3.4 border 매핑 모순도 함께 해소. | 디자이너 검토·승인 PR                         | **시각 변화 발생** — 합의된 정렬. baseline 갱신 필수. |
 
