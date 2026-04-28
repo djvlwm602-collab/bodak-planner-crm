@@ -79,7 +79,7 @@ function TreeItem({
         className={cn(
           'flex items-center gap-1 py-1.5 pr-2 cursor-pointer rounded-md text-[13px] transition-colors',
           isActive
-            ? 'bg-[#F0F1F3] text-[#4B5563] font-medium'
+            ? 'bg-bg-selected-subtle text-text-strong font-medium'
             : 'text-text-primary hover:bg-bg',
         )}
         onClick={() => {

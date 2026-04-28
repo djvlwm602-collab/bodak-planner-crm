@@ -240,7 +240,7 @@ export default function App() {
     <div className="h-screen overflow-x-auto overflow-y-hidden bg-white text-gray-900 font-sans">
       <div className="flex h-full min-w-[1280px]">
       <Sidebar activePage={activePage === 'DB 분배 현황 상세' ? 'DB 분배 현황' : activePage} onPageChange={handlePageChange} />
-      <div className="flex-1 flex flex-col min-w-[640px] overflow-hidden bg-[#F3F3F5]">
+      <div className="flex-1 flex flex-col min-w-[640px] overflow-hidden bg-bg-app-body">
         <TopBar
           onCreateTask={() => {}}
           title={PAGE_META[activePage]?.title}

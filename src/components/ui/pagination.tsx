@@ -138,7 +138,7 @@ export function Pagination({
               className={cn(
                 'min-w-[28px] h-7 px-1 flex items-center justify-center rounded text-[13px] transition-colors',
                 item === page
-                  ? 'bg-[#F0F1F3] text-text-primary font-semibold'
+                  ? 'bg-bg-selected-subtle text-text-primary font-semibold'
                   : 'text-text-secondary hover:bg-bg',
               )}
             >

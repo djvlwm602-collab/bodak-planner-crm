@@ -215,9 +215,9 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
                       </tr>
                     </thead>
                     {/* 행 구분선 제거, 홀수 행 옅은 회색 줄무늬, hover로 강조 — 다른 테이블과 통일 */}
-                    <tbody className="[&>tr:nth-child(odd)]:bg-[#FAFBFC]">
+                    <tbody className="[&>tr:nth-child(odd)]:bg-row-stripe">
                       {tableData.map((row, index) => (
-                        <tr key={index} className="hover:!bg-[#F3F4F6] transition-colors">
+                        <tr key={index} className="hover:!bg-row-hover transition-colors">
                           <td className="py-3 text-gray-700">{row.no}</td>
                           <td className="py-3 text-gray-700">{row.name}</td>
                           <td className="py-3 text-gray-700">{row.id}</td>
@@ -239,9 +239,9 @@ export function DBDistributionDetail({ period, status, onBack }: DBDistributionD
                       </tr>
                     </thead>
                     {/* 행 구분선 제거, 홀수 행 옅은 회색 줄무늬, hover로 강조 — 다른 테이블과 통일 */}
-                    <tbody className="[&>tr:nth-child(odd)]:bg-[#FAFBFC]">
+                    <tbody className="[&>tr:nth-child(odd)]:bg-row-stripe">
                       {regionData.map((row, index) => (
-                        <tr key={index} className="hover:!bg-[#F3F4F6] transition-colors">
+                        <tr key={index} className="hover:!bg-row-hover transition-colors">
                           <td className="py-3 text-gray-700">{row.region}</td>
                           <td className="py-3 text-gray-700">{row.totalSupply}</td>
                           <td className="py-3 text-gray-700">{row.actualSupply}</td>

@@ -48,9 +48,9 @@ export function DBDistributionStatus({ onNavigateToDetail }: DBDistributionStatu
                   <th className="py-3.5 px-3 font-semibold text-text-primary text-[13px] bg-white w-32">상태</th>
                 </tr>
               </thead>
-              <tbody className="[&>tr:nth-child(odd)]:bg-[#FAFBFC]">
+              <tbody className="[&>tr:nth-child(odd)]:bg-row-stripe">
                 {data.map((row, index) => (
-                  <tr key={index} className="hover:!bg-[#F3F4F6] transition-colors">
+                  <tr key={index} className="hover:!bg-row-hover transition-colors">
                     <td className="py-3.5 px-3 text-text-primary">{row.no}</td>
                     <td className="py-3.5 px-3">
                       <button

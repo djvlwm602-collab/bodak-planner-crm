@@ -39,7 +39,7 @@ export function ProductSummaryTab() {
               { label: '납입 예정 보험료', values: mockProductCompanies.map((c) => `${c.upcoming.toLocaleString()}원`) },
               { label: '총 납입 보험료', values: mockProductCompanies.map((c) => `${c.total.toLocaleString()}원`) },
             ].map((row, i) => (
-              <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-[#FAFBFC]'}>
+              <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-row-stripe'}>
                 <th className="w-32 py-2.5 px-3 text-center font-semibold text-text-secondary bg-bg border-r border-gray-100">{row.label}</th>
                 {row.values.map((v, idx) => (
                   <td key={idx} className="py-2.5 px-3 text-center font-medium text-text-secondary border-r border-gray-100 last:border-r-0">{v}</td>
@@ -72,7 +72,7 @@ export function ProductSummaryTab() {
               {mockCoverageRows.map((row, idx) => {
                 const showCategory = !rendered.has(row.category);
                 if (showCategory) rendered.add(row.category);
-                const zebra = idx % 2 === 1 ? 'bg-[#FAFBFC]' : 'bg-white';
+                const zebra = idx % 2 === 1 ? 'bg-row-stripe' : 'bg-white';
 
                 return (
                   <tr key={`${row.category}-${row.name}`} className={zebra}>

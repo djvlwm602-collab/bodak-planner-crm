@@ -43,8 +43,8 @@ export function DataTableHeadCell({
 }
 
 export function DataTableBody({ children }: { children: React.ReactNode }) {
-  /* 행 구분선 제거 — 홀수행 옅은 회색(#FAFBFC) 줄무늬로 구분 */
-  return <tbody className="bg-white [&>tr:nth-child(odd)]:bg-[#FAFBFC]">{children}</tbody>;
+  /* 행 구분선 제거 — 홀수행 옅은 회색 줄무늬(--row-stripe)로 구분 */
+  return <tbody className="bg-white [&>tr:nth-child(odd)]:bg-row-stripe">{children}</tbody>;
 }
 
 export function DataTableRow({
@@ -55,7 +55,7 @@ export function DataTableRow({
   className?: string;
 }) {
   return (
-    <tr className={cn('hover:!bg-[#F3F4F6] transition-colors', className)}>{children}</tr>
+    <tr className={cn('hover:!bg-row-hover transition-colors', className)}>{children}</tr>
   );
 }
 

@@ -20,9 +20,9 @@ interface BadgeProps {
 
 const weakClasses: Record<BadgeVariant, string> = {
   default:  'bg-border text-text-secondary border border-border',
-  primary:  'bg-[#E1E9FD] text-[#5779DB]',
-  teal:     'bg-[#DFE9EA] text-[#548989]',
-  green:    'bg-[#E2EEE4] text-[#4B8C57]',
+  primary:  'bg-status-info-bg text-status-info',
+  teal:     'bg-status-pending-bg text-status-pending',
+  green:    'bg-status-done-bg text-status-done',
   danger:   'bg-danger-subtle text-danger border border-danger/20',
   warning:  'bg-warning-subtle text-warning border border-warning/20',
 };

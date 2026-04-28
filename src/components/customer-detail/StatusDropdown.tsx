@@ -14,7 +14,7 @@ const STATUS_OPTIONS: CustomerStatus[] = ['계약예정', '상담중', '상담�
 const statusColors: Record<CustomerStatus, string> = {
   '계약예정': 'bg-primary-subtle text-primary border-primary/30',
   '상담중':   'bg-primary text-white border-primary',
-  '상담종료': 'bg-[#F0F1F3] text-text-secondary border-border',
+  '상담종료': 'bg-bg-selected-subtle text-text-secondary border-border',
 };
 
 interface Props {

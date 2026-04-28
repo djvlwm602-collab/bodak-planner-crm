@@ -54,7 +54,7 @@ export function Sidebar({ className, activePage, onPageChange }: SidebarProps) {
         )}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="shrink-0 p-1 rounded-md text-text-secondary hover:text-text-primary hover:bg-[#E8EAED] transition-colors"
+          className="shrink-0 p-1 rounded-md text-text-secondary hover:text-text-primary hover:bg-nav-hover-bg transition-colors"
           title={isCollapsed ? "사이드바 펼치기" : "사이드바 접기"}
         >
           {isCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
