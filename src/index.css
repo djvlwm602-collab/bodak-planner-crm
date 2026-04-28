@@ -131,6 +131,7 @@
   --color-text-strong: var(--text-strong);
   --color-danger-hover: var(--danger-hover);
   --color-danger-active: var(--danger-active);
+  --color-bg-faint: var(--bg-faint);
 
   /* § 6.4 도메인 상태 칩 (Phase 3a 도입) */
   --color-status-info: var(--status-info);

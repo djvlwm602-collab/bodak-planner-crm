@@ -303,6 +303,7 @@
   --text-strong: #4B5563;           /* @brand-safe — 강조 본문 (≈ --color-neutral-hover 동일값 — Phase 6 통합 검토) */
   --danger-hover: #e04f4f;          /* @brand-safe — Button danger hover */
   --danger-active: #d44040;         /* @brand-safe — Button danger active */
+  --bg-faint: #F3F4F6;              /* @brand-safe — light tint (Tailwind gray-100 hex 일치) bg/border 양쪽 활용 — Phase 3b 도입 */
 
   /* ── § 6.4 도메인 상태 칩 (Badge weak 페어, Phase 3a 도입) ── */
   --status-info: #5779DB;           /* @brand-safe — primary weak text */
