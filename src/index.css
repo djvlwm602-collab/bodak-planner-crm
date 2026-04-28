@@ -18,39 +18,108 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* 브랜드 컬러 → Tailwind 유틸리티로 노출
-     bg-primary, text-primary, border-primary 등으로 사용
-     applyBrand()가 런타임에 갱신한다 */
-  --color-primary: #3182F6;
-  --color-primary-hover: #1B64DA;
-  --color-success: #00B493;
-  --color-danger: #FF5B5B;
+  /* ============================================================
+     Tier 3 — 레거시 --color-* (Tier 2 alias)
+     실제 hex 정의는 src/styles/tokens.css 의 Tier 2 에서 관리.
+     applyBrand() 가 일부 (--color-primary, -hover, -success, -danger) 를
+     런타임 덮어쓴다.
+     ============================================================ */
+  --color-primary: var(--button-accent-primary);
+  --color-primary-hover: var(--button-accent-primary-hover);
+  --color-success: var(--status-success);
+  --color-danger: var(--error);
 
-  /* 배경 (Background) */
-  --color-bg: #F9FAFB;
-  --color-surface: #FFFFFF;
+  --color-bg: var(--bg-primary);
+  --color-surface: var(--modal-background);
 
-  /* 텍스트 (Text) */
-  --color-text-primary: #191F28;
-  --color-text-secondary: #4E5968;
-  --color-text-disabled: #AEB5BC;
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-disabled: var(--text-disabled);
 
-  /* 테두리 (Border) */
-  --color-border: #E8EBED;
-  --color-border-subtle: #CDD1D5;
+  --color-border: var(--border-primary);
+  --color-border-subtle: var(--border-subtle);
 
-  /* 시맨틱 (Semantic) */
-  --color-warning: #B45309;
+  --color-warning: var(--warning);
 
-  /* 상태 배경 틴트 */
-  --color-primary-subtle: #EBF3FF;
+  --color-primary-subtle: var(--bg-emphasis-primary);
   --color-success-subtle: #E8FAF5;
   --color-danger-subtle: #FFF0F0;
   --color-warning-subtle: #FFFBEB;
 
-  /* 중립 (버튼 secondary) */
   --color-neutral: #6B7280;
   --color-neutral-hover: #4B5563;
+
+  /* ============================================================
+     Tier 2 — Semantic Tokens 신규 노출 (--color-{semantic-name})
+     Tailwind 유틸 (`bg-bg-primary`, `text-text-primary`, `border-border-primary` 등)
+     Phase 3+ 에서 컴포넌트가 점진적으로 이 이름으로 마이그레이션.
+     ============================================================ */
+
+  /* § 3.1 Background */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-disabled: var(--bg-disabled);
+  --color-bg-emphasis-primary: var(--bg-emphasis-primary);
+  --color-bg-emphasis-secondary: var(--bg-emphasis-secondary);
+
+  /* § 3.2 Text — text-primary/secondary/disabled 는 위 레거시와 이름 충돌하므로 재선언 X */
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-quaternary: var(--text-quaternary);
+  --color-text-inverse-primary: var(--text-inverse-primary);
+  --color-text-inverse-secondary: var(--text-inverse-secondary);
+  --color-text-inverse-tertiary: var(--text-inverse-tertiary);
+  --color-text-accent: var(--text-accent);
+
+  /* § 3.3 Icon */
+  --color-icon-enabled: var(--icon-enabled);
+  --color-icon-subtle: var(--icon-subtle);
+  --color-icon-inactive: var(--icon-inactive);
+  --color-icon-active: var(--icon-active);
+  --color-icon-accent: var(--icon-accent);
+  --color-icon-disabled: var(--icon-disabled);
+  --color-icon-pressed: var(--icon-pressed);
+  --color-icon-inverse-primary: var(--icon-inverse-primary);
+
+  /* § 3.4 Border — border-subtle 는 레거시와 이름 충돌하므로 재선언 X */
+  --color-border-primary: var(--border-primary);
+  --color-border-selected: var(--border-selected);
+  --color-border-transparent: var(--border-transparent);
+
+  /* § 3.5 Overlay */
+  --color-overlay-50: var(--overlay-50);
+
+  /* § 3.6 Component-specific */
+  --color-modal-background: var(--modal-background);
+  --color-modal-surface-primary: var(--modal-surface-primary);
+  --color-modal-surface-secondary: var(--modal-surface-secondary);
+  --color-button-accent-primary: var(--button-accent-primary);
+  --color-button-accent-primary-hover: var(--button-accent-primary-hover);
+  --color-button-accent-secondary: var(--button-accent-secondary);
+  --color-button-accent-tertiary: var(--button-accent-tertiary);
+  --color-button-accent-extra: var(--button-accent-extra);
+  --color-button-surface-accent-disabled: var(--button-surface-accent-disabled);
+  --color-button-surface-neutral: var(--button-surface-neutral);
+  --color-button-surface-neutral-disabled: var(--button-surface-neutral-disabled);
+  --color-text-background: var(--text-background);
+  --color-list-overlay-disabled: var(--list-overlay-disabled);
+  --color-button-inverse-primary: var(--button-inverse-primary);
+
+  /* § 3.7 Semantic 상태 */
+  --color-accent: var(--accent);
+  --color-error: var(--error);
+
+  /* § 3.8 Static */
+  --color-static-white: var(--static-white);
+  --color-static-black: var(--static-black);
+  --color-static-white-bold: var(--static-white-bold);
+  --color-static-white-subtle: var(--static-white-subtle);
+  --color-static-white-subtler: var(--static-white-subtler);
+  --color-static-black-bold: var(--static-black-bold);
+  --color-static-black-subtler: var(--static-black-subtler);
+
+  /* 도메인 보강 */
+  --color-status-success: var(--status-success);
 }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */
