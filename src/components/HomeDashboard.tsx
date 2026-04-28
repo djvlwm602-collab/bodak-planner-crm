@@ -205,15 +205,15 @@ export function HomeDashboard() {
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
-                        <XAxis dataKey="hour" type="number" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} domain={[0, 96]} ticks={[0, 24, 48, 72, 96]} tickFormatter={(v) => `${v / 24}일`} />
+                        <XAxis dataKey="hour" type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} domain={[0, 96]} ticks={[0, 24, 48, 72, 96]} tickFormatter={(v) => `${v / 24}일`} />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }}
+                          tick={{ fontSize: 12, fill: 'var(--chart-axis)', textAnchor: 'end' }}
                           tickFormatter={(v) => `${v}건`}
                           width={55}
                         />
-                        <ReferenceLine x={23} stroke="var(--chart-accent)" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 11, fill: 'var(--chart-accent)', fontWeight: 600, dy: -5 }} />
+                        <ReferenceLine x={23} stroke="var(--chart-accent)" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 12, fill: 'var(--chart-accent)', fontWeight: 600, dy: -5 }} />
                         <Tooltip
                           labelFormatter={(h: any) => formatHourTooltip(h)}
                           formatter={(v: any) => [`${v}건`, '']}
@@ -271,13 +271,13 @@ export function HomeDashboard() {
                           dataKey="name"
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: 'var(--chart-axis)' }}
+                          tick={{ fontSize: 12, fill: 'var(--chart-axis)' }}
                           dy={10}
                         />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
-                          tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }}
+                          tick={{ fontSize: 12, fill: 'var(--chart-axis)', textAnchor: 'end' }}
                           tickFormatter={(v) => `${v}%`}
                           width={55}
                           domain={[0, 100]}
@@ -326,8 +326,8 @@ export function HomeDashboard() {
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
-                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--chart-axis)', textAnchor: 'end' }} tickFormatter={(v) => `${v}건`} width={55} />
+                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--chart-axis)' }} dy={10} padding={{ left: 15, right: 15 }} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--chart-axis)', textAnchor: 'end' }} tickFormatter={(v) => `${v}건`} width={55} />
                         <Tooltip
                           formatter={(v: any) => [`${v}건`, '미대응 총 건수']}
                           contentStyle={{ borderRadius: '8px', border: '1px solid var(--chart-tooltip-border)', fontSize: '12px' }}
