@@ -293,6 +293,25 @@
   /* ── 도메인 보강 (v3 미정의 — § 6.4 갭) ── */
   --status-success: #00B493;   /* @brand-safe — 보닥 success teal (v3 success 미정의) */
 
+  /* ── § 6.4 시스템 보강 (Phase 3a 도입) ── */
+  --row-stripe: #FAFBFC;            /* @brand-safe — DataTable 짝수행 (9곳) */
+  --row-hover: #F3F4F6;             /* @brand-safe — DataTable/카드 hover (3곳) */
+  --bg-selected-subtle: #F0F1F3;    /* @brand-safe — 페이지네이션 활성/사이드 메뉴 선택/상태칩 비활성 (3곳) */
+  --kanban-column-bg: #F0F2F5;      /* @brand-safe — BoardColumn 배경 (도메인 전용) */
+  --bg-app-body: #F3F3F5;           /* @brand-safe — App 본문 wrap (v3 미정의 — Phase 6 정렬 후보) */
+  --nav-hover-bg: #E8EAED;          /* @brand-safe — Sidebar 메뉴 hover (≈ cool_neutral_150 — Phase 6 통합 검토) */
+  --text-strong: #4B5563;           /* @brand-safe — 강조 본문 (≈ --color-neutral-hover 동일값 — Phase 6 통합 검토) */
+  --danger-hover: #e04f4f;          /* @brand-safe — Button danger hover */
+  --danger-active: #d44040;         /* @brand-safe — Button danger active */
+
+  /* ── § 6.4 도메인 상태 칩 (Badge weak 페어, Phase 3a 도입) ── */
+  --status-info: #5779DB;           /* @brand-safe — primary weak text */
+  --status-info-bg: #E1E9FD;        /* @brand-safe — primary weak bg */
+  --status-pending: #548989;        /* @brand-safe — teal weak text (v3 미존재 — 역수입 권장) */
+  --status-pending-bg: #DFE9EA;     /* @brand-safe — teal weak bg */
+  --status-done: #4B8C57;           /* @brand-safe — green weak text (≈ green_700) */
+  --status-done-bg: #E2EEE4;        /* @brand-safe — green weak bg (≈ green_100) */
+
   /* ============================================================
      Tier 3 (이하) — 레거시 --color-* / --brand-* (Tier 2 별칭)
      Phase 2: 신규 변수의 alias 로 전환. 컴포넌트 호환성 유지.

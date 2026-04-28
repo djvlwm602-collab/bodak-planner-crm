@@ -120,6 +120,25 @@
 
   /* 도메인 보강 */
   --color-status-success: var(--status-success);
+
+  /* § 6.4 시스템 보강 (Phase 3a 도입) */
+  --color-row-stripe: var(--row-stripe);
+  --color-row-hover: var(--row-hover);
+  --color-bg-selected-subtle: var(--bg-selected-subtle);
+  --color-kanban-column-bg: var(--kanban-column-bg);
+  --color-bg-app-body: var(--bg-app-body);
+  --color-nav-hover-bg: var(--nav-hover-bg);
+  --color-text-strong: var(--text-strong);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-active: var(--danger-active);
+
+  /* § 6.4 도메인 상태 칩 (Phase 3a 도입) */
+  --color-status-info: var(--status-info);
+  --color-status-info-bg: var(--status-info-bg);
+  --color-status-pending: var(--status-pending);
+  --color-status-pending-bg: var(--status-pending-bg);
+  --color-status-done: var(--status-done);
+  --color-status-done-bg: var(--status-done-bg);
 }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */

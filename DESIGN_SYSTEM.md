@@ -548,7 +548,7 @@
 
 | 위치                       | 현재값       | v3 가장 가까운 토큰         | 결정                                                 |
 | -------------------------- | ------------ | --------------------------- | ---------------------------------------------------- |
-| App 본문 배경              | `#F3F3F5`    | `cool_neutral_100 (#F2F4F6)` | ✅ **정렬 확정** — Phase 3a에서 `--bg-primary` 으로 치환. 시각 차 사실상 0. |
+| App 본문 배경              | `#F3F3F5`    | `cool_neutral_100 (#F2F4F6)` | ✅ **Phase 3a 적용 완료** — `--bg-app-body` 도메인 토큰 신설로 치환 (시각 변화 0). v3 cool_neutral_100 정렬은 Phase 6. |
 | `text-[19px]` (PageHeader 3곳) | 19px      | `h5_bold` 20px              | ✅ **20px로 정렬 확정** (§ 4.2.1 짝수 규칙).         |
 | `text-[17px]` (CustomerHeader 1곳) | 17px  | `body1_*` 18px              | ✅ **18px로 정렬 확정** (짝수 규칙).                 |
 | `text-[11px]` (5곳)        | 11px         | `body5_*` 12px              | ✅ **12px로 정렬 확정** (짝수 규칙). 위치: TaskCard, CustomerHeader, ConsultationHistoryTab, date-range-chip. |
@@ -565,9 +565,7 @@
 
 ### 6.3 결정 대기 (Phase 진입 전 합의 필요)
 
-| 위치                       | 현재값       | v3 가장 가까운 토큰         | 처리 방안                                            |
-| -------------------------- | ------------ | --------------------------- | ---------------------------------------------------- |
-| Button danger hover/active | `#e04f4f / #d44040` | `red_500 (#F34D58) / red_600` | ⚠️ **보류** — Phase 3a에서 픽셀 비교 후 결정. |
+> 현재 보류 항목 없음 (Phase 3a 종료 시점). 후속 Phase 진행 중 발견되는 항목을 여기에 등재.
 
 ### 6.4 신설 토큰 (도메인/시스템 보강)
 
@@ -586,22 +584,24 @@
 
 #### 6.4.2 도메인/시스템 보강 토큰 (v3 미정의)
 
-| 위치                       | 현재값            | 제안 토큰                        | 비고                                            |
+| 위치                       | 현재값            | 도입 토큰                        | 비고                                            |
 | -------------------------- | ----------------- | -------------------------------- | ----------------------------------------------- |
-| Badge primary weak BG      | `#E1E9FD`         | `--status-info-bg`               | `bg_emphasis_secondary` 톤 흡수 가능.           |
-| Badge primary weak text    | `#5779DB`         | `--status-info`                  | 도메인 상태 컬러.                               |
-| Badge teal weak BG/text    | `#DFE9EA / #548989` | `--status-pending-bg` / `--status-pending` | v3 미존재 — 역수입 권장. |
-| Badge green weak BG/text   | `#E2EEE4 / #4B8C57` | `--status-done-bg` / `--status-done` | `green_100`/`green_700` 근처. |
-| DataTable 줄무늬           | `#FAFBFC`         | `--row-stripe`                   | v3 미존재.                                      |
-| DataTable hover            | `#F3F4F6`         | `--row-hover` (= `cool_neutral_100`) | 매핑 가능.                                  |
-| Sidebar 메뉴 hover         | `#E8EAED`         | `cool_neutral_150` 매핑          | 직접 매핑.                                      |
-| 페이지네이션·메뉴·상태칩 활성 | `#F0F1F3` (3곳)| `--bg-selected-subtle`           | `cool_neutral_150` 근처. 단일 토큰 통합.        |
-| 칸반 컬럼 배경             | `#F0F2F5` (BoardColumn) | `--kanban-column-bg`       | 도메인 전용. v3 미존재.                         |
-| 사이드바 선택 메뉴 텍스트  | `#4B5563`         | `text_secondary` 또는 `--color-neutral-hover`로 통합 | `--color-neutral-hover`와 동일값 — 의미 통합 검토. |
-| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent`                 | recharts inline 전용. `--button-accent-primary` 와 1byte 차 — 통일 가능. |
-| 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `cool_neutral_100`) | recharts inline.                       |
-| 차트 축 tick               | `#9ca3af`         | `--chart-axis` (= `cool_neutral_400`) | recharts inline.                        |
-| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border` (= `cool_neutral_150`) | recharts inline.                |
+| Badge primary weak BG/text | `#E1E9FD / #5779DB` | `--status-info-bg` / `--status-info` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`bg_emphasis_secondary` 톤 흡수 가능). |
+| Badge teal weak BG/text    | `#DFE9EA / #548989` | `--status-pending-bg` / `--status-pending` | ✅ **Phase 3a 적용**. v3 미존재 — Figma 역수입 권장. |
+| Badge green weak BG/text   | `#E2EEE4 / #4B8C57` | `--status-done-bg` / `--status-done` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`green_100`/`green_700` 근처). |
+| DataTable 줄무늬           | `#FAFBFC`         | `--row-stripe`                   | ✅ **Phase 3a 적용** (9곳). v3 미존재.          |
+| DataTable hover            | `#F3F4F6`         | `--row-hover`                    | ✅ **Phase 3a 적용** (3곳). Phase 6 v3 alignment 후보 (`cool_neutral_100`). |
+| Sidebar 메뉴 hover         | `#E8EAED`         | `--nav-hover-bg`                 | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`cool_neutral_150`). |
+| 페이지네이션·메뉴·상태칩 활성 | `#F0F1F3` (3곳)| `--bg-selected-subtle`           | ✅ **Phase 3a 적용**. 단일 토큰 통합 완료.      |
+| 칸반 컬럼 배경             | `#F0F2F5` (BoardColumn) | `--kanban-column-bg`       | ✅ **Phase 3a 적용**. 도메인 전용 — v3 미존재.  |
+| 사이드바 선택 메뉴 텍스트  | `#4B5563`         | `--text-strong`                  | ✅ **Phase 3a 적용**. `--color-neutral-hover` 와 동일값 — Phase 6 통합 검토. |
+| App 본문 배경              | `#F3F3F5`         | `--bg-app-body`                  | ✅ **Phase 3a 적용**. v3 미정의 — Phase 6 cool_neutral_100 정렬 후보. (§ 6.1 결정 이행) |
+| Button danger hover        | `#e04f4f`         | `--danger-hover`                 | ✅ **Phase 3a 적용** (§ 6.3 보류 해소). Phase 6 v3 alignment 후보 (`red_500`). |
+| Button danger active       | `#d44040`         | `--danger-active`                | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`red_600`). |
+| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent`                 | Phase 3c. recharts inline 전용. `--button-accent-primary` 와 1byte 차 — 통일 가능. |
+| 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `cool_neutral_100`) | Phase 3c. recharts inline.            |
+| 차트 축 tick               | `#9ca3af`         | `--chart-axis` (= `cool_neutral_400`) | Phase 3c. recharts inline.             |
+| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border` (= `cool_neutral_150`) | Phase 3c. recharts inline.     |
 | Tailwind 기본 팔레트 사용   | `gray-* / blue-*` 약 380건 | § 5.4 매핑 가이드 참조 | **§ 5.4 정책 위반** — Phase 3b에서 일괄 치환. |
 
 ---
