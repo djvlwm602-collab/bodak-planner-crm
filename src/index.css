@@ -146,7 +146,83 @@
   --color-chart-grid: var(--chart-grid);
   --color-chart-axis: var(--chart-axis);
   --color-chart-tooltip-border: var(--chart-tooltip-border);
+
+  /* ============================================================
+     § 4 Typography Tokens (Phase 4-A 도입)
+     출처: DESIGN_SYSTEM.md § 4.2 (원자 토큰)
+     매크로(.text-h4 등)는 size + weight literal 사용 — 본 토큰은 직접 var() 참조용.
+     ============================================================ */
+
+  /* § 4.2 Font Size (v3 spec 11 단계, 짝수 + 13 단일 예외) */
+  --font-size-36: 36px;
+  --font-size-34: 34px;
+  --font-size-24: 24px;
+  --font-size-22: 22px;
+  --font-size-20: 20px;
+  --font-size-18: 18px;
+  --font-size-16: 16px;
+  --font-size-14: 14px;
+  --font-size-13: 13px;
+  --font-size-12: 12px;
+  --font-size-10: 10px;
+
+  /* § 4.2 Line Height */
+  --line-height-46: 46px;
+  --line-height-40: 40px;
+  --line-height-38: 38px;
+  --line-height-32: 32px;
+  --line-height-30: 30px;
+  --line-height-28: 28px;
+  --line-height-24: 24px;
+  --line-height-22: 22px;
+  --line-height-20: 20px;
+  --line-height-18: 18px;
+  --line-height-16: 16px;
+
+  /* § 4.2 Font Weight (Pretendard semibold/medium/regular)
+     주의: --font-weight-bold (600) 는 Tailwind 기본 font-bold (700) 와 충돌 가능.
+     Phase 0 검증 결과 코드에 font-bold 사용 0건 — 충돌 없음. */
+  --font-weight-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+
+  /* § 4.2 Letter Spacing */
+  --letter-spacing-n10: -1px;
+  --letter-spacing-n05: -0.5px;
+  --letter-spacing-0: 0;
 }
+
+/* ============================================================
+   § 5.3 v3 Typography Macros (Phase 4-A 도입)
+   size + weight only. line-height / letter-spacing 미포함.
+   필요 시 leading-* / tracking-* 명시적으로 추가 (Phase 6 visual alignment 에서
+   v3 full spec 통합 검토).
+   ============================================================ */
+.text-h1-bold      { font-size: 36px; font-weight: 600; }
+.text-h2-bold      { font-size: 34px; font-weight: 600; }
+.text-h2           { font-size: 34px; font-weight: 500; }
+.text-h3-bold      { font-size: 24px; font-weight: 600; }
+.text-h3           { font-size: 24px; font-weight: 500; }
+.text-h4           { font-size: 22px; font-weight: 600; }
+.text-h5-bold      { font-size: 20px; font-weight: 600; }
+.text-h5-medium    { font-size: 20px; font-weight: 500; }
+.text-h5           { font-size: 20px; font-weight: 400; }
+.text-body1-bold   { font-size: 18px; font-weight: 600; }
+.text-body1        { font-size: 18px; font-weight: 500; }
+.text-body2-bold   { font-size: 16px; font-weight: 600; }
+.text-body2-medium { font-size: 16px; font-weight: 500; }
+.text-body2-normal { font-size: 16px; font-weight: 400; }
+.text-body3-bold   { font-size: 14px; font-weight: 600; }
+.text-body3-medium { font-size: 14px; font-weight: 500; }
+.text-body3-normal { font-size: 14px; font-weight: 400; }
+.text-body4-bold   { font-size: 13px; font-weight: 600; }
+.text-body4-medium { font-size: 13px; font-weight: 500; }
+.text-body4-normal { font-size: 13px; font-weight: 400; }
+.text-body5-bold   { font-size: 12px; font-weight: 600; }
+.text-body5-medium { font-size: 12px; font-weight: 500; }
+.text-body5-normal { font-size: 12px; font-weight: 400; }
+.text-caption-bold { font-size: 10px; font-weight: 600; }
+.text-caption      { font-size: 10px; font-weight: 400; }
 
 /* 체크박스 커스텀 — 라인 대신 면 배경, 연한 그레이 */
 input[type="checkbox"] {
