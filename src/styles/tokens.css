@@ -165,15 +165,26 @@
   --status-success: #00B493;   /* @brand-safe — 보닥 success teal (v3 success 미정의) */
 
   /* ── § 6.4 시스템 보강 (Phase 3a 도입) ── */
-  --row-stripe: #FAFBFC;            /* @brand-safe — DataTable 짝수행 (9곳) */
-  --row-hover: #F3F4F6;             /* @brand-safe — DataTable/카드 hover (3곳) */
-  --bg-selected-subtle: #F0F1F3;    /* @brand-safe — 페이지네이션 활성/사이드 메뉴 선택/상태칩 비활성 (3곳) */
-  --kanban-column-bg: #F0F2F5;      /* @brand-safe — BoardColumn 배경 (도메인 전용) */
-  --bg-app-body: #F3F3F5;           /* @brand-safe — App 본문 wrap (v3 미정의 — Phase 6 정렬 후보) */
-  --nav-hover-bg: #E8EAED;          /* @brand-safe — Sidebar 메뉴 hover (≈ cool_neutral_150 — Phase 6 통합 검토) */
-  --text-strong: #4B5563;           /* @brand-safe — 강조 본문 (≈ --color-neutral-hover 동일값 — Phase 6 통합 검토) */
-  --danger-hover: #e04f4f;          /* @brand-safe — Button danger hover */
-  --danger-active: #d44040;         /* @brand-safe — Button danger active */
+  /* 신규 (Phase 8-D, § 11 Naming Conventions 정합) */
+  --bg-row-stripe: #FAFBFC;         /* @brand-safe — DataTable 짝수행 */
+  --bg-row-hover: #F3F4F6;          /* @brand-safe — DataTable/카드 hover */
+  --bg-kanban-column: #F0F2F5;      /* @brand-safe — BoardColumn 배경 */
+  --bg-nav-hover: #E8EAED;          /* @brand-safe — Sidebar 메뉴 hover */
+  --button-danger-hover: #e04f4f;   /* @brand-safe — Button danger hover */
+  --button-danger-active: #d44040;  /* @brand-safe — Button danger active */
+
+  /* @deprecated (Phase 8-D, 2026-04-29) — § 11 Naming Conventions 정합화. 2027-04-29 정식 삭제 예정 */
+  --row-stripe: var(--bg-row-stripe);              /* → use --bg-row-stripe */
+  --row-hover: var(--bg-row-hover);                /* → use --bg-row-hover */
+  --kanban-column-bg: var(--bg-kanban-column);     /* → use --bg-kanban-column */
+  --nav-hover-bg: var(--bg-nav-hover);             /* → use --bg-nav-hover */
+  --danger-hover: var(--button-danger-hover);      /* → use --button-danger-hover */
+  --danger-active: var(--button-danger-active);    /* → use --button-danger-active */
+
+  /* 기존 — 컨벤션 정합 유지 */
+  --bg-selected-subtle: #F0F1F3;    /* @brand-safe — 페이지네이션 활성/사이드 메뉴 선택/상태칩 비활성 */
+  --bg-app-body: #F3F3F5;           /* @brand-safe — App 본문 wrap */
+  --text-strong: #4B5563;           /* @brand-safe — 강조 본문 (≈ --color-neutral-hover 동일값) */
   --bg-faint: #F3F4F6;              /* @brand-safe — light tint (Tailwind gray-100 hex 일치) bg/border 양쪽 활용 — Phase 3b 도입 */
 
   /* ── § 6.4 차트 팔레트 (recharts inline 전용, Phase 3c 도입) ── */

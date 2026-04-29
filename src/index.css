@@ -68,17 +68,25 @@
   /* § 3.6 Component-specific — button-accent-primary-hover 만 보존 (Tailwind 유틸 사용) */
   --color-button-accent-primary-hover: var(--button-accent-primary-hover);
 
-  /* § 6.4 시스템 보강 (Phase 3a 도입) */
-  --color-row-stripe: var(--row-stripe);
-  --color-row-hover: var(--row-hover);
+  /* § 6.4 시스템 보강 — § 11 Naming Conventions 정합 (Phase 8-D) */
+  --color-bg-row-stripe: var(--bg-row-stripe);
+  --color-bg-row-hover: var(--bg-row-hover);
+  --color-bg-kanban-column: var(--bg-kanban-column);
+  --color-bg-nav-hover: var(--bg-nav-hover);
+  --color-button-danger-hover: var(--button-danger-hover);
+  --color-button-danger-active: var(--button-danger-active);
   --color-bg-selected-subtle: var(--bg-selected-subtle);
-  --color-kanban-column-bg: var(--kanban-column-bg);
   --color-bg-app-body: var(--bg-app-body);
-  --color-nav-hover-bg: var(--nav-hover-bg);
   --color-text-strong: var(--text-strong);
-  --color-danger-hover: var(--danger-hover);
-  --color-danger-active: var(--danger-active);
   --color-bg-faint: var(--bg-faint);
+
+  /* @deprecated — Phase 8-D 호환 alias. 컴포넌트 마이그레이션 완료 후에도 1년 유지 (2027-04-29 정식 삭제) */
+  --color-row-stripe: var(--bg-row-stripe);
+  --color-row-hover: var(--bg-row-hover);
+  --color-kanban-column-bg: var(--bg-kanban-column);
+  --color-nav-hover-bg: var(--bg-nav-hover);
+  --color-danger-hover: var(--button-danger-hover);
+  --color-danger-active: var(--button-danger-active);
 
   /* § 6.4 도메인 상태 칩 (Phase 3a 도입) */
   --color-status-info: var(--status-info);
