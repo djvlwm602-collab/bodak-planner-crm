@@ -567,15 +567,15 @@ const customTwMerge = extendTailwindMerge({
 | Badge primary weak BG/text | `#E1E9FD / #5779DB` | `--status-info-bg` / `--status-info` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`bg_emphasis_secondary` 톤 흡수 가능). |
 | Badge teal weak BG/text    | `#DFE9EA / #548989` | `--status-pending-bg` / `--status-pending` | ✅ **Phase 3a 적용**. v3 미존재 — Figma 역수입 권장. |
 | Badge green weak BG/text   | `#E2EEE4 / #4B8C57` | `--status-done-bg` / `--status-done` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`green_100`/`green_700` 근처). |
-| DataTable 줄무늬           | `#FAFBFC`         | `--row-stripe`                   | ✅ **Phase 3a 적용** (9곳). v3 미존재.          |
-| DataTable hover            | `#F3F4F6`         | `--row-hover`                    | ✅ **Phase 3a 적용** (3곳). Phase 6 v3 alignment 후보 (`cool_neutral_100`). |
-| Sidebar 메뉴 hover         | `#E8EAED`         | `--nav-hover-bg`                 | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`cool_neutral_150`). |
+| DataTable 줄무늬           | `#FAFBFC`         | `--bg-row-stripe` (구. `--row-stripe` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 9곳 마이그레이션. |
+| DataTable hover            | `#F3F4F6`         | `--bg-row-hover` (구. `--row-hover` deprecated alias)   | ✅ **Phase 8-D 정합 리네이밍**. 4곳 마이그레이션. |
+| Sidebar 메뉴 hover         | `#E8EAED`         | `--bg-nav-hover` (구. `--nav-hover-bg` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
 | 페이지네이션·메뉴·상태칩 활성 | `#F0F1F3` (3곳)| `--bg-selected-subtle`           | ✅ **Phase 3a 적용**. 단일 토큰 통합 완료.      |
-| 칸반 컬럼 배경             | `#F0F2F5` (BoardColumn) | `--kanban-column-bg`       | ✅ **Phase 3a 적용**. 도메인 전용 — v3 미존재.  |
+| 칸반 컬럼 배경             | `#F0F2F5` (BoardColumn) | `--bg-kanban-column` (구. `--kanban-column-bg` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
 | 사이드바 선택 메뉴 텍스트  | `#4B5563`         | `--text-strong`                  | ✅ **Phase 3a 적용**. `--color-neutral-hover` 와 동일값 — Phase 6 통합 검토. |
 | App 본문 배경              | `#F3F3F5`         | `--bg-app-body`                  | ✅ **Phase 3a 적용**. v3 미정의 — Phase 6 cool_neutral_100 정렬 후보. (§ 6.1 결정 이행) |
-| Button danger hover        | `#e04f4f`         | `--danger-hover`                 | ✅ **Phase 3a 적용** (§ 6.3 보류 해소). Phase 6 v3 alignment 후보 (`red_500`). |
-| Button danger active       | `#d44040`         | `--danger-active`                | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`red_600`). |
+| Button danger hover        | `#e04f4f`         | `--button-danger-hover` (구. `--danger-hover` deprecated alias)   | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
+| Button danger active       | `#d44040`         | `--button-danger-active` (구. `--danger-active` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
 | Light tint bg/border       | `#F3F4F6`         | `--bg-faint`                     | ✅ **Phase 3b-A 적용** (53건). bg/border 양쪽 활용. Tailwind `gray-100` hex 일치. v3 cool_neutral_100 정렬은 Phase 6. |
 | 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent` ⚠️ deprecated   | ✅ **Phase 8-C 통합** — `--chart-accent: var(--chart-series-1)` deprecated alias 로 변경. 단일/다중 시리즈 차트 모두 `--chart-series-1` 사용. **2027-04-29 정식 삭제 예정**. HomeDashboard 사용처는 Phase 8-C 에서 마이그레이션 완료. |
 | 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `--bg-faint`)  | ✅ **Phase 3c 적용 완료** (3건). `--bg-faint` 재활용. |
@@ -1019,15 +1019,16 @@ Tailwind v4 의 `@theme` 안 `--color-{x}` alias 만 utility class (`bg-{x}` / `
 | `--text-strong`                    | `--color-text-strong`                     | `text-text-strong`                                      |
 | `--border-primary`                 | `--color-border`, `--color-border-primary` | `border-border`, `border-border-primary`                |
 | `--border-subtle`                  | `--color-border-subtle`                   | `border-border-subtle`                                  |
-| `--row-stripe`                     | `--color-row-stripe`                      | `bg-row-stripe`                                         |
-| `--row-hover`                      | `--color-row-hover`                       | `bg-row-hover`                                          |
+| `--bg-row-stripe`                  | `--color-bg-row-stripe`                   | `bg-bg-row-stripe`                                      |
+| `--bg-row-hover`                   | `--color-bg-row-hover`                    | `bg-bg-row-hover`                                       |
 | `--bg-faint`                       | `--color-bg-faint`                        | `bg-bg-faint`                                           |
 | `--bg-app-body`                    | `--color-bg-app-body`                     | `bg-bg-app-body`                                        |
 | `--bg-selected-subtle`             | `--color-bg-selected-subtle`              | `bg-bg-selected-subtle`                                 |
-| `--kanban-column-bg`               | `--color-kanban-column-bg`                | `bg-kanban-column-bg`                                   |
-| `--nav-hover-bg`                   | `--color-nav-hover-bg`                    | `bg-nav-hover-bg`                                       |
-| `--danger-hover`                   | `--color-danger-hover`                    | `bg-danger-hover`                                       |
-| `--danger-active`                  | `--color-danger-active`                   | `bg-danger-active`                                      |
+| `--bg-kanban-column`               | `--color-bg-kanban-column`                | `bg-bg-kanban-column`                                   |
+| `--bg-nav-hover`                   | `--color-bg-nav-hover`                    | `bg-bg-nav-hover`                                       |
+| `--button-danger-hover`            | `--color-button-danger-hover`             | `bg-button-danger-hover`                                |
+| `--button-danger-active`           | `--color-button-danger-active`            | `bg-button-danger-active`                               |
+| (Phase 8-D 호환 deprecated alias)  | `--color-row-stripe` / `-row-hover` / `-kanban-column-bg` / `-nav-hover-bg` / `-danger-hover` / `-danger-active` | `bg-row-stripe` 등 — **2027-04-29 정식 삭제 예정** |
 | `--status-info`                    | `--color-status-info`                     | `text-status-info`                                      |
 | `--status-info-bg`                 | `--color-status-info-bg`                  | `bg-status-info-bg`                                     |
 | `--status-pending`                 | `--color-status-pending`                  | `text-status-pending`                                   |

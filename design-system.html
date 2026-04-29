@@ -85,15 +85,24 @@
   /* ===========================================================
      Phase 3a-3c 도메인 토큰 (§ 6.4)
      =========================================================== */
-  --row-stripe: #FAFBFC;
-  --row-hover: #F3F4F6;
+  /* Phase 8-D 정합 리네이밍 — 컨벤션 정합 신규 이름 */
+  --bg-row-stripe: #FAFBFC;
+  --bg-row-hover: #F3F4F6;
+  --bg-kanban-column: #F0F2F5;
+  --bg-nav-hover: #E8EAED;
+  --button-danger-hover: #e04f4f;
+  --button-danger-active: #d44040;
+  /* Phase 8-D 호환 deprecated alias (2027-04-29 정식 삭제) */
+  --row-stripe: var(--bg-row-stripe);
+  --row-hover: var(--bg-row-hover);
+  --kanban-column-bg: var(--bg-kanban-column);
+  --nav-hover-bg: var(--bg-nav-hover);
+  --danger-hover: var(--button-danger-hover);
+  --danger-active: var(--button-danger-active);
+  /* 컨벤션 정합 유지 */
   --bg-selected-subtle: #F0F1F3;
-  --kanban-column-bg: #F0F2F5;
   --bg-app-body: #F3F3F5;
-  --nav-hover-bg: #E8EAED;
   --text-strong: #4B5563;
-  --danger-hover: #e04f4f;
-  --danger-active: #d44040;
   --bg-faint: #F3F4F6;
 
   --status-info: #5779DB;     --status-info-bg: #E1E9FD;
@@ -213,7 +222,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 .btn-secondary{background:var(--color-neutral);color:#fff;}
 .btn-secondary:hover{background:var(--color-neutral-hover);}
 .btn-danger{background:var(--color-danger);color:#fff;}
-.btn-danger:hover{background:var(--danger-hover);}
+.btn-danger:hover{background:var(--button-danger-hover);}
 .btn-xs{padding:4px 12px;font-size:12px;border-radius:4px;}
 .btn-sm{padding:6px 16px;font-size:13px;border-radius:4px;}
 .btn-md{padding:8px 20px;font-size:14px;border-radius:6px;}
@@ -547,18 +556,19 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">시스템 보강 (Phase 3a/3b)</h3>
+    <h3 class="subsection-title">시스템 보강 (Phase 8-D 정합 이름)</h3>
+    <p class="subsection-desc">§ 11 Naming Conventions 정합 이름. 구 이름 (`--row-stripe`, `--kanban-column-bg`, `--danger-hover` 등) 은 deprecated alias 로 1년 (2027-04-29) 까지 유지.</p>
     <div class="tok-grid">
-      <div class="tok"><div class="tok-swatch"><div style="background:#FAFBFC;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--row-stripe</div><div class="tok-meta">#FAFBFC · DataTable 짝수행</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--row-hover</div><div class="tok-meta">#F3F4F6 · 행 hover</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FAFBFC;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-row-stripe</div><div class="tok-meta">#FAFBFC · DataTable 짝수행 (구 --row-stripe)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-row-hover</div><div class="tok-meta">#F3F4F6 · 행 hover (구 --row-hover)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-faint</div><div class="tok-meta">#F3F4F6 · light tint (Phase 3b)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F0F1F3;"></div></div><div class="tok-info"><div class="tok-name">--bg-selected-subtle</div><div class="tok-meta">#F0F1F3 · 활성 칩/메뉴</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#F0F2F5;"></div></div><div class="tok-info"><div class="tok-name">--kanban-column-bg</div><div class="tok-meta">#F0F2F5 · 칸반 컬럼</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F0F2F5;"></div></div><div class="tok-info"><div class="tok-name">--bg-kanban-column</div><div class="tok-meta">#F0F2F5 · 칸반 컬럼 (구 --kanban-column-bg)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F3F5;"></div></div><div class="tok-info"><div class="tok-name">--bg-app-body</div><div class="tok-meta">#F3F3F5 · App 본문 wrap</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#E8EAED;"></div></div><div class="tok-info"><div class="tok-name">--nav-hover-bg</div><div class="tok-meta">#E8EAED · Sidebar hover</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#E8EAED;"></div></div><div class="tok-info"><div class="tok-name">--bg-nav-hover</div><div class="tok-meta">#E8EAED · Sidebar hover (구 --nav-hover-bg)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#4B5563;"></div></div><div class="tok-info"><div class="tok-name">--text-strong</div><div class="tok-meta">#4B5563 · 강조 본문</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#e04f4f;"></div></div><div class="tok-info"><div class="tok-name">--danger-hover</div><div class="tok-meta">#e04f4f · button danger hover</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#d44040;"></div></div><div class="tok-info"><div class="tok-name">--danger-active</div><div class="tok-meta">#d44040 · button danger active</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#e04f4f;"></div></div><div class="tok-info"><div class="tok-name">--button-danger-hover</div><div class="tok-meta">#e04f4f · Button danger hover (구 --danger-hover)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#d44040;"></div></div><div class="tok-info"><div class="tok-name">--button-danger-active</div><div class="tok-meta">#d44040 · Button danger active (구 --danger-active)</div></div></div>
     </div>
   </div>
 
