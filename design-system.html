@@ -432,25 +432,14 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 
   <div id="tier1-color-scales" class="subsection">
     <h3 class="subsection-title">§ 2.3~2.8 Feature Accent — 사용 step 만 보존 (Phase 7-E)</h3>
-    <p class="subsection-desc">"남의 색" 팔레트 — 차트 시리즈 / 도메인 indicator 용. Phase 7-E 에서 미사용 step 일괄 정리, 사용 step 만 유지. 신규 사용처 발생 시 § 2.0 보존 정책 따라 필요한 step 만 재추가.</p>
-
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">blue_dim</div>
-      <div class="scale-cell light" style="background:#DBE4ED;"><div class="scale-step">100</div><div class="scale-hex">DBE4ED · --bg-disabled (reserved)</div></div>
-    </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">light_blue</div>
-      <div class="scale-cell light" style="background:#E5F7FF;"><div class="scale-step">50</div><div class="scale-hex">E5F7FF · --button-accent-secondary fallback</div></div>
-    </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">blue</div>
-      <div class="scale-cell light" style="background:#ECF4FF;"><div class="scale-step">50</div><div class="scale-hex">ECF4FF · --bg-emphasis-secondary</div></div>
-    </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">amber</div>
-      <div class="scale-cell light" style="background:#FF9200;"><div class="scale-step">500</div><div class="scale-hex">FF9200 · --chart-series-4</div></div>
-    </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">magenta</div>
-      <div class="scale-cell dark" style="background:#F553DA;"><div class="scale-step">500</div><div class="scale-hex">F553DA · --chart-series-5</div></div>
-    </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">violet</div>
-      <div class="scale-cell dark" style="background:#7D5EF7;"><div class="scale-step">400</div><div class="scale-hex">7D5EF7 · --chart-series-3</div></div>
+    <p class="subsection-desc">"남의 색" 팔레트 — 차트 시리즈 / 도메인 indicator. 미사용 step 정리, 사용 step 만 유지. 신규 사용처 발생 시 § 2.0 보존 정책 따라 재추가.</p>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#DBE4ED;"></div></div><div class="tok-info"><div class="tok-name">--blue-dim-100</div><div class="tok-meta">#DBE4ED · --bg-disabled (reserved)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#E5F7FF;"></div></div><div class="tok-info"><div class="tok-name">--light-blue-50</div><div class="tok-meta">#E5F7FF · --button-accent-secondary fallback</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#ECF4FF;"></div></div><div class="tok-info"><div class="tok-name">--blue-50</div><div class="tok-meta">#ECF4FF · --bg-emphasis-secondary</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FF9200;"></div></div><div class="tok-info"><div class="tok-name">--amber-500</div><div class="tok-meta">#FF9200 · --chart-series-4</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F553DA;"></div></div><div class="tok-info"><div class="tok-name">--magenta-500</div><div class="tok-meta">#F553DA · --chart-series-5</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#7D5EF7;"></div></div><div class="tok-info"><div class="tok-name">--violet-400</div><div class="tok-meta">#7D5EF7 · --chart-series-3</div></div></div>
     </div>
     <div class="note">Phase 7-E 에서 <strong>cyan / green / lime / orange / red / purple</strong> 풀 팔레트 (~60 토큰) + 위 그룹의 미사용 단계 (~27 토큰) 모두 삭제. status (success/error/warning) 는 시스템 잠금 토큰 (<code class="chip">--status-success</code> / <code class="chip">--error</code> / <code class="chip">--warning</code>) 으로 직접 정의됨.</div>
   </div>
