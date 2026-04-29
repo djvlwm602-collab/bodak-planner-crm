@@ -333,10 +333,17 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <a href="#comp-button" class="sidebar-link">Button</a>
   <a href="#comp-badge" class="sidebar-link">Badge</a>
   <a href="#comp-kpi" class="sidebar-link">KPI Card</a>
+  <a href="#comp-input" class="sidebar-link">Input</a>
+  <a href="#comp-chip" class="sidebar-link">FilterChip / DateRangeChip</a>
+  <a href="#comp-pagination" class="sidebar-link">Pagination</a>
+  <a href="#comp-datatable" class="sidebar-link">DataTable</a>
 
   <div class="sidebar-label">Brand</div>
   <a href="#brand" class="sidebar-link">Default / Sample</a>
   <a href="#brand-apply" class="sidebar-link">applyBrand() 갱신 대상</a>
+
+  <div class="sidebar-label">Contributing</div>
+  <a href="#contributing" class="sidebar-link">운영 가이드 (lint / PR / 브랜드)</a>
 </aside>
 
 <main class="main">
@@ -945,6 +952,63 @@ caption           ↔ <span class="s">"text-caption"</span>
       </div>
     </div>
   </div>
+
+  <div id="comp-input" class="subsection">
+    <h3 class="subsection-title">Input — label + prefix icon</h3>
+    <div class="demo">
+      <div class="demo-row" style="flex-direction:column;align-items:flex-start;gap:14px;max-width:320px;">
+        <div style="width:100%;">
+          <label style="display:block;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px;">고객명</label>
+          <input type="text" placeholder="홍길동" style="width:100%;padding:9px 12px;border:1px solid var(--border-primary);border-radius:6px;font-size:14px;background:var(--common-100);color:var(--text-primary);outline:none;" onfocus="this.style.borderColor='var(--button-accent-primary)'" onblur="this.style.borderColor='var(--border-primary)'"/>
+        </div>
+        <div style="width:100%;">
+          <label style="display:block;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px;">전화번호</label>
+          <div style="position:relative;"><span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-quaternary);">📞</span><input type="text" placeholder="010-0000-0000" style="width:100%;padding:9px 12px 9px 36px;border:1px solid var(--border-primary);border-radius:6px;font-size:14px;background:var(--common-100);color:var(--text-primary);outline:none;"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="comp-chip" class="subsection">
+    <h3 class="subsection-title">FilterChip / DateRangeChip</h3>
+    <div class="demo">
+      <div class="demo-row" style="gap:10px;">
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg-emphasis-primary);color:var(--button-accent-primary);font-size:13px;font-weight:500;border-radius:9999px;">상담 진행 중 <span style="opacity:.6;">×</span></span>
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg-selected-subtle);color:var(--text-secondary);font-size:13px;border-radius:9999px;">전체</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--common-100);border:1px solid var(--border-primary);color:var(--text-primary);font-size:13px;border-radius:9999px;">📅 2026-04-01 ~ 04-29</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="comp-pagination" class="subsection">
+    <h3 class="subsection-title">Pagination</h3>
+    <div class="demo">
+      <div class="demo-row" style="gap:4px;">
+        <button style="width:32px;height:32px;border-radius:6px;background:transparent;color:var(--text-quaternary);border:none;cursor:pointer;">‹</button>
+        <button style="width:32px;height:32px;border-radius:6px;background:var(--bg-selected-subtle);color:var(--text-primary);border:none;font-weight:600;font-size:13px;">1</button>
+        <button style="width:32px;height:32px;border-radius:6px;background:transparent;color:var(--text-secondary);border:none;font-size:13px;">2</button>
+        <button style="width:32px;height:32px;border-radius:6px;background:transparent;color:var(--text-secondary);border:none;font-size:13px;">3</button>
+        <button style="width:32px;height:32px;border-radius:6px;background:transparent;color:var(--text-secondary);border:none;font-size:13px;">4</button>
+        <button style="width:32px;height:32px;border-radius:6px;background:transparent;color:var(--text-quaternary);border:none;cursor:pointer;">›</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="comp-datatable" class="subsection">
+    <h3 class="subsection-title">DataTable — header + body + stripe + hover</h3>
+    <div class="demo">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border-primary);border-radius:8px;overflow:hidden;">
+        <thead><tr style="background:var(--bg-faint);border-bottom:1px solid var(--border-subtle);"><th style="text-align:left;padding:10px 14px;font-weight:600;color:var(--text-strong);">고객명</th><th style="text-align:left;padding:10px 14px;font-weight:600;color:var(--text-strong);">상태</th><th style="text-align:right;padding:10px 14px;font-weight:600;color:var(--text-strong);">금액</th></tr></thead>
+        <tbody style="background:var(--common-100);">
+          <tr><td style="padding:10px 14px;">홍길동</td><td style="padding:10px 14px;"><span class="badge badge-info">상담중</span></td><td style="padding:10px 14px;text-align:right;">1,200,000</td></tr>
+          <tr style="background:var(--bg-row-stripe);"><td style="padding:10px 14px;">김영희</td><td style="padding:10px 14px;"><span class="badge badge-done">계약 완료</span></td><td style="padding:10px 14px;text-align:right;">3,400,000</td></tr>
+          <tr><td style="padding:10px 14px;">이철수</td><td style="padding:10px 14px;"><span class="badge badge-pending">대기</span></td><td style="padding:10px 14px;text-align:right;">800,000</td></tr>
+          <tr style="background:var(--bg-row-stripe);"><td style="padding:10px 14px;">박민수</td><td style="padding:10px 14px;"><span class="badge badge-info">상담중</span></td><td style="padding:10px 14px;text-align:right;">2,100,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">홀수행 <code class="chip">--bg-row-stripe</code> 줄무늬 + hover <code class="chip">--bg-row-hover</code>. Phase 8-D 정합 이름 사용.</div>
+  </div>
 </section>
 
 <!-- =================================================================== -->
@@ -981,12 +1045,17 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
             <div class="brand-mark-text-partner">for 흥국화재</div>
           </div>
         </div>
+        <div style="display:flex;gap:8px;font-size:10px;color:var(--text-quaternary);font-weight:500;margin-bottom:4px;">
+          <div style="flex:1;text-align:center;">primary</div>
+          <div style="flex:1;text-align:center;">primaryHover</div>
+          <div style="flex:1;text-align:center;">emphasisPrimary</div>
+        </div>
         <div class="brand-palette">
           <div class="brand-palette-color" style="background:#3182F6;">#3182F6</div>
           <div class="brand-palette-color" style="background:#1B64DA;">#1B64DA</div>
           <div class="brand-palette-color" style="background:#EBF3FF;color:#1B64DA;">#EBF3FF</div>
         </div>
-        <div class="note" style="margin-top:14px;font-size:11px;">primary / primaryHover / emphasisPrimary (모두 명시 — 기존값 보존)</div>
+        <div class="note" style="margin-top:14px;font-size:11px;">모두 명시 — 기존값 보존 (color-mix 자동 파생값과 미세 차이 회피).</div>
       </div>
       <div class="brand-card">
         <div class="brand-card-title">sample — 데모용 (color-mix 활성 케이스)</div>
@@ -997,13 +1066,19 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
             <div class="brand-mark-text-partner">for Sample Co.</div>
           </div>
         </div>
+        <div style="display:flex;gap:8px;font-size:10px;color:var(--text-quaternary);font-weight:500;margin-bottom:4px;">
+          <div style="flex:1;text-align:center;">primary</div>
+          <div style="flex:1;text-align:center;">primaryHover</div>
+          <div style="flex:1;text-align:center;"><strong style="color:var(--text-secondary);">secondary</strong></div>
+          <div style="flex:1;text-align:center;">emphasisPrimary</div>
+        </div>
         <div class="brand-palette">
           <div class="brand-palette-color" style="background:#E53935;">#E53935</div>
           <div class="brand-palette-color" style="background:#C62828;">#C62828</div>
           <div class="brand-palette-color" style="background:#FFA726;">#FFA726</div>
           <div class="brand-palette-color" style="background:color-mix(in srgb, #E53935 12%, white);color:#C62828;">~#FCE7E7</div>
         </div>
-        <div class="note" style="margin-top:14px;font-size:11px;">primary / primaryHover / <strong>secondary</strong> / emphasisPrimary (자동 파생 = <code class="chip">color-mix(in srgb, #E53935 12%, white)</code>)</div>
+        <div class="note" style="margin-top:14px;font-size:11px;">emphasisPrimary 미지정 → <code class="chip">color-mix(in srgb, #E53935 12%, white)</code> 자동 파생.</div>
       </div>
     </div>
   </div>
@@ -1033,6 +1108,55 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
 <span class="s">--cool-neutral-*  --alpha-*  --common-*  --bg-* --text-* --border-* --icon-*</span>
     </div>
     <div class="note">신규 브랜드 추가 절차는 <code class="chip">docs/WHITE_LABEL.md</code> 참조. 슬림화 인터페이스 정의는 <code class="chip">src/config/palette/types.ts</code>.</div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="contributing" class="section">
+  <div class="section-header">
+    <h2 class="section-title">운영 가이드 (Contributing)<span class="section-tag">Phase 8-E/F</span></h2>
+    <p class="section-desc">신규 토큰·컴포넌트·브랜드 추가 절차 + lint:tokens 거버넌스 + PR 템플릿. 자세한 절차는 <code class="chip">docs/CONTRIBUTING.md</code>.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">신규 토큰 추가 절차 (8단계)</h3>
+    <ol style="font-size:13px;line-height:1.9;color:var(--text-secondary);padding-left:24px;">
+      <li><strong>§ 12 결정 트리 통과</strong> — Tier 2 우선 검토, 도메인은 차순위.</li>
+      <li><strong>§ 11 네이밍 컨벤션 준수</strong> — bg-* / text-* / border-* / button-* / status-* / chart-* 등 prefix.</li>
+      <li><strong>@brand-free / @brand-safe / @reserved 주석 명시</strong> — applyBrand 갱신 대상 vs 시스템 잠금 vs 의도된 reserve.</li>
+      <li><code class="chip">src/styles/tokens.css</code> + <code class="chip">src/index.css @theme</code> 양쪽 갱신.</li>
+      <li><code class="chip">design-system.html</code> 시각화 추가.</li>
+      <li><code class="chip">npm run lint:tokens</code> 통과 (전체 audit).</li>
+      <li><strong><code class="chip">npm run lint:tokens:check</code> 통과</strong> (Phase 8-F PR 시점 강제 — 신규 토큰 사용처 / @reserved / @deprecated 분류).</li>
+      <li>PR 템플릿 체크리스트 모두 통과.</li>
+    </ol>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">lint:tokens 거버넌스</h3>
+    <div class="code">
+<span class="c"># 전체 audit (그룹별 / 카테고리별 미사용 + Reserved 목록)</span>
+$ npm run lint:tokens
+
+<span class="c"># JSON 출력 (CI / 자동화)</span>
+$ npm run lint:tokens:json
+
+<span class="c"># PR 시점 강제 (default --since=main)</span>
+$ npm run lint:tokens:check
+
+<span class="c"># 비교 기준 override (HEAD~1 / origin/main 등)</span>
+$ npm run lint:tokens:check:since=HEAD~1
+    </div>
+    <div class="note">위반 시 exit 1 + 가이드 메시지: (1) 즉시 사용처와 함께 추가, (2) <code class="chip">/* @reserved */</code> 주석 추가, (3) 토큰 정의 자체를 PR 에서 제거.</div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">PR 템플릿 + 신규 화이트레이블</h3>
+    <ul style="font-size:13px;line-height:1.9;color:var(--text-secondary);">
+      <li><strong>PR 템플릿</strong>: <code class="chip">.github/PULL_REQUEST_TEMPLATE.md</code> — 변경 영향 / 디자인 시스템 영향 (신규 토큰·삭제·리네이밍·컴포넌트) / 검증 / 화이트레이블 영향 체크리스트.</li>
+      <li><strong>신규 브랜드</strong>: <code class="chip">docs/WHITE_LABEL.md</code> 7단계 체크리스트 — palette/{key}.ts → brand/{key}.ts → public/brand/{key}/ → brands 객체 등록 → VITE_BRAND={key} 빌드 → 21페이지 spot-check.</li>
+      <li><strong>시각 회귀 검증</strong>: <code class="chip">node scripts/visual-baseline/capture.mjs --target=after-stepN</code> + <code class="chip">diff.mjs --step=N</code> — diff 0 미통과 시 의도된 변화 명시 + baseline 갱신.</li>
+    </ul>
   </div>
 </section>
 
