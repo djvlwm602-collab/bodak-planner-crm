@@ -577,7 +577,7 @@ const customTwMerge = extendTailwindMerge({
 | Button danger hover        | `#e04f4f`         | `--danger-hover`                 | ✅ **Phase 3a 적용** (§ 6.3 보류 해소). Phase 6 v3 alignment 후보 (`red_500`). |
 | Button danger active       | `#d44040`         | `--danger-active`                | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`red_600`). |
 | Light tint bg/border       | `#F3F4F6`         | `--bg-faint`                     | ✅ **Phase 3b-A 적용** (53건). bg/border 양쪽 활용. Tailwind `gray-100` hex 일치. v3 cool_neutral_100 정렬은 Phase 6. |
-| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent`                 | ✅ **Phase 3c 적용 완료** (10건). `@brand-free`, Tailwind blue-500 톤. `--button-accent-primary` (#3182F6) 와 10 byte 차 — Phase 6 통일 검토. |
+| 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent` ⚠️ deprecated   | ✅ **Phase 8-C 통합** — `--chart-accent: var(--chart-series-1)` deprecated alias 로 변경. 단일/다중 시리즈 차트 모두 `--chart-series-1` 사용. **2027-04-29 정식 삭제 예정**. HomeDashboard 사용처는 Phase 8-C 에서 마이그레이션 완료. |
 | 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `--bg-faint`)  | ✅ **Phase 3c 적용 완료** (3건). `--bg-faint` 재활용. |
 | 차트 축 tick               | `#9ca3af`         | `--chart-axis`                   | ✅ **Phase 3c 적용 완료** (6건). v3 `cool_neutral_400` (#A4A8AF) 와 8 byte 차 — Phase 6 정렬 후보. |
 | 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border`         | ✅ **Phase 3c 적용 완료** (3건). v3 `cool_neutral_150` (#E9EBEF) 와 4 byte 차 — Phase 6 정렬 후보. |
@@ -628,7 +628,7 @@ const customTwMerge = extendTailwindMerge({
 
 **Tier 1 Value 직접 참조의 명시적 예외**: § 1 토큰 아키텍처는 컴포넌트가 Tier 2 Semantic 만 참조하도록 권장하지만, "다양성이 필요한" 차트 시리즈/뱃지 카테고리 같은 영역은 Tier 1 Value 를 직접 참조하는 것이 자연스럽다 (의미적으로 grouping 만이 목적이고 의미 매핑이 없음).
 
-**현재 사용처**: 없음 (Phase 7-C 정의만, 향후 다중 시리즈 차트 추가 대비). HomeDashboard 의 단일 시리즈 차트는 `--chart-accent` 그대로 유지 (시각값 다름, § 6.4.2 참조).
+**현재 사용처**: HomeDashboard 단일 시리즈 차트 (Phase 8-C 마이그레이션). 다중 시리즈 차트 추가 시 `--chart-series-2~5` 활용. `--chart-accent` 는 deprecated alias 로 1년 (2027-04-29) 까지 유지.
 
 **Tailwind alias** (`src/index.css @theme`): `--color-chart-series-1 ~ -5` — `bg-chart-series-1`, `text-chart-series-1` 등 유틸 사용 가능.
 

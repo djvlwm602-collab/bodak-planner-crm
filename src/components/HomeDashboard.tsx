@@ -200,8 +200,8 @@ export function HomeDashboard() {
                       <AreaChart data={leadTimeByHour} margin={{ top: 10, right: 20, left: -20, bottom: 20 }}>
                         <defs>
                           <linearGradient id="avgFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="var(--chart-accent)" stopOpacity={0.15} />
-                            <stop offset="100%" stopColor="var(--chart-accent)" stopOpacity={0.03} />
+                            <stop offset="0%" stopColor="var(--chart-series-1)" stopOpacity={0.15} />
+                            <stop offset="100%" stopColor="var(--chart-series-1)" stopOpacity={0.03} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
@@ -213,7 +213,7 @@ export function HomeDashboard() {
                           tickFormatter={(v) => `${v}건`}
                           width={55}
                         />
-                        <ReferenceLine x={23} stroke="var(--chart-accent)" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 12, fill: 'var(--chart-accent)', fontWeight: 600, dy: -5 }} />
+                        <ReferenceLine x={23} stroke="var(--chart-series-1)" strokeDasharray="6 3" strokeWidth={1.5} label={{ value: '평균 23시간', position: 'insideTopRight', fontSize: 12, fill: 'var(--chart-series-1)', fontWeight: 600, dy: -5 }} />
                         <Tooltip
                           labelFormatter={(h: any) => formatHourTooltip(h)}
                           formatter={(v: any) => [`${v}건`, '']}
@@ -222,11 +222,11 @@ export function HomeDashboard() {
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke="var(--chart-accent)"
+                          stroke="var(--chart-series-1)"
                           strokeWidth={2.5}
                           fill="url(#avgFill)"
                           dot={false}
-                          activeDot={{ r: 5, fill: 'var(--chart-accent)', strokeWidth: 0 }}
+                          activeDot={{ r: 5, fill: 'var(--chart-series-1)', strokeWidth: 0 }}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
@@ -288,7 +288,7 @@ export function HomeDashboard() {
                         />
                         <Bar
                           dataKey="value"
-                          fill="var(--chart-accent)"
+                          fill="var(--chart-series-1)"
                           radius={[4, 4, 0, 0]}
                           barSize={48}
                           fillOpacity={0.75}
@@ -321,8 +321,8 @@ export function HomeDashboard() {
                       <AreaChart data={unresponsiveHistory} margin={{ top: 10, right: 20, left: -20, bottom: 20 }}>
                         <defs>
                           <linearGradient id="unrespFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="var(--chart-accent)" stopOpacity={0.15} />
-                            <stop offset="100%" stopColor="var(--chart-accent)" stopOpacity={0.03} />
+                            <stop offset="0%" stopColor="var(--chart-series-1)" stopOpacity={0.15} />
+                            <stop offset="100%" stopColor="var(--chart-series-1)" stopOpacity={0.03} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--chart-grid)" />
@@ -335,11 +335,11 @@ export function HomeDashboard() {
                         <Area
                           type="monotone"
                           dataKey="value"
-                          stroke="var(--chart-accent)"
+                          stroke="var(--chart-series-1)"
                           strokeWidth={2.5}
                           fill="url(#unrespFill)"
                           dot={false}
-                          activeDot={{ r: 5, fill: 'var(--chart-accent)', strokeWidth: 0 }}
+                          activeDot={{ r: 5, fill: 'var(--chart-series-1)', strokeWidth: 0 }}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
