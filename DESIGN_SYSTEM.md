@@ -51,8 +51,16 @@
 
 ## 2. Value Tokens (원자 팔레트)
 
-> Figma `Value Colors` 그대로 옮긴 정본. CSS 변수명은 `--{group}-{step}` (kebab-case).
-> ⚠️ 표시는 저해상도 스크린샷에서 1~2자리 hex 가독성이 떨어진 항목 — Figma 원본 export로 검증 필요. 검증 전엔 이 값으로 진행해도 Phase 1~3에 영향 없음(Semantic이 가리키는 핵심 값들은 모두 확정 ✅).
+> CRM 자체 Value 팔레트 (Phase 7-E 정리 후). CSS 변수명은 `--{group}-{step}` (kebab-case).
+> ⚠️ 표시는 저해상도 스크린샷에서 hex 가독성이 떨어진 항목.
+
+### 2.0 보존 정책 (Phase 7-E 후 확정)
+
+- **Scale primitive (풀 보존)**: `cool_neutral_*` (20 단계), `alpha_white_*` / `alpha_black_*` (각 10), `common_*` (2). 의도적 미사용 step 도 신규 컴포넌트/브랜드 대비 reserve.
+- **Feature accent (사용 step 만 보존)**: `violet`, `amber`, `magenta` 등 "남의 색" 팔레트는 실제 참조되는 단계만 유지. 사용 안 되는 단계는 dead weight 로 즉시 정리하고 필요 시 재추가.
+- **Service (보존)**: `naver_green`, `kakao_yellow` — 외부 SDK 컬러로 시각 보존 의무.
+- **삭제된 그룹 (Phase 7-E)**: `cyan`, `green`, `lime`, `orange`, `red`, `purple` 풀 팔레트. 미사용 dead weight 였음. 신규 사용처 발생 시 필요한 step 만 재추가하고 lint:tokens 통과 확인.
+- **lint:tokens 운영**: `npm run lint:tokens` 로 누적 dead weight 검출. PR 머지 전 통과 필수. 의도적 미사용 토큰은 정의 라인의 trailing comment 에 `/* @reserved */` 주석 부착 → audit 가 'Reserved (spec)' 카테고리로 분리.
 
 ### 2.1 Common
 
@@ -76,130 +84,47 @@
 | `cool_neutral_450`    | `#969A9F`   | `cool_neutral_950`    | `#1D2024` ✅ |
 | `cool_neutral_500`    | `#898B93`   | `cool_neutral_990`    | `#161B1C`   |
 
-### 2.3 Blue Dim (10단계 — 차분한 청색)
+### 2.3 Blue Dim — feature accent (사용 step 만 보존)
 
-| 토큰              | Hex         | 토큰              | Hex         |
-| ----------------- | ----------- | ----------------- | ----------- |
-| `blue_dim_50`     | `#EAF2F7`   | `blue_dim_500`    | `#67659B` ⚠️ |
-| `blue_dim_100`    | `#DBE4ED`   | `blue_dim_600`    | `#476984`   |
-| `blue_dim_200`    | `#BBCDDD`   | `blue_dim_700`    | `#295060`   |
-| `blue_dim_300`    | `#A29ACC` ⚠️ | `blue_dim_800`    | `#113653`   |
-| `blue_dim_400`    | `#7B98AE`   | `blue_dim_900`    | `#052238`   |
+| 토큰              | Hex       | 사용처                       |
+| ----------------- | --------- | ---------------------------- |
+| `blue_dim_100`    | `#DBE4ED` | `--bg-disabled` (reserved)   |
 
-### 2.4 Light Blue (10단계 — **v3 액센트, 400이 핵심**)
+### 2.4 Light Blue — feature accent (사용 step 만 보존)
 
-| 토큰               | Hex         | 토큰               | Hex         |
-| ------------------ | ----------- | ------------------ | ----------- |
-| `light_blue_50`    | `#E5F7FF`   | `light_blue_500`   | `#00AEFF`   |
-| `light_blue_100`   | `#D1F0FD`   | `light_blue_600`   | `#008BCC`   |
-| `light_blue_200`   | `#B4E9FA`   | `light_blue_700`   | `#006796`   |
-| `light_blue_300`   | `#7CD8FB`   | `light_blue_800`   | `#004261`   |
-| `light_blue_400`   | `#10C5FF` ✅ | `light_blue_900`   | `#002130`   |
+| 토큰               | Hex       | 사용처                          |
+| ------------------ | --------- | ------------------------------- |
+| `light_blue_50`    | `#E5F7FF` | `--button-accent-secondary` 폴백 |
 
-### 2.5 Blue (10단계 — 정보·링크)
+### 2.5 Blue — feature accent (사용 step 만 보존)
 
-| 토큰          | Hex         | 토큰          | Hex         |
-| ------------- | ----------- | ------------- | ----------- |
-| `blue_50`     | `#ECF4FF`   | `blue_500`    | `#1E68DE` ✅ |
-| `blue_100`    | `#D8E6FB`   | `blue_600`    | `#1358BE`   |
-| `blue_200`    | `#B9D2F8`   | `blue_700`    | `#134A9D`   |
-| `blue_300`    | `#7DACF3`   | `blue_800`    | `#0D3571`   |
-| `blue_400`    | `#4087F2`   | `blue_900`    | `#051F46`   |
+| 토큰          | Hex       | 사용처                       |
+| ------------- | --------- | ---------------------------- |
+| `blue_50`     | `#ECF4FF` | `--bg-emphasis-secondary`    |
 
-### 2.6 Cyan (10단계)
+### 2.6 Amber — feature accent (chart-series-4)
 
-| 토큰          | Hex         | 토큰          | Hex         |
-| ------------- | ----------- | ------------- | ----------- |
-| `cyan_50`     | `#EBFAFC`   | `cyan_500`    | `#05B0CE`   |
-| `cyan_100`    | `#CFF3F9`   | `cyan_600`    | `#0092A9`   |
-| `cyan_200`    | `#AAEAF5`   | `cyan_700`    | `#006F82` ✅ |
-| `cyan_300`    | `#6EDDF1`   | `cyan_800`    | `#004854`   |
-| `cyan_400`    | `#20C8E5`   | `cyan_900`    | `#063239`   |
+| 토큰           | Hex       | 사용처                   |
+| -------------- | --------- | ------------------------ |
+| `amber_500`    | `#FF9200` | `--chart-series-4`       |
 
-### 2.7 Green (10단계 — 성공)
+### 2.7 Magenta — feature accent (chart-series-5)
 
-| 토큰           | Hex         | 토큰           | Hex         |
-| -------------- | ----------- | -------------- | ----------- |
-| `green_50`     | `#E6F9F2`   | `green_500`    | `#16BE4E`   |
-| `green_100`    | `#CDF6D8`   | `green_600`    | `#009632`   |
-| `green_200`    | `#9FEEBA`   | `green_700`    | `#006625`   |
-| `green_300`    | `#6BE191`   | `green_800`    | `#004517`   |
-| `green_400`    | `#33D287`   | `green_900`    | `#00240C`   |
+| 토큰             | Hex       | 사용처              |
+| ---------------- | --------- | ------------------- |
+| `magenta_500`    | `#F553DA` | `--chart-series-5`  |
 
-### 2.8 Lime (11단계 — 150 포함)
+### 2.8 Violet — feature accent (chart-series-3)
 
-| 토큰          | Hex         | 토큰          | Hex         |
-| ------------- | ----------- | ------------- | ----------- |
-| `lime_50`     | `#F8FFF2`   | `lime_500`    | `#6DB032`   |
-| `lime_100`    | `#EFF9E7`   | `lime_600`    | `#4B9E0F`   |
-| `lime_150`    | `#DEF3CE`   | `lime_700`    | `#347D00`   |
-| `lime_200`    | `#DBE999`   | `lime_800`    | `#225200`   |
-| `lime_300`    | `#96E35E`   | `lime_900`    | `#112D00`   |
-| `lime_400`    | `#7AD33A`   |               |             |
+| 토큰            | Hex       | 사용처              |
+| --------------- | --------- | ------------------- |
+| `violet_400`    | `#7D5EF7` | `--chart-series-3`  |
 
-### 2.9 Amber (10단계 — **CRM warning 강조 톤**)
+> Phase 7-E 에서 `cyan`, `green`, `lime`, `orange`, `red`, `purple` 풀 팔레트와
+> 위 그룹들의 미사용 단계는 모두 삭제됨. 신규 사용처 발생 시 § 2.0 보존 정책에 따라
+> 필요한 step 만 재추가하고 `npm run lint:tokens` 통과 확인.
 
-| 토큰           | Hex         | 토큰           | Hex         |
-| -------------- | ----------- | -------------- | ----------- |
-| `amber_50`     | `#FFFDEE`   | `amber_500`    | `#FF9200`   |
-| `amber_100`    | `#FFF5CB`   | `amber_600`    | `#D47800`   |
-| `amber_200`    | `#FFE363`   | `amber_700`    | `#9C5800`   |
-| `amber_300`    | `#FFC53D`   | `amber_800`    | `#663A00`   |
-| `amber_400`    | `#FFA838`   | `amber_900`    | `#361E00`   |
-
-> **주의**: 코드의 `--color-warning: #B45309` 는 위 amber 스케일과 정확히 일치하지 않음 → § 6.2의 `@brand-safe` 보닥 자체 톤으로 유지. 다음 v3 정리 시 `amber_700`을 `#B45309`로 정정 또는 `bodak_warning` 신설 권장.
-
-### 2.10 Orange (10단계)
-
-| 토큰            | Hex         | 토큰            | Hex         |
-| --------------- | ----------- | --------------- | ----------- |
-| `orange_50`     | `#FFF8F1`   | `orange_500`    | `#EB6817`   |
-| `orange_100`    | `#FFE3D3`   | `orange_600`    | `#C94A00`   |
-| `orange_200`    | `#FFBD86`   | `orange_700`    | `#913500`   |
-| `orange_300`    | `#FF9D61`   | `orange_800`    | `#592100`   |
-| `orange_400`    | `#F87E36`   | `orange_900`    | `#2D0F00`   |
-
-### 2.11 Red (10단계 — **error**)
-
-| 토큰         | Hex         | 토큰         | Hex         |
-| ------------ | ----------- | ------------ | ----------- |
-| `red_50`     | `#FFF6F6`   | `red_500`    | `#F34D58` ✅ |
-| `red_100`    | `#FDF2E5`   | `red_600`    | `#D93242`   |
-| `red_200`    | `#FBCACF`   | `red_700`    | `#862A37`   |
-| `red_300`    | `#FC9D9C`   | `red_800`    | `#741212`   |
-| `red_400`    | `#FF7070`   | `red_900`    | `#450E0E`   |
-
-### 2.12 Magenta (10단계)
-
-| 토큰             | Hex         | 토큰             | Hex         |
-| ---------------- | ----------- | ---------------- | ----------- |
-| `magenta_50`     | `#FBEAF8`   | `magenta_500`    | `#F553DA`   |
-| `magenta_100`    | `#F7D2F1`   | `magenta_600`    | `#D331BB`   |
-| `magenta_200`    | `#F596EB`   | `magenta_700`    | `#A81690`   |
-| `magenta_300`    | `#F289D0` ⚠️ | `magenta_800`    | `#730560`   |
-| `magenta_400`    | `#FA73E3`   | `magenta_900`    | `#3D0133`   |
-
-### 2.13 Purple (10단계)
-
-| 토큰            | Hex         | 토큰            | Hex         |
-| --------------- | ----------- | --------------- | ----------- |
-| `purple_50`     | `#FEFBFF`   | `purple_500`    | `#C859FF`   |
-| `purple_100`    | `#F6E3FF`   | `purple_600`    | `#AD36E3`   |
-| `purple_200`    | `#EABEFF`   | `purple_700`    | `#8810B8`   |
-| `purple_300`    | `#DE96FF`   | `purple_800`    | `#580A7D` ⚠️ |
-| `purple_400`    | `#D478FF`   | `purple_900`    | `#290247`   |
-
-### 2.14 Violet (10단계)
-
-| 토큰            | Hex         | 토큰            | Hex         |
-| --------------- | ----------- | --------------- | ----------- |
-| `violet_50`     | `#FBFBFF`   | `violet_500`    | `#6541F2`   |
-| `violet_100`    | `#ECE7FF`   | `violet_600`    | `#4F29E5`   |
-| `violet_200`    | `#C8BBFF`   | `violet_700`    | `#3A16C9`   |
-| `violet_300`    | `#9E86FC`   | `violet_800`    | `#23098F`   |
-| `violet_400`    | `#7D5EF7`   | `violet_900`    | `#11024D`   |
-
-### 2.15 Alpha (검정/흰색 투명도 각 10단계)
+### 2.9 Alpha (검정/흰색 투명도 각 10단계)
 
 `alpha_white_{step}` 은 `rgba(255, 255, 255, step%)`, `alpha_black_{step}` 은 `rgba(0, 0, 0, step%)`. step ∈ `{50, 100, 200, 300, 400, 500, 600, 700, 800, 900}` (50=5%, 900=90%).
 
@@ -218,32 +143,32 @@
 
 오버레이·그라데이션·디스에이블 마스크에만 사용.
 
-### 2.16 Service (서비스 브랜드)
+### 2.10 Service (서비스 브랜드)
 
 | 토큰              | Hex         | 용도                          |
 | ----------------- | ----------- | ----------------------------- |
 | `naver_green`     | `#03C75A` ✅ | 네이버 로그인 버튼.           |
 | `kakao_yellow`    | `#FEE500` ✅ | 카카오 로그인 버튼.           |
 
-### 2.6 현재 CRM 코드의 핵심 색상 → Value 토큰 근사 매핑
+### 2.11 현재 CRM 코드의 핵심 색상 → Value 토큰 근사 매핑 (역사 자료)
 
-> 시각값을 *바꾸지 않고* v3 Value 토큰으로 명명할 때의 가장 가까운 매칭. 정확히 떨어지지 않는 항목은 § 6에서 추적한다.
+> Phase 1~5 마라톤 진행 중 v3 와의 hex 근사를 추적하던 표. Phase 7-A 에서 v3 정렬이 폐기됐으므로 이 표는 명명 친숙성 참조의 역사 자료. cyan/red 등 일부 그룹 토큰은 Phase 7-E 에서 삭제됐고, 해당 의미는 도메인 토큰 (`--status-success`, `--error` 등) 으로 직접 정의되어 있다.
 
-| 현재 hex | v3 근사 토큰        | 비고                                                    |
+| 현재 hex | 근사 토큰 (참조)    | 비고                                                    |
 | -------- | ------------------- | ------------------------------------------------------- |
-| `#3182F6` | `blue_500` 근처     | v3 `blue_500 = #1E68DE` — 톤이 약간 다름. 코드값 유지. |
-| `#1B64DA` | `blue_600` 근처     | primary hover.                                          |
-| `#00B493` | `cyan_700` 근처     | success(teal). v3엔 `cyan_700 = #006F82`. 코드값 유지. |
-| `#FF5B5B` | `red_400` 근처      | danger.                                                 |
-| `#191F28` | `cool_neutral_950`  | text_primary.                                           |
-| `#4E5968` | `cool_neutral_700`  | text_secondary.                                         |
-| `#AEB5BC` | `cool_neutral_350`  | text_disabled.                                          |
-| `#F9FAFB` | `cool_neutral_50`   | bg(페이지).                                             |
-| `#FFFFFF` | `common_100`        | bg_surface.                                             |
-| `#E8EBED` | `cool_neutral_150`  | border_primary.                                         |
-| `#CDD1D5` | `cool_neutral_300`  | border_subtle.                                          |
+| `#3182F6` | `--button-accent-primary` | 보닥 primary (CRM 자체 spec).                       |
+| `#1B64DA` | `--button-accent-primary-hover` | primary hover (명시 보존, color-mix 자동 파생도 가능). |
+| `#00B493` | `--status-success`        | success teal (CRM 자체 spec). cyan 그룹 삭제됨.     |
+| `#FF5B5B` | `--error`                 | error (CRM 자체 spec). red 그룹 삭제됨.             |
+| `#191F28` | `cool_neutral_950`        | text_primary.                                       |
+| `#4E5968` | `cool_neutral_700`        | text_secondary.                                     |
+| `#AEB5BC` | `cool_neutral_350`        | text_disabled.                                      |
+| `#F9FAFB` | `cool_neutral_50`         | bg(페이지).                                         |
+| `#FFFFFF` | `common_100`              | bg_surface.                                         |
+| `#E8EBED` | `cool_neutral_150`        | border_primary.                                     |
+| `#CDD1D5` | `cool_neutral_300`        | border_subtle.                                      |
 
-> **결론**: 현재 CRM의 시각 정체성은 “Toss 톤 + 보닥 블루(#3182F6)”로 v3 표준의 `light_blue_400(#10C5FF)`과 다르다. 이 갭은 *브랜드 컬러 차이*이며 화이트레이블에서 정확히 활용해야 할 자유도다 (§ 8).
+> 화이트레이블 자유도는 § 8 참조. CRM ≠ v3 의 정체성 명문화는 [`docs/SCOPE.md`](docs/SCOPE.md).
 
 ---
 
@@ -1046,4 +971,39 @@ Pretendard regular 400 / medium 500 / bold(=semibold) 600
 
 ---
 
-**문서 갱신 규칙**: 토큰 추가/삭제 PR은 본 문서의 § 2~5와 § 6 갭 표를 같이 갱신한다. PR 템플릿에 `[ ] DESIGN_SYSTEM.md 동기화` 체크박스 필수.
+## 12. Audit 운영 가이드 (Phase 7-D/F 도입)
+
+`scripts/lint-tokens.mjs` 가 토큰 정의 vs 사용을 추적해 dead weight 누적을 검출한다. Phase 7-E 에서 380 → 190 토큰으로 정리된 후 이 인프라로 유지.
+
+### 12.1 명령어
+
+```bash
+npm run lint:tokens          # 표 형태 표준 출력 (그룹별 / 카테고리별 미사용 + 전체 목록 + Reserved 목록)
+npm run lint:tokens:json     # JSON 출력 (CI / 자동화 용)
+```
+
+### 12.2 PR 운영 규칙
+
+- **신규 토큰 추가 PR** 은 `npm run lint:tokens` 통과 필수 — 새 토큰이 `사용 중` 또는 `Reserved (spec)` 카테고리에 분류돼야 한다.
+- 사용처 명시 없이 정의만 추가하는 경우 정의 라인의 trailing comment 에 `/* @reserved */` 주석 부착 → audit 가 'Reserved (spec)' 으로 분리.
+- `미사용` 카테고리에 새 토큰이 추가되면 PR 거부 또는 보강 (사용처 명시 / @reserved 마킹 / 정의 자체 제거).
+
+### 12.3 정기 정리
+
+- **분기별 audit**: `npm run lint:tokens` 실행 → `미사용` 그룹 검토 → 누적된 dead weight 정리.
+- **Reserved 토큰 점검**: `Reserved (spec)` 목록을 보고 spec 의도 변경 여부 확인. 더 이상 reserve 가치 없으면 삭제.
+- **Scale primitive 보존**: `cool_neutral`, `alpha_*`, `common` 은 미사용이라도 보존 (§ 2.0 보존 정책).
+
+### 12.4 audit 인식 패턴 (false negative 방지)
+
+audit 가 다음 패턴을 모두 "사용 중" 으로 인식한다:
+1. **`var(--xxx)` 정적 참조** — `*.{ts,tsx,css,html}` 어디서든
+2. **`applyBrand()` 동적 주입** — `src/config/brand/apply.ts` 의 `setProperty` 인자
+3. **Tailwind theme prefix 매칭** — `--color-*` / `--font-size-*` / `--radius-*` / `--spacing-*` 등의 alias 가 컴포넌트 className 에 등장하면 양방향 인식
+4. **매크로 클래스** — `index.css` 의 `.text-h1` 등 매크로가 컴포넌트에 사용되면, 매크로 정의 내부의 `var()` 참조 토큰들도 사용 카운트
+
+신규 사용 패턴 도입 시 `scripts/lint-tokens.mjs` 의 `scanCode` / `resolveTailwindUsage` 갱신.
+
+---
+
+**문서 갱신 규칙**: 토큰 추가/삭제 PR 은 본 문서의 § 2~5 와 § 6 spec 표를 같이 갱신한다. PR 템플릿에 `[ ] DESIGN_SYSTEM.md 동기화` + `[ ] npm run lint:tokens 통과` 체크박스 필수.
