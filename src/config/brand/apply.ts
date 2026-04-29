@@ -22,6 +22,7 @@ import { defaultBrand } from './default';
  *
  * 갱신 대상 토큰 (secondary swap, palette.secondary 지정 시에만):
  *   --button-accent-secondary / -hover
+ *   --chart-series-2
  *
  * 시스템 잠금 (brand 가 덮어쓰지 않음 — tokens.css :root 정의 사용):
  *   --error, --warning, --status-success, --status-pending, --status-done, --status-info
@@ -50,6 +51,7 @@ export function applyBrand(brand: Brand = defaultBrand): void {
     const secondaryHover = palette.secondaryHover ?? `color-mix(in srgb, ${secondary} 85%, black)`;
     root.style.setProperty('--button-accent-secondary', secondary);
     root.style.setProperty('--button-accent-secondary-hover', secondaryHover);
+    root.style.setProperty('--chart-series-2', secondary);  // 차트 보조 시리즈도 secondary 로 덮어씀
   }
 
   /* Tier 3 레거시 (--brand-* / --color-*) — 컴포넌트가 아직 사용하므로 유지 */

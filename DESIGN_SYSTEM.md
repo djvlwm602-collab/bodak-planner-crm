@@ -693,6 +693,24 @@ const customTwMerge = extendTailwindMerge({
 
 **총 129건**. **Phase 7-A 결정**: 옵션 A 채택 — 코드 토큰 hex 그대로 유지 (CRM 자체 spec). Tailwind preset 사용 금지로 일관성 강제. 옵션 B (v3/Tailwind 톤 정렬) / C (도메인 분리) 는 폐기.
 
+### 6.5 Other Color — 차트 다중 시리즈 액센트 팔레트 (Phase 7-C 도입)
+
+> 차트의 다중 시리즈 (예: 다섯 개 카테고리 동시 표시) 같은 "다양성이 필요한" 영역을 위한 액센트 팔레트. brand swap 색 1~2 개 + Value 직접 참조 3~5 의 5단계 구성. SCOPE.md § 2.4 / § 3.4 의 "Other Color" 정책 참조.
+
+| 토큰                | 출처                              | 의미                                          |
+| ------------------- | --------------------------------- | --------------------------------------------- |
+| `--chart-series-1`  | `var(--button-accent-primary)`    | brand primary swap (메인 시리즈)              |
+| `--chart-series-2`  | `var(--button-accent-primary)` (fallback) → applyBrand 가 `palette.secondary` 있을 때 secondary 로 덮어씀 | brand secondary swap (보조 시리즈), 단색 brand 는 primary fallback |
+| `--chart-series-3`  | `var(--violet-400)` = `#7D5EF7`   | Value 직접 참조 (brand 무관)                  |
+| `--chart-series-4`  | `var(--amber-500)` = `#FF9200`    | Value 직접 참조                               |
+| `--chart-series-5`  | `var(--magenta-500)` = `#F553DA`  | Value 직접 참조                               |
+
+**Tier 1 Value 직접 참조의 명시적 예외**: § 1 토큰 아키텍처는 컴포넌트가 Tier 2 Semantic 만 참조하도록 권장하지만, "다양성이 필요한" 차트 시리즈/뱃지 카테고리 같은 영역은 Tier 1 Value 를 직접 참조하는 것이 자연스럽다 (의미적으로 grouping 만이 목적이고 의미 매핑이 없음).
+
+**현재 사용처**: 없음 (Phase 7-C 정의만, 향후 다중 시리즈 차트 추가 대비). HomeDashboard 의 단일 시리즈 차트는 `--chart-accent` 그대로 유지 (시각값 다름, § 6.4.2 참조).
+
+**Tailwind alias** (`src/index.css @theme`): `--color-chart-series-1 ~ -5` — `bg-chart-series-1`, `text-chart-series-1` 등 유틸 사용 가능.
+
 ---
 
 ## 7. 컴포넌트 카탈로그 (네이밍 정리)

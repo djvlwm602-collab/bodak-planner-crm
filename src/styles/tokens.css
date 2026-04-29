@@ -307,10 +307,17 @@
   --bg-faint: #F3F4F6;              /* @brand-safe — light tint (Tailwind gray-100 hex 일치) bg/border 양쪽 활용 — Phase 3b 도입 */
 
   /* ── § 6.4 차트 팔레트 (recharts inline 전용, Phase 3c 도입) ── */
-  --chart-accent: #3b82f6;          /* @brand-free — 보닥 #3182F6 와 10 byte 차, Phase 6 정렬 후보 */
+  --chart-accent: #3b82f6;          /* @brand-free — 보닥 #3182F6 와 10 byte 차 */
   --chart-grid: var(--bg-faint);    /* @brand-safe — #F3F4F6 (--bg-faint 재활용) */
   --chart-axis: #9ca3af;            /* @brand-safe — recharts axis tick */
   --chart-tooltip-border: #e5e7eb;  /* @brand-safe — recharts tooltip border */
+
+  /* ── § 6.5 Other Color — chart 다중 시리즈 액센트 팔레트 (Phase 7-C 도입) ── */
+  --chart-series-1: var(--button-accent-primary);    /* @brand-free — brand primary swap */
+  --chart-series-2: var(--button-accent-primary);    /* @brand-free — brand secondary swap, 미설정 시 primary fallback (apply.ts 가 secondary 있을 때만 덮어씀) */
+  --chart-series-3: var(--violet-400);               /* @brand-safe — Other (Value 직접) */
+  --chart-series-4: var(--amber-500);                /* @brand-safe — Other */
+  --chart-series-5: var(--magenta-500);              /* @brand-safe — Other */
 
   /* ── § 6.4 도메인 상태 칩 (Badge weak 페어, Phase 3a 도입) ── */
   --status-info: #5779DB;           /* @brand-safe — primary weak text */

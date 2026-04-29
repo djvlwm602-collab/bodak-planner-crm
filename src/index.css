@@ -147,6 +147,13 @@
   --color-chart-axis: var(--chart-axis);
   --color-chart-tooltip-border: var(--chart-tooltip-border);
 
+  /* § 6.5 Other Color — chart 다중 시리즈 (Phase 7-C 도입) */
+  --color-chart-series-1: var(--chart-series-1);
+  --color-chart-series-2: var(--chart-series-2);
+  --color-chart-series-3: var(--chart-series-3);
+  --color-chart-series-4: var(--chart-series-4);
+  --color-chart-series-5: var(--chart-series-5);
+
   /* ============================================================
      § 4 Typography Tokens (Phase 4-A 도입)
      출처: DESIGN_SYSTEM.md § 4.2 (원자 토큰)
