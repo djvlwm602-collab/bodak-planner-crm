@@ -81,9 +81,6 @@
   --alpha-black-800: rgba(0, 0, 0, 0.80);
   --alpha-black-900: rgba(0, 0, 0, 0.90);
 
-  /* ── § 2.16 Service (서비스 브랜드 — 로그인 버튼 전용) ── */
-  --naver-green:  #03C75A;
-  --kakao-yellow: #FEE500;
 
   /* ============================================================
      Tier 2 — Semantic Tokens (의미 토큰)

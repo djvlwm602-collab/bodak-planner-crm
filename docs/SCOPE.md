@@ -61,11 +61,8 @@
 
 Figma `Value Colors` 그대로. 약 165개 토큰. 그룹:
 
-- `cool_neutral_50 ~ 990` (20단계)
-- `alpha_white_*`, `alpha_black_*` (각 10단계)
-- `common_100 / 0` (white / black)
-- 색상 그룹 (각 10단계 내외): `light_blue`, `blue`, `cyan`, `green`, `red`, `amber`, `orange`, `magenta`, `purple`, `violet`, `lime`, `blue_dim`
-- 서비스 컬러: `naver_green`, `kakao_yellow`
+- **Scale primitive (풀 보존)**: `cool_neutral_50 ~ 990` (20단계), `alpha_white_*` / `alpha_black_*` (각 10단계), `common_100 / 0`
+- **Feature accent (사용 step 만 보존, Phase 7-E 후)**: `blue_dim_100`, `light_blue_50`, `blue_50`, `amber_500`, `magenta_500`, `violet_400` — 각 1 step. 신규 사용처 발생 시 § 2.0 보존 정책 따라 재추가.
 
 **컴포넌트가 직접 참조해도 OK** — Semantic 우선이지만 차트·뱃지 등 예외가 다수 존재한다.
 

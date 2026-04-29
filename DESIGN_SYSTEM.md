@@ -58,8 +58,7 @@
 
 - **Scale primitive (풀 보존)**: `cool_neutral_*` (20 단계), `alpha_white_*` / `alpha_black_*` (각 10), `common_*` (2). 의도적 미사용 step 도 신규 컴포넌트/브랜드 대비 reserve.
 - **Feature accent (사용 step 만 보존)**: `violet`, `amber`, `magenta` 등 "남의 색" 팔레트는 실제 참조되는 단계만 유지. 사용 안 되는 단계는 dead weight 로 즉시 정리하고 필요 시 재추가.
-- **Service (보존)**: `naver_green`, `kakao_yellow` — 외부 SDK 컬러로 시각 보존 의무.
-- **삭제된 그룹 (Phase 7-E)**: `cyan`, `green`, `lime`, `orange`, `red`, `purple` 풀 팔레트. 미사용 dead weight 였음. 신규 사용처 발생 시 필요한 step 만 재추가하고 lint:tokens 통과 확인.
+- **삭제된 그룹 (Phase 7-E)**: `cyan`, `green`, `lime`, `orange`, `red`, `purple` 풀 팔레트, `naver_green`, `kakao_yellow` (외부 SDK 사용처 0). 미사용 dead weight 였음. 신규 사용처 발생 시 필요한 step 만 재추가하고 lint:tokens 통과 확인.
 - **lint:tokens 운영**: `npm run lint:tokens` 로 누적 dead weight 검출. PR 머지 전 통과 필수. 의도적 미사용 토큰은 정의 라인의 trailing comment 에 `/* @reserved */` 주석 부착 → audit 가 'Reserved (spec)' 카테고리로 분리.
 
 ### 2.1 Common
@@ -143,14 +142,7 @@
 
 오버레이·그라데이션·디스에이블 마스크에만 사용.
 
-### 2.10 Service (서비스 브랜드)
-
-| 토큰              | Hex         | 용도                          |
-| ----------------- | ----------- | ----------------------------- |
-| `naver_green`     | `#03C75A` ✅ | 네이버 로그인 버튼.           |
-| `kakao_yellow`    | `#FEE500` ✅ | 카카오 로그인 버튼.           |
-
-### 2.11 현재 CRM 코드의 핵심 색상 → Value 토큰 근사 매핑 (역사 자료)
+### 2.10 현재 CRM 코드의 핵심 색상 → Value 토큰 근사 매핑 (역사 자료)
 
 > Phase 1~5 마라톤 진행 중 v3 와의 hex 근사를 추적하던 표. Phase 7-A 에서 v3 정렬이 폐기됐으므로 이 표는 명명 친숙성 참조의 역사 자료. cyan/red 등 일부 그룹 토큰은 Phase 7-E 에서 삭제됐고, 해당 의미는 도메인 토큰 (`--status-success`, `--error` 등) 으로 직접 정의되어 있다.
 
