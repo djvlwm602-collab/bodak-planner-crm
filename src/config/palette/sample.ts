@@ -11,7 +11,8 @@ import type { BrandPalette } from './types';
 export const samplePalette: BrandPalette = {
   primary: '#E53935',          // red — default(파랑) 와 명확히 구분
   primaryHover: '#C62828',     // 명시 — 기존값 보존
-  emphasisPrimary: '#FFEBEE',  // 명시 — red weak tint
+  // emphasisPrimary 미지정 → color-mix(in srgb, #E53935 12%, white) ≈ #FCE7E7 자동 파생
+  // (color-mix 파생 경로의 활성 테스트 케이스)
   secondary: '#FFA726',        // amber — secondary swap 데모용 보색 액센트
   // secondaryHover 미지정 → color-mix 자동 파생
 };
