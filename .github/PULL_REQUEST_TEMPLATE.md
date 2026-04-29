@@ -15,12 +15,14 @@
 - [ ] DESIGN_SYSTEM.md 해당 섹션 갱신
 - [ ] § 13 Tailwind 유틸 매핑 표 갱신
 - [ ] design-system.html 시각화 추가
+- [ ] **tokens.css 변경 시 design-system.html :root 동기화** (Phase 9-B 정책 — 신규/리네이밍 토큰은 시각화 페이지 :root 에도 반영)
 - [ ] npm run lint:tokens 통과
+- [ ] npm run lint:tokens:check 통과
 
 ### 토큰 삭제 / 리네이밍
 - [ ] lint:tokens 미사용 확인 (또는 @deprecated alias 1년 유예)
 - [ ] DESIGN_SYSTEM.md § 6.4 / § 13 갱신
-- [ ] design-system.html 갱신
+- [ ] design-system.html `:root` 정의 + 본문 표시 갱신 (Phase 9-B 정책)
 
 ### 컴포넌트 변경
 - [ ] hex 직박이 0건 (토큰만 사용)
