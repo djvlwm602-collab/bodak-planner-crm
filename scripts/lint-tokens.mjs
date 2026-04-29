@@ -27,23 +27,31 @@ const TAILWIND_THEME_PREFIXES = {
   '--spacing-':     ['p', 'px', 'py', 'pt', 'pr', 'pb', 'pl', 'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml', 'gap', 'gap-x', 'gap-y', 'w', 'h', 'min-w', 'min-h', 'max-w', 'max-h', 'space-x', 'space-y'],
 };
 
-// ── 1. 토큰 정의 + alias 매핑 추출 ──
+// ── 1. 토큰 정의 + alias 매핑 + @reserved 마크 추출 ──
 async function readDefs() {
   const tokensCss = await readFile(resolve(ROOT, 'src/styles/tokens.css'), 'utf-8');
   const indexCss  = await readFile(resolve(ROOT, 'src/index.css'), 'utf-8');
 
-  const tokens = new Map();      // name -> { source }
+  const tokens = new Map();      // name -> { source, reserved }
   const aliasMap = new Map();    // alias name -> referenced token name (1단계 alias)
-  const defLineRegex = /^\s*(--[\w-]+)\s*:\s*([^;]+);/gm;
+  const tokenLineRe = /^\s*(--[\w-]+)\s*:\s*([^;]+);([^\n]*)$/;
   const singleVarRegex = /^var\(\s*(--[\w-]+)/;
 
   function extract(content, source) {
-    let m;
-    defLineRegex.lastIndex = 0;
-    while ((m = defLineRegex.exec(content))) {
+    const lines = content.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const m = tokenLineRe.exec(lines[i]);
+      if (!m) continue;
       const name = m[1];
       const def = m[2].trim();
-      tokens.set(name, { source });
+      const trailingComment = m[3] || '';
+      const prevLine = i > 0 ? lines[i - 1] : '';
+      // prev 라인이 다른 토큰 정의면 그 trailing 의 @reserved 가 본 토큰에 전이되지 않도록 제외
+      const prevIsTokenDef = /^\s*--[\w-]+\s*:\s*[^;]+;/.test(prevLine);
+      // 같은 라인 trailing comment 또는 직전 코멘트 라인에 @reserved 가 있으면 reserved
+      const reserved = /@reserved\b/.test(trailingComment) ||
+                       (!prevIsTokenDef && /@reserved\b/.test(prevLine));
+      tokens.set(name, { source, reserved });
       const am = singleVarRegex.exec(def);
       if (am) aliasMap.set(name, am[1]);
     }
@@ -242,11 +250,15 @@ async function main() {
   const usedDefined = new Set([...used].filter(t => definedNames.has(t)));
 
   const allTokens = [...tokens.keys()].sort();
-  const unusedTokens = allTokens.filter(t => !usedDefined.has(t));
+  // @reserved 마크된 토큰은 별도 분류 — 미사용이라도 의도적 reserve 로 카운트 분리
+  const reservedNames = allTokens.filter(t => tokens.get(t).reserved);
+  const reservedSet = new Set(reservedNames);
+  const unusedTokens = allTokens.filter(t => !usedDefined.has(t) && !reservedSet.has(t));
 
-  // 그룹별
+  // 그룹별 (reserved 토큰은 그룹 통계에서 제외 — Value 그룹에 속하는 reserved 거의 없음)
   const byGroup = {};
   for (const t of allTokens) {
+    if (reservedSet.has(t)) continue;
     const grp = getGroup(t);
     if (!grp) continue;
     if (!byGroup[grp]) byGroup[grp] = { total: 0, unused: 0, unusedNames: [] };
@@ -257,13 +269,13 @@ async function main() {
     }
   }
 
-  // 카테고리별
+  // 카테고리별 (reserved 는 'Reserved (spec)' 카테고리로 별도 분리)
   const byCategory = {};
   for (const t of allTokens) {
-    const cat = categorize(t);
+    const cat = reservedSet.has(t) ? 'Reserved (spec)' : categorize(t);
     if (!byCategory[cat]) byCategory[cat] = { total: 0, unused: 0, unusedNames: [] };
     byCategory[cat].total++;
-    if (!usedDefined.has(t)) {
+    if (!usedDefined.has(t) && !reservedSet.has(t)) {
       byCategory[cat].unused++;
       byCategory[cat].unusedNames.push(t);
     }
@@ -272,10 +284,12 @@ async function main() {
   if (JSON_MODE) {
     console.log(JSON.stringify({
       defined: allTokens.length,
+      reserved: reservedNames.length,
       used: usedDefined.size,
       unused: unusedTokens.length,
       byGroup,
       byCategory,
+      reservedTokens: reservedNames,
       unusedTokens: unusedTokens.map(t => ({ name: t, group: getGroup(t), category: categorize(t) })),
     }, null, 2));
     return;
@@ -283,8 +297,9 @@ async function main() {
 
   console.log('=== Token Usage Audit ===');
   console.log(`정의된 토큰: ${allTokens.length} 개`);
+  console.log(`Reserved (spec, 의도적 미사용): ${reservedNames.length} 개`);
   console.log(`사용 중: ${usedDefined.size} 개`);
-  console.log(`미사용: ${unusedTokens.length} 개`);
+  console.log(`미사용 (reserved 제외): ${unusedTokens.length} 개`);
 
   console.log('\n── 그룹별 미사용 ──');
   const sortedGroups = Object.entries(byGroup).sort((a, b) =>
@@ -309,6 +324,13 @@ async function main() {
     console.log('\n── 미사용 토큰 전체 목록 ──');
     for (const t of unusedTokens) {
       console.log(`${t.padEnd(40)} (${categorize(t)})`);
+    }
+  }
+
+  if (reservedNames.length > 0) {
+    console.log('\n── Reserved (spec) 목록 ──');
+    for (const t of reservedNames.sort()) {
+      console.log(`${t.padEnd(40)} spec 정의 (의도적 미사용)`);
     }
   }
 }

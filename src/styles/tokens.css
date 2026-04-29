@@ -96,58 +96,58 @@
 
   /* ── § 3.1 Background ── */
   --bg-primary: #F9FAFB;                            /* @brand-safe — § 6.4 갭: 코드 hex 보존, v3 cool_neutral_100 (#F2F4F6) 과 미세 차. Phase 6 정렬 예정 */
-  --bg-secondary: var(--cool-neutral-50);           /* @brand-safe */
-  --bg-tertiary: var(--cool-neutral-100);           /* @brand-safe */
-  --bg-disabled: var(--blue-dim-100);               /* @brand-safe */
+  --bg-secondary: var(--cool-neutral-50);           /* @brand-safe @reserved */
+  --bg-tertiary: var(--cool-neutral-100);           /* @brand-safe @reserved */
+  --bg-disabled: var(--blue-dim-100);               /* @brand-safe @reserved */
   --bg-emphasis-primary: #EBF3FF;                   /* @brand-free — 보닥 light tint, § 6.2 갭 */
   --bg-emphasis-secondary: var(--blue-50);          /* @brand-safe */
 
   /* ── § 3.2 Text (9개) ── */
   --text-primary: #191F28;                          /* @brand-safe — § 6.4 갭: 코드 hex 보존, v3 cool_neutral_950 (#1D2024) 과 미세 차. Phase 6 정렬 예정 */
   --text-secondary: #4E5968;                        /* @brand-safe — § 6.4 갭: 코드 hex 보존, v3 cool_neutral_700 (#54595E) 과 미세 차. Phase 6 정렬 예정 */
-  --text-tertiary: var(--cool-neutral-550);         /* @brand-safe */
+  --text-tertiary: var(--cool-neutral-550);         /* @brand-safe @reserved */
   --text-quaternary: var(--cool-neutral-400);       /* @brand-safe */
   --text-disabled: #AEB5BC;                         /* @brand-safe — § 6.4 갭: 코드 hex 보존 (≈ cool_neutral_350), v3 cool_neutral_300 (#C8C9CE) 과 큰 차. Phase 6 정렬 예정 */
-  --text-inverse-primary: var(--common-100);        /* @brand-safe */
-  --text-inverse-secondary: var(--alpha-white-800); /* @brand-safe */
-  --text-inverse-tertiary: var(--alpha-white-400);  /* @brand-safe */
+  --text-inverse-primary: var(--common-100);        /* @brand-safe @reserved */
+  --text-inverse-secondary: var(--alpha-white-800); /* @brand-safe @reserved */
+  --text-inverse-tertiary: var(--alpha-white-400);  /* @brand-safe @reserved */
   --text-accent: var(--button-accent-primary);      /* @brand-free */
 
   /* ── § 3.3 Icon (8개) ── */
-  --icon-enabled: var(--cool-neutral-950);          /* @brand-safe */
-  --icon-subtle: var(--cool-neutral-550);           /* @brand-safe */
-  --icon-inactive: var(--cool-neutral-400);         /* @brand-safe */
+  --icon-enabled: var(--cool-neutral-950);          /* @brand-safe @reserved */
+  --icon-subtle: var(--cool-neutral-550);           /* @brand-safe @reserved */
+  --icon-inactive: var(--cool-neutral-400);         /* @brand-safe @reserved */
   --icon-active: var(--button-accent-primary);      /* @brand-free */
   --icon-accent: var(--button-accent-primary);      /* @brand-free */
-  --icon-disabled: var(--cool-neutral-300);         /* @brand-safe */
-  --icon-pressed: var(--cool-neutral-800);          /* @brand-safe */
-  --icon-inverse-primary: var(--common-100);        /* @brand-safe */
+  --icon-disabled: var(--cool-neutral-300);         /* @brand-safe @reserved */
+  --icon-pressed: var(--cool-neutral-800);          /* @brand-safe @reserved */
+  --icon-inverse-primary: var(--common-100);        /* @brand-safe @reserved */
 
   /* ── § 3.4 Border (4개) ── */
   --border-primary: #E8EBED;                        /* @brand-safe — § 6.4 갭: 코드 hex 보존 (≈ cool_neutral_150 톤), v3 cool_neutral_300 (#C8C9CE) 과 명도 반전. Phase 6 정렬 예정 */
   --border-subtle: #CDD1D5;                         /* @brand-safe — § 6.4 갭: 코드 hex 보존 (≈ cool_neutral_300 톤), v3 cool_neutral_150 (#E9EBEF) 과 명도 반전. Phase 6 정렬 예정 */
-  --border-selected: var(--cool-neutral-500);       /* @brand-safe */
-  --border-transparent: var(--alpha-black-100);     /* @brand-safe */
+  --border-selected: var(--cool-neutral-500);       /* @brand-safe @reserved */
+  --border-transparent: var(--alpha-black-100);     /* @brand-safe @reserved */
 
   /* ── § 3.5 Overlay ── */
-  --overlay-50: var(--alpha-black-500);             /* @brand-safe */
+  --overlay-50: var(--alpha-black-500);             /* @brand-safe @reserved */
 
   /* ── § 3.6 Component-specific (14개) ── */
   --modal-background: var(--common-100);                          /* @brand-safe */
-  --modal-surface-primary: var(--cool-neutral-50);                /* @brand-safe */
-  --modal-surface-secondary: var(--cool-neutral-100);             /* @brand-safe */
+  --modal-surface-primary: var(--cool-neutral-50);                /* @brand-safe @reserved */
+  --modal-surface-secondary: var(--cool-neutral-100);             /* @brand-safe @reserved */
   --button-accent-primary: #3182F6;                               /* @brand-free — 보닥 primary (§ 6.2) */
   --button-accent-primary-hover: #1B64DA;                         /* @brand-free — 보닥 primary hover */
   --button-accent-secondary: var(--light-blue-50);                /* @brand-free — v3 weak CTA */
   --button-accent-secondary-hover: color-mix(in srgb, var(--button-accent-secondary) 85%, black);  /* @brand-free — Phase 7-B 신설, brand secondary swap 시 applyBrand 가 덮어씀 */
   --button-accent-tertiary: var(--cool-neutral-700);              /* @brand-safe */
   --button-accent-extra: var(--alpha-black-50);                   /* @brand-safe */
-  --button-surface-accent-disabled: var(--cool-neutral-250);      /* @brand-safe */
-  --button-surface-neutral: var(--cool-neutral-150);              /* @brand-safe */
-  --button-surface-neutral-disabled: var(--cool-neutral-100);     /* @brand-safe */
-  --text-background: var(--cool-neutral-750);                     /* @brand-safe */
+  --button-surface-accent-disabled: var(--cool-neutral-250);      /* @brand-safe @reserved */
+  --button-surface-neutral: var(--cool-neutral-150);              /* @brand-safe @reserved */
+  --button-surface-neutral-disabled: var(--cool-neutral-100);     /* @brand-safe @reserved */
+  --text-background: var(--cool-neutral-750);                     /* @brand-safe @reserved */
   --list-overlay-disabled: var(--alpha-white-800);                /* @brand-safe */
-  --button-inverse-primary: var(--common-100);                    /* @brand-safe */
+  --button-inverse-primary: var(--common-100);                    /* @brand-safe @reserved */
 
   /* ── § 3.7 Semantic 상태 ── */
   --accent: #3182F6;     /* @brand-free — 보닥 액센트 (button-accent-primary와 동일 톤) */
@@ -156,13 +156,13 @@
 
   /* ── § 3.8 Static (다크모드/테마 무관 고정) ── */
   /* needs verification: v3 spec 명시 안 됨, 명명 규칙 기반 추정값 */
-  --static-white: var(--common-100);                /* @brand-safe */
-  --static-black: var(--common-0);                  /* @brand-safe */
-  --static-white-bold: var(--common-100);           /* @brand-safe */
-  --static-white-subtle: var(--alpha-white-700);    /* @brand-safe */
-  --static-white-subtler: var(--alpha-white-400);   /* @brand-safe */
-  --static-black-bold: var(--common-0);             /* @brand-safe */
-  --static-black-subtler: var(--alpha-black-400);   /* @brand-safe */
+  --static-white: var(--common-100);                /* @brand-safe @reserved */
+  --static-black: var(--common-0);                  /* @brand-safe @reserved */
+  --static-white-bold: var(--common-100);           /* @brand-safe @reserved */
+  --static-white-subtle: var(--alpha-white-700);    /* @brand-safe @reserved */
+  --static-white-subtler: var(--alpha-white-400);   /* @brand-safe @reserved */
+  --static-black-bold: var(--common-0);             /* @brand-safe @reserved */
+  --static-black-subtler: var(--alpha-black-400);   /* @brand-safe @reserved */
 
   /* ── 도메인 보강 (v3 미정의 — § 6.4 갭) ── */
   --status-success: #00B493;   /* @brand-safe — 보닥 success teal (v3 success 미정의) */
