@@ -266,6 +266,7 @@
   --button-accent-primary: #3182F6;                               /* @brand-free — 보닥 primary (§ 6.2) */
   --button-accent-primary-hover: #1B64DA;                         /* @brand-free — 보닥 primary hover */
   --button-accent-secondary: var(--light-blue-50);                /* @brand-free — v3 weak CTA */
+  --button-accent-secondary-hover: color-mix(in srgb, var(--button-accent-secondary) 85%, black);  /* @brand-free — Phase 7-B 신설, brand secondary swap 시 applyBrand 가 덮어씀 */
   --button-accent-tertiary: var(--cool-neutral-700);              /* @brand-safe */
   --button-accent-extra: var(--alpha-black-50);                   /* @brand-safe */
   --button-surface-accent-disabled: var(--cool-neutral-250);      /* @brand-safe */

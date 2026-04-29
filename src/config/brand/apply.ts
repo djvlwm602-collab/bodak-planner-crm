@@ -1,60 +1,61 @@
 /**
- * Role: applyBrand() — Brand 객체를 :root CSS Custom Properties 로 주입
- * Key Features: brand-free 토큰만 갱신, brand-safe 토큰 (text/bg/border 일반) 영향 없음
+ * Role: applyBrand() — Brand 객체를 :root CSS Custom Properties 로 주입 (Phase 7-B parametric)
+ * Key Features: primary/secondary swap + color-mix() 자동 파생 (override 우선) + status 시스템 잠금
  * Dependencies: ./types, ./default
- * Notes: Phase 5-B — Tier 2 의미 토큰 (--button-accent-primary, --bg-emphasis-primary,
- *        --accent, --error, --status-success, --warning) 도 함께 주입한다.
+ * Notes: success/danger/warning 은 시스템 잠금 — tokens.css :root 정의값 사용, brand 가 덮어쓰지 않음.
+ *        파생 미지정 시 color-mix(in srgb, ...) 로 자동 생성 (srgb 색공간 권장 — 호환성 우선).
+ *        secondary 미지정 시 secondary 관련 setProperty 호출 안 함 → tokens.css fallback 그대로.
  */
 
 import type { Brand } from './types';
 import { defaultBrand } from './default';
 
-/** brand-safe warning 기본값 (palette.warning 미지정 시 사용) — § 6.2 amber 톤 */
-const DEFAULT_WARNING = '#B45309';
-
 /**
  * 브랜드 설정을 CSS Custom Properties 로 :root 에 주입한다.
  * App.tsx 최상단에서 한 번 호출하면 전체 앱에 반영된다.
  *
- * 갱신 대상 토큰 (모두 brand-free 또는 도메인):
- *   Tier 3 레거시:
- *     --color-primary / -hover / -success / -danger
- *     --brand-primary-hover, --brand-success
- *   Tier 2 의미 토큰 (Phase 5-B 추가):
- *     --button-accent-primary, --button-accent-primary-hover
- *     --bg-emphasis-primary
- *     --accent
- *     --error
- *     --status-success
- *     --warning
- *   data-* 어트리뷰트:
- *     data-brand-key, -name, -partner, -initial
+ * 갱신 대상 토큰 (primary swap):
+ *   --button-accent-primary / -hover
+ *   --bg-emphasis-primary
+ *   --accent
+ *   Tier 3 레거시: --color-primary / -hover, --brand-primary-hover
+ *
+ * 갱신 대상 토큰 (secondary swap, palette.secondary 지정 시에만):
+ *   --button-accent-secondary / -hover
+ *
+ * 시스템 잠금 (brand 가 덮어쓰지 않음 — tokens.css :root 정의 사용):
+ *   --error, --warning, --status-success, --status-pending, --status-done, --status-info
+ *
+ * data-* 어트리뷰트:
+ *   data-brand-key, -name, -partner, -initial
  */
 export function applyBrand(brand: Brand = defaultBrand): void {
   const root = document.documentElement;
   const { palette } = brand;
-  const accent = palette.accent ?? palette.primary;
-  const warning = palette.warning ?? DEFAULT_WARNING;
-  const emphasisPrimary = palette.emphasisPrimary;
+  const primary = palette.primary;
+  // primaryHover 명시 우선, 미지정 시 color-mix 자동 파생 (primary 85% + black 15%)
+  const primaryHover = palette.primaryHover ?? `color-mix(in srgb, ${primary} 85%, black)`;
+  // emphasisPrimary 명시 우선, 미지정 시 primary 의 미세 틴트 (primary 12% + white 88%)
+  const emphasisPrimary = palette.emphasisPrimary ?? `color-mix(in srgb, ${primary} 12%, white)`;
+
+  /* primary swap */
+  root.style.setProperty('--button-accent-primary', primary);
+  root.style.setProperty('--button-accent-primary-hover', primaryHover);
+  root.style.setProperty('--bg-emphasis-primary', emphasisPrimary);
+  root.style.setProperty('--accent', primary);
+
+  /* secondary swap — palette.secondary 지정 시에만 (단색 모드면 tokens.css fallback 유지) */
+  if (palette.secondary) {
+    const secondary = palette.secondary;
+    const secondaryHover = palette.secondaryHover ?? `color-mix(in srgb, ${secondary} 85%, black)`;
+    root.style.setProperty('--button-accent-secondary', secondary);
+    root.style.setProperty('--button-accent-secondary-hover', secondaryHover);
+  }
 
   /* Tier 3 레거시 (--brand-* / --color-*) — 컴포넌트가 아직 사용하므로 유지 */
-  root.style.setProperty('--brand-primary-hover', palette.primaryHover);
-  root.style.setProperty('--brand-success', palette.success);
-  root.style.setProperty('--color-primary', palette.primary);
-  root.style.setProperty('--color-primary-hover', palette.primaryHover);
-  root.style.setProperty('--color-success', palette.success);
-  root.style.setProperty('--color-danger', palette.danger);
-
-  /* Tier 2 의미 토큰 — § 3.6 / § 3.7 */
-  root.style.setProperty('--button-accent-primary', palette.primary);
-  root.style.setProperty('--button-accent-primary-hover', palette.primaryHover);
-  if (emphasisPrimary) {
-    root.style.setProperty('--bg-emphasis-primary', emphasisPrimary);
-  }
-  root.style.setProperty('--accent', accent);
-  root.style.setProperty('--error', palette.danger);
-  root.style.setProperty('--status-success', palette.success);
-  root.style.setProperty('--warning', warning);
+  root.style.setProperty('--brand-primary-hover', primaryHover);
+  root.style.setProperty('--color-primary', primary);
+  root.style.setProperty('--color-primary-hover', primaryHover);
 
   /* data-* 어트리뷰트 (CSS attribute selector / debugging 용) */
   root.setAttribute('data-brand-key', brand.key ?? 'default');
