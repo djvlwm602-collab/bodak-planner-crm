@@ -1090,26 +1090,30 @@ Pretendard regular 400 / medium 500 / bold(=semibold) 600
 
 `scripts/lint-tokens.mjs` 가 토큰 정의 vs 사용을 추적해 dead weight 누적을 검출한다. Phase 7-E 에서 380 → 190 토큰으로 정리된 후 이 인프라로 유지.
 
-### 12.1 명령어
+### 15.1 명령어
 
 ```bash
-npm run lint:tokens          # 표 형태 표준 출력 (그룹별 / 카테고리별 미사용 + 전체 목록 + Reserved 목록)
-npm run lint:tokens:json     # JSON 출력 (CI / 자동화 용)
+npm run lint:tokens                       # 표 형태 표준 출력 (그룹별 / 카테고리별 미사용 + 전체 목록 + Reserved 목록)
+npm run lint:tokens:json                  # JSON 출력 (CI / 자동화 용)
+npm run lint:tokens:check                 # PR 시점 강제 — git diff(--since=main) 기준 신규 토큰 사용처 + @deprecated 신규 사용 경고 (Phase 8-F)
+npm run lint:tokens:check:since=HEAD~1    # 비교 기준 override (HEAD~1, origin/main 등)
 ```
 
-### 12.2 PR 운영 규칙
+### 15.2 PR 운영 규칙
 
-- **신규 토큰 추가 PR** 은 `npm run lint:tokens` 통과 필수 — 새 토큰이 `사용 중` 또는 `Reserved (spec)` 카테고리에 분류돼야 한다.
+- **신규 토큰 추가 PR** 은 `npm run lint:tokens:check` 통과 필수 — 새 토큰이 *사용처 있음* / `@reserved` / `@deprecated` 중 하나로 분류되어야 한다 (Phase 8-F 강제). 위반 시 exit 1.
 - 사용처 명시 없이 정의만 추가하는 경우 정의 라인의 trailing comment 에 `/* @reserved */` 주석 부착 → audit 가 'Reserved (spec)' 으로 분리.
-- `미사용` 카테고리에 새 토큰이 추가되면 PR 거부 또는 보강 (사용처 명시 / @reserved 마킹 / 정의 자체 제거).
+- 1년 유예 alias 는 정의 라인 trailing 에 `/* @deprecated → use --new-name */` 명시. 신규 코드 라인에서 deprecated 토큰 사용 시 audit 가 경고 (exit 0, suggestion 만).
+- `미사용` 카테고리에 새 토큰이 추가되면 PR 거부 또는 보강 (사용처 명시 / `@reserved` 마킹 / 정의 자체 제거).
+- CI 통합 (`.github/workflows/lint-tokens.yml`) 은 별도 PR 권장 — 현 단계는 로컬 / pre-push hook 운영.
 
-### 12.3 정기 정리
+### 15.3 정기 정리
 
 - **분기별 audit**: `npm run lint:tokens` 실행 → `미사용` 그룹 검토 → 누적된 dead weight 정리.
 - **Reserved 토큰 점검**: `Reserved (spec)` 목록을 보고 spec 의도 변경 여부 확인. 더 이상 reserve 가치 없으면 삭제.
 - **Scale primitive 보존**: `cool_neutral`, `alpha_*`, `common` 은 미사용이라도 보존 (§ 2.0 보존 정책).
 
-### 12.4 audit 인식 패턴 (false negative 방지)
+### 15.4 audit 인식 패턴 (false negative 방지)
 
 audit 가 다음 패턴을 모두 "사용 중" 으로 인식한다:
 1. **`var(--xxx)` 정적 참조** — `*.{ts,tsx,css,html}` 어디서든

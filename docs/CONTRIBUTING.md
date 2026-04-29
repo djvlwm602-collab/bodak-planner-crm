@@ -11,8 +11,9 @@
 3. `@brand-free` / `@brand-safe` / `@reserved` 주석 명시
 4. `src/styles/tokens.css` + `src/index.css @theme` 양쪽 갱신
 5. `design-system.html` 시각화 추가
-6. `npm run lint:tokens` 통과
-7. PR 템플릿 체크리스트 모두 통과
+6. `npm run lint:tokens` 통과 (전체 미사용 audit)
+7. **`npm run lint:tokens:check` 통과** (Phase 8-F PR 시점 강제 — 신규 토큰 사용처 / `@reserved` / `@deprecated` 분류)
+8. PR 템플릿 체크리스트 모두 통과
 
 ## 신규 화이트레이블 브랜드 추가
 
