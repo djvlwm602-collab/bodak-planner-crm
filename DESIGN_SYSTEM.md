@@ -933,7 +933,125 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 
 ---
 
-## 11. 부록 — 빠른 참조
+## 11. Naming Conventions (Phase 8-A 도입)
+
+토큰 이름은 *prefix-suffix 룰* 로 카테고리·상태·위계를 표현한다. 운영 흐름에서 발견된 일관성 부족을 해결하기 위해 본 섹션을 정본으로 한다 (§ 6.4 도메인 토큰의 임의 명명 → 컨벤션 통합).
+
+### 11.1 Prefix 규칙 (카테고리)
+
+| Prefix | 용도                                                     |
+| ------------------ | --------------------------------------------------------- |
+| `bg-*`             | 모든 배경 (색·tint·hover)                                  |
+| `text-*`           | 텍스트 색                                                  |
+| `border-*`         | 테두리                                                    |
+| `button-*`         | 버튼 컴포넌트 전용                                         |
+| `status-*`         | 상태/의미 (info / pending / done / success / error / warning) |
+| `chart-*`          | 차트 (axis / grid / tooltip / series)                     |
+| `modal-*`          | 모달 영역                                                 |
+| `icon-*`           | 아이콘                                                    |
+| `bg-emphasis-*`    | 강조 배경                                                 |
+
+### 11.2 Suffix 규칙
+
+| Suffix             | 의미                              |
+| ------------------ | --------------------------------- |
+| `-hover` / `-active` / `-disabled` / `-pressed` | 상태               |
+| `-bg` / `-fg`      | bg/fg 분리 시                     |
+| `-primary` / `-secondary` / `-tertiary` | 위계               |
+| `-subtle` / `-faint` / `-strong` | 농도                  |
+
+### 11.3 금지 패턴
+
+- **카테고리 prefix 누락**: 예 `--row-stripe` → 권장 `--bg-row-stripe`.
+- **prefix 와 suffix 가 같은 카테고리 표시 (중복 표지)**: 예 `--kanban-column-bg` → `--bg-kanban-column` 가 일관.
+
+> 신규 토큰은 위 룰을 따른다. 기존 도메인 토큰의 리네이밍은 Phase 8-D 에서 alias 비파괴 방식으로 진행 예정.
+
+---
+
+## 12. 신규 색 추가 결정 트리 (Phase 8-A 도입)
+
+새 색이 필요할 때 *어떤 Tier* 에 추가할지 판단하기 위한 결정 트리. **Tier 2 우선, 도메인은 차순위.** 도메인 토큰은 Tier 2 의 특수 변종 역할이지 별도 카테고리가 아니다.
+
+```
+Q1. brand 별로 달라져야 하는 색?
+  YES → Brand 인터페이스 확장 (palette.tertiary 등)
+  NO  → Q2
+
+Q2. 동일 의미로 N 곳 반복 사용?
+  1~2 회 단발: Value 직접 참조 (chart-series-3 = violet-400 패턴)
+              + 재발 시 Q2 재평가 주석
+  3+ 회 반복:  Q3
+
+Q3. 상태/의미 표현 vs 시각 변형?
+  상태/의미 (badge, alert):  도메인 토큰 신설 (--status-* 패턴)
+  시각 변형 (hover, stripe): Q4
+
+Q4. 기존 Tier 2 로 표현 가능?
+  YES: Tier 2 사용 (예: bg-bg-tertiary 가 light bg 충분)
+  NO:  Tier 2 확장 (예: --bg-quaternary 신설)
+```
+
+**원칙**: Tier 2 우선, 도메인은 차순위. 도메인 토큰은 Tier 2 의 특수 변종 역할이지 별도 카테고리가 아님. 신규 색 발생 시 Tier 2 확장이 가능한지 먼저 검토.
+
+---
+
+## 13. Tailwind 유틸 매핑 가이드 (Phase 8-A 도입)
+
+Tailwind v4 의 `@theme` 안 `--color-{x}` alias 만 utility class (`bg-{x}` / `text-{x}` / `border-{x}` 등) 로 매핑된다. 본 문서는 현재 `src/index.css @theme` 의 alias 39개 + 본체 토큰의 정확한 매핑 표.
+
+### 13.1 Tailwind 유틸 가능 토큰 (alias 존재)
+
+| 본체 토큰                          | @theme alias                              | 대표 Tailwind 유틸                                      |
+| ---------------------------------- | ----------------------------------------- | ------------------------------------------------------- |
+| `--button-accent-primary`          | `--color-primary`                         | `bg-primary`, `text-primary`                            |
+| `--button-accent-primary-hover`    | `--color-primary-hover`, `--color-button-accent-primary-hover` | `bg-primary-hover`, `bg-button-accent-primary-hover`    |
+| `--status-success`                 | `--color-success`                         | `bg-success`, `text-success`                            |
+| `--error`                          | `--color-danger`                          | `bg-danger`, `text-danger`                              |
+| `--warning`                        | `--color-warning`                         | `bg-warning`, `text-warning`                            |
+| `--bg-emphasis-primary`            | `--color-primary-subtle`, `--color-bg-emphasis-primary` | `bg-primary-subtle`, `bg-bg-emphasis-primary`           |
+| `--bg-primary`                     | `--color-bg`, `--color-bg-primary`        | `bg-bg`, `bg-bg-primary`                                |
+| `--modal-background`               | `--color-surface`                         | `bg-surface`                                            |
+| `--text-primary`                   | `--color-text-primary`                    | `text-text-primary`                                     |
+| `--text-secondary`                 | `--color-text-secondary`                  | `text-text-secondary`                                   |
+| `--text-disabled`                  | `--color-text-disabled`                   | `text-text-disabled`                                    |
+| `--text-quaternary`                | `--color-text-quaternary`                 | `text-text-quaternary`                                  |
+| `--text-strong`                    | `--color-text-strong`                     | `text-text-strong`                                      |
+| `--border-primary`                 | `--color-border`, `--color-border-primary` | `border-border`, `border-border-primary`                |
+| `--border-subtle`                  | `--color-border-subtle`                   | `border-border-subtle`                                  |
+| `--row-stripe`                     | `--color-row-stripe`                      | `bg-row-stripe`                                         |
+| `--row-hover`                      | `--color-row-hover`                       | `bg-row-hover`                                          |
+| `--bg-faint`                       | `--color-bg-faint`                        | `bg-bg-faint`                                           |
+| `--bg-app-body`                    | `--color-bg-app-body`                     | `bg-bg-app-body`                                        |
+| `--bg-selected-subtle`             | `--color-bg-selected-subtle`              | `bg-bg-selected-subtle`                                 |
+| `--kanban-column-bg`               | `--color-kanban-column-bg`                | `bg-kanban-column-bg`                                   |
+| `--nav-hover-bg`                   | `--color-nav-hover-bg`                    | `bg-nav-hover-bg`                                       |
+| `--danger-hover`                   | `--color-danger-hover`                    | `bg-danger-hover`                                       |
+| `--danger-active`                  | `--color-danger-active`                   | `bg-danger-active`                                      |
+| `--status-info`                    | `--color-status-info`                     | `text-status-info`                                      |
+| `--status-info-bg`                 | `--color-status-info-bg`                  | `bg-status-info-bg`                                     |
+| `--status-pending`                 | `--color-status-pending`                  | `text-status-pending`                                   |
+| `--status-pending-bg`              | `--color-status-pending-bg`               | `bg-status-pending-bg`                                  |
+| `--status-done`                    | `--color-status-done`                     | `text-status-done`                                      |
+| `--status-done-bg`                 | `--color-status-done-bg`                  | `bg-status-done-bg`                                     |
+| (legacy subtle hex literals)       | `--color-success-subtle`, `--color-danger-subtle`, `--color-warning-subtle` | `bg-success-subtle`, `bg-danger-subtle`, `bg-warning-subtle` |
+| (legacy neutral hex literals)      | `--color-neutral`, `--color-neutral-hover` | `bg-neutral`, `bg-neutral-hover`                       |
+
+### 13.2 var() 직접 참조만 (alias 없음)
+
+다음 본체 토큰은 `@theme alias` 가 없어 Tailwind utility 로 사용할 수 없다. CSS 의 `var(--xxx)` 또는 inline `style={{ color: 'var(--xxx)' }}` 로 직접 참조한다.
+
+- **Reserved (Phase 7-F, spec 정의 — Tailwind 매핑 X)**: `--bg-secondary`, `--bg-tertiary`, `--bg-disabled`, `--text-tertiary`, `--text-inverse-primary/-secondary/-tertiary`, `--icon-enabled/-subtle/-inactive/-disabled/-pressed/-inverse-primary`, `--border-selected`, `--border-transparent`, `--overlay-50`, `--modal-surface-primary/-secondary`, `--button-surface-accent-disabled/-neutral/-neutral-disabled`, `--button-inverse-primary`, `--text-background`, `--static-white/-bold/-subtle/-subtler`, `--static-black/-bold/-subtler` (총 30 개)
+- **차트 (recharts inline 전용)**: `--chart-accent`, `--chart-grid`, `--chart-axis`, `--chart-tooltip-border`, `--chart-series-1` ~ `-5`
+- **기타 brand-bound**: `--accent`, `--bg-emphasis-secondary`, `--button-accent-secondary`, `--button-accent-secondary-hover`, `--button-accent-tertiary`, `--button-accent-extra`, `--icon-active`, `--icon-accent`, `--text-accent`, `--list-overlay-disabled`, `--brand-primary-hover`
+
+### 13.3 어색한 명명 — `bg-bg-primary` 패턴
+
+`bg-bg-primary` 가 어색해 보일 수 있음 — Tailwind `bg-` 접두사 + 토큰 카테고리 prefix `bg-` 중복. 일관성을 위해 (모든 토큰이 카테고리 prefix 를 명시) 허용. 향후 대안 (예: `--bg-page` 처럼 prefix 단순화) 은 별도 결정 — 현재는 *일관성 우선*.
+
+---
+
+## 14. 부록 — 빠른 참조
 
 ```
 Value      common_100 / common_0
@@ -967,7 +1085,7 @@ Pretendard regular 400 / medium 500 / bold(=semibold) 600
 
 ---
 
-## 12. Audit 운영 가이드 (Phase 7-D/F 도입)
+## 15. Audit 운영 가이드 (Phase 7-D/F 도입)
 
 `scripts/lint-tokens.mjs` 가 토큰 정의 vs 사용을 추적해 dead weight 누적을 검출한다. Phase 7-E 에서 380 → 190 토큰으로 정리된 후 이 인프라로 유지.
 
