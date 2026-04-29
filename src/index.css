@@ -55,71 +55,18 @@
      Phase 3+ 에서 컴포넌트가 점진적으로 이 이름으로 마이그레이션.
      ============================================================ */
 
-  /* § 3.1 Background */
+  /* § 3.1 Background — 사용 중 alias 만 보존 (Phase 7-E) */
   --color-bg-primary: var(--bg-primary);
-  --color-bg-secondary: var(--bg-secondary);
-  --color-bg-tertiary: var(--bg-tertiary);
-  --color-bg-disabled: var(--bg-disabled);
   --color-bg-emphasis-primary: var(--bg-emphasis-primary);
-  --color-bg-emphasis-secondary: var(--bg-emphasis-secondary);
 
-  /* § 3.2 Text — text-primary/secondary/disabled 는 위 레거시와 이름 충돌하므로 재선언 X */
-  --color-text-tertiary: var(--text-tertiary);
+  /* § 3.2 Text — quaternary 만 보존 (primary/secondary/disabled 는 위 레거시 alias 사용) */
   --color-text-quaternary: var(--text-quaternary);
-  --color-text-inverse-primary: var(--text-inverse-primary);
-  --color-text-inverse-secondary: var(--text-inverse-secondary);
-  --color-text-inverse-tertiary: var(--text-inverse-tertiary);
-  --color-text-accent: var(--text-accent);
 
-  /* § 3.3 Icon */
-  --color-icon-enabled: var(--icon-enabled);
-  --color-icon-subtle: var(--icon-subtle);
-  --color-icon-inactive: var(--icon-inactive);
-  --color-icon-active: var(--icon-active);
-  --color-icon-accent: var(--icon-accent);
-  --color-icon-disabled: var(--icon-disabled);
-  --color-icon-pressed: var(--icon-pressed);
-  --color-icon-inverse-primary: var(--icon-inverse-primary);
-
-  /* § 3.4 Border — border-subtle 는 레거시와 이름 충돌하므로 재선언 X */
+  /* § 3.4 Border — primary 만 보존 (subtle 은 위 레거시 alias 사용) */
   --color-border-primary: var(--border-primary);
-  --color-border-selected: var(--border-selected);
-  --color-border-transparent: var(--border-transparent);
 
-  /* § 3.5 Overlay */
-  --color-overlay-50: var(--overlay-50);
-
-  /* § 3.6 Component-specific */
-  --color-modal-background: var(--modal-background);
-  --color-modal-surface-primary: var(--modal-surface-primary);
-  --color-modal-surface-secondary: var(--modal-surface-secondary);
-  --color-button-accent-primary: var(--button-accent-primary);
+  /* § 3.6 Component-specific — button-accent-primary-hover 만 보존 (Tailwind 유틸 사용) */
   --color-button-accent-primary-hover: var(--button-accent-primary-hover);
-  --color-button-accent-secondary: var(--button-accent-secondary);
-  --color-button-accent-tertiary: var(--button-accent-tertiary);
-  --color-button-accent-extra: var(--button-accent-extra);
-  --color-button-surface-accent-disabled: var(--button-surface-accent-disabled);
-  --color-button-surface-neutral: var(--button-surface-neutral);
-  --color-button-surface-neutral-disabled: var(--button-surface-neutral-disabled);
-  --color-text-background: var(--text-background);
-  --color-list-overlay-disabled: var(--list-overlay-disabled);
-  --color-button-inverse-primary: var(--button-inverse-primary);
-
-  /* § 3.7 Semantic 상태 */
-  --color-accent: var(--accent);
-  --color-error: var(--error);
-
-  /* § 3.8 Static */
-  --color-static-white: var(--static-white);
-  --color-static-black: var(--static-black);
-  --color-static-white-bold: var(--static-white-bold);
-  --color-static-white-subtle: var(--static-white-subtle);
-  --color-static-white-subtler: var(--static-white-subtler);
-  --color-static-black-bold: var(--static-black-bold);
-  --color-static-black-subtler: var(--static-black-subtler);
-
-  /* 도메인 보강 */
-  --color-status-success: var(--status-success);
 
   /* § 6.4 시스템 보강 (Phase 3a 도입) */
   --color-row-stripe: var(--row-stripe);
@@ -141,18 +88,9 @@
   --color-status-done: var(--status-done);
   --color-status-done-bg: var(--status-done-bg);
 
-  /* § 6.4 차트 팔레트 (Phase 3c 도입) */
-  --color-chart-accent: var(--chart-accent);
-  --color-chart-grid: var(--chart-grid);
-  --color-chart-axis: var(--chart-axis);
-  --color-chart-tooltip-border: var(--chart-tooltip-border);
-
-  /* § 6.5 Other Color — chart 다중 시리즈 (Phase 7-C 도입) */
-  --color-chart-series-1: var(--chart-series-1);
-  --color-chart-series-2: var(--chart-series-2);
-  --color-chart-series-3: var(--chart-series-3);
-  --color-chart-series-4: var(--chart-series-4);
-  --color-chart-series-5: var(--chart-series-5);
+  /* § 6.4/6.5 차트 alias — Phase 7-E 에서 모두 제거.
+     본체 (--chart-accent / --chart-grid / --chart-axis / --chart-tooltip-border /
+     --chart-series-1~5) 는 recharts inline style 이 var() 로 직접 참조하므로 보존. */
 
   /* ============================================================
      § 4 Typography Tokens (Phase 4-A 도입)
@@ -160,31 +98,10 @@
      매크로(.text-h4 등)는 size + weight literal 사용 — 본 토큰은 직접 var() 참조용.
      ============================================================ */
 
-  /* § 4.2 Font Size (v3 spec 11 단계, 짝수 + 13 단일 예외) */
-  --font-size-36: 36px;
-  --font-size-34: 34px;
-  --font-size-24: 24px;
-  --font-size-22: 22px;
-  --font-size-20: 20px;
-  --font-size-18: 18px;
-  --font-size-16: 16px;
-  --font-size-14: 14px;
-  --font-size-13: 13px;
-  --font-size-12: 12px;
-  --font-size-10: 10px;
-
-  /* § 4.2 Line Height */
-  --line-height-46: 46px;
-  --line-height-40: 40px;
-  --line-height-38: 38px;
-  --line-height-32: 32px;
-  --line-height-30: 30px;
-  --line-height-28: 28px;
-  --line-height-24: 24px;
-  --line-height-22: 22px;
-  --line-height-20: 20px;
-  --line-height-18: 18px;
-  --line-height-16: 16px;
+  /* § 4.2 Font Size / Line Height — Phase 7-E cleanup
+     숫자 키 토큰 (--font-size-10..36, --line-height-16..46) 는 모두 미사용으로
+     일괄 제거. 매크로 (.text-h1 등) 는 literal px 값을 직접 사용 중이므로
+     영향 없음. var() 화는 별도 phase. */
 
   /* § 4.2 Font Weight (Pretendard semibold/medium/regular)
      주의: --font-weight-bold (600) 는 Tailwind 기본 font-bold (700) 와 충돌 가능.
