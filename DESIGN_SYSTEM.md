@@ -618,6 +618,10 @@ const customTwMerge = extendTailwindMerge({
 
 **총 129건**. **Phase 7-A 결정**: 옵션 A 채택 — 코드 토큰 hex 그대로 유지 (CRM 자체 spec). Tailwind preset 사용 금지로 일관성 강제. 옵션 B (v3/Tailwind 톤 정렬) / C (도메인 분리) 는 폐기.
 
+#### 6.4.4 알려진 의심 (실제 영향 0)
+
+- `blue_dim_300` (`#A29ACC`), `blue_dim_500` (`#67659B`) — Phase 0 ⚠️ 마킹 항목. 같은 그룹의 `200` / `400` / `600` 톤 (cool blue-gray) 과 어긋난 보라톤. 저해상도 캡처 오독 또는 spec 입력 오타 가능성. Phase 7-E 에서 두 단계 모두 삭제 — 운영 영향 0. 향후 재사용 필요 시 Figma 원본 검증 후 정확한 hex 입수.
+
 ### 6.5 Other Color — 차트 다중 시리즈 액센트 팔레트 (Phase 7-C 도입)
 
 > 차트의 다중 시리즈 (예: 다섯 개 카테고리 동시 표시) 같은 "다양성이 필요한" 영역을 위한 액센트 팔레트. brand swap 색 1~2 개 + Value 직접 참조 3~5 의 5단계 구성. SCOPE.md § 2.4 / § 3.4 의 "Other Color" 정책 참조.

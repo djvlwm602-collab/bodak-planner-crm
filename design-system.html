@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Design System — 보닥 플래너 (v3 Phase 5 완료)</title>
+<title>Design System — 보닥 플래너 CRM (Phase 1~7 완료)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
 <style>
 /* ===========================================================
@@ -21,75 +21,45 @@
   --cn-650: #61656A; --cn-700: #54595E; --cn-750: #494D53; --cn-800: #3D4147;
   --cn-850: #31353A; --cn-900: #26282D; --cn-950: #1D2024; --cn-990: #161B1C;
 
-  /* § 2.3 Blue Dim */
-  --blue-dim-50: #EAF2F7; --blue-dim-100: #DBE4ED; --blue-dim-200: #BBCDDD; --blue-dim-300: #A29ACC; --blue-dim-400: #7B98AE;
-  --blue-dim-500: #67659B; --blue-dim-600: #476984; --blue-dim-700: #295060; --blue-dim-800: #113653; --blue-dim-900: #052238;
+  /* § 2.3 Blue Dim — 사용 step 만 보존 (Phase 7-E) */
+  --blue-dim-100: #DBE4ED;
 
-  /* § 2.4 Light Blue (v3 액센트) */
-  --lb-50: #E5F7FF; --lb-100: #D1F0FD; --lb-200: #B4E9FA; --lb-300: #7CD8FB; --lb-400: #10C5FF;
-  --lb-500: #00AEFF; --lb-600: #008BCC; --lb-700: #006796; --lb-800: #004261; --lb-900: #002130;
+  /* § 2.4 Light Blue — 사용 step 만 보존 */
+  --lb-50: #E5F7FF;
 
-  /* § 2.5 Blue */
-  --blue-50: #ECF4FF; --blue-100: #D8E6FB; --blue-200: #B9D2F8; --blue-300: #7DACF3; --blue-400: #4087F2;
-  --blue-500: #1E68DE; --blue-600: #1358BE; --blue-700: #134A9D; --blue-800: #0D3571; --blue-900: #051F46;
+  /* § 2.5 Blue — 사용 step 만 보존 */
+  --blue-50: #ECF4FF;
 
-  /* § 2.6 Cyan */
-  --cyan-50: #EBFAFC; --cyan-100: #CFF3F9; --cyan-200: #AAEAF5; --cyan-300: #6EDDF1; --cyan-400: #20C8E5;
-  --cyan-500: #05B0CE; --cyan-600: #0092A9; --cyan-700: #006F82; --cyan-800: #004854; --cyan-900: #063239;
+  /* § 2.6 Amber — chart-series-4 */
+  --amber-500: #FF9200;
 
-  /* § 2.7 Green */
-  --green-50: #E6F9F2; --green-100: #CDF6D8; --green-200: #9FEEBA; --green-300: #6BE191; --green-400: #33D287;
-  --green-500: #16BE4E; --green-600: #009632; --green-700: #006625; --green-800: #004517; --green-900: #00240C;
+  /* § 2.7 Magenta — chart-series-5 */
+  --magenta-500: #F553DA;
 
-  /* § 2.8 Lime (11단계) */
-  --lime-50: #F8FFF2; --lime-100: #EFF9E7; --lime-150: #DEF3CE; --lime-200: #DBE999; --lime-300: #96E35E; --lime-400: #7AD33A;
-  --lime-500: #6DB032; --lime-600: #4B9E0F; --lime-700: #347D00; --lime-800: #225200; --lime-900: #112D00;
+  /* § 2.8 Violet — chart-series-3 */
+  --violet-400: #7D5EF7;
 
-  /* § 2.9 Amber */
-  --amber-50: #FFFDEE; --amber-100: #FFF5CB; --amber-200: #FFE363; --amber-300: #FFC53D; --amber-400: #FFA838;
-  --amber-500: #FF9200; --amber-600: #D47800; --amber-700: #9C5800; --amber-800: #663A00; --amber-900: #361E00;
-
-  /* § 2.10 Orange */
-  --orange-50: #FFF8F1; --orange-100: #FFE3D3; --orange-200: #FFBD86; --orange-300: #FF9D61; --orange-400: #F87E36;
-  --orange-500: #EB6817; --orange-600: #C94A00; --orange-700: #913500; --orange-800: #592100; --orange-900: #2D0F00;
-
-  /* § 2.11 Red */
-  --red-50: #FFF6F6; --red-100: #FDF2E5; --red-200: #FBCACF; --red-300: #FC9D9C; --red-400: #FF7070;
-  --red-500: #F34D58; --red-600: #D93242; --red-700: #862A37; --red-800: #741212; --red-900: #450E0E;
-
-  /* § 2.12 Magenta */
-  --magenta-50: #FBEAF8; --magenta-100: #F7D2F1; --magenta-200: #F596EB; --magenta-300: #F289D0; --magenta-400: #FA73E3;
-  --magenta-500: #F553DA; --magenta-600: #D331BB; --magenta-700: #A81690; --magenta-800: #730560; --magenta-900: #3D0133;
-
-  /* § 2.13 Purple */
-  --purple-50: #FEFBFF; --purple-100: #F6E3FF; --purple-200: #EABEFF; --purple-300: #DE96FF; --purple-400: #D478FF;
-  --purple-500: #C859FF; --purple-600: #AD36E3; --purple-700: #8810B8; --purple-800: #580A7D; --purple-900: #290247;
-
-  /* § 2.14 Violet */
-  --violet-50: #FBFBFF; --violet-100: #ECE7FF; --violet-200: #C8BBFF; --violet-300: #9E86FC; --violet-400: #7D5EF7;
-  --violet-500: #6541F2; --violet-600: #4F29E5; --violet-700: #3A16C9; --violet-800: #23098F; --violet-900: #11024D;
-
-  /* § 2.16 Service */
+  /* § 2.10 Service */
   --naver-green: #03C75A; --kakao-yellow: #FEE500;
 
   /* ===========================================================
      Tier 2 — Semantic Tokens (DESIGN_SYSTEM § 3) — Phase 2
-     §6.4 갭은 코드 hex literal 보유 (Phase 6 정렬 예정)
+     CRM 자체 spec — 코드 hex literal 그대로 정본 (Phase 7-A 확정)
      =========================================================== */
   /* Background */
-  --bg-primary: #F9FAFB;             /* @brand-safe (§ 6.4 갭) */
+  --bg-primary: #F9FAFB;             /* @brand-safe · CRM spec */
   --bg-secondary: var(--cn-50);
   --bg-tertiary: var(--cn-100);
   --bg-disabled: var(--blue-dim-100);
-  --bg-emphasis-primary: #EBF3FF;    /* @brand-free (보닥 톤) */
+  --bg-emphasis-primary: #EBF3FF;    /* @brand-free (보닥 톤, applyBrand 가 덮어씀) */
   --bg-emphasis-secondary: var(--blue-50);
 
   /* Text */
-  --text-primary: #191F28;           /* @brand-safe (§ 6.4 갭) */
-  --text-secondary: #4E5968;         /* @brand-safe (§ 6.4 갭) */
+  --text-primary: #191F28;           /* @brand-safe · CRM spec */
+  --text-secondary: #4E5968;         /* @brand-safe · CRM spec */
   --text-tertiary: var(--cn-550);
   --text-quaternary: var(--cn-400);
-  --text-disabled: #AEB5BC;          /* @brand-safe (§ 6.4 갭) */
+  --text-disabled: #AEB5BC;          /* @brand-safe · CRM spec */
   --text-inverse-primary: var(--common-100);
   --text-inverse-secondary: rgba(255,255,255,0.80);
   --text-inverse-tertiary: rgba(255,255,255,0.40);
@@ -360,8 +330,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="overview" class="section">
   <div class="section-header">
-    <h1 class="section-title">현재 디자인 시스템 상태<span class="section-tag">Phase 5 완료</span></h1>
-    <p class="section-desc">Figma v3 명명 구조 기반, 3-Tier 토큰, B2B 화이트레이블 단일 진입점. 시각 변화 0 원칙 + § 4.2.1 짝수 규칙 사전 합의 예외.</p>
+    <h1 class="section-title">현재 디자인 시스템 상태<span class="section-tag">Phase 7 완료</span></h1>
+    <p class="section-desc">CRM 자체 디자인 시스템 (보닥 v3 와 별개 — <code class="chip">docs/SCOPE.md</code>). 3-Tier 토큰 + B2B 화이트레이블 (color-mix 자동 파생). Phase 7-E 에서 380 → 190 토큰 정리, Phase 7-F 에서 30 reserved 토큰 분리.</p>
   </div>
   <div class="brand-grid">
     <div class="brand-card active">
@@ -375,8 +345,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       </div>
       <dl class="brand-meta">
         <dt>key</dt><dd>default</dd>
-        <dt>primary</dt><dd>#3182F6</dd>
-        <dt>token 수</dt><dd>165 Value + 50+ Semantic</dd>
+        <dt>primary</dt><dd>#3182F6 (+ hover #1B64DA, emphasis #EBF3FF)</dd>
+        <dt>token 수</dt><dd>190 정의 / 115 사용 / 30 reserved / 45 dead</dd>
         <dt>baseline</dt><dd>21 페이지</dd>
       </dl>
     </div>
@@ -391,9 +361,9 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       </div>
       <dl class="brand-meta">
         <dt>key</dt><dd>sample</dd>
-        <dt>primary</dt><dd>#E53935</dd>
+        <dt>primary</dt><dd>#E53935 (+ secondary #FFA726)</dd>
+        <dt>색상 파생</dt><dd>emphasisPrimary 미지정 → color-mix 자동</dd>
         <dt>활성화</dt><dd>VITE_BRAND=sample npm run dev</dd>
-        <dt>위치</dt><dd>src/config/brand/sample.ts</dd>
       </dl>
     </div>
   </div>
@@ -420,8 +390,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="tier1-common" class="section">
   <div class="section-header">
-    <h2 class="section-title">Tier 1 — Value Tokens<span class="section-tag">§ 2 / 165개</span></h2>
-    <p class="section-desc">원자 팔레트. 색상의 "재료". Component 코드 직접 참조 금지 — Tier 2 통해서만 접근.</p>
+    <h2 class="section-title">Tier 1 — Value Tokens<span class="section-tag">§ 2 · Phase 7-E 정리 후</span></h2>
+    <p class="section-desc">원자 팔레트. <strong>Scale primitive (cool_neutral / alpha / common / service)</strong> 풀 보존 + <strong>Feature accent (violet / amber / magenta 등)</strong> 사용 step 만 보존. "Other Color" 영역은 차트 시리즈 등 다양성 필요 영역에서 Tier 1 직접 참조 명시적 예외.</p>
   </div>
 
   <div class="subsection">
@@ -461,50 +431,32 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div id="tier1-color-scales" class="subsection">
-    <h3 class="subsection-title">§ 2.3~2.14 Color Scales (각 10단계, lime은 11단)</h3>
-    <p class="subsection-desc">brand-free 액센트 (light_blue), 정보 (blue), 성공 (green), 에러 (red), 경고 (amber/orange), 데이터 시각화 (cyan/lime/magenta/purple/violet).</p>
+    <h3 class="subsection-title">§ 2.3~2.8 Feature Accent — 사용 step 만 보존 (Phase 7-E)</h3>
+    <p class="subsection-desc">"남의 색" 팔레트 — 차트 시리즈 / 도메인 indicator 용. Phase 7-E 에서 미사용 step 일괄 정리, 사용 step 만 유지. 신규 사용처 발생 시 § 2.0 보존 정책 따라 필요한 step 만 재추가.</p>
 
-    <div class="scale-row scale10"><div class="scale-name">blue_dim</div>
-      <div class="scale-cell light" style="background:#EAF2F7;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#DBE4ED;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#BBCDDD;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#A29ACC;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#7B98AE;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#67659B;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#476984;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#295060;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#113653;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#052238;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">blue_dim</div>
+      <div class="scale-cell light" style="background:#DBE4ED;"><div class="scale-step">100</div><div class="scale-hex">DBE4ED · --bg-disabled (reserved)</div></div>
     </div>
-    <div class="scale-row scale10"><div class="scale-name">light_blue ★</div>
-      <div class="scale-cell light" style="background:#E5F7FF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#D1F0FD;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#B4E9FA;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#7CD8FB;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#10C5FF;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#00AEFF;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#008BCC;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006796;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004261;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#002130;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">light_blue</div>
+      <div class="scale-cell light" style="background:#E5F7FF;"><div class="scale-step">50</div><div class="scale-hex">E5F7FF · --button-accent-secondary fallback</div></div>
     </div>
-    <div class="scale-row scale10"><div class="scale-name">blue</div>
-      <div class="scale-cell light" style="background:#ECF4FF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#D8E6FB;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#B9D2F8;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#7DACF3;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#4087F2;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#1E68DE;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#1358BE;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#134A9D;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#0D3571;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#051F46;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">blue</div>
+      <div class="scale-cell light" style="background:#ECF4FF;"><div class="scale-step">50</div><div class="scale-hex">ECF4FF · --bg-emphasis-secondary</div></div>
     </div>
-    <div class="scale-row scale10"><div class="scale-name">cyan</div>
-      <div class="scale-cell light" style="background:#EBFAFC;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#CFF3F9;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#AAEAF5;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#6EDDF1;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#20C8E5;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#05B0CE;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#0092A9;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006F82;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004854;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#063239;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">amber</div>
+      <div class="scale-cell light" style="background:#FF9200;"><div class="scale-step">500</div><div class="scale-hex">FF9200 · --chart-series-4</div></div>
     </div>
-    <div class="scale-row scale10"><div class="scale-name">green</div>
-      <div class="scale-cell light" style="background:#E6F9F2;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#CDF6D8;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#9FEEBA;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#6BE191;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#33D287;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#16BE4E;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#009632;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#006625;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#004517;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#00240C;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">magenta</div>
+      <div class="scale-cell dark" style="background:#F553DA;"><div class="scale-step">500</div><div class="scale-hex">F553DA · --chart-series-5</div></div>
     </div>
-    <div class="scale-row" style="grid-template-columns:90px repeat(11,1fr);"><div class="scale-name">lime (11)</div>
-      <div class="scale-cell light" style="background:#F8FFF2;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#EFF9E7;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#DEF3CE;"><div class="scale-step">150</div></div><div class="scale-cell light" style="background:#DBE999;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#96E35E;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#7AD33A;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#6DB032;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#4B9E0F;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#347D00;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#225200;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#112D00;"><div class="scale-step">900</div></div>
+    <div class="scale-row" style="grid-template-columns:90px repeat(1,1fr);"><div class="scale-name">violet</div>
+      <div class="scale-cell dark" style="background:#7D5EF7;"><div class="scale-step">400</div><div class="scale-hex">7D5EF7 · --chart-series-3</div></div>
     </div>
-    <div class="scale-row scale10"><div class="scale-name">amber</div>
-      <div class="scale-cell light" style="background:#FFFDEE;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FFF5CB;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FFE363;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FFC53D;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FFA838;"><div class="scale-step">400</div></div><div class="scale-cell light" style="background:#FF9200;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D47800;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#9C5800;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#663A00;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#361E00;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="scale-row scale10"><div class="scale-name">orange</div>
-      <div class="scale-cell light" style="background:#FFF8F1;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FFE3D3;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FFBD86;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FF9D61;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#F87E36;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#EB6817;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#C94A00;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#913500;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#592100;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#2D0F00;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="scale-row scale10"><div class="scale-name">red ★</div>
-      <div class="scale-cell light" style="background:#FFF6F6;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#FDF2E5;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#FBCACF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#FC9D9C;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FF7070;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#F34D58;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D93242;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#862A37;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#741212;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#450E0E;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="scale-row scale10"><div class="scale-name">magenta</div>
-      <div class="scale-cell light" style="background:#FBEAF8;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#F7D2F1;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#F596EB;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#F289D0;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#FA73E3;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#F553DA;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#D331BB;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#A81690;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#730560;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#3D0133;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="scale-row scale10"><div class="scale-name">purple</div>
-      <div class="scale-cell light" style="background:#FEFBFF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#F6E3FF;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#EABEFF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#DE96FF;"><div class="scale-step">300</div></div><div class="scale-cell light" style="background:#D478FF;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#C859FF;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#AD36E3;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#8810B8;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#580A7D;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#290247;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="scale-row scale10"><div class="scale-name">violet</div>
-      <div class="scale-cell light" style="background:#FBFBFF;"><div class="scale-step">50</div></div><div class="scale-cell light" style="background:#ECE7FF;"><div class="scale-step">100</div></div><div class="scale-cell light" style="background:#C8BBFF;"><div class="scale-step">200</div></div><div class="scale-cell light" style="background:#9E86FC;"><div class="scale-step">300</div></div><div class="scale-cell dark" style="background:#7D5EF7;"><div class="scale-step">400</div></div><div class="scale-cell dark" style="background:#6541F2;"><div class="scale-step">500</div></div><div class="scale-cell dark" style="background:#4F29E5;"><div class="scale-step">600</div></div><div class="scale-cell dark" style="background:#3A16C9;"><div class="scale-step">700</div></div><div class="scale-cell dark" style="background:#23098F;"><div class="scale-step">800</div></div><div class="scale-cell dark" style="background:#11024D;"><div class="scale-step">900</div></div>
-    </div>
-    <div class="note">★ light_blue 400 = v3 표준 액센트, red 500 = error. 보닥 primary (#3182F6) 는 brand-free 별도 정의 — light_blue_400 (#10C5FF) 와 의도적 분리.</div>
+    <div class="note">Phase 7-E 에서 <strong>cyan / green / lime / orange / red / purple</strong> 풀 팔레트 (~60 토큰) + 위 그룹의 미사용 단계 (~27 토큰) 모두 삭제. status (success/error/warning) 는 시스템 잠금 토큰 (<code class="chip">--status-success</code> / <code class="chip">--error</code> / <code class="chip">--warning</code>) 으로 직접 정의됨.</div>
   </div>
 
   <div id="tier1-alpha" class="subsection">
-    <h3 class="subsection-title">§ 2.15 Alpha (white / black 각 10단계)</h3>
+    <h3 class="subsection-title">§ 2.9 Alpha (white / black 각 10단계)</h3>
     <p class="subsection-desc">오버레이·그라데이션·디스에이블 마스크 전용. step 50=5%, 900=90%.</p>
     <div class="alpha-row">
       <div class="scale-name">alpha_white</div>
@@ -535,7 +487,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">§ 2.16 Service (서비스 브랜드)</h3>
+    <h3 class="subsection-title">§ 2.10 Service (서비스 브랜드)</h3>
     <div class="tok-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
       <div class="tok"><div class="tok-swatch"><div style="background:#03C75A;"></div></div><div class="tok-info"><div class="tok-name">--naver-green</div><div class="tok-meta">#03C75A · 네이버 로그인</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#FEE500;"></div></div><div class="tok-info"><div class="tok-name">--kakao-yellow</div><div class="tok-meta">#FEE500 · 카카오 로그인</div></div></div>
@@ -553,7 +505,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <div class="subsection">
     <h3 class="subsection-title">§ 3.1 Background <span class="tag-safe">brand-safe</span> + <span class="tag-free">brand-free</span></h3>
     <div class="tok-grid">
-      <div class="tok"><div class="tok-swatch"><div style="background:#F9FAFB;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-primary</div><div class="tok-meta">#F9FAFB · <span class="tag-gap">§ 6.4 갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F9FAFB;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-primary</div><div class="tok-meta">#F9FAFB · CRM spec</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-50);border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-secondary</div><div class="tok-meta">cool_neutral_50</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-100);"></div></div><div class="tok-info"><div class="tok-name">--bg-tertiary</div><div class="tok-meta">cool_neutral_100</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--blue-dim-100);"></div></div><div class="tok-info"><div class="tok-name">--bg-disabled</div><div class="tok-meta">blue_dim_100</div></div></div>
@@ -565,11 +517,11 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <div id="tier2-text" class="subsection">
     <h3 class="subsection-title">§ 3.2 Text <span class="tag-safe">brand-safe</span></h3>
     <div class="tok-grid">
-      <div class="tok"><div class="tok-swatch"><div style="background:#191F28;"></div></div><div class="tok-info"><div class="tok-name">--text-primary</div><div class="tok-meta">#191F28 · <span class="tag-gap">갭</span></div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#4E5968;"></div></div><div class="tok-info"><div class="tok-name">--text-secondary</div><div class="tok-meta">#4E5968 · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#191F28;"></div></div><div class="tok-info"><div class="tok-name">--text-primary</div><div class="tok-meta">#191F28 · CRM spec</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#4E5968;"></div></div><div class="tok-info"><div class="tok-name">--text-secondary</div><div class="tok-meta">#4E5968 · CRM spec</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-550);"></div></div><div class="tok-info"><div class="tok-name">--text-tertiary</div><div class="tok-meta">cool_neutral_550</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-400);"></div></div><div class="tok-info"><div class="tok-name">--text-quaternary</div><div class="tok-meta">cool_neutral_400</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#AEB5BC;"></div></div><div class="tok-info"><div class="tok-name">--text-disabled</div><div class="tok-meta">#AEB5BC · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#AEB5BC;"></div></div><div class="tok-info"><div class="tok-name">--text-disabled</div><div class="tok-meta">#AEB5BC · CRM spec</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--text-accent</div><div class="tok-meta">#3182F6 · <span class="tag-free">brand-free</span></div></div></div>
     </div>
     <div class="note">짙은 배경용 inverse: <code class="chip">--text-inverse-primary</code> (white) / <code class="chip">-secondary</code> (white 80%) / <code class="chip">-tertiary</code> (white 40%)</div>
@@ -578,8 +530,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <div id="tier2-border" class="subsection">
     <h3 class="subsection-title">§ 3.4 Border <span class="tag-safe">brand-safe</span></h3>
     <div class="tok-grid">
-      <div class="tok"><div class="tok-swatch"><div style="background:#E8EBED;"></div></div><div class="tok-info"><div class="tok-name">--border-primary</div><div class="tok-meta">#E8EBED · <span class="tag-gap">갭</span></div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#CDD1D5;"></div></div><div class="tok-info"><div class="tok-name">--border-subtle</div><div class="tok-meta">#CDD1D5 · <span class="tag-gap">갭</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#E8EBED;"></div></div><div class="tok-info"><div class="tok-name">--border-primary</div><div class="tok-meta">#E8EBED · CRM spec</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#CDD1D5;"></div></div><div class="tok-info"><div class="tok-name">--border-subtle</div><div class="tok-meta">#CDD1D5 · CRM spec</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:var(--cn-500);"></div></div><div class="tok-info"><div class="tok-name">--border-selected</div><div class="tok-meta">cool_neutral_500</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:rgba(0,0,0,0.10);"></div></div><div class="tok-info"><div class="tok-name">--border-transparent</div><div class="tok-meta">alpha_black_100</div></div></div>
     </div>
@@ -600,7 +552,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
     <h3 class="subsection-title">§ 3.7 Status <span class="tag-safe">brand-safe</span></h3>
     <div class="tok-grid">
       <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--accent</div><div class="tok-meta">#3182F6 · <span class="tag-free">brand-free</span></div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#FF5B5B;"></div></div><div class="tok-info"><div class="tok-name">--error</div><div class="tok-meta">#FF5B5B · <span class="tag-gap">갭</span> (v3=red_500)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FF5B5B;"></div></div><div class="tok-info"><div class="tok-name">--error</div><div class="tok-meta">#FF5B5B · 시스템 잠금</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#B45309;"></div></div><div class="tok-info"><div class="tok-name">--warning</div><div class="tok-meta">#B45309 · amber 톤 유지</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#00B493;"></div></div><div class="tok-info"><div class="tok-name">--status-success</div><div class="tok-meta">#00B493 · 도메인 보강</div></div></div>
     </div>
@@ -610,8 +562,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="domain-row" class="section">
   <div class="section-header">
-    <h2 class="section-title">도메인 / 시스템 보강 토큰<span class="section-tag">Phase 3a-3c · § 6.4</span></h2>
-    <p class="section-desc">v3 미정의 영역. 코드 hex literal 보유 — Phase 6 visual alignment 후보.</p>
+    <h2 class="section-title">도메인 / 시스템 보강 토큰<span class="section-tag">Phase 3a-3c · § 6.4 (CRM spec)</span></h2>
+    <p class="section-desc">CRM 자체 도메인 토큰 — 코드 hex literal 그대로 정본 (Phase 7-A 확정). v3 정렬은 폐기됨.</p>
   </div>
 
   <div class="subsection">
@@ -655,10 +607,22 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <div id="domain-chart" class="subsection">
     <h3 class="subsection-title">차트 팔레트 (Phase 3c) — recharts 전용</h3>
     <div class="tok-grid">
-      <div class="tok"><div class="tok-swatch"><div style="background:#3b82f6;"></div></div><div class="tok-info"><div class="tok-name">--chart-accent</div><div class="tok-meta">#3b82f6 · line/bar 액센트</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#3b82f6;"></div></div><div class="tok-info"><div class="tok-name">--chart-accent</div><div class="tok-meta">#3b82f6 · 단일 시리즈 액센트</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-grid</div><div class="tok-meta">= --bg-faint</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#9ca3af;"></div></div><div class="tok-info"><div class="tok-name">--chart-axis</div><div class="tok-meta">#9ca3af · axis tick</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#e5e7eb;"></div></div><div class="tok-info"><div class="tok-name">--chart-tooltip-border</div><div class="tok-meta">#e5e7eb · tooltip border</div></div></div>
+    </div>
+  </div>
+
+  <div id="domain-chart-series" class="subsection">
+    <h3 class="subsection-title">Other Color · chart-series 1~5 (Phase 7-C)</h3>
+    <p class="subsection-desc">다중 시리즈 차트용 액센트 팔레트. 1·2 = brand swap (primary / secondary), 3·4·5 = Value 직접 참조 (violet / amber / magenta). secondary 미설정 brand 는 chart-series-2 가 primary fallback (applyBrand 가 palette.secondary 있을 때만 덮어씀).</p>
+    <div class="tok-grid">
+      <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-1</div><div class="tok-meta">= primary <span class="tag-free">brand swap</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-2</div><div class="tok-meta">= secondary (default 시 primary fallback) <span class="tag-free">brand swap</span></div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#7D5EF7;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-3</div><div class="tok-meta">violet_400</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#FF9200;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-4</div><div class="tok-meta">amber_500</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F553DA;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-5</div><div class="tok-meta">magenta_500</div></div></div>
     </div>
   </div>
 </section>
@@ -804,8 +768,8 @@ caption           ↔ <span class="s">"text-caption"</span>
 <!-- =================================================================== -->
 <section id="brand" class="section">
   <div class="section-header">
-    <h2 class="section-title">Brand 구조<span class="section-tag">Phase 5 · § 8</span></h2>
-    <p class="section-desc">B2B 화이트레이블 단일 진입점. 컴포넌트 코드 수정 0 으로 새 customer 추가 가능.</p>
+    <h2 class="section-title">Brand 구조<span class="section-tag">Phase 7-B · § 8 (슬림화)</span></h2>
+    <p class="section-desc">B2B 화이트레이블 단일 진입점. 컴포넌트 코드 수정 0 으로 새 customer 추가 가능 — 신규 brand 는 hex 1개 (primary) 만 제공해도 운영 가능, hover/emphasis/secondary 는 <code class="chip">color-mix(in srgb, ...)</code> 자동 파생.</p>
   </div>
 
   <div class="subsection">
@@ -838,13 +802,12 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
         <div class="brand-palette">
           <div class="brand-palette-color" style="background:#3182F6;">#3182F6</div>
           <div class="brand-palette-color" style="background:#1B64DA;">#1B64DA</div>
-          <div class="brand-palette-color" style="background:#00B493;">#00B493</div>
-          <div class="brand-palette-color" style="background:#FF5B5B;">#FF5B5B</div>
+          <div class="brand-palette-color" style="background:#EBF3FF;color:#1B64DA;">#EBF3FF</div>
         </div>
-        <div class="note" style="margin-top:14px;font-size:11px;">primary / hover / success / danger</div>
+        <div class="note" style="margin-top:14px;font-size:11px;">primary / primaryHover / emphasisPrimary (모두 명시 — 기존값 보존)</div>
       </div>
       <div class="brand-card">
-        <div class="brand-card-title">sample — 데모용</div>
+        <div class="brand-card-title">sample — 데모용 (color-mix 활성 케이스)</div>
         <div class="brand-mark">
           <div class="brand-mark-logo" style="background:#E53935;">S</div>
           <div>
@@ -855,40 +818,47 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
         <div class="brand-palette">
           <div class="brand-palette-color" style="background:#E53935;">#E53935</div>
           <div class="brand-palette-color" style="background:#C62828;">#C62828</div>
-          <div class="brand-palette-color" style="background:#00B493;">#00B493</div>
-          <div class="brand-palette-color" style="background:#FF5B5B;">#FF5B5B</div>
+          <div class="brand-palette-color" style="background:#FFA726;">#FFA726</div>
+          <div class="brand-palette-color" style="background:color-mix(in srgb, #E53935 12%, white);color:#C62828;">~#FCE7E7</div>
         </div>
-        <div class="note" style="margin-top:14px;font-size:11px;">+ <code class="chip">--bg-emphasis-primary: #FFEBEE</code> (red weak tint)</div>
+        <div class="note" style="margin-top:14px;font-size:11px;">primary / primaryHover / <strong>secondary</strong> / emphasisPrimary (자동 파생 = <code class="chip">color-mix(in srgb, #E53935 12%, white)</code>)</div>
       </div>
     </div>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">@brand-free vs @brand-safe 토큰 분류</h3>
+    <h3 class="subsection-title">applyBrand() 갱신 대상 (Phase 7-B 슬림화 후)</h3>
     <div class="code">
-<span class="c">// applyBrand() 가 갱신하는 토큰 (brand-free)</span>
+<span class="c">// primary swap (필수)</span>
 <span class="s">--button-accent-primary</span>           = palette.primary
-<span class="s">--button-accent-primary-hover</span>     = palette.primaryHover
-<span class="s">--bg-emphasis-primary</span>            = palette.emphasisPrimary (있을 때만)
-<span class="s">--accent</span>                         = palette.accent ?? palette.primary
-<span class="s">--error</span>                          = palette.danger
-<span class="s">--status-success</span>                 = palette.success
-<span class="s">--warning</span>                        = palette.warning ?? <span class="s">'#B45309'</span>
-<span class="s">--color-primary[-hover/-success/-danger]</span>  <span class="c">// Tier 3 legacy</span>
+<span class="s">--button-accent-primary-hover</span>     = palette.primaryHover ?? <span class="k">color-mix</span>(in srgb, primary 85%, black)
+<span class="s">--bg-emphasis-primary</span>            = palette.emphasisPrimary ?? <span class="k">color-mix</span>(in srgb, primary 12%, white)
+<span class="s">--accent</span>                         = palette.primary
 
-<span class="c">// 모든 브랜드에서 동일 (brand-safe)</span>
-<span class="s">--text-*  --bg-primary  --border-*  --row-*  --bg-faint</span>
-<span class="s">--cool-neutral-*  --light-blue-*  ...  (Tier 1 전체)</span>
+<span class="c">// secondary swap (palette.secondary 지정 시에만)</span>
+<span class="s">--button-accent-secondary</span>         = palette.secondary
+<span class="s">--button-accent-secondary-hover</span>   = palette.secondaryHover ?? <span class="k">color-mix</span>(in srgb, secondary 85%, black)
+<span class="s">--chart-series-2</span>                 = palette.secondary
+
+<span class="c">// Tier 3 legacy (호환)</span>
+<span class="s">--brand-primary-hover</span>, <span class="s">--color-primary</span>, <span class="s">--color-primary-hover</span>
+
+<span class="c">// 시스템 잠금 (brand 가 더 이상 덮어쓰지 않음 — tokens.css :root 정의)</span>
+<span class="s">--error</span> (#FF5B5B)  <span class="s">--warning</span> (#B45309)
+<span class="s">--status-success</span> (#00B493)  <span class="s">--status-info/-pending/-done</span>
+
+<span class="c">// 모든 브랜드 공통 (Scale primitive)</span>
+<span class="s">--cool-neutral-*  --alpha-*  --common-*  --bg-* --text-* --border-* --icon-*</span>
     </div>
-    <div class="note">신규 브랜드 추가 절차는 <code class="chip">docs/WHITE_LABEL.md</code> 참조 (7단계 체크리스트).</div>
+    <div class="note">신규 브랜드 추가 절차는 <code class="chip">docs/WHITE_LABEL.md</code> 참조. 슬림화 인터페이스 정의는 <code class="chip">src/config/palette/types.ts</code>.</div>
   </div>
 </section>
 
 <!-- =================================================================== -->
 <footer style="margin-top:80px;padding-top:24px;border-top:1px solid var(--color-border);font-size:11px;color:var(--color-text-disabled);text-align:center;line-height:1.8;">
-  <div>보닥 플래너 디자인 시스템 — Phase 1~5 완료 (2026-04-28)</div>
-  <div>출처: <code class="chip">DESIGN_SYSTEM.md</code> · <code class="chip">WHITE_LABEL.md</code> · <code class="chip">docs/visual-baseline/</code></div>
-  <div style="margin-top:6px;">현재 활성: default 브랜드 / 21 baseline 페이지 / 165 Value tokens / 50+ Semantic / 11 Typography 매크로</div>
+  <div>보닥 플래너 CRM 디자인 시스템 — Phase 1~7 완료 (2026-04-29) · CRM ≠ 보닥 v3</div>
+  <div>출처: <code class="chip">DESIGN_SYSTEM.md</code> · <code class="chip">docs/SCOPE.md</code> · <code class="chip">docs/WHITE_LABEL.md</code> · <code class="chip">docs/visual-baseline/</code> · <code class="chip">scripts/lint-tokens.mjs</code></div>
+  <div style="margin-top:6px;">현재 활성: default 브랜드 / 21 baseline 페이지 / 190 토큰 정의 (115 사용 + 30 reserved + 45 dead) / 11 Typography 매크로</div>
 </footer>
 
 </main>
