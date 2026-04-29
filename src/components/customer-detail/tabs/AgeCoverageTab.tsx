@@ -43,7 +43,7 @@ export function AgeCoverageTab() {
               {mockCoverageRows.map((row, idx) => {
                 const showCategory = !rendered.has(row.category);
                 if (showCategory) rendered.add(row.category);
-                const zebra = idx % 2 === 1 ? 'bg-row-stripe' : 'bg-white';
+                const zebra = idx % 2 === 1 ? 'bg-bg-row-stripe' : 'bg-white';
 
                 return (
                   <tr key={`${row.category}-${row.name}`} className={zebra}>
