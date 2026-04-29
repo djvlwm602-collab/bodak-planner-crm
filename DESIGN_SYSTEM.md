@@ -1,8 +1,8 @@
 # 보닥 플래너 CRM — 디자인 시스템
 
-> **버전**: v3 정렬 1차 정리 (2026-04)
-> **단일 소스**: Figma 디자인시스템 v3 (Value Color · Semantic Color · Typography)
-> **목적**: Figma v3 네이밍 규칙을 코드(React + Tailwind v4)에 그대로 이식하고, 시각 디자인은 변경하지 않으면서 토큰·변수·컴포넌트 이름만 일관 정리한다. 동시에 B2B 재판매(화이트레이블) 운영 구조를 정의한다.
+> **버전**: Phase 7 진행 중 (2026-04-29)
+> **SCOPE 명문화**: 본 CRM 디자인 시스템은 Figma 보닥 디자인시스템 v3 와 **별개 서비스**다. v3 의 네이밍은 *친숙성을 위한 참조* 였으며 정본 source-of-truth 가 아니다. 본 문서가 정본이며, 정체성·핵심 모델은 [`docs/SCOPE.md`](docs/SCOPE.md) 참조.
+> **목적**: 코드의 토큰·변수·컴포넌트 이름을 일관 정리하고, B2B 재판매(화이트레이블) 운영 구조를 정의한다. v3 와의 시각 정합은 명시적 목표가 아니다.
 
 ---
 
@@ -10,10 +10,10 @@
 
 1. **시각 디자인은 변경하지 않는다.** 색상 hex, 폰트 스케일, 둥글기 같은 *값* 은 현재 화면을 유지하고, 그 값을 가리키는 *이름*만 v3 규칙으로 정리한다.
 2. **2-Tier 토큰**을 도입한다. Value Color(원자 팔레트) → Semantic Color(의미 토큰) → Component(컴포넌트). 컴포넌트는 Semantic 토큰만 참조한다.
-3. **Figma v3 네이밍을 정본**으로 한다. 코드 변수는 v3 토큰명을 1:1로 따른다 (snake_case → kebab-case 변환만 허용).
-4. **현실 갭은 토큰으로 흡수한다.** 현재 코드와 v3 정의가 다르면 코드의 시각값을 유지한 채 v3 이름을 매핑하고, 갭을 § 6에 명시한다 — 가급적 다음 Figma 정리 라운드에 역수입한다.
-5. **B2B 화이트레이블은 단일 진입점**(`brand.ts` + 의미 토큰)으로만 작동한다. 컴포넌트는 절대 hex를 직접 참조하지 않는다.
-6. **시각 정렬은 별도 페이즈로 분리한다.** 디자인 시스템 정렬 마라톤(Phase 1~5)은 *이름·구조 정렬*만 한다. 시각값 정렬(코드 hex → v3 spec hex 이주)은 **Phase 6 — v3 visual alignment pass** 로 분리하고, 디자이너 검토·승인 후 별도 진행한다. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 *코드 현재 hex 를 보유*한다.
+3. **네이밍은 v3 친숙성을 빌리되 정본은 본 문서다.** 코드 변수는 v3 토큰명을 참조로 따랐으나 (snake_case → kebab-case 변환만 허용), v3 의 시각값은 따르지 않는다.
+4. **§ 6 의 "갭" 은 CRM 자체 spec 이다.** Phase 7-A 부터 § 6 항목들은 v3 와의 갭이 아니라 본 CRM 의 의도된 spec 으로 재해석한다 (자세한 근거는 SCOPE.md § 1).
+5. **B2B 화이트레이블은 단일 진입점**(`brand.ts` + 의미 토큰)으로만 작동한다. 컴포넌트는 절대 hex를 직접 참조하지 않는다. brand 는 hex 1~2 개 (primary 필수 + secondary 옵션) 로 운영 가능하고, hover/active/subtle 은 `color-mix()` 자동 파생.
+6. **Phase 6 (v3 visual alignment) 는 폐기된다.** Phase 1~5 는 *이름·구조 정렬* 만 한다. 그 후 Phase 7 (5단계, scope re-alignment) — Brand 인터페이스 슬림화, color-mix 파생, 토큰 audit & cleanup — 으로 넘어간다. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 CRM 자체 spec 으로 확정된다.
 7. **§ 4.2.1 짝수 규칙은 § 0.1 시각 변화 0 원칙의 사전 합의된 예외다.** Phase 4-C / 4-D 의 1px 폰트 정렬(19→20, 17→18, 11→12)은 § 4.2.1 의 명시 합의에 따른 의도된 시각 변화이며, cascading layout shift 는 그 자연스러운 결과다. 적용 후 baseline 을 1회 갱신한다.
 
 ---
@@ -594,11 +594,15 @@ const customTwMerge = extendTailwindMerge({
 
 ---
 
-## 6. 갭 추적 (코드 vs Figma v3)
+## 6. CRM 자체 spec (구. 갭 추적)
 
-다음 항목은 시각값을 유지한 채 v3 이름으로 매핑한 "비표준"이다. ✅ 표시는 정렬·신설 결정 완료.
+> **Phase 7-A 재해석 (2026-04-29)**: 본 섹션의 항목들은 *Figma v3 와의 갭* 이 아니라 **CRM 디자인 시스템의 자체 spec** 이다. v3 정렬은 더 이상 목표가 아니므로, 아래 hex 들은 그대로 정본으로 채택한다. "v3 가장 가까운 토큰" 컬럼은 명명 참조 출처를 보여주는 역사 자료로 보존한다. 자세한 근거는 [`docs/SCOPE.md`](docs/SCOPE.md) § 1 참조.
+
+다음 표는 *과거 Phase 1~5 마라톤 진행 중 v3 와의 차이를 추적하던* 인덱스다. 이제는 CRM 자체 spec 의 인덱스로 작동한다. ✅ 표시는 적용·확정 완료.
 
 ### 6.1 결정 완료 (2026-04 Phase 0 후)
+
+> **§ 6.1 Phase 7-A 재해석**: "결정" 컬럼의 "v3 cool_neutral_100 정렬은 Phase 6" 같은 표현은 **무효** — 코드 hex 를 CRM spec 으로 확정한다.
 
 | 위치                       | 현재값       | v3 가장 가까운 토큰         | 결정                                                 |
 | -------------------------- | ------------ | --------------------------- | ---------------------------------------------------- |
@@ -624,9 +628,9 @@ const customTwMerge = extendTailwindMerge({
 
 ### 6.4 신설 토큰 (도메인/시스템 보강)
 
-#### 6.4.1 Tier 2 Semantic 갭 — 코드 hex 보존, v3 spec 차이 (Phase 6 정렬 대상)
+#### 6.4.1 Tier 2 Semantic — CRM spec hex (Phase 7-A 확정)
 
-> Phase 2 에서 Tier 2 Semantic 토큰을 도입할 때 § 0.1 시각 변화 0 원칙을 위해 **코드 현재 hex 를 literal 로 보유**한 항목. v3 spec 으로의 이주는 Phase 6 visual alignment pass 에서 디자이너 승인 후 진행.
+> Phase 2 에서 Tier 2 Semantic 토큰 도입 시 코드 현재 hex 를 literal 로 보유한 항목. **Phase 7-A 에서 이 hex 들을 CRM 자체 spec 으로 확정**한다. v3 spec 으로의 이주는 (Phase 6 폐기와 함께) 무효. "v3 spec 권장값" / "처리 방안" 컬럼은 역사 자료로 보존.
 
 | 토큰              | 코드 보유 hex (Phase 2) | v3 spec 권장값                       | 차이 정도        | 처리 방안                                            |
 | ----------------- | ----------------------- | ------------------------------------ | ---------------- | ---------------------------------------------------- |
@@ -637,7 +641,9 @@ const customTwMerge = extendTailwindMerge({
 | `--border-primary`| `#E8EBED` (≈ `cool_neutral_150`) | `cool_neutral_300` = `#C8C9CE` | **큼, 명도 반전** | § 2.6 ↔ § 3.4 매핑 모순. Figma 측 정정 검토 권장. |
 | `--border-subtle` | `#CDD1D5` (≈ `cool_neutral_300`) | `cool_neutral_150` = `#E9EBEF` | **큼, 명도 반전** | 동상.                                                |
 
-#### 6.4.2 도메인/시스템 보강 토큰 (v3 미정의)
+#### 6.4.2 도메인/시스템 보강 토큰 (CRM 자체 spec)
+
+> **§ 6.4.2 Phase 7-A 재해석**: 아래 표의 "비고" 컬럼에 등장하는 "Phase 6 v3 alignment 후보" / "v3 cool_neutral_… 정렬 후보" 표현은 모두 **무효**. 해당 hex 들은 CRM 자체 spec 으로 확정.
 
 | 위치                       | 현재값            | 도입 토큰                        | 비고                                            |
 | -------------------------- | ----------------- | -------------------------------- | ----------------------------------------------- |
@@ -664,9 +670,9 @@ const customTwMerge = extendTailwindMerge({
 | Tailwind 기본 팔레트 — text-gray-300 (의미 미스매치) | 4건 | (적합 토큰 없음) | ✋ **Phase 6 보류**. `--text-disabled` 36 byte 차 — 신토큰 `--text-faint` 신설 또는 v3 정렬과 함께 결정. |
 | Tailwind 기본 팔레트 — 그룹 C (far, 7+ byte) | `gray-700/800/900, blue-400/600, emerald-*, amber-*, red-500` 129건 | § 5.4 참조 | **Phase 6 v3 visual alignment 일괄 처리** — § 6.4.3 상세 표 참조. |
 
-#### 6.4.3 Phase 6 visual alignment 후보 (그룹 C 상세)
+#### 6.4.3 Tailwind preset vs 코드 토큰 시각 차 (CRM 자체 spec — Phase 7-A 확정)
 
-> Tailwind preset 의 시각값과 코드 토큰의 시각값이 7+ byte 차이로 인지 가능한 시각 차가 발생하는 항목. Phase 6 visual alignment pass 에서 디자이너 검토·승인 후 일괄 정렬. 정렬 시 baseline 갱신 필수.
+> Tailwind preset 의 시각값과 코드 토큰의 시각값이 7+ byte 차이가 나는 항목. **Phase 7-A 에서 코드 토큰 hex 를 CRM 자체 spec 으로 확정** (v3 정렬 폐기). Tailwind preset 사용 금지로 일관성 강제 — 이미 Phase 3b 에서 매핑된 의미 토큰 사용. "max ch diff" 컬럼은 차이 정도 참조용으로 보존.
 
 | Tailwind preset             | preset hex | 의미 토큰 (Phase 6 후보) | 토큰 hex | max ch diff | 건수 |
 | --------------------------- | ---------- | ------------------------ | -------- | ----------- | ---- |
@@ -685,10 +691,7 @@ const customTwMerge = extendTailwindMerge({
 | `bg-green-600`              | `#16A34A`  | `--status-success`       | `#00B493` | 73          | 1    |
 | `text-red-500`              | `#EF4444`  | `--error`                | `#FF5B5B` | 24          | 2    |
 
-**총 129건**. Phase 6 진행 시 디자이너와 다음 결정 필요:
-- A. 코드 토큰 hex 그대로 유지 (브랜드 톤) → Tailwind preset 사용 금지로 일관성 강제
-- B. 코드 토큰을 v3/Tailwind 톤으로 정렬 (시각 변화 발생, baseline 갱신)
-- C. 도메인별 분리 — 차트 등 곧 사라질 영역만 별도 처리
+**총 129건**. **Phase 7-A 결정**: 옵션 A 채택 — 코드 토큰 hex 그대로 유지 (CRM 자체 spec). Tailwind preset 사용 금지로 일관성 강제. 옵션 B (v3/Tailwind 톤 정렬) / C (도메인 분리) 는 폐기.
 
 ---
 
@@ -784,6 +787,8 @@ public/brand/{brandKey}/
 ```
 
 ### 8.3 `Brand` 타입 (Phase 5-C 구현)
+
+> **Phase 7-B 예정 (2026-04-29)**: BrandPalette 슬림화 — `success/danger/warning` 제거 (시스템 잠금), `secondary` 신규, `primaryHover/emphasisPrimary` 옵션화 (`color-mix(in srgb, ...)` 자동 파생). 자세한 방향은 [`docs/SCOPE.md`](docs/SCOPE.md) § 5. 본 절의 인터페이스 정의는 Phase 7-B 완료 시 갱신된다.
 
 ```ts
 // src/config/brand/types.ts
@@ -965,9 +970,9 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 
 ---
 
-## 10. 점진 마이그레이션 플랜 (시각 변화 0 마라톤 + v3 visual alignment pass)
+## 10. 점진 마이그레이션 플랜 (시각 변화 0 마라톤 + scope re-alignment)
 
-> Phase 1~5 는 **이름·구조 정렬만** 한다 (§ 0.1 시각 변화 0). v3 spec hex 로의 이주는 Phase 6 에서 디자이너 검토·승인 후 별도 진행.
+> Phase 1~5 는 **이름·구조 정렬만** 한다 (§ 0.1 시각 변화 0). Phase 6 (v3 visual alignment) 은 **공식 폐기** (Phase 7-A, 2026-04-29). Phase 7 (5단계) 은 scope re-alignment — Brand 인터페이스 슬림화, color-mix 파생, 토큰 audit & cleanup. 자세한 SCOPE 정의는 [`docs/SCOPE.md`](docs/SCOPE.md).
 
 | 단계 | 작업                                                                                     | 산출물                                       | 영향          |
 | ---- | ---------------------------------------------------------------------------------------- | -------------------------------------------- | ------------- |
@@ -978,9 +983,14 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 | 3c   | **차트 팔레트 신설** (`--chart-accent / --chart-grid / --chart-axis / --chart-tooltip-border`) + `HomeDashboard.tsx` recharts inline hex 치환. | 차트 토큰 PR                                 | 시각 변화 X   |
 | 4    | Typography 매크로 클래스(`text-h1~h5`, `text-body1~5`, `text-caption` size-only) 도입 + `tailwind-merge` 확장 + `text-[NNpx]` 일괄 치환 + **§ 4.2.1 짝수 규칙 적용** (19→20, 17→18, 11→12) + HomeDashboard recharts inline 11→12. | `index.css`, `lib/utils.ts`, 컴포넌트 PR-by-PR + baseline 1~2회 갱신     | ✅ **완료** — 짝수 규칙 cascading 의도된 변화 (§ 0.7). 그 외 임의값 치환은 시각 변화 0. |
 | 5    | `brand.ts` → `brand/` + `palette/` + `copy/` 분리. applyBrand() 가 Tier 2 의미 토큰 (--button-accent-primary, --error, --status-success 등) 도 함께 주입. VITE_BRAND env 분기 + sample 브랜드 + WHITE_LABEL.md. | ✅ B2B 화이트레이블 1차 운영 가능. `docs/WHITE_LABEL.md`. | 시각 변화 0 (default). sample 브랜드 시각 전환 데모는 별도 빌드. |
-| **6** | **v3 visual alignment pass** — § 6.4.1 갭 6건의 코드 hex 를 v3 spec hex 로 이주 (`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle`). § 2.6 ↔ § 3.4 border 매핑 모순도 함께 해소. | 디자이너 검토·승인 PR                         | **시각 변화 발생** — 합의된 정렬. baseline 갱신 필수. |
+| ~~**6**~~ | ~~**v3 visual alignment pass**~~ — **공식 폐기** (Phase 7-A, 2026-04-29). 근거: CRM 은 v3 와 별개 서비스 (SCOPE.md § 1). § 6.4.1 hex 6건은 CRM 자체 spec 으로 확정. | — | — |
+| **7-A** | **Scope 명문화** — `docs/SCOPE.md` 신규 + 본 문서 § 0 / § 6 / § 8 / § 10 갱신. | `docs/SCOPE.md`, DESIGN_SYSTEM 갱신 | 시각 변화 0 (docs only) |
+| **7-B** | **Brand 인터페이스 슬림화 + applyBrand parametric** — `BrandPalette` 슬림화 (success/danger/warning 제거, secondary 신규), `color-mix(in srgb, ...)` 파생, status 시스템 잠금. | `src/config/brand/*` 재작성 | 시각 변화 0 (default), spot-check (sample) |
+| **7-C** | **Other Color 토큰** — `--chart-series-1~5`, `--badge-other-*` 정의. | `tokens.css` + DESIGN_SYSTEM 갱신 | 시각 변화 0 |
+| **7-D** | **토큰 audit** — `scripts/lint-tokens.mjs` 미사용 토큰 리포트 (코드 변경 0). | script + 리포트 | — |
+| **7-E** | **미사용 토큰 cleanup** — 7-D 리포트 기반 그룹별 삭제. | tokens.css 정리 | 시각 변화 0 (미사용이라 영향 없음) |
 
-각 단계 끝나면 § 6 "갭 추적" 표를 갱신하고, 합의된 항목은 *시각 정렬*로 닫는다.
+각 단계 끝나면 § 6 표를 갱신하고, 변경 통계 + diff 결과를 보고한다. 단계 진입 전 직전 단계 사용자 OK 확인.
 
 ---
 
