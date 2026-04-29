@@ -1,0 +1,316 @@
+#!/usr/bin/env node
+/**
+ * Role: 토큰 사용 audit — tokens.css + index.css 정의 토큰의 실제 사용 여부 추적 (Phase 7-D)
+ * Key Features: var() 정적 + applyBrand setProperty 동적 + Tailwind alias 체인 + 매크로 클래스 인식
+ * Dependencies: node:fs (외부 의존성 없음)
+ * Notes: 코드 변경 없는 audit only. --json 옵션으로 자동화 출력.
+ *        false positive (실제 미사용을 사용으로 분류) 보다는 false negative
+ *        (사용 중을 미사용으로 표시) 가 위험하므로 보수적으로 매칭한다.
+ */
+
+import { readFile, readdir } from 'node:fs/promises';
+import { resolve, join, extname } from 'node:path';
+
+const ROOT = process.cwd();
+const SCAN_EXT = new Set(['.ts', '.tsx', '.js', '.mjs', '.css', '.html']);
+const JSON_MODE = process.argv.includes('--json');
+
+// Tailwind v4 utility prefix → @theme 변수 prefix 매핑
+// --color-{x} 정의는 bg-{x}/text-{x}/... 다양한 utility 로 사용 가능
+const TAILWIND_THEME_PREFIXES = {
+  '--color-':       ['bg', 'text', 'border', 'outline', 'ring', 'fill', 'stroke', 'from', 'to', 'via', 'decoration', 'divide', 'placeholder', 'accent', 'caret', 'shadow'],
+  '--font-size-':   ['text'],
+  '--font-weight-': ['font'],
+  '--leading-':     ['leading'],
+  '--letter-spacing-': ['tracking'],
+  '--radius-':      ['rounded'],
+  '--spacing-':     ['p', 'px', 'py', 'pt', 'pr', 'pb', 'pl', 'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml', 'gap', 'gap-x', 'gap-y', 'w', 'h', 'min-w', 'min-h', 'max-w', 'max-h', 'space-x', 'space-y'],
+};
+
+// ── 1. 토큰 정의 + alias 매핑 추출 ──
+async function readDefs() {
+  const tokensCss = await readFile(resolve(ROOT, 'src/styles/tokens.css'), 'utf-8');
+  const indexCss  = await readFile(resolve(ROOT, 'src/index.css'), 'utf-8');
+
+  const tokens = new Map();      // name -> { source }
+  const aliasMap = new Map();    // alias name -> referenced token name (1단계 alias)
+  const defLineRegex = /^\s*(--[\w-]+)\s*:\s*([^;]+);/gm;
+  const singleVarRegex = /^var\(\s*(--[\w-]+)/;
+
+  function extract(content, source) {
+    let m;
+    defLineRegex.lastIndex = 0;
+    while ((m = defLineRegex.exec(content))) {
+      const name = m[1];
+      const def = m[2].trim();
+      tokens.set(name, { source });
+      const am = singleVarRegex.exec(def);
+      if (am) aliasMap.set(name, am[1]);
+    }
+  }
+  extract(tokensCss, 'tokens.css');
+  extract(indexCss, 'index.css');
+  return { tokens, aliasMap };
+}
+
+// ── 2. 코드 파일 수집 (재귀 readdir) ──
+async function collectFiles() {
+  const files = [];
+  async function walk(dir) {
+    let entries;
+    try { entries = await readdir(dir, { withFileTypes: true }); } catch { return; }
+    for (const entry of entries) {
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue;
+        await walk(path);
+      } else if (SCAN_EXT.has(extname(entry.name))) {
+        files.push(path);
+      }
+    }
+  }
+  await walk(resolve(ROOT, 'src'));
+  files.push(resolve(ROOT, 'index.html'));
+  return files;
+}
+
+// ── 3. 코드 스캔 — var() / setProperty / 매크로 정의 / className 후보 ──
+async function scanCode(files) {
+  const varUses = new Set();
+  const setPropTokens = new Set();
+  const macroDefs = new Map();           // 매크로 클래스명 -> { uses: var() 참조 토큰[] }
+  const classNames = new Set();          // 컴포넌트/HTML 의 className 후보 토큰
+  const aliasVarRefs = new Set();        // var(--alias) 형태 참조된 alias 자체
+
+  const varUseRe = /var\(\s*(--[\w-]+)/g;
+  const setPropRe = /setProperty\(\s*['"](--[\w-]+)['"]/g;
+  const macroDefRe = /^\.([a-z][\w-]*)\s*\{([^}]*)\}/gms;
+  const classAttrRe = /\bclass(?:Name)?\s*=\s*['"`]([^'"`]+)['"`]/g;
+  const classCandidateRe = /[a-z][a-z0-9-]*-[a-z0-9-]+/g;
+
+  for (const file of files) {
+    let content;
+    try { content = await readFile(file, 'utf-8'); } catch { continue; }
+    let m;
+
+    varUseRe.lastIndex = 0;
+    while ((m = varUseRe.exec(content))) varUses.add(m[1]);
+
+    setPropRe.lastIndex = 0;
+    while ((m = setPropRe.exec(content))) setPropTokens.add(m[1]);
+
+    // 매크로 클래스 정의 — index.css 만 대상
+    if (file.endsWith('index.css')) {
+      macroDefRe.lastIndex = 0;
+      while ((m = macroDefRe.exec(content))) {
+        const cls = m[1];
+        const body = m[2];
+        const refs = [];
+        const innerVarRe = /var\(\s*(--[\w-]+)/g;
+        let vm;
+        while ((vm = innerVarRe.exec(body))) refs.push(vm[1]);
+        macroDefs.set(cls, { uses: refs });
+      }
+    }
+
+    // className/class 속성에서 후보 클래스 추출 (정밀도 ↑)
+    classAttrRe.lastIndex = 0;
+    while ((m = classAttrRe.exec(content))) {
+      const attrValue = m[1];
+      const ccRe = /[a-z][a-z0-9-]*-[a-z0-9-]+/g;
+      let cm;
+      while ((cm = ccRe.exec(attrValue))) classNames.add(cm[0]);
+    }
+    // cn(), clsx() 등 helper 안의 string literal 도 잡기 위해 ts/tsx 는 광범위 추가
+    if (file.endsWith('.ts') || file.endsWith('.tsx') || file.endsWith('.js')) {
+      const stringLitRe = /['"`]([^'"`\n]{2,200})['"`]/g;
+      let sm;
+      while ((sm = stringLitRe.exec(content))) {
+        const s = sm[1];
+        if (!/[a-z]-[a-z0-9]/.test(s)) continue;  // hyphen 패턴 있는 string 만
+        const ccRe = /[a-z][a-z0-9-]*-[a-z0-9-]+/g;
+        let cm;
+        while ((cm = ccRe.exec(s))) classNames.add(cm[0]);
+      }
+    }
+  }
+
+  // var(--alias) 참조 — alias 자체도 사용 처리
+  for (const u of varUses) aliasVarRefs.add(u);
+
+  return { varUses, setPropTokens, macroDefs, classNames, aliasVarRefs };
+}
+
+// ── 4. Tailwind theme prefix 매칭 — alias 든 직접 정의든 양쪽 추적 ──
+function resolveTailwindUsage(tokens, aliasMap, classNames) {
+  const usedViaTw = new Set();
+  // 정의된 모든 토큰을 Tailwind theme prefix 와 매칭 (alias 여부 무관)
+  for (const tokenName of tokens.keys()) {
+    for (const [themePrefix, utilPrefixes] of Object.entries(TAILWIND_THEME_PREFIXES)) {
+      if (!tokenName.startsWith(themePrefix)) continue;
+      const suffix = tokenName.slice(themePrefix.length);
+      for (const util of utilPrefixes) {
+        if (classNames.has(`${util}-${suffix}`)) {
+          usedViaTw.add(tokenName);
+          // alias 라면 원본도 사용 처리
+          const original = aliasMap.get(tokenName);
+          if (original) usedViaTw.add(original);
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return usedViaTw;
+}
+
+// ── 5. 매크로 클래스 사용 → 매크로가 var() 참조하는 토큰들도 사용 ──
+function resolveMacros(macroDefs, classNames) {
+  const usedFromMacros = new Set();
+  for (const [macroName, { uses }] of macroDefs) {
+    if (classNames.has(macroName)) {
+      for (const t of uses) usedFromMacros.add(t);
+    }
+  }
+  return usedFromMacros;
+}
+
+// ── 6. alias chain 1-hop 확장 ──
+// var(--alias) 가 사용됐으면 그 alias 가 가리키는 원본도 사용 처리
+function expandAliasChain(usedSet, aliasMap) {
+  const expanded = new Set(usedSet);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const t of [...expanded]) {
+      const original = aliasMap.get(t);
+      if (original && !expanded.has(original)) {
+        expanded.add(original);
+        changed = true;
+      }
+    }
+  }
+  return expanded;
+}
+
+// ── 7. 카테고리 분류 ──
+function categorize(name) {
+  if (/^--chart-series-\d+$/.test(name)) return 'Other Color';
+  if (/^--color-chart-series-\d+$/.test(name)) return 'Other Color (alias)';
+  if (/^--font-(size|weight)-/.test(name)) return 'Typography';
+  if (/^--(line-height|leading)-/.test(name)) return 'Typography';
+  if (/^--letter-spacing-/.test(name)) return 'Typography';
+  if (/^--font-sans$/.test(name)) return 'Typography';
+  if (/^--radius/.test(name)) return 'Radius';
+  if (/^--spacing-/.test(name)) return 'Spacing';
+  if (/^--color-(primary|success|danger|warning|surface|bg$|neutral)/.test(name)) return 'Legacy (Tier 3)';
+  if (/^--color-(text-|border|button-|icon-|modal-|static-|status-|overlay|chart-accent|chart-grid|chart-axis|chart-tooltip|accent$|error$|bg-)/.test(name)) return 'Tailwind alias';
+  if (/^--(chart-accent|chart-grid|chart-axis|chart-tooltip|row-stripe|row-hover|bg-faint|bg-app-body|bg-selected|kanban-|nav-hover|text-strong|danger-hover|danger-active)/.test(name)) return 'Domain';
+  if (/^--(button-accent|bg-emphasis|accent$|text-accent|icon-active|icon-accent|brand-)/.test(name)) return 'Semantic 브랜드';
+  if (/^--(bg-|text-|icon-|border-|modal-|static-|status-|overlay-|button-)/.test(name)) return 'Semantic 잠금';
+  if (/^--(error|warning)$/.test(name)) return 'Semantic 잠금';
+  if (/^--[a-z][a-z-]*-\d+$/i.test(name)) return 'Value';
+  if (/^--common-\d+$/.test(name)) return 'Value';
+  return 'Other';
+}
+
+// ── 8. 그룹 분류 (Value 의 prefix 기반) ──
+function getGroup(name) {
+  const m = /^--([a-z][a-z-]*?)-(\d+)$/.exec(name);
+  if (m) return m[1].replace(/-/g, '_');
+  return null;
+}
+
+// ── 9. 메인 ──
+async function main() {
+  const { tokens, aliasMap } = await readDefs();
+  const files = await collectFiles();
+  const { varUses, setPropTokens, macroDefs, classNames } = await scanCode(files);
+
+  const usedViaTw = resolveTailwindUsage(tokens, aliasMap, classNames);
+  const usedFromMacros = resolveMacros(macroDefs, classNames);
+
+  let used = new Set();
+  for (const t of varUses) used.add(t);
+  for (const t of setPropTokens) used.add(t);
+  for (const t of usedViaTw) used.add(t);
+  for (const t of usedFromMacros) used.add(t);
+  used = expandAliasChain(used, aliasMap);
+
+  // 정의에 없는 토큰은 used 에서 제외 (외부 var() 가 잘못 들어왔을 수 있음)
+  const definedNames = new Set(tokens.keys());
+  const usedDefined = new Set([...used].filter(t => definedNames.has(t)));
+
+  const allTokens = [...tokens.keys()].sort();
+  const unusedTokens = allTokens.filter(t => !usedDefined.has(t));
+
+  // 그룹별
+  const byGroup = {};
+  for (const t of allTokens) {
+    const grp = getGroup(t);
+    if (!grp) continue;
+    if (!byGroup[grp]) byGroup[grp] = { total: 0, unused: 0, unusedNames: [] };
+    byGroup[grp].total++;
+    if (!usedDefined.has(t)) {
+      byGroup[grp].unused++;
+      byGroup[grp].unusedNames.push(t);
+    }
+  }
+
+  // 카테고리별
+  const byCategory = {};
+  for (const t of allTokens) {
+    const cat = categorize(t);
+    if (!byCategory[cat]) byCategory[cat] = { total: 0, unused: 0, unusedNames: [] };
+    byCategory[cat].total++;
+    if (!usedDefined.has(t)) {
+      byCategory[cat].unused++;
+      byCategory[cat].unusedNames.push(t);
+    }
+  }
+
+  if (JSON_MODE) {
+    console.log(JSON.stringify({
+      defined: allTokens.length,
+      used: usedDefined.size,
+      unused: unusedTokens.length,
+      byGroup,
+      byCategory,
+      unusedTokens: unusedTokens.map(t => ({ name: t, group: getGroup(t), category: categorize(t) })),
+    }, null, 2));
+    return;
+  }
+
+  console.log('=== Token Usage Audit ===');
+  console.log(`정의된 토큰: ${allTokens.length} 개`);
+  console.log(`사용 중: ${usedDefined.size} 개`);
+  console.log(`미사용: ${unusedTokens.length} 개`);
+
+  console.log('\n── 그룹별 미사용 ──');
+  const sortedGroups = Object.entries(byGroup).sort((a, b) =>
+    b[1].unused - a[1].unused || a[0].localeCompare(b[0])
+  );
+  for (const [grp, info] of sortedGroups) {
+    const usedCnt = info.total - info.unused;
+    const note = info.unused === info.total ? '(전체)' : `(사용 ${usedCnt}/${info.total})`;
+    console.log(`${grp.padEnd(15)} ${String(info.unused).padStart(2)}/${String(info.total).padStart(2)} 미사용 ${note}`);
+  }
+
+  console.log('\n── 카테고리별 미사용 ──');
+  const sortedCats = Object.entries(byCategory).sort((a, b) =>
+    b[1].unused - a[1].unused || a[0].localeCompare(b[0])
+  );
+  for (const [cat, info] of sortedCats) {
+    const usedCnt = info.total - info.unused;
+    console.log(`${cat.padEnd(20)} ${String(info.unused).padStart(3)}/${String(info.total).padStart(3)} 미사용 (사용 ${usedCnt})`);
+  }
+
+  if (unusedTokens.length > 0) {
+    console.log('\n── 미사용 토큰 전체 목록 ──');
+    for (const t of unusedTokens) {
+      console.log(`${t.padEnd(40)} (${categorize(t)})`);
+    }
+  }
+}
+
+main().catch(e => { console.error(e); process.exit(1); });
