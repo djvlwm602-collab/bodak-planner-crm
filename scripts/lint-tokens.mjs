@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 /**
- * Role: 토큰 사용 audit — tokens.css + index.css 정의 토큰의 실제 사용 여부 추적 (Phase 7-D)
+ * Role: 토큰 사용 audit — tokens.css + index.css 정의 토큰의 실제 사용 여부 추적 (Phase 7-D / 8-F)
  * Key Features: var() 정적 + applyBrand setProperty 동적 + Tailwind alias 체인 + 매크로 클래스 인식
- * Dependencies: node:fs (외부 의존성 없음)
- * Notes: 코드 변경 없는 audit only. --json 옵션으로 자동화 출력.
+ *               + --check 모드 (Phase 8-F): git diff 기준 신규 토큰 사용처 강제 + @deprecated 신규 사용 경고
+ * Dependencies: node:fs, node:child_process (외부 의존성 없음)
+ * Notes: 기본 모드는 audit only (코드 변경 없음). --json 자동화. --check PR 시점 강제.
  *        false positive (실제 미사용을 사용으로 분류) 보다는 false negative
  *        (사용 중을 미사용으로 표시) 가 위험하므로 보수적으로 매칭한다.
  */
 
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve, join, extname } from 'node:path';
+import { execSync } from 'node:child_process';
 
 const ROOT = process.cwd();
 const SCAN_EXT = new Set(['.ts', '.tsx', '.js', '.mjs', '.css', '.html']);
 const JSON_MODE = process.argv.includes('--json');
+const CHECK_MODE = process.argv.includes('--check');
+const SINCE_ARG = process.argv.find(a => a.startsWith('--since='));
+const SINCE = SINCE_ARG ? SINCE_ARG.slice('--since='.length) : 'main';
 
 // Tailwind v4 utility prefix → @theme 변수 prefix 매핑
 // --color-{x} 정의는 bg-{x}/text-{x}/... 다양한 utility 로 사용 가능
@@ -46,12 +51,14 @@ async function readDefs() {
       const def = m[2].trim();
       const trailingComment = m[3] || '';
       const prevLine = i > 0 ? lines[i - 1] : '';
-      // prev 라인이 다른 토큰 정의면 그 trailing 의 @reserved 가 본 토큰에 전이되지 않도록 제외
+      // prev 라인이 다른 토큰 정의면 그 trailing 의 @reserved/@deprecated 가 본 토큰에 전이되지 않도록 제외
       const prevIsTokenDef = /^\s*--[\w-]+\s*:\s*[^;]+;/.test(prevLine);
-      // 같은 라인 trailing comment 또는 직전 코멘트 라인에 @reserved 가 있으면 reserved
+      // 같은 라인 trailing comment 또는 직전 코멘트 라인에 마크 있으면 인식
       const reserved = /@reserved\b/.test(trailingComment) ||
                        (!prevIsTokenDef && /@reserved\b/.test(prevLine));
-      tokens.set(name, { source, reserved });
+      const deprecated = /@deprecated\b/.test(trailingComment) ||
+                         (!prevIsTokenDef && /@deprecated\b/.test(prevLine));
+      tokens.set(name, { source, reserved, deprecated, line: i + 1 });
       const am = singleVarRegex.exec(def);
       if (am) aliasMap.set(name, am[1]);
     }
@@ -229,7 +236,84 @@ function getGroup(name) {
   return null;
 }
 
-// ── 9. 메인 ──
+// ── 9. --check 모드 helper: git diff 로 신규 토큰 / 추가 코드 라인 추출 ──
+function getMergeBaseStatus(since) {
+  try {
+    execSync(`git merge-base ${since} HEAD`, { stdio: ['ignore', 'pipe', 'ignore'] });
+    return 'ok';
+  } catch {
+    return 'unrelated';
+  }
+}
+
+function getAddedTokenLines(since) {
+  // git diff 로 tokens.css + index.css 의 추가된 토큰 정의 라인 추출
+  let diff;
+  try {
+    diff = execSync(
+      `git diff ${since}..HEAD -- src/styles/tokens.css src/index.css`,
+      { encoding: 'utf-8', maxBuffer: 50 * 1024 * 1024 }
+    );
+  } catch {
+    return [];
+  }
+  const added = [];
+  for (const line of diff.split('\n')) {
+    if (!line.startsWith('+') || line.startsWith('+++')) continue;
+    const m = /^\+\s*(--[\w-]+)\s*:/.exec(line);
+    if (m) added.push(m[1]);
+  }
+  return added;
+}
+
+function getAddedCodeLines(since) {
+  // git diff 로 src/** 의 모든 추가 라인 추출 (file + text)
+  let diff;
+  try {
+    diff = execSync(
+      `git diff ${since}..HEAD -- src/`,
+      { encoding: 'utf-8', maxBuffer: 50 * 1024 * 1024 }
+    );
+  } catch {
+    return [];
+  }
+  const added = [];
+  let currentFile = null;
+  for (const line of diff.split('\n')) {
+    if (line.startsWith('+++ b/')) {
+      currentFile = line.slice(6);
+      continue;
+    }
+    if (line.startsWith('+') && !line.startsWith('+++')) {
+      added.push({ file: currentFile, text: line.slice(1) });
+    }
+  }
+  return added;
+}
+
+function findDeprecatedUsage(deprecatedTokens, addedLines) {
+  const warnings = [];
+  for (const t of deprecatedTokens) {
+    const bareName = t.slice(2); // "--row-stripe" → "row-stripe"
+    const escName = t.replace(/-/g, '\\-');
+    const escBare = bareName.replace(/-/g, '\\-');
+    // hyphen 도 word char 로 취급한 엄격한 경계 — bg-bg-row-stripe 안의 bg-row-stripe substring 매칭 회피
+    // var() 매칭: token 앞 (와 공백 외) / 뒤 ) 또는 word 끝
+    const varRe = new RegExp(`var\\(\\s*${escName}(?![\\w-])`);
+    // Tailwind utility 매칭: util prefix 앞에 [\w-] 가 없어야 함 (substring 회피), suffix 뒤도 [\w-] 없어야
+    const utilRe = new RegExp(`(?<![\\w-])(?:bg|text|border|outline|ring|fill|stroke|shadow|rounded|hover:bg|hover:text|active:bg|active:text)-${escBare}(?![\\w-])`);
+    for (const { file, text } of addedLines) {
+      // tokens.css/index.css 자체의 alias 정의 라인은 스킵 (정의 표기지 사용 아님)
+      if (file && (file.endsWith('tokens.css') || file.endsWith('index.css'))) continue;
+      if (varRe.test(text) || utilRe.test(text)) {
+        warnings.push({ token: t, file, text: text.trim() });
+      }
+    }
+  }
+  return warnings;
+}
+
+// ── 10. 메인 ──
 async function main() {
   const { tokens, aliasMap } = await readDefs();
   const files = await collectFiles();
@@ -332,6 +416,80 @@ async function main() {
     for (const t of reservedNames.sort()) {
       console.log(`${t.padEnd(40)} spec 정의 (의도적 미사용)`);
     }
+  }
+
+  // ── --check 모드 (Phase 8-F): git diff 기반 PR 시점 강제 ──
+  if (CHECK_MODE) {
+    console.log(`\n=== Token Lint (--check) ===`);
+    console.log(`비교 기준: ${SINCE}..HEAD`);
+
+    const baseStatus = getMergeBaseStatus(SINCE);
+    if (baseStatus === 'unrelated') {
+      console.log(`\n⚠️  ${SINCE} 와 HEAD 가 unrelated histories — diff 가 모든 파일을 신규로 인식합니다.`);
+      console.log(`    검사를 skip 합니다. 실제 PR 시 base branch (예: --since=origin/main 또는 --since=HEAD~1) 사용 권장.`);
+      console.log(`\n✅ Token lint skipped (unrelated histories).`);
+      process.exit(0);
+    }
+
+    const addedTokens = getAddedTokenLines(SINCE);
+    const addedCodeLines = getAddedCodeLines(SINCE);
+
+    // 추가된 토큰 분류: 사용 / reserved / deprecated / 위반
+    const violations = [];
+    const reservedAdded = [];
+    const deprecatedAdded = [];
+    const usedAdded = [];
+    for (const t of addedTokens) {
+      const info = tokens.get(t);
+      if (!info) continue;  // 정의 추출 실패 — 안전 무시
+      if (info.reserved) {
+        reservedAdded.push(t);
+      } else if (info.deprecated) {
+        deprecatedAdded.push(t);  // 의도된 1년 유예 alias — violations 제외
+      } else if (usedDefined.has(t)) {
+        usedAdded.push(t);
+      } else {
+        violations.push({ name: t, line: info.line, source: info.source });
+      }
+    }
+
+    // @deprecated 신규 사용 검사 (경고만)
+    const deprecatedTokens = allTokens.filter(t => tokens.get(t).deprecated);
+    const deprecatedWarnings = findDeprecatedUsage(deprecatedTokens, addedCodeLines);
+
+    // 출력
+    console.log(`\n추가된 토큰: ${addedTokens.length}`);
+    console.log(`├─ 사용처 있음: ${usedAdded.length} ✅`);
+    console.log(`├─ @reserved: ${reservedAdded.length} ✅ (의도된 reserve)`);
+    console.log(`├─ @deprecated: ${deprecatedAdded.length} ✅ (1년 유예 alias)`);
+    console.log(`└─ ${violations.length > 0 ? '❌' : '✅'} 즉시 사용 없음 + @reserved/@deprecated 표시도 없음: ${violations.length}`);
+    console.log(`\nDeprecated token 신규 사용: ${deprecatedWarnings.length} ${deprecatedWarnings.length > 0 ? '⚠️' : '✅'}`);
+
+    let exitCode = 0;
+    if (violations.length > 0) {
+      console.log(`\n❌ 신규 토큰이 추가됐으나 사용처가 없습니다:`);
+      for (const v of violations) {
+        console.log(`   ${v.name}  (${v.source}:${v.line})`);
+      }
+      console.log(`\n다음 중 하나로 해결:`);
+      console.log(`   1. 즉시 사용처와 함께 추가 (DESIGN_SYSTEM § 12 결정 트리 통과)`);
+      console.log(`   2. 의도된 reserve 라면 /* @reserved */ 주석 추가`);
+      console.log(`   3. 토큰 정의 자체를 PR 에서 제거`);
+      exitCode = 1;
+    }
+
+    if (deprecatedWarnings.length > 0) {
+      console.log(`\n⚠️  Deprecated token used in new code (suggestion 만, exit 0):`);
+      for (const w of deprecatedWarnings) {
+        console.log(`   ${w.token} in ${w.file}`);
+        console.log(`     ${w.text.slice(0, 120)}`);
+      }
+    }
+
+    if (exitCode === 0) {
+      console.log(`\n✅ Token lint passed.`);
+    }
+    process.exit(exitCode);
   }
 }
 

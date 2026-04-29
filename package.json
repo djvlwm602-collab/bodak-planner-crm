@@ -10,7 +10,9 @@
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
     "lint:tokens": "node scripts/lint-tokens.mjs",
-    "lint:tokens:json": "node scripts/lint-tokens.mjs --json"
+    "lint:tokens:json": "node scripts/lint-tokens.mjs --json",
+    "lint:tokens:check": "node scripts/lint-tokens.mjs --check",
+    "lint:tokens:check:since": "node scripts/lint-tokens.mjs --check --since="
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
