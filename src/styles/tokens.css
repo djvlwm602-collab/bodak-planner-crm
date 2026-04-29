@@ -177,7 +177,7 @@
   --bg-faint: #F3F4F6;              /* @brand-safe — light tint (Tailwind gray-100 hex 일치) bg/border 양쪽 활용 — Phase 3b 도입 */
 
   /* ── § 6.4 차트 팔레트 (recharts inline 전용, Phase 3c 도입) ── */
-  --chart-accent: #3b82f6;          /* @brand-free — 보닥 #3182F6 와 10 byte 차 */
+  --chart-accent: #3b82f6;          /* @brand-free — deprecated → use --chart-series-1 (Phase 8-C 후). 보닥 #3182F6 와 10 byte 차 */
   --chart-grid: var(--bg-faint);    /* @brand-safe — #F3F4F6 (--bg-faint 재활용) */
   --chart-axis: #9ca3af;            /* @brand-safe — recharts axis tick */
   --chart-tooltip-border: #e5e7eb;  /* @brand-safe — recharts tooltip border */
