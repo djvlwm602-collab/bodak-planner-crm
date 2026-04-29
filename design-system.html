@@ -317,6 +317,11 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <a href="#domain-chart" class="sidebar-link">Chart</a>
   <a href="#domain-chart-series" class="sidebar-link">Other Color (chart-series 1~5)</a>
 
+  <div class="sidebar-label">개발자 가이드</div>
+  <a href="#naming" class="sidebar-link">§ 11 네이밍 컨벤션</a>
+  <a href="#decision-tree" class="sidebar-link">§ 12 신규 색 결정 트리</a>
+  <a href="#tailwind-map" class="sidebar-link">§ 13 Tailwind 유틸 매핑</a>
+
   <div class="sidebar-label">Typography</div>
   <a href="#typo-macros" class="sidebar-link">매크로 (size-only)</a>
   <a href="#typo-rules" class="sidebar-link">짝수 규칙</a>
@@ -618,6 +623,189 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       <div class="tok"><div class="tok-swatch"><div style="background:#FF9200;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-4</div><div class="tok-meta">amber_500</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F553DA;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-5</div><div class="tok-meta">magenta_500</div></div></div>
     </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="naming" class="section">
+  <div class="section-header">
+    <h2 class="section-title">§ 11 Naming Conventions<span class="section-tag">Phase 8-A 도입</span></h2>
+    <p class="section-desc">토큰 이름은 <strong>prefix-suffix 룰</strong> 로 카테고리·상태·위계를 표현. 신규 토큰은 본 룰을 따른다 — § 6.4 도메인 토큰의 임의 명명은 Phase 8-D 에서 alias 비파괴 마이그레이션 완료.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Prefix 규칙 (카테고리)</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:8px 12px;border-bottom:1px solid var(--color-border);">Prefix</th><th style="padding:8px 12px;border-bottom:1px solid var(--color-border);">용도</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">bg-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">모든 배경 (색·tint·hover)</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">text-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">텍스트 색</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">border-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">테두리</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">button-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">버튼 컴포넌트 전용</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">status-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">상태/의미 (info / pending / done / success / error / warning)</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">chart-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">차트 (axis / grid / tooltip / series)</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">modal-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">모달 영역</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">icon-*</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">아이콘</td></tr>
+        <tr><td style="padding:6px 12px;"><code class="chip">bg-emphasis-*</code></td><td style="padding:6px 12px;">강조 배경</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Suffix 규칙</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:8px 12px;border-bottom:1px solid var(--color-border);">Suffix</th><th style="padding:8px 12px;border-bottom:1px solid var(--color-border);">의미</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">-hover</code> / <code class="chip">-active</code> / <code class="chip">-disabled</code> / <code class="chip">-pressed</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">상태</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">-bg</code> / <code class="chip">-fg</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">bg/fg 분리 시</td></tr>
+        <tr><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);"><code class="chip">-primary</code> / <code class="chip">-secondary</code> / <code class="chip">-tertiary</code></td><td style="padding:6px 12px;border-bottom:1px solid var(--cn-100);">위계</td></tr>
+        <tr><td style="padding:6px 12px;"><code class="chip">-subtle</code> / <code class="chip">-faint</code> / <code class="chip">-strong</code></td><td style="padding:6px 12px;">농도</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">금지 패턴</h3>
+    <div class="code">
+<span class="c">// 카테고리 prefix 누락</span>
+❌ --row-stripe        → ✅ --bg-row-stripe
+
+<span class="c">// prefix 와 suffix 가 같은 카테고리 중복 표지</span>
+❌ --kanban-column-bg  → ✅ --bg-kanban-column
+
+<span class="c">// 상태인지 컴포넌트인지 모호</span>
+❌ --danger-hover      → ✅ --button-danger-hover
+    </div>
+    <div class="note">기존 도메인 토큰은 Phase 8-D 에서 신규 이름으로 마이그레이션됨. 구 이름은 deprecated alias 로 1년 (2027-04-29) 까지 유지.</div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="decision-tree" class="section">
+  <div class="section-header">
+    <h2 class="section-title">§ 12 신규 색 추가 결정 트리<span class="section-tag">Phase 8-A 도입</span></h2>
+    <p class="section-desc">새 색이 필요할 때 *어떤 Tier* 에 추가할지 판단. <strong>Tier 2 우선, 도메인은 차순위.</strong> 도메인 토큰은 Tier 2 의 특수 변종 역할 — 별도 카테고리가 아님.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="code">
+<span class="k">Q1.</span> brand 별로 달라져야 하는 색?
+  YES → Brand 인터페이스 확장 (palette.tertiary 등)
+  NO  → Q2
+
+<span class="k">Q2.</span> 동일 의미로 N 곳 반복 사용?
+  1~2 회 단발: Value 직접 참조 (chart-series-3 = violet-400 패턴)
+              + 재발 시 Q2 재평가 주석
+  3+ 회 반복:  Q3
+
+<span class="k">Q3.</span> 상태/의미 표현 vs 시각 변형?
+  상태/의미 (badge, alert):  도메인 토큰 신설 (--status-* 패턴)
+  시각 변형 (hover, stripe): Q4
+
+<span class="k">Q4.</span> 기존 Tier 2 로 표현 가능?
+  YES: Tier 2 사용 (예: bg-bg-tertiary 가 light bg 충분)
+  NO:  Tier 2 확장 (예: --bg-quaternary 신설)
+    </div>
+    <div class="note">신규 색 발생 시 Tier 2 확장이 가능한지 먼저 검토. 도메인 토큰은 정말 의미가 *Tier 2 로 표현 안 될 때* 만 신설.</div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="tailwind-map" class="section">
+  <div class="section-header">
+    <h2 class="section-title">§ 13 Tailwind 유틸 매핑<span class="section-tag">Phase 8-A 도입 · @theme alias 39 + deprecated 6</span></h2>
+    <p class="section-desc">Tailwind v4 의 <code class="chip">@theme</code> 안 <code class="chip">--color-{x}</code> alias 만 utility (<code class="chip">bg-{x}</code> / <code class="chip">text-{x}</code> / <code class="chip">border-{x}</code> 등) 로 매핑된다. 본 표는 현재 <code class="chip">src/index.css @theme</code> 의 정확한 매핑.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Background</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg</code> / <code class="chip">--color-bg-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg</code>, <code class="chip">bg-bg-primary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-emphasis-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-primary-subtle</code> / <code class="chip">--color-bg-emphasis-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-primary-subtle</code>, <code class="chip">bg-bg-emphasis-primary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--modal-background</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-surface</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-surface</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Text / Border</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--text-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-text-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-text-primary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--text-secondary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-text-secondary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-text-secondary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--text-disabled</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-text-disabled</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-text-disabled</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--text-quaternary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-text-quaternary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-text-quaternary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--text-strong</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-text-strong</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-text-strong</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--border-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-border</code> / <code class="chip">--color-border-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">border-border</code>, <code class="chip">border-border-primary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--border-subtle</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-border-subtle</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">border-border-subtle</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Status / Tier 3 legacy</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--button-accent-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-primary</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-primary</code>, <code class="chip">text-primary</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--button-accent-primary-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-primary-hover</code> / <code class="chip">--color-button-accent-primary-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-primary-hover</code>, <code class="chip">bg-button-accent-primary-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--status-success</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-success</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-success</code>, <code class="chip">text-success</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--error</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-danger</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-danger</code>, <code class="chip">text-danger</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--warning</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-warning</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-warning</code>, <code class="chip">text-warning</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);">(legacy hex)</td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-success-subtle</code> / <code class="chip">-danger-subtle</code> / <code class="chip">-warning-subtle</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-success-subtle</code> 등</td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);">(legacy hex)</td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-neutral</code> / <code class="chip">--color-neutral-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-neutral</code>, <code class="chip">bg-neutral-hover</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Domain / Status Chip</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체 (Phase 8-D 정합)</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-stripe</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-faint</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-faint</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-faint</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-app-body</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-app-body</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-app-body</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-selected-subtle</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-selected-subtle</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-selected-subtle</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-kanban-column</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-kanban-column</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-kanban-column</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-nav-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-nav-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-nav-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--button-danger-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-button-danger-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-button-danger-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--button-danger-active</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-button-danger-active</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-button-danger-active</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--status-info</code> / <code class="chip">-info-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-status-info</code> / <code class="chip">-info-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-status-info</code>, <code class="chip">bg-status-info-bg</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--status-pending</code> / <code class="chip">-pending-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-status-pending</code> / <code class="chip">-pending-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-status-pending</code>, <code class="chip">bg-status-pending-bg</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--status-done</code> / <code class="chip">-done-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-status-done</code> / <code class="chip">-done-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">text-status-done</code>, <code class="chip">bg-status-done-bg</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Deprecated alias (Phase 8-D · 2027-04-29 정식 삭제)</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;opacity:.7;">
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">utility (구)</th><th style="padding:6px 10px;">→ 신규 권장</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-stripe</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-kanban-column-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-kanban-column-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-kanban-column</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-nav-hover-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-nav-hover-bg</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-nav-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-danger-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-danger-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-button-danger-hover</code></td></tr>
+        <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-danger-active</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-danger-active</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-button-danger-active</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">var() 직접 참조만 (alias 없음)</h3>
+    <p class="subsection-desc">다음 본체는 <code class="chip">@theme alias</code> 가 없어 Tailwind utility 로 사용할 수 없다. CSS <code class="chip">var(--xxx)</code> 또는 inline <code class="chip">style</code> 로 참조.</p>
+    <ul style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Reserved (30, Phase 7-F)</strong>: <code class="chip">--bg-secondary/-tertiary/-disabled</code>, <code class="chip">--text-tertiary/-inverse-*</code>, <code class="chip">--icon-* (active/accent 제외 6개)</code>, <code class="chip">--border-selected/-transparent</code>, <code class="chip">--overlay-50</code>, <code class="chip">--modal-surface-*</code>, <code class="chip">--button-surface-*</code>, <code class="chip">--button-inverse-primary</code>, <code class="chip">--text-background</code>, <code class="chip">--static-* (7개)</code></li>
+      <li><strong>차트 (recharts inline)</strong>: <code class="chip">--chart-grid</code>, <code class="chip">--chart-axis</code>, <code class="chip">--chart-tooltip-border</code>, <code class="chip">--chart-series-1 ~ -5</code></li>
+      <li><strong>brand-bound</strong>: <code class="chip">--accent</code>, <code class="chip">--text-accent</code>, <code class="chip">--icon-active</code>, <code class="chip">--icon-accent</code>, <code class="chip">--bg-emphasis-secondary</code>, <code class="chip">--button-accent-secondary/-tertiary/-extra</code>, <code class="chip">--list-overlay-disabled</code>, <code class="chip">--brand-primary-hover</code></li>
+    </ul>
+    <div class="note"><strong>bg-bg-primary 가 어색할 수 있음</strong> — Tailwind <code class="chip">bg-</code> 접두사 + 토큰 prefix <code class="chip">bg-</code> 중복. 일관성을 위해 (모든 토큰이 카테고리 prefix 명시) 허용. 향후 대안 (예: <code class="chip">--bg-page</code>) 은 별도 결정.</div>
   </div>
 </section>
 
