@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Design System — 보닥 플래너 CRM (Phase 8 완료)</title>
+<title>Design System — 보닥 플래너 CRM</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
 <style>
 /* ===========================================================
@@ -288,7 +288,6 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
     <div class="logo-name">보닥 플래너</div>
     <div class="logo-partner">for 흥국화재</div>
   </div>
-  <span class="logo-ver">Phase 8 완료 (2026-04-29)</span>
   <div class="topbar-meta">DESIGN_SYSTEM.md / WHITE_LABEL.md</div>
 </header>
 
@@ -296,7 +295,6 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <aside class="sidebar">
   <div class="sidebar-label">개요</div>
   <a href="#overview" class="sidebar-link">현재 상태</a>
-  <a href="#phases" class="sidebar-link">Phase 진행 현황</a>
 
   <div class="sidebar-label">Tier 1 — Value</div>
   <a href="#tier1-common" class="sidebar-link">Common</a>
@@ -351,8 +349,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="overview" class="section">
   <div class="section-header">
-    <h1 class="section-title">현재 디자인 시스템 상태<span class="section-tag">Phase 8 완료</span></h1>
-    <p class="section-desc">CRM 자체 디자인 시스템 (보닥 v3 와 별개 — <code class="chip">docs/SCOPE.md</code>). 3-Tier 토큰 + B2B 화이트레이블 (color-mix 자동 파생). Phase 7-E 에서 380 → 190 토큰 정리, Phase 7-F 에서 30 reserved 토큰 분리.</p>
+    <h1 class="section-title">현재 디자인 시스템 상태</h1>
+    <p class="section-desc">CRM 자체 디자인 시스템 (보닥 v3 와 별개 — <code class="chip">docs/SCOPE.md</code>). 3-Tier 토큰 + B2B 화이트레이블 (color-mix 자동 파생).</p>
   </div>
   <div class="brand-grid">
     <div class="brand-card active">
@@ -367,7 +365,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       <dl class="brand-meta">
         <dt>key</dt><dd>default</dd>
         <dt>primary</dt><dd>#3182F6 (+ hover #1B64DA, emphasis #EBF3FF)</dd>
-        <dt>token 수</dt><dd>200 정의 / 115 사용 / 30 reserved / 8 deprecated / 47 dead</dd>
+        <dt>token 수</dt><dd>197 정의 / 117 사용 / 71 reserved / 13 deprecated / 0 dead</dd>
         <dt>baseline</dt><dd>21 페이지</dd>
       </dl>
     </div>
@@ -391,29 +389,9 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 </section>
 
 <!-- =================================================================== -->
-<section id="phases" class="section">
-  <div class="section-header">
-    <h2 class="section-title">Phase 진행 현황</h2>
-    <p class="section-desc">Phase 1~5 + 7 + 8 마라톤 완료 (2026-04-29). Phase 6 (v3 visual alignment) 은 폐기 (Phase 7-A 결정 — CRM ≠ 보닥 v3).</p>
-  </div>
-  <div class="phase-list">
-    <div class="phase-item"><div class="phase-num">1</div><div class="phase-info"><div class="phase-title">Value 토큰 165개 도입</div><div class="phase-desc">Common / Cool Neutral 20단 / 색 스케일 11개 × 10단 / Alpha 20단 / Service 2 — tokens.css</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">2</div><div class="phase-info"><div class="phase-title">Semantic Tier 신설 + Legacy alias</div><div class="phase-desc">§ 3 의미 토큰 50+. § 6.4 갭 6개는 코드 hex literal 보유 (Phase 6 정렬 예정).</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">3a</div><div class="phase-info"><div class="phase-title">컴포넌트 hex 직박이 0건</div><div class="phase-desc">15 도메인 토큰 신설. 14 컴포넌트 마이그레이션. row-stripe / status chip / nav-hover-bg 등.</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">3b</div><div class="phase-info"><div class="phase-title">Tailwind preset → 토큰 (229건)</div><div class="phase-desc">A: exact match 109건. B1: 4-6 byte 100건. B2/3: text-gray-400 16건. text-gray-300 4건은 Phase 6 보류.</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">3c</div><div class="phase-info"><div class="phase-title">Chart 팔레트 4개 + recharts 22건</div><div class="phase-desc">--chart-accent / -grid / -axis / -tooltip-border. recharts CSS var() 직접 호환.</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">4</div><div class="phase-info"><div class="phase-title">Typography 매크로 + 짝수 규칙</div><div class="phase-desc">size-only 11개 매크로 + tailwind-merge 확장. text-[NNpx] 121건 치환. 19→20 / 17→18 / 11→12 짝수 정렬 11건 + recharts 7건.</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">5</div><div class="phase-info"><div class="phase-title">B2B 화이트레이블 단일 진입점</div><div class="phase-desc">brand/ + palette/ + copy/ 분리. applyBrand() Tier 2 주입. VITE_BRAND env. sample 브랜드. WHITE_LABEL.md.</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item" style="opacity:.55;"><div class="phase-num" style="background:var(--cn-200);color:var(--cn-500);text-decoration:line-through;">6</div><div class="phase-info"><div class="phase-title" style="text-decoration:line-through;">v3 Visual Alignment Pass</div><div class="phase-desc">Phase 7-A 결정으로 폐기. CRM ≠ 보닥 v3 — § 6 갭은 더 이상 갭이 아닌 CRM 자체 spec.</div></div><div class="phase-status" style="color:var(--cn-500);">폐기</div></div>
-    <div class="phase-item"><div class="phase-num">7</div><div class="phase-info"><div class="phase-title">Scope Re-alignment + 미사용 토큰 정리</div><div class="phase-desc">7-A SCOPE.md / 7-B Brand 슬림화 + color-mix 파생 / 7-C chart-series / 7-D lint:tokens audit / 7-E 380→190 정리 / 7-F @reserved 분리</div></div><div class="phase-status">완료</div></div>
-    <div class="phase-item"><div class="phase-num">8</div><div class="phase-info"><div class="phase-title">Naming &amp; Usage Hardening</div><div class="phase-desc">8-A 컨벤션 § 11/12/13 / 8-B brand 주석 / 8-C chart-accent 통합 / 8-D 도메인 토큰 리네이밍 / 8-E PR 템플릿 / 8-F lint:tokens:check</div></div><div class="phase-status">완료</div></div>
-  </div>
-</section>
-
-<!-- =================================================================== -->
 <section id="tier1-common" class="section">
   <div class="section-header">
-    <h2 class="section-title">Tier 1 — Value Tokens<span class="section-tag">§ 2 · Phase 7-E 정리 후</span></h2>
+    <h2 class="section-title">Tier 1 — Value Tokens<span class="section-tag">§ 2</span></h2>
     <p class="section-desc">원자 팔레트. <strong>Scale primitive (cool_neutral / alpha / common / service)</strong> 풀 보존 + <strong>Feature accent (violet / amber / magenta 등)</strong> 사용 step 만 보존. "Other Color" 영역은 차트 시리즈 등 다양성 필요 영역에서 Tier 1 직접 참조 명시적 예외.</p>
   </div>
 
@@ -454,7 +432,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div id="tier1-color-scales" class="subsection">
-    <h3 class="subsection-title">§ 2.3~2.8 Feature Accent — 사용 step 만 보존 (Phase 7-E)</h3>
+    <h3 class="subsection-title">§ 2.3~2.8 Feature Accent — 사용 step 만 보존</h3>
     <p class="subsection-desc">"남의 색" 팔레트 — 차트 시리즈 / 도메인 indicator. 미사용 step 정리, 사용 step 만 유지. 신규 사용처 발생 시 § 2.0 보존 정책 따라 재추가.</p>
     <div class="tok-grid">
       <div class="tok"><div class="tok-swatch"><div style="background:#DBE4ED;"></div></div><div class="tok-info"><div class="tok-name">--blue-dim-100</div><div class="tok-meta">#DBE4ED · --bg-disabled (reserved)</div></div></div>
@@ -464,7 +442,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       <div class="tok"><div class="tok-swatch"><div style="background:#F553DA;"></div></div><div class="tok-info"><div class="tok-name">--magenta-500</div><div class="tok-meta">#F553DA · --chart-series-5</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#7D5EF7;"></div></div><div class="tok-info"><div class="tok-name">--violet-400</div><div class="tok-meta">#7D5EF7 · --chart-series-3</div></div></div>
     </div>
-    <div class="note">Phase 7-E 에서 <strong>cyan / green / lime / orange / red / purple</strong> 풀 팔레트 (~60 토큰) + 위 그룹의 미사용 단계 (~27 토큰) 모두 삭제. status (success/error/warning) 는 시스템 잠금 토큰 (<code class="chip">--status-success</code> / <code class="chip">--error</code> / <code class="chip">--warning</code>) 으로 직접 정의됨.</div>
+    <div class="note">cyan / green / lime / orange / red / purple 풀 팔레트는 도입하지 않음 — feature accent 는 사용 step 만 보존. status (success/error/warning) 는 시스템 잠금 토큰 (<code class="chip">--status-success</code> / <code class="chip">--error</code> / <code class="chip">--warning</code>) 으로 직접 정의됨.</div>
   </div>
 
   <div id="tier1-alpha" class="subsection">
@@ -503,7 +481,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="tier2-bg" class="section">
   <div class="section-header">
-    <h2 class="section-title">Tier 2 — Semantic Tokens<span class="section-tag">§ 3 / 50+ tokens</span></h2>
+    <h2 class="section-title">Tier 2 — Semantic Tokens<span class="section-tag">§ 3</span></h2>
     <p class="section-desc">의미·역할 단위. 컴포넌트는 이 Tier 만 참조. 화이트레이블 분기점 (<span class="tag-free">@brand-free</span> 가 applyBrand() 갱신 대상).</p>
   </div>
 
@@ -567,17 +545,17 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="domain-row" class="section">
   <div class="section-header">
-    <h2 class="section-title">도메인 / 시스템 보강 토큰<span class="section-tag">Phase 3a-3c · § 6.4 (CRM spec)</span></h2>
-    <p class="section-desc">CRM 자체 도메인 토큰 — 코드 hex literal 그대로 정본 (Phase 7-A 확정). v3 정렬은 폐기됨.</p>
+    <h2 class="section-title">도메인 / 시스템 보강 토큰<span class="section-tag">§ 6.4</span></h2>
+    <p class="section-desc">CRM 자체 도메인 토큰 — 코드 hex literal 그대로 정본. CRM ≠ 보닥 v3 (SCOPE.md § 1).</p>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">시스템 보강 (Phase 8-D 정합 이름)</h3>
-    <p class="subsection-desc">§ 11 Naming Conventions 정합 이름. 구 이름 (`--row-stripe`, `--kanban-column-bg`, `--danger-hover` 등) 은 deprecated alias 로 1년 (2027-04-29) 까지 유지.</p>
+    <h3 class="subsection-title">시스템 보강 — 정합 이름</h3>
+    <p class="subsection-desc">§ 11 Naming Conventions 정합 이름. 구 이름 (`--row-stripe`, `--kanban-column-bg`, `--danger-hover` 등) 은 deprecated alias 로 2027-04-29 까지 유지.</p>
     <div class="tok-grid">
       <div class="tok"><div class="tok-swatch"><div style="background:#FAFBFC;border:1px solid var(--color-border);"></div></div><div class="tok-info"><div class="tok-name">--bg-row-stripe</div><div class="tok-meta">#FAFBFC · DataTable 짝수행 (구 --row-stripe)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-row-hover</div><div class="tok-meta">#F3F4F6 · 행 hover (구 --row-hover)</div></div></div>
-      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-faint</div><div class="tok-meta">#F3F4F6 · light tint (Phase 3b)</div></div></div>
+      <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--bg-faint</div><div class="tok-meta">#F3F4F6 · light tint</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F0F1F3;"></div></div><div class="tok-info"><div class="tok-name">--bg-selected-subtle</div><div class="tok-meta">#F0F1F3 · 활성 칩/메뉴</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F0F2F5;"></div></div><div class="tok-info"><div class="tok-name">--bg-kanban-column</div><div class="tok-meta">#F0F2F5 · 칸반 컬럼 (구 --kanban-column-bg)</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F3F5;"></div></div><div class="tok-info"><div class="tok-name">--bg-app-body</div><div class="tok-meta">#F3F3F5 · App 본문 wrap</div></div></div>
@@ -589,7 +567,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div id="domain-status" class="subsection">
-    <h3 class="subsection-title">상태 칩 페어 (Phase 3a) — Badge weak</h3>
+    <h3 class="subsection-title">상태 칩 페어 — Badge weak</h3>
     <div class="demo">
       <div class="demo-row">
         <span class="badge badge-info">primary weak · 종합진단</span>
@@ -611,7 +589,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div id="domain-chart" class="subsection">
-    <h3 class="subsection-title">차트 팔레트 (Phase 3c) — recharts 전용</h3>
+    <h3 class="subsection-title">차트 팔레트 — recharts 전용</h3>
     <div class="tok-grid">
       <div class="tok"><div class="tok-swatch"><div style="background:var(--chart-series-1);"></div></div><div class="tok-info"><div class="tok-name">--chart-accent <span style="opacity:.6;font-size:9px;">(deprecated)</span></div><div class="tok-meta">→ var(--chart-series-1) · 2027-04-29 정식 삭제</div></div></div>
       <div class="tok"><div class="tok-swatch"><div style="background:#F3F4F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-grid</div><div class="tok-meta">= --bg-faint</div></div></div>
@@ -621,7 +599,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div id="domain-chart-series" class="subsection">
-    <h3 class="subsection-title">Other Color · chart-series 1~5 (Phase 7-C)</h3>
+    <h3 class="subsection-title">Other Color · chart-series 1~5</h3>
     <p class="subsection-desc">다중 시리즈 차트용 액센트 팔레트. 1·2 = brand swap (primary / secondary), 3·4·5 = Value 직접 참조 (violet / amber / magenta). secondary 미설정 brand 는 chart-series-2 가 primary fallback (applyBrand 가 palette.secondary 있을 때만 덮어씀).</p>
     <div class="tok-grid">
       <div class="tok"><div class="tok-swatch"><div style="background:#3182F6;"></div></div><div class="tok-info"><div class="tok-name">--chart-series-1</div><div class="tok-meta">= primary <span class="tag-free">brand swap</span></div></div></div>
@@ -636,8 +614,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="naming" class="section">
   <div class="section-header">
-    <h2 class="section-title">§ 11 Naming Conventions<span class="section-tag">Phase 8-A 도입</span></h2>
-    <p class="section-desc">토큰 이름은 <strong>prefix-suffix 룰</strong> 로 카테고리·상태·위계를 표현. 신규 토큰은 본 룰을 따른다 — § 6.4 도메인 토큰의 임의 명명은 Phase 8-D 에서 alias 비파괴 마이그레이션 완료.</p>
+    <h2 class="section-title">§ 11 Naming Conventions</h2>
+    <p class="section-desc">토큰 이름은 <strong>prefix-suffix 룰</strong> 로 카테고리·상태·위계를 표현. 신규 토큰은 본 룰을 따른다.</p>
   </div>
 
   <div class="subsection">
@@ -683,14 +661,14 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <span class="c">// 상태인지 컴포넌트인지 모호</span>
 ❌ --danger-hover      → ✅ --button-danger-hover
     </div>
-    <div class="note">기존 도메인 토큰은 Phase 8-D 에서 신규 이름으로 마이그레이션됨. 구 이름은 deprecated alias 로 1년 (2027-04-29) 까지 유지.</div>
+    <div class="note">기존 도메인 토큰의 구 이름은 deprecated alias 로 2027-04-29 까지 유지. 신규 토큰은 본 컨벤션을 따른다.</div>
   </div>
 </section>
 
 <!-- =================================================================== -->
 <section id="decision-tree" class="section">
   <div class="section-header">
-    <h2 class="section-title">§ 12 신규 색 추가 결정 트리<span class="section-tag">Phase 8-A 도입</span></h2>
+    <h2 class="section-title">§ 12 신규 색 추가 결정 트리</h2>
     <p class="section-desc">새 색이 필요할 때 *어떤 Tier* 에 추가할지 판단. <strong>Tier 2 우선, 도메인은 차순위.</strong> 도메인 토큰은 Tier 2 의 특수 변종 역할 — 별도 카테고리가 아님.</p>
   </div>
 
@@ -720,7 +698,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="tailwind-map" class="section">
   <div class="section-header">
-    <h2 class="section-title">§ 13 Tailwind 유틸 매핑<span class="section-tag">Phase 8-A 도입 · @theme alias 39 + deprecated 6</span></h2>
+    <h2 class="section-title">§ 13 Tailwind 유틸 매핑<span class="section-tag">@theme alias 39 + deprecated 6</span></h2>
     <p class="section-desc">Tailwind v4 의 <code class="chip">@theme</code> 안 <code class="chip">--color-{x}</code> alias 만 utility (<code class="chip">bg-{x}</code> / <code class="chip">text-{x}</code> / <code class="chip">border-{x}</code> 등) 로 매핑된다. 본 표는 현재 <code class="chip">src/index.css @theme</code> 의 정확한 매핑.</p>
   </div>
 
@@ -771,7 +749,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <div class="subsection">
     <h3 class="subsection-title">Domain / Status Chip</h3>
     <table style="width:100%;border-collapse:collapse;font-size:12px;">
-      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체 (Phase 8-D 정합)</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
+      <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">본체</th><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">대표 utility</th></tr></thead>
       <tbody>
         <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-row-stripe</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-stripe</code></td></tr>
         <tr><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--bg-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">--color-bg-row-hover</code></td><td style="padding:5px 10px;border-top:1px solid var(--cn-100);"><code class="chip">bg-bg-row-hover</code></td></tr>
@@ -790,7 +768,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Deprecated alias (Phase 8-D · 2027-04-29 정식 삭제)</h3>
+    <h3 class="subsection-title">Deprecated alias (2027-04-29 정식 삭제 예정)</h3>
     <table style="width:100%;border-collapse:collapse;font-size:12px;opacity:.7;">
       <thead><tr style="background:var(--cn-50);text-align:left;"><th style="padding:6px 10px;">@theme alias</th><th style="padding:6px 10px;">utility (구)</th><th style="padding:6px 10px;">→ 신규 권장</th></tr></thead>
       <tbody>
@@ -808,7 +786,7 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
     <h3 class="subsection-title">var() 직접 참조만 (alias 없음)</h3>
     <p class="subsection-desc">다음 본체는 <code class="chip">@theme alias</code> 가 없어 Tailwind utility 로 사용할 수 없다. CSS <code class="chip">var(--xxx)</code> 또는 inline <code class="chip">style</code> 로 참조.</p>
     <ul style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
-      <li><strong>Reserved (30, Phase 7-F)</strong>: <code class="chip">--bg-secondary/-tertiary/-disabled</code>, <code class="chip">--text-tertiary/-inverse-*</code>, <code class="chip">--icon-* (active/accent 제외 6개)</code>, <code class="chip">--border-selected/-transparent</code>, <code class="chip">--overlay-50</code>, <code class="chip">--modal-surface-*</code>, <code class="chip">--button-surface-*</code>, <code class="chip">--button-inverse-primary</code>, <code class="chip">--text-background</code>, <code class="chip">--static-* (7개)</code></li>
+      <li><strong>Reserved (71, 의도된 spec 정의)</strong>: Scale primitive 미사용 단계 (cool_neutral 8 + alpha_white 7 + alpha_black 6) + Tier 2 brand-bound + Spacing/Typography 골격 + Semantic 잠금 — 자세한 목록은 <code class="chip">npm run lint:tokens</code> 출력의 Reserved 섹션 참조.</li>
       <li><strong>차트 (recharts inline)</strong>: <code class="chip">--chart-grid</code>, <code class="chip">--chart-axis</code>, <code class="chip">--chart-tooltip-border</code>, <code class="chip">--chart-series-1 ~ -5</code></li>
       <li><strong>brand-bound</strong>: <code class="chip">--accent</code>, <code class="chip">--text-accent</code>, <code class="chip">--icon-active</code>, <code class="chip">--icon-accent</code>, <code class="chip">--bg-emphasis-secondary</code>, <code class="chip">--button-accent-secondary/-tertiary/-extra</code>, <code class="chip">--list-overlay-disabled</code>, <code class="chip">--brand-primary-hover</code></li>
     </ul>
@@ -819,8 +797,8 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 <!-- =================================================================== -->
 <section id="typo-macros" class="section">
   <div class="section-header">
-    <h2 class="section-title">Typography<span class="section-tag">Phase 4 · size-only 11개</span></h2>
-    <p class="section-desc">매크로는 <strong>size only</strong>. weight 는 Tailwind 네이티브 (<code class="chip">font-medium</code> / <code class="chip">font-semibold</code>) 와 조합. line-height / letter-spacing 은 Phase 6 별도 합의 후 추가 가능.</p>
+    <h2 class="section-title">Typography<span class="section-tag">size-only 11개</span></h2>
+    <p class="section-desc">매크로는 <strong>size only</strong>. weight 는 Tailwind 네이티브 (<code class="chip">font-medium</code> / <code class="chip">font-semibold</code>) 와 조합. line-height / letter-spacing 은 별도 합의 후 추가 가능.</p>
   </div>
   <div style="display:flex;gap:32px;align-items:flex-start;">
     <div style="flex:1;">
@@ -828,12 +806,12 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-h2</div><div class="type-px">34px</div></div><div class="type-sample" style="font-size:34px;font-weight:600;">페이지 메인 제목</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-h3</div><div class="type-px">24px</div></div><div class="type-sample" style="font-size:24px;font-weight:600;">섹션 헤딩</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-h4</div><div class="type-px">22px</div></div><div class="type-sample" style="font-size:22px;font-weight:600;">TopBar 제목 / KPI 수치</div></div>
-      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h5</div><div class="type-px">20px</div></div><div class="type-sample" style="font-size:20px;font-weight:600;">PageHeader 제목 (19→20)</div></div>
-      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body1</div><div class="type-px">18px</div></div><div class="type-sample" style="font-size:18px;font-weight:600;">CustomerHeader 제목 (17→18)</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-h5</div><div class="type-px">20px</div></div><div class="type-sample" style="font-size:20px;font-weight:600;">PageHeader 제목</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body1</div><div class="type-px">18px</div></div><div class="type-sample" style="font-size:18px;font-weight:600;">CustomerHeader 제목</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-body2</div><div class="type-px">16px</div></div><div class="type-sample" style="font-size:16px;font-weight:600;">서브 헤딩</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-body3</div><div class="type-px">14px ★</div></div><div class="type-sample" style="font-size:14px;font-weight:500;">본문 표준 — 한국 사용자에게 가장 친숙한 본문 크기</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-body4</div><div class="type-px">13px (홀수 예외)</div></div><div class="type-sample" style="font-size:13px;font-weight:500;">보조 텍스트, 페이지네이션, 버튼 sm</div></div>
-      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body5</div><div class="type-px">12px</div></div><div class="type-sample" style="font-size:12px;font-weight:400;">캡션 본문, Badge (11→12)</div></div>
+      <div class="type-row"><div class="type-meta"><div class="type-name">.text-body5</div><div class="type-px">12px</div></div><div class="type-sample" style="font-size:12px;font-weight:400;">캡션 본문, Badge</div></div>
       <div class="type-row"><div class="type-meta"><div class="type-name">.text-caption</div><div class="type-px">10px</div></div><div class="type-sample" style="font-size:10px;font-weight:400;">최소 캡션</div></div>
     </div>
   </div>
@@ -846,10 +824,10 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
 36 / 34 / 24 / 22 / 20 / 18 / 16 / 14 / <span class="k">13</span> / 12 / 10
 
 <span class="c">// ❌ 사용 금지 → ✅ 정렬</span>
-11 → 12  <span class="c">(Badge / 캘린더 요일 — Phase 4-C, 7건)</span>
-17 → 18  <span class="c">(CustomerHeader 제목 — Phase 4-C, 1건)</span>
-19 → 20  <span class="c">(PageHeader 제목 — Phase 4-C, 3건)</span>
-inline 11 → 12  <span class="c">(HomeDashboard recharts axis — Phase 4-D, 7건)</span>
+11 → 12  <span class="c">(Badge / 캘린더 요일)</span>
+17 → 18  <span class="c">(CustomerHeader 제목)</span>
+19 → 20  <span class="c">(PageHeader 제목)</span>
+inline 11 → 12  <span class="c">(recharts axis tick)</span>
     </div>
   </div>
 
@@ -863,14 +841,14 @@ body4_normal      ↔ <span class="s">"text-body4"</span>      <span class="c">/
 h4                ↔ <span class="s">"text-h4 font-semibold"</span>
 caption           ↔ <span class="s">"text-caption"</span>
     </div>
-    <div class="note">cn() 의 tailwind-merge 확장으로 override 시 size만 교체되고 weight 보존됨 — Phase 4-B-pre. 예: <code class="chip">cn('text-body5 font-medium', 'text-[11px]')</code> → <code class="chip">'text-[11px] font-medium'</code></div>
+    <div class="note">cn() 의 tailwind-merge 확장으로 override 시 size만 교체되고 weight 보존됨. 예: <code class="chip">cn('text-body5 font-medium', 'text-[11px]')</code> → <code class="chip">'text-[11px] font-medium'</code></div>
   </div>
 </section>
 
 <!-- =================================================================== -->
 <section id="radius" class="section">
   <div class="section-header">
-    <h2 class="section-title">Radius (Border Radius)<span class="section-tag">§ 7.4</span></h2>
+    <h2 class="section-title">Radius (Border Radius)</h2>
   </div>
   <div class="rad-grid">
     <div><div class="rad-box" style="border-radius:4px;">sm 4</div><div class="note" style="background:none;border:none;padding:6px 0;">버튼 xs/sm, 인풋, 칩</div></div>
@@ -1007,14 +985,14 @@ caption           ↔ <span class="s">"text-caption"</span>
         </tbody>
       </table>
     </div>
-    <div class="note">홀수행 <code class="chip">--bg-row-stripe</code> 줄무늬 + hover <code class="chip">--bg-row-hover</code>. Phase 8-D 정합 이름 사용.</div>
+    <div class="note">홀수행 <code class="chip">--bg-row-stripe</code> 줄무늬 + hover <code class="chip">--bg-row-hover</code>.</div>
   </div>
 </section>
 
 <!-- =================================================================== -->
 <section id="brand" class="section">
   <div class="section-header">
-    <h2 class="section-title">Brand 구조<span class="section-tag">Phase 7-B · § 8 (슬림화)</span></h2>
+    <h2 class="section-title">Brand 구조<span class="section-tag">§ 8</span></h2>
     <p class="section-desc">B2B 화이트레이블 단일 진입점. 컴포넌트 코드 수정 0 으로 새 customer 추가 가능 — 신규 brand 는 hex 1개 (primary) 만 제공해도 운영 가능, hover/emphasis/secondary 는 <code class="chip">color-mix(in srgb, ...)</code> 자동 파생.</p>
   </div>
 
@@ -1084,7 +1062,7 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
   </div>
 
   <div id="brand-apply" class="subsection">
-    <h3 class="subsection-title">applyBrand() 갱신 대상 (Phase 7-B 슬림화 후)</h3>
+    <h3 class="subsection-title">applyBrand() 갱신 대상</h3>
     <div class="code">
 <span class="c">// primary swap (필수)</span>
 <span class="s">--button-accent-primary</span>           = palette.primary
@@ -1114,7 +1092,7 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
 <!-- =================================================================== -->
 <section id="contributing" class="section">
   <div class="section-header">
-    <h2 class="section-title">운영 가이드 (Contributing)<span class="section-tag">Phase 8-E/F</span></h2>
+    <h2 class="section-title">운영 가이드 (Contributing)</h2>
     <p class="section-desc">신규 토큰·컴포넌트·브랜드 추가 절차 + lint:tokens 거버넌스 + PR 템플릿. 자세한 절차는 <code class="chip">docs/CONTRIBUTING.md</code>.</p>
   </div>
 
@@ -1127,7 +1105,7 @@ $ VITE_BRAND=sample npm run dev    <span class="c"># sample (red 톤 데모)</sp
       <li><code class="chip">src/styles/tokens.css</code> + <code class="chip">src/index.css @theme</code> 양쪽 갱신.</li>
       <li><code class="chip">design-system.html</code> 시각화 추가.</li>
       <li><code class="chip">npm run lint:tokens</code> 통과 (전체 audit).</li>
-      <li><strong><code class="chip">npm run lint:tokens:check</code> 통과</strong> (Phase 8-F PR 시점 강제 — 신규 토큰 사용처 / @reserved / @deprecated 분류).</li>
+      <li><strong><code class="chip">npm run lint:tokens:check</code> 통과</strong> (PR 시점 강제 — 신규 토큰 사용처 / @reserved / @deprecated 분류).</li>
       <li>PR 템플릿 체크리스트 모두 통과.</li>
     </ol>
   </div>
@@ -1162,9 +1140,9 @@ $ npm run lint:tokens:check:since=HEAD~1
 
 <!-- =================================================================== -->
 <footer style="margin-top:80px;padding-top:24px;border-top:1px solid var(--color-border);font-size:11px;color:var(--color-text-disabled);text-align:center;line-height:1.8;">
-  <div>보닥 플래너 CRM 디자인 시스템 — Phase 1~5 + 7 + 8 완료 (2026-04-29) · CRM ≠ 보닥 v3</div>
-  <div>출처: <code class="chip">DESIGN_SYSTEM.md</code> · <code class="chip">docs/SCOPE.md</code> · <code class="chip">docs/WHITE_LABEL.md</code> · <code class="chip">docs/visual-baseline/</code> · <code class="chip">scripts/lint-tokens.mjs</code></div>
-  <div style="margin-top:6px;">현재 활성: default 브랜드 / 21 baseline 페이지 / 200 토큰 정의 (115 사용 + 30 reserved + 8 deprecated + 47 dead) / 11 Typography 매크로</div>
+  <div>보닥 플래너 CRM 디자인 시스템 · CRM ≠ 보닥 v3</div>
+  <div>출처: <code class="chip">DESIGN_SYSTEM.md</code> · <code class="chip">docs/SCOPE.md</code> · <code class="chip">docs/WHITE_LABEL.md</code> · <code class="chip">scripts/lint-tokens.mjs</code></div>
+  <div style="margin-top:6px;">현재 활성: default 브랜드 / 197 토큰 정의 (117 사용 + 71 reserved + 13 deprecated + 0 dead) / 11 Typography 매크로</div>
 </footer>
 
 </main>
