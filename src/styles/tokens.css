@@ -174,12 +174,12 @@
   --button-danger-active: #d44040;  /* @brand-safe — Button danger active */
 
   /* Phase 8-D 호환 alias (2027-04-29 정식 삭제 예정) */
-  --row-stripe: var(--bg-row-stripe);              /* @deprecated → use --bg-row-stripe */
-  --row-hover: var(--bg-row-hover);                /* @deprecated → use --bg-row-hover */
-  --kanban-column-bg: var(--bg-kanban-column);     /* @deprecated → use --bg-kanban-column */
-  --nav-hover-bg: var(--bg-nav-hover);             /* @deprecated → use --bg-nav-hover */
-  --danger-hover: var(--button-danger-hover);      /* @deprecated → use --button-danger-hover */
-  --danger-active: var(--button-danger-active);    /* @deprecated → use --button-danger-active */
+  --row-stripe: var(--bg-row-stripe);              /* @deprecated → use --bg-row-stripe. 2027-04-29 정식 삭제 */
+  --row-hover: var(--bg-row-hover);                /* @deprecated → use --bg-row-hover. 2027-04-29 정식 삭제 */
+  --kanban-column-bg: var(--bg-kanban-column);     /* @deprecated → use --bg-kanban-column. 2027-04-29 정식 삭제 */
+  --nav-hover-bg: var(--bg-nav-hover);             /* @deprecated → use --bg-nav-hover. 2027-04-29 정식 삭제 */
+  --danger-hover: var(--button-danger-hover);      /* @deprecated → use --button-danger-hover. 2027-04-29 정식 삭제 */
+  --danger-active: var(--button-danger-active);    /* @deprecated → use --button-danger-active. 2027-04-29 정식 삭제 */
 
   /* 기존 — 컨벤션 정합 유지 */
   --bg-selected-subtle: #F0F1F3;    /* @brand-safe — 페이지네이션 활성/사이드 메뉴 선택/상태칩 비활성 */

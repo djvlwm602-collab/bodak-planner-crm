@@ -337,12 +337,15 @@ async function main() {
   // @reserved 마크된 토큰은 별도 분류 — 미사용이라도 의도적 reserve 로 카운트 분리
   const reservedNames = allTokens.filter(t => tokens.get(t).reserved);
   const reservedSet = new Set(reservedNames);
-  const unusedTokens = allTokens.filter(t => !usedDefined.has(t) && !reservedSet.has(t));
+  // @deprecated 마크된 토큰도 별도 분류 — 1년 유예 호환 alias 는 의도된 미사용
+  const deprecatedNames = allTokens.filter(t => tokens.get(t).deprecated && !reservedSet.has(t));
+  const deprecatedSet = new Set(deprecatedNames);
+  const unusedTokens = allTokens.filter(t => !usedDefined.has(t) && !reservedSet.has(t) && !deprecatedSet.has(t));
 
-  // 그룹별 (reserved 토큰은 그룹 통계에서 제외 — Value 그룹에 속하는 reserved 거의 없음)
+  // 그룹별 (reserved/deprecated 토큰은 그룹 통계에서 제외 — Value 그룹에 속하는 경우 거의 없음)
   const byGroup = {};
   for (const t of allTokens) {
-    if (reservedSet.has(t)) continue;
+    if (reservedSet.has(t) || deprecatedSet.has(t)) continue;
     const grp = getGroup(t);
     if (!grp) continue;
     if (!byGroup[grp]) byGroup[grp] = { total: 0, unused: 0, unusedNames: [] };
@@ -353,13 +356,16 @@ async function main() {
     }
   }
 
-  // 카테고리별 (reserved 는 'Reserved (spec)' 카테고리로 별도 분리)
+  // 카테고리별 (reserved 는 'Reserved (spec)', deprecated 는 'Deprecated (1년 유예)' 로 별도 분리)
   const byCategory = {};
   for (const t of allTokens) {
-    const cat = reservedSet.has(t) ? 'Reserved (spec)' : categorize(t);
+    let cat;
+    if (reservedSet.has(t)) cat = 'Reserved (spec)';
+    else if (deprecatedSet.has(t)) cat = 'Deprecated (1년 유예)';
+    else cat = categorize(t);
     if (!byCategory[cat]) byCategory[cat] = { total: 0, unused: 0, unusedNames: [] };
     byCategory[cat].total++;
-    if (!usedDefined.has(t) && !reservedSet.has(t)) {
+    if (!usedDefined.has(t) && !reservedSet.has(t) && !deprecatedSet.has(t)) {
       byCategory[cat].unused++;
       byCategory[cat].unusedNames.push(t);
     }
@@ -369,11 +375,13 @@ async function main() {
     console.log(JSON.stringify({
       defined: allTokens.length,
       reserved: reservedNames.length,
+      deprecated: deprecatedNames.length,
       used: usedDefined.size,
       unused: unusedTokens.length,
       byGroup,
       byCategory,
       reservedTokens: reservedNames,
+      deprecatedTokens: deprecatedNames,
       unusedTokens: unusedTokens.map(t => ({ name: t, group: getGroup(t), category: categorize(t) })),
     }, null, 2));
     return;
@@ -382,8 +390,9 @@ async function main() {
   console.log('=== Token Usage Audit ===');
   console.log(`정의된 토큰: ${allTokens.length} 개`);
   console.log(`Reserved (spec, 의도적 미사용): ${reservedNames.length} 개`);
+  console.log(`Deprecated (1년 유예 alias): ${deprecatedNames.length} 개`);
   console.log(`사용 중: ${usedDefined.size} 개`);
-  console.log(`미사용 (reserved 제외): ${unusedTokens.length} 개`);
+  console.log(`미사용 (reserved/deprecated 제외): ${unusedTokens.length} 개`);
 
   console.log('\n── 그룹별 미사용 ──');
   const sortedGroups = Object.entries(byGroup).sort((a, b) =>
@@ -415,6 +424,13 @@ async function main() {
     console.log('\n── Reserved (spec) 목록 ──');
     for (const t of reservedNames.sort()) {
       console.log(`${t.padEnd(40)} spec 정의 (의도적 미사용)`);
+    }
+  }
+
+  if (deprecatedNames.length > 0) {
+    console.log('\n── Deprecated (1년 유예 alias) 목록 ──');
+    for (const t of deprecatedNames.sort()) {
+      console.log(`${t.padEnd(40)} 호환 alias (정식 삭제 예정)`);
     }
   }
 
