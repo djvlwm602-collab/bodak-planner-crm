@@ -333,8 +333,12 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <a href="#comp-kpi" class="sidebar-link">KPI Card</a>
   <a href="#comp-input" class="sidebar-link">Input</a>
   <a href="#comp-chip" class="sidebar-link">FilterChip / DateRangeChip</a>
+  <a href="#comp-input-chip" class="sidebar-link">InputChip</a>
+  <a href="#comp-select" class="sidebar-link">SelectField</a>
   <a href="#comp-pagination" class="sidebar-link">Pagination</a>
   <a href="#comp-datatable" class="sidebar-link">DataTable</a>
+  <a href="#comp-summary" class="sidebar-link">SummaryStats</a>
+  <a href="#comp-approval" class="sidebar-link">ApprovalActions</a>
 
   <div class="sidebar-label">Brand</div>
   <a href="#brand" class="sidebar-link">Default / Sample</a>
@@ -986,6 +990,78 @@ caption           ↔ <span class="s">"text-caption"</span>
       </table>
     </div>
     <div class="note">홀수행 <code class="chip">--bg-row-stripe</code> 줄무늬 + hover <code class="chip">--bg-row-hover</code>.</div>
+  </div>
+
+  <div id="comp-input-chip" class="subsection">
+    <h3 class="subsection-title">InputChip — 인라인 입력 + 자동완성</h3>
+    <div class="demo" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;">
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--border-primary);background:var(--common-100);font-size:13px;color:var(--text-secondary);">
+        <span>고객명</span>
+        <input placeholder="입력하세요" style="border:0;outline:none;font-size:13px;width:80px;background:transparent;" />
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--button-accent-primary);background:#EBF3FF;font-size:13px;color:var(--text-secondary);">
+        <span>고객명</span>
+        <span style="color:var(--button-accent-primary);font-weight:500;">홍길동</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:99px;background:var(--cn-300);color:var(--common-100);font-size:10px;cursor:pointer;">×</span>
+      </div>
+    </div>
+    <div class="note">칩 형태 입력 — 클릭 시 입력모드 + 자동완성 드롭다운. 값 있을 때 X 클리어 버튼 노출. <code class="chip">FilterChip</code> 와 같은 selected 스타일 (<code class="chip">--button-accent-primary</code> border + emphasis primary bg).</div>
+  </div>
+
+  <div id="comp-select" class="subsection">
+    <h3 class="subsection-title">SelectField — 커스텀 화살표 select 래퍼</h3>
+    <div class="demo" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">기간</span>
+        <div style="position:relative;width:180px;">
+          <select style="width:100%;appearance:none;border:1px solid var(--border-primary);border-radius:6px;padding:8px 28px 8px 12px;font-size:13px;color:var(--text-primary);background:var(--common-100);cursor:pointer;">
+            <option>최근 30일</option>
+            <option>최근 7일</option>
+            <option>최근 90일</option>
+          </select>
+          <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-secondary);pointer-events:none;font-size:11px;">▼</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">정렬</span>
+        <div style="position:relative;width:140px;">
+          <select style="width:100%;appearance:none;border:1px solid var(--border-primary);border-radius:6px;padding:8px 28px 8px 12px;font-size:13px;color:var(--text-primary);background:var(--common-100);cursor:pointer;">
+            <option>최신순</option>
+            <option>이름순</option>
+          </select>
+          <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-secondary);pointer-events:none;font-size:11px;">▼</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">label (옵션) + 화살표 자동 포함 (<code class="chip">lucide-react ChevronDown</code>). focus 시 border <code class="chip">--text-primary</code>. 필터·폼 셀렉트 공통.</div>
+  </div>
+
+  <div id="comp-summary" class="subsection">
+    <h3 class="subsection-title">SummaryStats — 상단 현황 요약 바</h3>
+    <div class="demo">
+      <div style="display:flex;align-items:center;gap:16px;font-size:13px;padding:12px 0;">
+        <span style="color:var(--text-secondary);">전체 <span style="color:var(--text-primary);font-weight:600;">1,234건</span></span>
+        <span style="width:1px;height:12px;background:var(--border-subtle);"></span>
+        <span style="color:var(--text-secondary);">계약 완료 <span style="color:var(--text-primary);font-weight:600;">456건</span></span>
+        <span style="width:1px;height:12px;background:var(--border-subtle);"></span>
+        <span style="color:var(--text-secondary);">상담 중 <span style="color:var(--text-primary);font-weight:600;">312건</span></span>
+        <span style="width:1px;height:12px;background:var(--border-subtle);"></span>
+        <span style="color:var(--text-secondary);">전환율 <span style="color:var(--text-primary);font-weight:600;">37%</span></span>
+      </div>
+    </div>
+    <div class="note">"라벨 N단위" 항목을 세로 구분선 (<code class="chip">--border-subtle</code>) 으로 나열. 값은 <code class="chip">font-semibold</code> 강조. 항목 배열 (<code class="chip">{ label, value, unit? }[]</code>) 주입 — 페이지 헤더 요약 영역에 사용.</div>
+  </div>
+
+  <div id="comp-approval" class="subsection">
+    <h3 class="subsection-title">ApprovalActions — 승인/거절 버튼 쌍</h3>
+    <div class="demo" style="display:flex;gap:24px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button style="padding:4px 12px;font-size:12px;font-weight:500;border-radius:6px;border:0;background:#EBF3FF;color:var(--button-accent-primary);cursor:pointer;">승인</button>
+        <button style="padding:4px 12px;font-size:12px;font-weight:500;border-radius:6px;border:0;background:#FFEBEB;color:var(--error);cursor:pointer;">거절</button>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);">관리자/설계사 승인 목록 행에서 인라인 사용</div>
+    </div>
+    <div class="note">승인은 <strong>weak primary 톤</strong> (<code class="chip">bg-primary-subtle</code> + <code class="chip">text-primary</code>), 거절은 <strong>danger 서브틀 톤</strong> (<code class="chip">bg-danger-subtle</code> + <code class="chip">text-danger</code>). 라벨/핸들러 주입 가능.</div>
   </div>
 </section>
 
