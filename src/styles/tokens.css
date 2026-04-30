@@ -21,23 +21,23 @@
   --cool-neutral-50:  #F9F9F9;
   --cool-neutral-100: #F2F4F6;
   --cool-neutral-150: #E9EBEF;
-  --cool-neutral-200: #E1E3E7;
+  --cool-neutral-200: #E1E3E7; /* @reserved — 의도된 spec 정의 */
   --cool-neutral-250: #DAD7DC; /* ⚠️ */
   --cool-neutral-300: #C8C9CE;
-  --cool-neutral-350: #B5B6BF;
+  --cool-neutral-350: #B5B6BF; /* @reserved — 의도된 spec 정의 */
   --cool-neutral-400: #A4A8AF;
-  --cool-neutral-450: #969A9F;
+  --cool-neutral-450: #969A9F; /* @reserved — 의도된 spec 정의 */
   --cool-neutral-500: #898B93;
   --cool-neutral-550: #7D8085;
-  --cool-neutral-600: #6F7177;
-  --cool-neutral-650: #61656A;
+  --cool-neutral-600: #6F7177; /* @reserved — 의도된 spec 정의 */
+  --cool-neutral-650: #61656A; /* @reserved — 의도된 spec 정의 */
   --cool-neutral-700: #54595E;
   --cool-neutral-750: #494D53;
   --cool-neutral-800: #3D4147;
-  --cool-neutral-850: #31353A;
-  --cool-neutral-900: #26282D;
+  --cool-neutral-850: #31353A; /* @reserved — 의도된 spec 정의 */
+  --cool-neutral-900: #26282D; /* @reserved — 의도된 spec 정의 */
   --cool-neutral-950: #1D2024;
-  --cool-neutral-990: #161B1C;
+  --cool-neutral-990: #161B1C; /* @reserved — 의도된 spec 정의 */
 
   /* ── § 2.3 Blue Dim — 사용 step 만 보존 (Phase 7-E) ── */
   --blue-dim-100: #DBE4ED;
@@ -58,28 +58,28 @@
   --violet-400: #7D5EF7;
 
   /* ── § 2.15 Alpha White (오버레이·그라데이션 전용) ── */
-  --alpha-white-50:  rgba(255, 255, 255, 0.05);
-  --alpha-white-100: rgba(255, 255, 255, 0.10);
-  --alpha-white-200: rgba(255, 255, 255, 0.20);
-  --alpha-white-300: rgba(255, 255, 255, 0.30);
+  --alpha-white-50:  rgba(255, 255, 255, 0.05); /* @reserved — 의도된 spec 정의 */
+  --alpha-white-100: rgba(255, 255, 255, 0.10); /* @reserved — 의도된 spec 정의 */
+  --alpha-white-200: rgba(255, 255, 255, 0.20); /* @reserved — 의도된 spec 정의 */
+  --alpha-white-300: rgba(255, 255, 255, 0.30); /* @reserved — 의도된 spec 정의 */
   --alpha-white-400: rgba(255, 255, 255, 0.40);
-  --alpha-white-500: rgba(255, 255, 255, 0.50);
-  --alpha-white-600: rgba(255, 255, 255, 0.60);
+  --alpha-white-500: rgba(255, 255, 255, 0.50); /* @reserved — 의도된 spec 정의 */
+  --alpha-white-600: rgba(255, 255, 255, 0.60); /* @reserved — 의도된 spec 정의 */
   --alpha-white-700: rgba(255, 255, 255, 0.70);
   --alpha-white-800: rgba(255, 255, 255, 0.80);
-  --alpha-white-900: rgba(255, 255, 255, 0.90);
+  --alpha-white-900: rgba(255, 255, 255, 0.90); /* @reserved — 의도된 spec 정의 */
 
   /* ── § 2.15 Alpha Black ── */
   --alpha-black-50:  rgba(0, 0, 0, 0.05);
   --alpha-black-100: rgba(0, 0, 0, 0.10);
-  --alpha-black-200: rgba(0, 0, 0, 0.20);
-  --alpha-black-300: rgba(0, 0, 0, 0.30);
+  --alpha-black-200: rgba(0, 0, 0, 0.20); /* @reserved — 의도된 spec 정의 */
+  --alpha-black-300: rgba(0, 0, 0, 0.30); /* @reserved — 의도된 spec 정의 */
   --alpha-black-400: rgba(0, 0, 0, 0.40);
   --alpha-black-500: rgba(0, 0, 0, 0.50);
-  --alpha-black-600: rgba(0, 0, 0, 0.60);
-  --alpha-black-700: rgba(0, 0, 0, 0.70);
-  --alpha-black-800: rgba(0, 0, 0, 0.80);
-  --alpha-black-900: rgba(0, 0, 0, 0.90);
+  --alpha-black-600: rgba(0, 0, 0, 0.60); /* @reserved — 의도된 spec 정의 */
+  --alpha-black-700: rgba(0, 0, 0, 0.70); /* @reserved — 의도된 spec 정의 */
+  --alpha-black-800: rgba(0, 0, 0, 0.80); /* @reserved — 의도된 spec 정의 */
+  --alpha-black-900: rgba(0, 0, 0, 0.90); /* @reserved — 의도된 spec 정의 */
 
 
   /* ============================================================
@@ -97,7 +97,7 @@
   --bg-tertiary: var(--cool-neutral-100);           /* @brand-safe @reserved */
   --bg-disabled: var(--blue-dim-100);               /* @brand-safe @reserved */
   --bg-emphasis-primary: #EBF3FF;                   /* @brand-free — 보닥 light tint, § 6.2 갭 */
-  --bg-emphasis-secondary: var(--blue-50);          /* @brand-safe */
+  --bg-emphasis-secondary: var(--blue-50);          /* @brand-safe @reserved — 의도된 spec 정의 */
 
   /* ── § 3.2 Text (9개) ── */
   --text-primary: #191F28;                          /* @brand-safe — § 6.4 갭: 코드 hex 보존, v3 cool_neutral_950 (#1D2024) 과 미세 차. Phase 6 정렬 예정 */
@@ -135,10 +135,10 @@
   --modal-surface-secondary: var(--cool-neutral-100);             /* @brand-safe @reserved */
   --button-accent-primary: #3182F6;                               /* @brand-free — 보닥 primary (§ 6.2) */
   --button-accent-primary-hover: #1B64DA;                         /* @brand-free — 보닥 primary hover */
-  --button-accent-secondary: var(--light-blue-50);                /* @brand-free — v3 weak CTA */
-  --button-accent-secondary-hover: color-mix(in srgb, var(--button-accent-secondary) 85%, black);  /* @brand-free — Phase 7-B 신설, brand secondary swap 시 applyBrand 가 덮어씀 */
-  --button-accent-tertiary: var(--cool-neutral-700);              /* @brand-safe */
-  --button-accent-extra: var(--alpha-black-50);                   /* @brand-safe */
+  --button-accent-secondary: var(--light-blue-50);                /* @brand-free @reserved — v3 weak CTA, 의도된 spec 정의 */
+  --button-accent-secondary-hover: color-mix(in srgb, var(--button-accent-secondary) 85%, black);  /* @brand-free @reserved — Phase 7-B 신설, brand secondary swap 시 applyBrand 가 덮어씀 */
+  --button-accent-tertiary: var(--cool-neutral-700);              /* @brand-safe @reserved — 의도된 spec 정의 */
+  --button-accent-extra: var(--alpha-black-50);                   /* @brand-safe @reserved — 의도된 spec 정의 */
   --button-surface-accent-disabled: var(--cool-neutral-250);      /* @brand-safe @reserved */
   --button-surface-neutral: var(--cool-neutral-150);              /* @brand-safe @reserved */
   --button-surface-neutral-disabled: var(--cool-neutral-100);     /* @brand-safe @reserved */
@@ -147,7 +147,7 @@
   --button-inverse-primary: var(--common-100);                    /* @brand-safe @reserved */
 
   /* ── § 3.7 Semantic 상태 ── */
-  --accent: #3182F6;     /* @brand-free — 보닥 액센트 (button-accent-primary와 동일 톤) */
+  --accent: #3182F6;     /* @brand-free @reserved — 보닥 액센트 (button-accent-primary와 동일 톤), 의도된 spec 정의 */
   --error: #FF5B5B;      /* @brand-safe — § 6.4 갭: v3 red_500 = #F34D58 와 다름 */
   --warning: #B45309;    /* @brand-safe — § 6.2 확정: amber_700 톤 유지 (v3 spec은 red_100 soft) */
 
@@ -197,9 +197,9 @@
   /* ── § 6.5 Other Color — chart 다중 시리즈 액센트 팔레트 (Phase 7-C 도입) ── */
   --chart-series-1: var(--button-accent-primary);    /* @brand-free — brand primary swap */
   --chart-series-2: var(--button-accent-primary);    /* @brand-free — brand secondary swap, 미설정 시 primary fallback (apply.ts 가 secondary 있을 때만 덮어씀) */
-  --chart-series-3: var(--violet-400);               /* @brand-safe — Other (Value 직접) */
-  --chart-series-4: var(--amber-500);                /* @brand-safe — Other */
-  --chart-series-5: var(--magenta-500);              /* @brand-safe — Other */
+  --chart-series-3: var(--violet-400);               /* @brand-safe @reserved — Other (Value 직접), 의도된 spec 정의 */
+  --chart-series-4: var(--amber-500);                /* @brand-safe @reserved — Other, 의도된 spec 정의 */
+  --chart-series-5: var(--magenta-500);              /* @brand-safe @reserved — Other, 의도된 spec 정의 */
 
   /* ── § 6.4 도메인 상태 칩 (Badge weak 페어, Phase 3a 도입) ── */
   --status-info: #5779DB;           /* @brand-safe — primary weak text */
