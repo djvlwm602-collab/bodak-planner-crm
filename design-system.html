@@ -340,6 +340,11 @@ body{font-family:'Pretendard',system-ui,sans-serif;background:var(--color-bg);co
   <a href="#comp-summary" class="sidebar-link">SummaryStats</a>
   <a href="#comp-approval" class="sidebar-link">ApprovalActions</a>
 
+  <div class="sidebar-label">Layout</div>
+  <a href="#comp-sidebar" class="sidebar-link">Sidebar</a>
+  <a href="#comp-topbar" class="sidebar-link">TopBar</a>
+  <a href="#comp-footer" class="sidebar-link">Footer</a>
+
   <div class="sidebar-label">Brand</div>
   <a href="#brand" class="sidebar-link">Default / Sample</a>
   <a href="#brand-apply" class="sidebar-link">applyBrand() 갱신 대상</a>
@@ -1062,6 +1067,101 @@ caption           ↔ <span class="s">"text-caption"</span>
       <div style="font-size:12px;color:var(--text-secondary);">관리자/설계사 승인 목록 행에서 인라인 사용</div>
     </div>
     <div class="note">승인은 <strong>weak primary 톤</strong> (<code class="chip">bg-primary-subtle</code> + <code class="chip">text-primary</code>), 거절은 <strong>danger 서브틀 톤</strong> (<code class="chip">bg-danger-subtle</code> + <code class="chip">text-danger</code>). 라벨/핸들러 주입 가능.</div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<section id="layout" class="section">
+  <div class="section-header">
+    <h2 class="section-title">Layout</h2>
+    <p class="section-desc">앱 전역 레이아웃 컴포넌트 — 모든 페이지에서 공통 사용. <code class="chip">data-brand-*</code> 어트리뷰트로 화이트레이블 자동 적용.</p>
+  </div>
+
+  <div id="comp-sidebar" class="subsection">
+    <h3 class="subsection-title">Sidebar — 좌측 네비게이션 (collapsible)</h3>
+    <div class="demo" style="display:flex;gap:16px;align-items:flex-start;">
+      <!-- expanded 220px -->
+      <div style="width:220px;border:1px solid var(--border-primary);border-radius:8px;background:var(--common-100);overflow:hidden;font-size:12px;">
+        <div style="height:48px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-primary);">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:4px;background:var(--button-accent-primary);color:var(--common-100);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;">B</div>
+            <div>
+              <div style="font-weight:600;color:var(--text-primary);font-size:12px;line-height:1.2;">보닥 플래너</div>
+              <div style="font-size:10px;color:var(--text-secondary);">for 흥국화재</div>
+            </div>
+          </div>
+          <span style="color:var(--text-secondary);font-size:11px;">«</span>
+        </div>
+        <div style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;">
+          <div style="padding:6px 10px;border-radius:6px;background:#EBF3FF;color:var(--button-accent-primary);font-weight:500;display:flex;align-items:center;gap:8px;">🏠 홈 대시보드</div>
+          <div style="padding:6px 10px;color:var(--text-primary);display:flex;align-items:center;justify-content:space-between;">
+            <span style="display:flex;align-items:center;gap:8px;">👥 배정 고객 관리</span><span style="color:var(--text-secondary);font-size:10px;">▾</span>
+          </div>
+          <div style="padding:4px 10px 4px 32px;color:var(--text-secondary);">상담 진행 고객</div>
+          <div style="padding:4px 10px 4px 32px;color:var(--text-secondary);">계약 예정 고객</div>
+          <div style="padding:6px 10px;color:var(--text-primary);display:flex;align-items:center;justify-content:space-between;">
+            <span style="display:flex;align-items:center;gap:8px;">💾 DB 배정 관리</span><span style="color:var(--text-secondary);font-size:10px;">▸</span>
+          </div>
+          <div style="padding:6px 10px;color:var(--text-primary);display:flex;align-items:center;justify-content:space-between;">
+            <span style="display:flex;align-items:center;gap:8px;">⚙️ 배정 설정 관리</span><span style="color:var(--text-secondary);font-size:10px;">▸</span>
+          </div>
+        </div>
+      </div>
+      <!-- collapsed 64px -->
+      <div style="width:64px;border:1px solid var(--border-primary);border-radius:8px;background:var(--common-100);overflow:hidden;font-size:12px;">
+        <div style="height:48px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border-primary);">
+          <span style="color:var(--text-secondary);font-size:14px;">»</span>
+        </div>
+        <div style="padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:36px;height:32px;border-radius:6px;background:#EBF3FF;color:var(--button-accent-primary);display:flex;align-items:center;justify-content:center;">🏠</div>
+          <div style="width:36px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);">👥</div>
+          <div style="width:36px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);">💾</div>
+          <div style="width:36px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);">⚙️</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);max-width:240px;line-height:1.6;">
+        <div><strong>폭</strong>: expanded 220px ↔ collapsed 64px</div>
+        <div><strong>active</strong>: <code class="chip">--button-accent-primary</code> (브랜드 swap)</div>
+        <div><strong>hover</strong>: <code class="chip">--bg-nav-hover</code></div>
+        <div><strong>로고</strong>: <code class="chip">data-brand-initial / -name / -partner</code></div>
+      </div>
+    </div>
+    <div class="note">NavItem (단일) / NavGroup (확장 가능 + sub-nav) / SubNavItem 3종 구성. collapsed 시 group 클릭 = 첫 sub-nav 로 이동. <code class="chip">getBrandAttr()</code> 로 <code class="chip">data-brand-*</code> 어트리뷰트 읽어 표시.</div>
+  </div>
+
+  <div id="comp-topbar" class="subsection">
+    <h3 class="subsection-title">TopBar — 상단 헤더 (제목 + 액션)</h3>
+    <div class="demo">
+      <div style="height:56px;border:1px solid var(--border-primary);border-radius:8px;background:var(--bg-app-body);display:flex;align-items:center;justify-content:space-between;padding:0 24px;">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <h4 style="font-size:22px;font-weight:600;color:var(--text-primary);margin:0;">홈 대시보드</h4>
+          <span style="font-size:13px;color:var(--text-secondary);">2026년 4월 30일</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="display:flex;align-items:center;gap:8px;background:var(--border-primary);border-radius:99px;padding:4px 4px 4px 16px;height:36px;">
+            <span style="font-weight:600;color:var(--text-secondary);font-size:14px;">10:00</span>
+            <button style="background:var(--common-100);color:var(--text-primary);font-size:12px;font-weight:500;padding:0 12px;border:0;border-radius:99px;height:100%;cursor:pointer;">연장</button>
+          </div>
+          <div style="width:36px;height:36px;border-radius:99px;background:var(--text-primary);color:var(--common-100);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;">김</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">좌측 <code class="chip">title</code> (text-h4) + <code class="chip">subtitle</code> (text-body4). 우측 사용자 액션 (세션 타이머 + 프로필). <code class="chip">actions</code> prop 으로 페이지별 추가 버튼 주입 가능. sticky top-0 z-10.</div>
+  </div>
+
+  <div id="comp-footer" class="subsection">
+    <h3 class="subsection-title">Footer — 하단 저작권 / 약관</h3>
+    <div class="demo">
+      <div style="height:56px;border:1px solid var(--border-primary);border-radius:8px;background:var(--common-100);display:flex;align-items:center;padding:0 24px;font-size:12px;color:var(--text-secondary);">
+        <span>Copyright@ Aijinet. All right reserved</span>
+        <div style="display:flex;align-items:center;gap:16px;margin-left:32px;">
+          <a href="#" style="color:var(--text-secondary);text-decoration:none;">서비스 이용약관</a>
+          <span>|</span>
+          <a href="#" style="color:var(--text-secondary);text-decoration:none;">개인정보처리방침</a>
+        </div>
+      </div>
+    </div>
+    <div class="note">고정 높이 56px. text-xs (12px). 페이지 스크롤 영역 안쪽에 위치 — 짧은 컨텐츠는 뷰포트 하단 고정, 긴 컨텐츠는 컨텐츠 다음 노출 (Group A~D 적용 완료).</div>
   </div>
 </section>
 
