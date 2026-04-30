@@ -108,14 +108,14 @@
   --text-inverse-primary: var(--common-100);        /* @brand-safe @reserved */
   --text-inverse-secondary: var(--alpha-white-800); /* @brand-safe @reserved */
   --text-inverse-tertiary: var(--alpha-white-400);  /* @brand-safe @reserved */
-  --text-accent: var(--button-accent-primary);      /* @brand-free */
+  --text-accent: var(--button-accent-primary);      /* @brand-free @reserved — 의도된 spec 정의 */
 
   /* ── § 3.3 Icon (8개) ── */
   --icon-enabled: var(--cool-neutral-950);          /* @brand-safe @reserved */
   --icon-subtle: var(--cool-neutral-550);           /* @brand-safe @reserved */
   --icon-inactive: var(--cool-neutral-400);         /* @brand-safe @reserved */
-  --icon-active: var(--button-accent-primary);      /* @brand-free */
-  --icon-accent: var(--button-accent-primary);      /* @brand-free */
+  --icon-active: var(--button-accent-primary);      /* @brand-free @reserved — 의도된 spec 정의 */
+  --icon-accent: var(--button-accent-primary);      /* @brand-free @reserved — 의도된 spec 정의 */
   --icon-disabled: var(--cool-neutral-300);         /* @brand-safe @reserved */
   --icon-pressed: var(--cool-neutral-800);          /* @brand-safe @reserved */
   --icon-inverse-primary: var(--common-100);        /* @brand-safe @reserved */
@@ -143,7 +143,7 @@
   --button-surface-neutral: var(--cool-neutral-150);              /* @brand-safe @reserved */
   --button-surface-neutral-disabled: var(--cool-neutral-100);     /* @brand-safe @reserved */
   --text-background: var(--cool-neutral-750);                     /* @brand-safe @reserved */
-  --list-overlay-disabled: var(--alpha-white-800);                /* @brand-safe */
+  --list-overlay-disabled: var(--alpha-white-800);                /* @brand-safe @reserved — 의도된 spec 정의 */
   --button-inverse-primary: var(--common-100);                    /* @brand-safe @reserved */
 
   /* ── § 3.7 Semantic 상태 ── */
@@ -253,14 +253,14 @@
   --font-size-xs: 11px;
   --font-size-sm: 13px;
   --font-size-base: 14px;
-  --font-size-md: 16px;
+  --font-size-md: 16px; /* @reserved — 의도된 spec 정의 */
   --font-size-lg: 19px;
   --font-size-xl: 22px;
 
   /* ── 간격 ── */
-  --spacing-page-x: 24px;
-  --spacing-page-y: 20px;
-  --spacing-section: 24px;
+  --spacing-page-x: 24px;  /* @reserved — 의도된 spec 정의 */
+  --spacing-page-y: 20px;  /* @reserved — 의도된 spec 정의 */
+  --spacing-section: 24px; /* @reserved — 의도된 spec 정의 */
 
   /* ── 라운드 ── */
   --radius-sm: 4px;

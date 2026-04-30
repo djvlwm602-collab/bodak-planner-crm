@@ -80,13 +80,13 @@
   --color-text-strong: var(--text-strong);
   --color-bg-faint: var(--bg-faint);
 
-  /* @deprecated — Phase 8-D 호환 alias. 컴포넌트 마이그레이션 완료 후에도 1년 유지 (2027-04-29 정식 삭제) */
-  --color-row-stripe: var(--bg-row-stripe);
-  --color-row-hover: var(--bg-row-hover);
-  --color-kanban-column-bg: var(--bg-kanban-column);
-  --color-nav-hover-bg: var(--bg-nav-hover);
-  --color-danger-hover: var(--button-danger-hover);
-  --color-danger-active: var(--button-danger-active);
+  /* Phase 8-D 호환 alias — 컴포넌트 마이그레이션 완료 후에도 1년 유지 */
+  --color-row-stripe: var(--bg-row-stripe);             /* @deprecated → use --bg-row-stripe. 2027-04-29 정식 삭제 */
+  --color-row-hover: var(--bg-row-hover);               /* @deprecated → use --bg-row-hover. 2027-04-29 정식 삭제 */
+  --color-kanban-column-bg: var(--bg-kanban-column);    /* @deprecated → use --bg-kanban-column. 2027-04-29 정식 삭제 */
+  --color-nav-hover-bg: var(--bg-nav-hover);            /* @deprecated → use --bg-nav-hover. 2027-04-29 정식 삭제 */
+  --color-danger-hover: var(--button-danger-hover);     /* @deprecated → use --button-danger-hover. 2027-04-29 정식 삭제 */
+  --color-danger-active: var(--button-danger-active);   /* @deprecated → use --button-danger-active. 2027-04-29 정식 삭제 */
 
   /* § 6.4 도메인 상태 칩 (Phase 3a 도입) */
   --color-status-info: var(--status-info);
@@ -114,14 +114,9 @@
   /* § 4.2 Font Weight (Pretendard semibold/medium/regular)
      주의: --font-weight-bold (600) 는 Tailwind 기본 font-bold (700) 와 충돌 가능.
      Phase 0 검증 결과 코드에 font-bold 사용 0건 — 충돌 없음. */
-  --font-weight-bold: 600;
-  --font-weight-medium: 500;
-  --font-weight-regular: 400;
-
-  /* § 4.2 Letter Spacing */
-  --letter-spacing-n10: -1px;
-  --letter-spacing-n05: -0.5px;
-  --letter-spacing-0: 0;
+  --font-weight-bold: 600;     /* @reserved — 의도된 spec 정의 */
+  --font-weight-medium: 500;   /* @reserved — 의도된 spec 정의 */
+  --font-weight-regular: 400;  /* @reserved — 의도된 spec 정의 */
 }
 
 /* ============================================================
