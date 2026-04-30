@@ -26,6 +26,7 @@ const TAILWIND_THEME_PREFIXES = {
   '--color-':       ['bg', 'text', 'border', 'outline', 'ring', 'fill', 'stroke', 'from', 'to', 'via', 'decoration', 'divide', 'placeholder', 'accent', 'caret', 'shadow'],
   '--font-size-':   ['text'],
   '--font-weight-': ['font'],
+  '--font-':        ['font'],  // family 토큰 (--font-sans / --font-mono) — entries 순서상 size/weight 후 매칭
   '--leading-':     ['leading'],
   '--letter-spacing-': ['tracking'],
   '--radius-':      ['rounded'],
@@ -135,6 +136,10 @@ async function scanCode(files) {
       const ccRe = /[a-z][a-z0-9-]*-[a-z0-9-]+/g;
       let cm;
       while ((cm = ccRe.exec(attrValue))) classNames.add(cm[0]);
+      // suffix-less utility (rounded / italic / hidden 등) — whitespace split 으로 단일 단어도 추가
+      for (const tok of attrValue.split(/\s+/)) {
+        if (/^[a-z][a-z0-9]+$/.test(tok)) classNames.add(tok);
+      }
     }
     // cn(), clsx() 등 helper 안의 string literal 도 잡기 위해 ts/tsx 는 광범위 추가
     if (file.endsWith('.ts') || file.endsWith('.tsx') || file.endsWith('.js')) {
@@ -162,6 +167,21 @@ function resolveTailwindUsage(tokens, aliasMap, classNames) {
   // 정의된 모든 토큰을 Tailwind theme prefix 와 매칭 (alias 여부 무관)
   for (const tokenName of tokens.keys()) {
     for (const [themePrefix, utilPrefixes] of Object.entries(TAILWIND_THEME_PREFIXES)) {
+      // bare 매칭: prefix 의 trailing '-' 제거 형태와 토큰명이 정확히 일치
+      // (예: --radius → utility 'rounded' 직접 검색, suffix 없음)
+      const barePrefix = themePrefix.replace(/-$/, '');
+      if (tokenName === barePrefix) {
+        for (const util of utilPrefixes) {
+          if (classNames.has(util)) {
+            usedViaTw.add(tokenName);
+            const original = aliasMap.get(tokenName);
+            if (original) usedViaTw.add(original);
+            break;
+          }
+        }
+        break;
+      }
+
       if (!tokenName.startsWith(themePrefix)) continue;
       const suffix = tokenName.slice(themePrefix.length);
       for (const util of utilPrefixes) {
