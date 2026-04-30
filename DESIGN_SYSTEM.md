@@ -13,7 +13,7 @@
 3. **네이밍은 v3 친숙성을 빌리되 정본은 본 문서다.** 코드 변수는 v3 토큰명을 참조로 따랐으나 (snake_case → kebab-case 변환만 허용), v3 의 시각값은 따르지 않는다.
 4. **§ 6 의 "갭" 은 CRM 자체 spec 이다.** Phase 7-A 부터 § 6 항목들은 v3 와의 갭이 아니라 본 CRM 의 의도된 spec 으로 재해석한다 (자세한 근거는 SCOPE.md § 1).
 5. **B2B 화이트레이블은 단일 진입점**(`brand.ts` + 의미 토큰)으로만 작동한다. 컴포넌트는 절대 hex를 직접 참조하지 않는다. brand 는 hex 1~2 개 (primary 필수 + secondary 옵션) 로 운영 가능하고, hover/active/subtle 은 `color-mix()` 자동 파생.
-6. **Phase 6 (v3 visual alignment) 는 폐기된다.** Phase 1~5 는 *이름·구조 정렬* 만 한다. 그 후 Phase 7 (5단계, scope re-alignment) — Brand 인터페이스 슬림화, color-mix 파생, 토큰 audit & cleanup — 으로 넘어간다. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 CRM 자체 spec 으로 확정된다.
+6. **Phase 6 (v3 visual alignment) 는 폐기된다.** Phase 1~5 는 *이름·구조 정렬* 만 한다. 그 후 Phase 7 (5단계, scope re-alignment) → Phase 8 (6단계, Naming & Usage Hardening — § 11/12/13 컨벤션 + lint 거버넌스) → Phase 9 (2단계, design-system.html 정합화) → Phase 10 (3단계, final consolidation) 로 마라톤 마감. Phase 1~5 동안 § 6.4 갭에 등재된 토큰들은 CRM 자체 spec 으로 확정된다.
 7. **§ 4.2.1 짝수 규칙은 § 0.1 시각 변화 0 원칙의 사전 합의된 예외다.** Phase 4-C / 4-D 의 1px 폰트 정렬(19→20, 17→18, 11→12)은 § 4.2.1 의 명시 합의에 따른 의도된 시각 변화이며, cascading layout shift 는 그 자연스러운 결과다. 적용 후 baseline 을 1회 갱신한다.
 
 ---
@@ -166,7 +166,7 @@
 
 ## 3. Semantic Tokens (의미 토큰)
 
-> Figma v3 `Semantic Color` 그대로. **컴포넌트는 이 토큰만 사용한다.**
+> CRM 자체 Semantic 토큰 (v3 명명 참조). § 0.3 / SCOPE.md § 1 정의 — CRM ≠ v3. **컴포넌트는 이 Tier 만 참조한다.**
 > CSS 변수명: `--{token}` (snake_case → kebab-case는 하지 않고 그대로 underscore 유지 권장 — Figma와 1:1 검색이 가능해짐). Tailwind 노출 시에는 단축형 별칭을 추가한다.
 
 > **본 § 의 spec 표는 v3 정의에 따른 *명명 기준*이다.** § 0.1 "시각 변화 0" 원칙을 준수하기 위해, **§ 6.4 갭에 등재된 토큰**(`--bg-primary`, `--text-primary`, `--text-secondary`, `--text-disabled`, `--border-primary`, `--border-subtle` 등)은 Phase 2 시점의 코드 구현에서 *코드 현재 hex 를 literal 로 보유*한다 (예: `--text-primary: #191F28;`). v3 spec 정렬은 § 0.6 / § 10 Phase 6 (visual alignment pass) 에서 디자이너 승인 후 진행.
@@ -523,7 +523,7 @@ const customTwMerge = extendTailwindMerge({
 
 | 위치                       | 현재값       | v3 가장 가까운 토큰         | 결정                                                 |
 | -------------------------- | ------------ | --------------------------- | ---------------------------------------------------- |
-| App 본문 배경              | `#F3F3F5`    | `cool_neutral_100 (#F2F4F6)` | ✅ **Phase 3a 적용 완료** — `--bg-app-body` 도메인 토큰 신설로 치환 (시각 변화 0). v3 cool_neutral_100 정렬은 Phase 6. |
+| App 본문 배경              | `#F3F3F5`    | `cool_neutral_100 (#F2F4F6)` | ✅ **Phase 3a 적용 완료** — `--bg-app-body` 도메인 토큰 신설로 치환 (시각 변화 0). Phase 7-A 폐기 결정 — CRM spec 확정. |
 | `text-[19px]` (PageHeader 3곳) | 19px      | `h5` 20px                   | ✅ **Phase 4-C 적용 완료** — `text-h5 font-semibold`. baseline 갱신.       |
 | `text-[17px]` (CustomerHeader 1곳) | 17px  | `body1` 18px                | ✅ **Phase 4-C 적용 완료** — `text-body1 font-semibold`. baseline 갱신.    |
 | `text-[11px]` (7곳)        | 11px         | `body5` 12px                | ✅ **Phase 4-C 적용 완료** — `text-body5`. 위치: TaskCard Badge x2, CustomerHeader Badge, ConsultationHistoryTab Badge, date-range-chip 요일. baseline 갱신. |
@@ -564,23 +564,23 @@ const customTwMerge = extendTailwindMerge({
 
 | 위치                       | 현재값            | 도입 토큰                        | 비고                                            |
 | -------------------------- | ----------------- | -------------------------------- | ----------------------------------------------- |
-| Badge primary weak BG/text | `#E1E9FD / #5779DB` | `--status-info-bg` / `--status-info` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`bg_emphasis_secondary` 톤 흡수 가능). |
+| Badge primary weak BG/text | `#E1E9FD / #5779DB` | `--status-info-bg` / `--status-info` | ✅ **Phase 3a 적용**. (Phase 7-A 폐기 — CRM spec 확정) |
 | Badge teal weak BG/text    | `#DFE9EA / #548989` | `--status-pending-bg` / `--status-pending` | ✅ **Phase 3a 적용**. v3 미존재 — Figma 역수입 권장. |
-| Badge green weak BG/text   | `#E2EEE4 / #4B8C57` | `--status-done-bg` / `--status-done` | ✅ **Phase 3a 적용**. Phase 6 v3 alignment 후보 (`green_100`/`green_700` 근처). |
+| Badge green weak BG/text   | `#E2EEE4 / #4B8C57` | `--status-done-bg` / `--status-done` | ✅ **Phase 3a 적용**. (Phase 7-A 폐기 — CRM spec 확정) |
 | DataTable 줄무늬           | `#FAFBFC`         | `--bg-row-stripe` (구. `--row-stripe` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 9곳 마이그레이션. |
 | DataTable hover            | `#F3F4F6`         | `--bg-row-hover` (구. `--row-hover` deprecated alias)   | ✅ **Phase 8-D 정합 리네이밍**. 4곳 마이그레이션. |
 | Sidebar 메뉴 hover         | `#E8EAED`         | `--bg-nav-hover` (구. `--nav-hover-bg` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
 | 페이지네이션·메뉴·상태칩 활성 | `#F0F1F3` (3곳)| `--bg-selected-subtle`           | ✅ **Phase 3a 적용**. 단일 토큰 통합 완료.      |
 | 칸반 컬럼 배경             | `#F0F2F5` (BoardColumn) | `--bg-kanban-column` (구. `--kanban-column-bg` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
-| 사이드바 선택 메뉴 텍스트  | `#4B5563`         | `--text-strong`                  | ✅ **Phase 3a 적용**. `--color-neutral-hover` 와 동일값 — Phase 6 통합 검토. |
-| App 본문 배경              | `#F3F3F5`         | `--bg-app-body`                  | ✅ **Phase 3a 적용**. v3 미정의 — Phase 6 cool_neutral_100 정렬 후보. (§ 6.1 결정 이행) |
+| 사이드바 선택 메뉴 텍스트  | `#4B5563`         | `--text-strong`                  | ✅ **Phase 3a 적용**. `--color-neutral-hover` 와 동일값 (Phase 7-A 폐기 — CRM spec 확정). |
+| App 본문 배경              | `#F3F3F5`         | `--bg-app-body`                  | ✅ **Phase 3a 적용**. v3 미정의 (Phase 7-A 폐기 — CRM spec 확정). (§ 6.1 결정 이행) |
 | Button danger hover        | `#e04f4f`         | `--button-danger-hover` (구. `--danger-hover` deprecated alias)   | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
 | Button danger active       | `#d44040`         | `--button-danger-active` (구. `--danger-active` deprecated alias) | ✅ **Phase 8-D 정합 리네이밍**. 1곳 마이그레이션. |
-| Light tint bg/border       | `#F3F4F6`         | `--bg-faint`                     | ✅ **Phase 3b-A 적용** (53건). bg/border 양쪽 활용. Tailwind `gray-100` hex 일치. v3 cool_neutral_100 정렬은 Phase 6. |
+| Light tint bg/border       | `#F3F4F6`         | `--bg-faint`                     | ✅ **Phase 3b-A 적용** (53건). bg/border 양쪽 활용. Tailwind `gray-100` hex 일치 (Phase 7-A 폐기 — CRM spec 확정). |
 | 차트(recharts) 액센트       | `#3b82f6`         | `--chart-accent` ⚠️ deprecated   | ✅ **Phase 8-C 통합** — `--chart-accent: var(--chart-series-1)` deprecated alias 로 변경. 단일/다중 시리즈 차트 모두 `--chart-series-1` 사용. **2027-04-29 정식 삭제 예정**. HomeDashboard 사용처는 Phase 8-C 에서 마이그레이션 완료. |
 | 차트 그리드                | `#f3f4f6`         | `--chart-grid` (= `--bg-faint`)  | ✅ **Phase 3c 적용 완료** (3건). `--bg-faint` 재활용. |
-| 차트 축 tick               | `#9ca3af`         | `--chart-axis`                   | ✅ **Phase 3c 적용 완료** (6건). v3 `cool_neutral_400` (#A4A8AF) 와 8 byte 차 — Phase 6 정렬 후보. |
-| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border`         | ✅ **Phase 3c 적용 완료** (3건). v3 `cool_neutral_150` (#E9EBEF) 와 4 byte 차 — Phase 6 정렬 후보. |
+| 차트 축 tick               | `#9ca3af`         | `--chart-axis`                   | ✅ **Phase 3c 적용 완료** (6건). v3 `cool_neutral_400` (#A4A8AF) 와 8 byte 차 (Phase 7-A 폐기 — CRM spec 확정). |
+| 차트 tooltip border        | `#e5e7eb`         | `--chart-tooltip-border`         | ✅ **Phase 3c 적용 완료** (3건). v3 `cool_neutral_150` (#E9EBEF) 와 4 byte 차 (Phase 7-A 폐기 — CRM spec 확정). |
 | Tailwind 기본 팔레트 — 그룹 A (exact) | `gray-50/100, border-gray-100, gray-500/600` 109건 | § 5.4 참조 | ✅ **Phase 3b-A 적용 완료**. 시각 변화 0. |
 | Tailwind 기본 팔레트 — 그룹 B (near, 2~6 byte) | `border-gray-200/300, bg-gray-200, bg-blue-50/100, blue-700` 100건 | § 5.4 참조 | ✅ **Phase 3b-B1 적용 완료**. 21/21 pass (HomeDashboard 5px sub-pixel ceiling). |
 | Tailwind 기본 팔레트 — text-gray-400 (8 byte) | 16건 | § 5.4 참조 | ✅ **Phase 3b-B2/B3 적용 완료**. 21/21 pass. |
@@ -727,7 +727,9 @@ public/brand/{brandKey}/
 
 ### 8.3 `Brand` 타입 (Phase 5-C 구현)
 
-> **Phase 7-B 예정 (2026-04-29)**: BrandPalette 슬림화 — `success/danger/warning` 제거 (시스템 잠금), `secondary` 신규, `primaryHover/emphasisPrimary` 옵션화 (`color-mix(in srgb, ...)` 자동 파생). 자세한 방향은 [`docs/SCOPE.md`](docs/SCOPE.md) § 5. 본 절의 인터페이스 정의는 Phase 7-B 완료 시 갱신된다.
+> **Phase 7-B 완료 (2026-04-29)**: BrandPalette 슬림화 — `success/danger/warning` 제거 (시스템 잠금 — `tokens.css :root` 정의), `secondary` 신규, `primaryHover / secondaryHover / emphasisPrimary` 옵션화 (`color-mix(in srgb, ...)` 자동 파생). 자세한 방향은 [`docs/SCOPE.md`](docs/SCOPE.md) § 5.
+>
+> **Phase 7-B 슬림화 의의**: 신규 customer 가 hex 1개 (primary) 만 제공해도 운영 가능. hover/secondary/emphasis 는 `color-mix()` 자동 파생 또는 명시적 override. status (success/error/warning) 는 시스템 잠금 — 모든 brand 공통 의미.
 
 ```ts
 // src/config/brand/types.ts
@@ -754,29 +756,27 @@ export interface Brand {
   supportEmail?: string;
 }
 
-// src/config/palette/types.ts
+// src/config/palette/types.ts (Phase 7-B 슬림화 후)
 export interface BrandPalette {
-  primary: string;
-  primaryHover: string;
-  emphasisPrimary?: string;  // primary 의 미세 강조 배경
-  accent?: string;           // default = primary
-  success: string;
-  danger: string;
-  warning?: string;          // default = '#B45309' (brand-safe amber)
+  primary: string;                  // 필수
+  secondary?: string;               // 신규 (Phase 7-B) — 옵션
+  primaryHover?: string;            // 옵션 — 미지정 시 color-mix(in srgb, primary 85%, black) 자동
+  secondaryHover?: string;          // 옵션 — 동상
+  emphasisPrimary?: string;         // 옵션 — 미지정 시 color-mix(in srgb, primary 12%, white) 자동
+  // success/danger/warning 제거됨 (Phase 7-B 시스템 잠금 — tokens.css :root 정의)
 }
 ```
 
-`applyBrand(brand)` 가 `:root` 에 주입하는 토큰 (Phase 5-B):
+`applyBrand(brand)` 가 `:root` 에 주입하는 토큰 (Phase 7-B 슬림화 후):
 
 | Tier 3 (legacy 호환)              | Tier 2 (의미 토큰, § 3) |
 | -------------------------------- | ----------------------- |
 | `--color-primary`                | `--button-accent-primary` |
-| `--color-primary-hover`          | `--button-accent-primary-hover` |
-| `--color-success`                | `--status-success`      |
-| `--color-danger`                 | `--error`               |
-| `--brand-primary-hover`          | `--bg-emphasis-primary` (있을 때만) |
-| `--brand-success`                | `--accent` (= palette.accent ?? primary) |
-|                                  | `--warning` (= palette.warning ?? '#B45309') |
+| `--color-primary-hover`          | `--button-accent-primary-hover` (color-mix 자동 파생 가능) |
+| —                                | `--button-accent-secondary` (palette.secondary 있을 때만) |
+| —                                | `--button-accent-secondary-hover` (color-mix 자동 파생) |
+| `--brand-primary-hover`          | `--bg-emphasis-primary` (color-mix 자동 파생 가능) |
+| —                                | `--chart-series-2` (palette.secondary 있을 때만 — 미지정 시 primary fallback) |
 
 **`data-brand-*` 어트리뷰트**: `data-brand-key`, `data-brand-name`, `data-brand-partner`, `data-brand-initial`.
 
@@ -856,9 +856,13 @@ Phase 5-E 에서 `default` / `sample` 폴더 placeholder 생성. `applyBrand()` 
 
 피그마 v3 규칙 준수가 1순위지만, *현 CRM 상황과 B2B 재판매를 동시에 해결*하는 5개 추가 권장 사항:
 
+> 본 § 의 항목들은 Phase 1 시점 권장사항 모음. 마라톤 진행 중 일부 구현됨 — 각 항목 끝에 ✅ / ❌ 상태 표시. *역사 자료 + 후속 검토* 성격.
+
 ### 9.1 Toss 스타일 “3-Tier 토큰”에 *Component-tier*를 명시적으로 분리
 
 v3는 “component-specific”까지만 정의하고 있고, *컴포넌트 인스턴스(Button, Badge)*는 토큰명 없이 className으로만 표현된다. 본 문서 § 5.3 의 `text-h4`/`text-body3-medium` 같은 **Component class 매크로**를 정식 Tier로 등록하면 Figma 디자이너와 개발자가 같은 단어를 쓴다.
+
+> ✅ **Phase 4 매크로 도입 (size-only 11개)** — `text-h1~h5` / `text-body1~5` / `text-caption`. tailwind-merge 확장 + `text-[NNpx]` 121건 치환 완료.
 
 ### 9.2 “브랜드 안전(safe)” / “브랜드 자유(free)” 토큰 구분
 
@@ -872,6 +876,8 @@ v3는 “component-specific”까지만 정의하고 있고, *컴포넌트 인�
 
 화이트레이블 빌드 스크립트가 `@brand-free` 토큰만 검증·교체하도록 한다.
 
+> ✅ **Phase 7-B + 8-B 완료** — `@brand-free` / `@brand-safe` 주석 컨벤션 도입 + 도메인 토큰 전체 확장. `applyBrand()` 가 `@brand-free` 토큰만 갱신.
+
 ### 9.3 `light_blue` 외에 **브랜드 고유 Value 그룹** 권장
 
 v3의 `light_blue_400` 을 모든 브랜드의 액센트로 강제하면 보닥(#3182F6)·흥국·삼성이 같은 색이 된다. 대신:
@@ -884,9 +890,13 @@ palette_samsung_50 ~ 900
 
 Figma도 *브랜드 Value 페이지*를 분리해 두고, Semantic은 `palette[active]`를 가리키게 한다.
 
+> ❌ **후속 검토** — 현재 `palette/bodak.ts` 가 시작점 (primary/secondary/hover 만 정의). 50~900 풀 팔레트 미정의. 신규 브랜드 도입 시 검토.
+
 ### 9.4 Tailwind v4 `@theme inline` 단일 소스
 
 현재는 `tokens.css` (`:root`)와 `index.css @theme`가 이중 정의다. Tailwind v4는 `@theme inline` 으로 CSS 변수와 Tailwind 토큰을 하나로 묶을 수 있다. 한 군데만 갱신하면 되는 구조로 정리.
+
+> ✅ **Phase 2 완료** — `index.css @theme` 가 `tokens.css :root` 변수 alias. 단일 소스 운영.
 
 ### 9.5 다크모드 분기점 미리 깔기
 
@@ -899,13 +909,19 @@ Figma도 *브랜드 Value 페이지*를 분리해 두고, Semantic은 `palette[a
 
 화이트레이블 + 다크모드 = `data-brand` × `data-theme` 매트릭스. 처음부터 토큰 구조만 잡아두면 추후 무비용 도입.
 
+> ❌ **후속 검토** — 토큰 구조 (Tier 2 Semantic) 는 이미 다크모드 친화. `[data-theme="dark"]` 분기점만 추가하면 됨. 현재 비즈니스 우선순위 부재.
+
 ### 9.6 토큰 검사 스크립트 (lint)
 
 `scripts/lint-tokens.ts` 로 *컴포넌트 내 hex 직박이 / `text-[NNpx]` 임의 폰트 / 매핑표에 없는 클래스* 를 PR에서 자동 차단. 디자인 시스템 일관성을 회의 대신 CI로 강제.
 
+> ✅ **Phase 7-D + 8-F + 10-A 완료** — `scripts/lint-tokens.mjs` 운영. audit / `--check` (PR 시점 강제) / `@deprecated` 분리 / suffix-less 매칭 / `@reserved` 분류 모두 구현.
+
 ### 9.7 Figma ↔ 코드 동기화는 **Tokens Studio + Style Dictionary** 권장
 
 Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS 변환 → `tokens.css` 자동 생성. 디자이너가 Figma만 수정해도 코드 토큰이 자동 갱신.
+
+> ❌ **후속 검토** — 디자이너 도구 도입 협의 필요. 현재 단계는 코드 토큰 정합화 우선.
 
 ---
 
@@ -928,6 +944,18 @@ Figma Tokens Studio 플러그인 → JSON export → Style Dictionary → CSS/TS
 | **7-C** | **Other Color 토큰** — `--chart-series-1~5`, `--badge-other-*` 정의. | `tokens.css` + DESIGN_SYSTEM 갱신 | 시각 변화 0 |
 | **7-D** | **토큰 audit** — `scripts/lint-tokens.mjs` 미사용 토큰 리포트 (코드 변경 0). | script + 리포트 | — |
 | **7-E** | **미사용 토큰 cleanup** — 7-D 리포트 기반 그룹별 삭제. | tokens.css 정리 | 시각 변화 0 (미사용이라 영향 없음) |
+| **7-F** | **@reserved 토큰 분리** — Semantic 잠금 30 토큰을 의도된 spec 으로 마크. `@reserved` 주석 + lint script 분류 강화. | `tokens.css` 주석 + `lint-tokens.mjs` | 시각 변화 0 |
+| **8-A** | Naming Conventions + 결정 트리 + Tailwind 매핑 (§ 11/12/13) | docs only | 시각 변화 0 |
+| **8-B** | brand-free/safe 주석 도메인 토큰 확장 | tokens.css 주석 | 시각 변화 0 |
+| **8-C** | `--chart-accent` → `--chart-series-1` 통합 (deprecated alias) | tokens.css | 의도된 6px (sub-pixel ceiling) |
+| **8-D** | 도메인 토큰 6개 prefix 일관화 (alias 비파괴) | tokens.css + 17 컴포넌트 | 시각 변화 0 |
+| **8-E** | PR 템플릿 + CONTRIBUTING.md | docs | 시각 변화 0 |
+| **8-F** | `lint:tokens:check` (PR 시점 강제) + @deprecated 인지 | scripts | 시각 변화 0 |
+| **9-A** | `design-system.html` stale token 정정 + Phase 8 반영 | html only | 시각 변화 0 |
+| **9-B** | § 11/12/13 시각화 + 컴포넌트 카탈로그 확장 + sync 체크 | html + PR template | 시각 변화 0 |
+| **10-A** | `lint:tokens` 정확화 (4 fixes) — `@deprecated` 분리, `@reserved` 확장, suffix-less, dead 0 도달 | tokens 주석 + lint script | 시각 변화 0 |
+| **10-B** | `design-system.html` Phase 9 반영 검증 | (검증 only) | — |
+| **10-C** | `DESIGN_SYSTEM.md` final consolidation — Phase 7-B/8/9 outcomes sync | docs only | 시각 변화 0 |
 
 각 단계 끝나면 § 6 표를 갱신하고, 변경 통계 + diff 결과를 보고한다. 단계 진입 전 직전 단계 사용자 OK 확인.
 
